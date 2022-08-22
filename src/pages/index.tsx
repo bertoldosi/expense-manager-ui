@@ -1,11 +1,8 @@
 import type { NextPage } from "next";
+import { HomeContainer } from "../components/container/Home";
 
 const Home: NextPage = () => {
-  return (
-    <div>
-      <h1>Hello word!</h1>
-    </div>
-  );
+  return <HomeContainer />;
 };
 
 export default Home;
