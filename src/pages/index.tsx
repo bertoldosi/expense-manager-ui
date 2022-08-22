@@ -1,5 +1,11 @@
-function HomePage() {
-  return <div>Welcome to Next.js!</div>;
-}
+import type { NextPage } from "next";
 
-export default HomePage;
+const Home: NextPage = () => {
+  return (
+    <div>
+      <h1>Hello word!</h1>
+    </div>
+  );
+};
+
+export default Home;
