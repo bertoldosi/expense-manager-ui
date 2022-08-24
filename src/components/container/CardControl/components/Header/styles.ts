@@ -10,6 +10,9 @@ export const Scontent = styled.div`
     padding: 1rem 2rem;
     border: none;
     outline: none;
+    cursor: pointer;
+    background-color: #fff;
+    font-weight: 600;
 
     border-radius: 0.3rem;
   }
