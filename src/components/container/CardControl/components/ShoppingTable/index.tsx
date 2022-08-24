@@ -1,5 +1,6 @@
 import React from "react";
 import ContentAmount from "../ContentAmount";
+import InputTable from "../InputTable";
 
 import { SsubTable } from "./styles";
 
@@ -29,11 +30,29 @@ export const ShoppingTable = ({ shoppingList }: PropsType) => {
           <tbody>
             {shoppingList.map((shopping, index) => (
               <tr key={index}>
-                <td>{shopping.description}</td>
-                <td>{shopping.amount}</td>
-                <td>{shopping.responsible}</td>
+                <td>
+                  <InputTable value={shopping.description} />
+                </td>
+                <td>
+                  <InputTable value={shopping.amount} />
+                </td>
+                <td>
+                  <InputTable value={shopping.responsible} />
+                </td>
               </tr>
             ))}
+
+            <tr>
+              <td>
+                <InputTable value="" />
+              </td>
+              <td>
+                <InputTable value="" />
+              </td>
+              <td>
+                <InputTable value="" />
+              </td>
+            </tr>
 
             <tr className="no-border">
               <td colSpan={3}>

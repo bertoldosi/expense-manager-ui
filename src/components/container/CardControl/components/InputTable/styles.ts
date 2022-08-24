@@ -7,4 +7,9 @@ export const Sinput = styled.input`
   background: transparent;
   color: #fff;
   outline: none;
+  font-size: 1.6rem;
+
+  &::placeholder {
+    color: #fff;
+  }
 `;

@@ -11,6 +11,7 @@ function InputTable({ value }: PropsTypes) {
   return (
     <Sinput
       value={inputValue}
+      placeholder="Digite um valor"
       onChange={(e) => {
         setInputValue(e.target.value);
       }}
