@@ -5,7 +5,6 @@ export const Stotal = styled.table`
   max-width: 40rem;
   border-collapse: collapse;
   margin-top: 3rem;
-  color: #333;
 
   thead {
     tr {

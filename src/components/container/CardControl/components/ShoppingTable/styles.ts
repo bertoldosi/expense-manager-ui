@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const SsubTable = styled.table`
   border-collapse: collapse;
   width: 100%;
-  color: #333;
 
   thead {
     tr {
