@@ -15,6 +15,7 @@ export const BsChevronUp: React.FC<PropsType> = ({
 }) => {
   return (
     <svg
+      className="BsChevronUp"
       xmlns="http://www.w3.org/2000/svg"
       width={width}
       height={height}

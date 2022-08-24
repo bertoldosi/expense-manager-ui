@@ -12,11 +12,11 @@ export const Scontent = styled.span`
     transition: background 0.5s;
 
     &:hover {
-      background-color: #fff;
+      background-color: #3333;
     }
   }
 
   .BsChevronUp {
-    background-color: #fff;
+    background-color: #3333;
   }
 `;

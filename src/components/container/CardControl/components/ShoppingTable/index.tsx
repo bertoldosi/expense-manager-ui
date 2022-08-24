@@ -3,7 +3,17 @@ import ContentAmount from "../ContentAmount";
 
 import { SsubTable } from "./styles";
 
-export const ShoppingTable = () => {
+type ShoppingType = {
+  description: string;
+  amount: string;
+  responsible: string;
+};
+
+type PropsType = {
+  shoppingList: ShoppingType[];
+};
+
+export const ShoppingTable = ({ shoppingList }: PropsType) => {
   return (
     <tr>
       <td colSpan={3}>
@@ -17,11 +27,13 @@ export const ShoppingTable = () => {
           </thead>
 
           <tbody>
-            <tr>
-              <td>Amazon LTDA</td>
-              <td>R$ 19,90</td>
-              <td>Matheus</td>
-            </tr>
+            {shoppingList.map((shopping, index) => (
+              <tr key={index}>
+                <td>{shopping.description}</td>
+                <td>{shopping.amount}</td>
+                <td>{shopping.responsible}</td>
+              </tr>
+            ))}
 
             <tr className="no-border">
               <td colSpan={3}>

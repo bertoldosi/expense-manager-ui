@@ -44,13 +44,27 @@ function CollapsibleTable({ monthly_expenses }: Props) {
         </thead>
 
         <tbody>
-          <tr>
-            <td># Débito</td>
-            <td>R$ 19,90</td>
-            <td>10/10/2022</td>
-          </tr>
+          {listTable.map((institution) => {
+            return (
+              <>
+                <tr key={institution.id}>
+                  <td
+                    onClick={() => {
+                      submenusExpanded(institution.id);
+                    }}
+                  >
+                    <IconTable item={institution} />
+                  </td>
+                  <td>R$ 19,90</td>
+                  <td>10/10/2022</td>
+                </tr>
 
-          <ShoppingTable />
+                {institution.showSubmenus && (
+                  <ShoppingTable shoppingList={institution.shopping} />
+                )}
+              </>
+            );
+          })}
         </tbody>
       </Stable>
 
