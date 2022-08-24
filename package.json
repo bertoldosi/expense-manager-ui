@@ -2,7 +2,7 @@
   "name": "expense-manager-ui",
   "version": "1.0.0",
   "description": "Gerenciador para despesas em cartões de crédito",
-  "main": "index.js",
+  "main": "index.ts",
   "repository": "https://github.com/bertoldosi/expense-manager-ui",
   "author": "bertoldosi",
   "scripts": {
