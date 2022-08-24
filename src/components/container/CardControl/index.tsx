@@ -34,6 +34,7 @@ function CollapsibleTable({ monthly_expenses }: Props) {
 
   return (
     <Scontainer>
+      <Header />
       <Stable>
         <thead>
           <tr>

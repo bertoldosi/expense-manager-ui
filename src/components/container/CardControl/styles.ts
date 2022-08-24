@@ -5,12 +5,13 @@ export const Scontainer = styled.div`
   max-width: 120rem;
   margin: 0 auto;
 
+  margin-top: 5rem;
   padding: 1rem;
 `;
 
 export const Stable = styled.table`
-  border-collapse: collapse;
   width: 100%;
+  border-collapse: collapse;
 
   .no-border {
     border: none;
