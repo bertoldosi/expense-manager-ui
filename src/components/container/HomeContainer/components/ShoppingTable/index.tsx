@@ -1,9 +1,10 @@
 import React from "react";
-import ContentAmount from "../ContentAmount";
-import InputTable from "../InputTable";
 import { v4 as uuidv4 } from "uuid";
 
 import { SsubTable, ScontentButton } from "./styles";
+
+import InputTable from "../InputTable";
+import ContentAmount from "../ContentAmount";
 import { Button } from "../../../../common/Button";
 
 type ShoppingType = {
