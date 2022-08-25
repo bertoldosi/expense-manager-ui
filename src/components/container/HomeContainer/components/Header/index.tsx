@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "../../../../common/Button";
 import { Scontent } from "./styles";
 
 type PropsType = {
@@ -8,8 +9,16 @@ type PropsType = {
 function Header({ handlerIncludeNewInstitution }: PropsType) {
   return (
     <Scontent>
-      <button>Importar</button>
-      <button onClick={handlerIncludeNewInstitution}>Adicionar</button>
+      <Button
+        backgroundColor="#FFF"
+        color="#333"
+        onClick={handlerIncludeNewInstitution}
+      >
+        Adicionar
+      </Button>
+      <Button backgroundColor="#333" color="#fff">
+        Importar
+      </Button>
     </Scontent>
   );
 }
