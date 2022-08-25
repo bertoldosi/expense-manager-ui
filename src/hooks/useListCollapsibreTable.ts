@@ -41,7 +41,7 @@ const useListCollapsibreTable = (list: ListType[]) => {
     );
   };
 
-  return { listTable, submenusExpanded };
+  return { listTable, setListTable, submenusExpanded };
 };
 
 export default useListCollapsibreTable;

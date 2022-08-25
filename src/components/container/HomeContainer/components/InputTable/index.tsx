@@ -6,9 +6,10 @@ type PropsTypes = {
   id: string;
   value: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
+  disabled?: boolean;
 };
 
-function InputTable({ name, id, value, onChange }: PropsTypes) {
+function InputTable({ name, id, value, onChange, disabled }: PropsTypes) {
   return (
     <Sinput
       name={name}
@@ -16,6 +17,7 @@ function InputTable({ name, id, value, onChange }: PropsTypes) {
       value={value}
       placeholder="Digite um valor"
       onChange={onChange}
+      disabled={disabled}
     />
   );
 }
