@@ -15,6 +15,11 @@ export const Stable = styled.table`
 
   .no-border {
     border: none;
+    padding: 0;
+
+    td {
+      padding: 0;
+    }
   }
 
   thead {

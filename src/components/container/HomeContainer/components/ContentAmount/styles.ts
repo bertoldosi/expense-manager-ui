@@ -4,7 +4,7 @@ export const Stotal = styled.table`
   width: 100%;
   max-width: 40rem;
   border-collapse: collapse;
-  margin-top: 3rem;
+  margin: 3rem 1rem 3rem 1rem;
 
   thead {
     tr {
@@ -19,7 +19,7 @@ export const Stotal = styled.table`
   tbody {
     tr {
       td {
-        padding: 1rem;
+        padding: 0.6rem !important;
       }
     }
   }

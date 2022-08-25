@@ -3,7 +3,8 @@ import ContentAmount from "../ContentAmount";
 import InputTable from "../InputTable";
 import { v4 as uuidv4 } from "uuid";
 
-import { SsubTable } from "./styles";
+import { SsubTable, ScontentButton } from "./styles";
+import { Button } from "../../../../common/Button";
 
 type ShoppingType = {
   id: string;
@@ -29,7 +30,7 @@ export const ShoppingTable = ({ shoppingList }: PropsType) => {
   const [shoppingInputs, setShoppingInputs] =
     React.useState<ShoppingType[]>(shoppingList);
 
-  const includeNewBuy = () => {
+  const handleIncludeNewBuy = () => {
     const isFilled =
       newBuy.description != null && newBuy.amount != null && newBuy.responsible;
 
@@ -147,9 +148,20 @@ export const ShoppingTable = ({ shoppingList }: PropsType) => {
               </td>
             </tr>
           </tbody>
+          <tr className="no-border">
+            <td colSpan={3}>
+              <ScontentButton>
+                <Button
+                  backgroundColor="#FFF"
+                  color="#333"
+                  onClick={handleIncludeNewBuy}
+                >
+                  Salvar
+                </Button>
+              </ScontentButton>
+            </td>
+          </tr>
         </SsubTable>
-
-        <button onClick={includeNewBuy}>Incluir</button>
       </td>
     </tr>
   );

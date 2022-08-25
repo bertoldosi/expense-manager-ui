@@ -23,3 +23,10 @@ export const SsubTable = styled.table`
     }
   }
 `;
+
+export const ScontentButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding: 2rem 0;
+`;
