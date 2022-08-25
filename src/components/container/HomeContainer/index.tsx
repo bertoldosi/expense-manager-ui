@@ -29,7 +29,7 @@ type Props = {
   monthly_expenses: MonthlyExpensesType[];
 };
 
-function CollapsibleTable({ monthly_expenses }: Props) {
+function HomeContainer({ monthly_expenses }: Props) {
   const { listTable, submenusExpanded } =
     useListCollapsibreTable(monthly_expenses);
 
@@ -76,4 +76,4 @@ function CollapsibleTable({ monthly_expenses }: Props) {
   );
 }
 
-export default CollapsibleTable;
+export default HomeContainer;

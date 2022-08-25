@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import CardControl from "../components/container/CardControl";
+import HomeContainer from "../components/container/HomeContainer";
 
 import monthly_expenses from "./tableItems";
 
@@ -10,7 +10,7 @@ const Home: NextPage = () => {
       <Head>
         <title>Expense Manager</title>
       </Head>
-      <CardControl monthly_expenses={monthly_expenses} />
+      <HomeContainer monthly_expenses={monthly_expenses} />
     </>
   );
 };
