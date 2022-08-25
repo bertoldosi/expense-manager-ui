@@ -11,6 +11,7 @@ import ContentAmount from "./components/ContentAmount";
 import { ShoppingTable } from "./components/ShoppingTable";
 
 type ShoppingType = {
+  id: string;
   description: string;
   amount: string;
   responsible: string;

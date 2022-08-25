@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 type ShoppingType = {
+  id: string;
   description: string;
   amount: string;
   responsible: string;
