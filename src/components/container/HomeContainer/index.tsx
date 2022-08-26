@@ -10,6 +10,7 @@ import IconTable from "./components/IconTable";
 import InputTable from "./components/InputTable";
 import ContentAmount from "./components/ContentAmount";
 import { ShoppingTable } from "./components/ShoppingTable";
+import { formatMorney } from "../../../helpers/formatMorney";
 
 type ShoppingType = {
   id: string;
@@ -98,7 +99,7 @@ function HomeContainer({ institutions }: Props) {
                   <td>
                     <IconTable item={institution} />
                   </td>
-                  <td>{institution.amount}</td>
+                  <td>{formatMorney(institution.amount)}</td>
                   <td>{institution.expirationDate}</td>
                 </tr>
 
