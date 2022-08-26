@@ -9,11 +9,11 @@ type ShoppingType = {
 
 type ListType = {
   id: string;
-  institution: string;
+  name: string;
   amount: string;
-  expiration_date: string;
+  expirationDate: string;
   showSubmenus?: boolean;
-  shopping: ShoppingType[];
+  shoppings: ShoppingType[];
 };
 
 const useListCollapsibreTable = (list: ListType[]) => {
@@ -22,7 +22,7 @@ const useListCollapsibreTable = (list: ListType[]) => {
       return {
         ...item,
         showSubmenus: false,
-        shopping: item.shopping.map((menu: ShoppingType) => ({
+        shoppings: item.shoppings.map((menu: ShoppingType) => ({
           ...menu,
         })),
       };

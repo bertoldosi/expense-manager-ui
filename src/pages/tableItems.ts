@@ -21,9 +21,9 @@ import { v4 as uuidv4 } from "uuid";
 export default [
   {
     id: "debito-card",
-    institution: "Débito",
+    name: "Débito",
     amount: "R$ 19,90",
-    expiration_date: "10/10/2022",
+    expirationDate: "10/10/2022",
     shopping: [
       {
         id: uuidv4(),
@@ -43,9 +43,9 @@ export default [
 
   {
     id: "nubank-card",
-    institution: "Nubank",
+    name: "Nubank",
     amount: "R$ 19,90",
-    expiration_date: "10/10/2022",
+    expirationDate: "10/10/2022",
     shopping: [
       {
         id: uuidv4(),

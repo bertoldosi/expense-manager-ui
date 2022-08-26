@@ -10,8 +10,6 @@ import IconTable from "./components/IconTable";
 import InputTable from "./components/InputTable";
 import ContentAmount from "./components/ContentAmount";
 import { ShoppingTable } from "./components/ShoppingTable";
-import { client } from "../../../services/ApolloClient";
-import { gql } from "@apollo/client";
 
 type ShoppingType = {
   id: string;
@@ -20,32 +18,32 @@ type ShoppingType = {
   responsible: string;
 };
 
-type MonthlyExpensesType = {
+type InstitutionsType = {
   id: string;
-  institution: string;
+  name: string;
   amount: string;
-  expiration_date: string;
-  shopping: ShoppingType[];
+  expirationDate: string;
+  shoppings: ShoppingType[];
 };
 
 type Props = {
-  monthly_expenses: MonthlyExpensesType[];
+  institutions: InstitutionsType[];
 };
 
 const initialInputInstitution = {
   id: uuidv4(),
-  institution: "",
+  name: "",
   amount: "R$ 00,00",
-  expiration_date: "",
-  shopping: [],
+  expirationDate: "",
+  shoppings: [],
 };
 
-function HomeContainer({ monthly_expenses }: Props) {
+function HomeContainer({ institutions }: Props) {
   const { listTable, setListTable, submenusExpanded } =
-    useListCollapsibreTable(monthly_expenses);
+    useListCollapsibreTable(institutions);
 
   const [inputInstitution, setInputInstitution] =
-    React.useState<MonthlyExpensesType>(initialInputInstitution);
+    React.useState<InstitutionsType>(initialInputInstitution);
 
   const handleInputInstitution = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -60,9 +58,9 @@ function HomeContainer({ monthly_expenses }: Props) {
 
   const handlerIncludeNewInstitution = () => {
     const isFilled =
-      inputInstitution.institution != "" &&
+      inputInstitution.name != "" &&
       inputInstitution.amount != "" &&
-      inputInstitution.expiration_date != "";
+      inputInstitution.expirationDate != "";
 
     if (isFilled) {
       setListTable((prevState) => {
@@ -74,31 +72,6 @@ function HomeContainer({ monthly_expenses }: Props) {
       alert("Precisa preencher todos os campos");
     }
   };
-
-  React.useEffect(() => {
-    client
-      .query({
-        query: gql`
-          query MyQuery {
-            institutions {
-              id
-              name
-              amount
-              expirationDate
-              shoppings {
-                ... on Shopping {
-                  id
-                  description
-                  amount
-                  responsible
-                }
-              }
-            }
-          }
-        `,
-      })
-      .then((result) => console.log(result.data));
-  }, []);
 
   return (
     <Scontainer>
@@ -126,11 +99,11 @@ function HomeContainer({ monthly_expenses }: Props) {
                     <IconTable item={institution} />
                   </td>
                   <td>{institution.amount}</td>
-                  <td>{institution.expiration_date}</td>
+                  <td>{institution.expirationDate}</td>
                 </tr>
 
                 {institution.showSubmenus && (
-                  <ShoppingTable shoppingList={institution.shopping} />
+                  <ShoppingTable shoppingList={institution.shoppings} />
                 )}
               </>
             );
@@ -139,9 +112,9 @@ function HomeContainer({ monthly_expenses }: Props) {
           <tr>
             <td>
               <InputTable
-                name="institution"
+                name="name"
                 id={inputInstitution.id}
-                value={inputInstitution.institution}
+                value={inputInstitution.name}
                 onChange={handleInputInstitution}
                 onKeyUp={handlerIncludeNewInstitution}
               />
@@ -158,9 +131,9 @@ function HomeContainer({ monthly_expenses }: Props) {
             </td>
             <td>
               <InputTable
-                name="expiration_date"
+                name="expirationDate"
                 id={inputInstitution.id}
-                value={inputInstitution.expiration_date}
+                value={inputInstitution.expirationDate}
                 onChange={handleInputInstitution}
                 onKeyUp={handlerIncludeNewInstitution}
               />

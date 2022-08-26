@@ -7,9 +7,9 @@ import { BsChevronUp } from "../../../../icons/BsChevronUp";
 
 type ItemType = {
   id: string;
-  institution: string;
+  name: string;
   amount: string;
-  expiration_date: string;
+  expirationDate: string;
   showSubmenus?: boolean;
 };
 
@@ -20,11 +20,11 @@ type PropsType = {
 function IconTable({ item }: PropsType) {
   return item.showSubmenus ? (
     <Scontent>
-      <BsChevronUp /> {item.institution}
+      <BsChevronUp /> {item.name}
     </Scontent>
   ) : (
     <Scontent>
-      <BsChevronDown /> {item.institution}
+      <BsChevronDown /> {item.name}
     </Scontent>
   );
 }
