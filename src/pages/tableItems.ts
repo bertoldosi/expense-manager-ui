@@ -1,6 +1,23 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 import { v4 as uuidv4 } from "uuid";
 
+// query MyQuery {
+//   institutions {
+//     id
+//     name
+//     amount
+//     expirationDate
+//     shoppings {
+//       ... on Shopping {
+//         id
+//         description
+//         amount
+//         responsible
+//       }
+//     }
+//   }
+// }
+
 export default [
   {
     id: "debito-card",

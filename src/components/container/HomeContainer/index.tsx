@@ -56,11 +56,11 @@ function HomeContainer({ monthly_expenses }: Props) {
     }));
   };
 
-  const includeNewInstitution = () => {
+  const handlerIncludeNewInstitution = () => {
     const isFilled =
-      inputInstitution.institution != null &&
-      inputInstitution.amount != null &&
-      inputInstitution.expiration_date;
+      inputInstitution.institution != "" &&
+      inputInstitution.amount != "" &&
+      inputInstitution.expiration_date != "";
 
     if (isFilled) {
       setListTable((prevState) => {
@@ -75,7 +75,7 @@ function HomeContainer({ monthly_expenses }: Props) {
 
   return (
     <Scontainer>
-      <Header handlerIncludeNewInstitution={includeNewInstitution} />
+      <Header handlerIncludeNewInstitution={handlerIncludeNewInstitution} />
       <Stable>
         <thead>
           <tr>
@@ -116,6 +116,7 @@ function HomeContainer({ monthly_expenses }: Props) {
                 id={inputInstitution.id}
                 value={inputInstitution.institution}
                 onChange={handleInputInstitution}
+                onKeyUp={handlerIncludeNewInstitution}
               />
             </td>
             <td>
@@ -124,6 +125,7 @@ function HomeContainer({ monthly_expenses }: Props) {
                 id={inputInstitution.id}
                 value={inputInstitution.amount}
                 onChange={handleInputInstitution}
+                onKeyUp={handlerIncludeNewInstitution}
                 disabled
               />
             </td>
@@ -133,6 +135,7 @@ function HomeContainer({ monthly_expenses }: Props) {
                 id={inputInstitution.id}
                 value={inputInstitution.expiration_date}
                 onChange={handleInputInstitution}
+                onKeyUp={handlerIncludeNewInstitution}
               />
             </td>
           </tr>

@@ -33,7 +33,9 @@ export const ShoppingTable = ({ shoppingList }: PropsType) => {
 
   const handleIncludeNewBuy = () => {
     const isFilled =
-      newBuy.description != null && newBuy.amount != null && newBuy.responsible;
+      newBuy.description != "" &&
+      newBuy.amount != "" &&
+      newBuy.responsible != "";
 
     if (isFilled) {
       setShoppingInputs((prevState) => {
@@ -123,6 +125,7 @@ export const ShoppingTable = ({ shoppingList }: PropsType) => {
                   id={newBuy.id}
                   value={newBuy.description}
                   onChange={handleInputNewBuy}
+                  onKeyUp={handleIncludeNewBuy}
                 />
               </td>
               <td>
@@ -131,6 +134,7 @@ export const ShoppingTable = ({ shoppingList }: PropsType) => {
                   id={newBuy.id}
                   value={newBuy.amount}
                   onChange={handleInputNewBuy}
+                  onKeyUp={handleIncludeNewBuy}
                 />
               </td>
               <td>
@@ -139,6 +143,7 @@ export const ShoppingTable = ({ shoppingList }: PropsType) => {
                   id={newBuy.id}
                   value={newBuy.responsible}
                   onChange={handleInputNewBuy}
+                  onKeyUp={handleIncludeNewBuy}
                 />
               </td>
             </tr>
