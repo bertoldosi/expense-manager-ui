@@ -10,6 +10,8 @@ import IconTable from "./components/IconTable";
 import InputTable from "./components/InputTable";
 import ContentAmount from "./components/ContentAmount";
 import { ShoppingTable } from "./components/ShoppingTable";
+import { client } from "../../../services/ApolloClient";
+import { gql } from "@apollo/client";
 
 type ShoppingType = {
   id: string;
@@ -72,6 +74,31 @@ function HomeContainer({ monthly_expenses }: Props) {
       alert("Precisa preencher todos os campos");
     }
   };
+
+  React.useEffect(() => {
+    client
+      .query({
+        query: gql`
+          query MyQuery {
+            institutions {
+              id
+              name
+              amount
+              expirationDate
+              shoppings {
+                ... on Shopping {
+                  id
+                  description
+                  amount
+                  responsible
+                }
+              }
+            }
+          }
+        `,
+      })
+      .then((result) => console.log(result.data));
+  }, []);
 
   return (
     <Scontainer>
