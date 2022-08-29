@@ -27,7 +27,7 @@ type InstitutionsType = {
   shoppings: ShoppingType[];
 };
 
-type Props = {
+type PropsType = {
   institutions: InstitutionsType[];
 };
 
@@ -39,7 +39,7 @@ const initialInputInstitution = {
   shoppings: [],
 };
 
-function HomeContainer({ institutions }: Props) {
+function HomeContainer({ institutions }: PropsType) {
   const { listTable, setListTable, submenusExpanded } =
     useListCollapsibreTable(institutions);
 
@@ -73,27 +73,6 @@ function HomeContainer({ institutions }: Props) {
       alert("Precisa preencher todos os campos");
     }
   };
-
-  React.useEffect(() => {
-    const newListTable = listTable.map((institution) => {
-      const amount = institution.shoppings
-        .map(
-          (previousValue: any, currentValue: any) =>
-            previousValue.amount + currentValue
-        )
-        .reduce(
-          (previousValue: any, currentValue: any) =>
-            previousValue + currentValue
-        );
-
-      return {
-        ...institution,
-        amount,
-      };
-    });
-
-    setListTable(newListTable);
-  }, []);
 
   return (
     <Scontainer>
