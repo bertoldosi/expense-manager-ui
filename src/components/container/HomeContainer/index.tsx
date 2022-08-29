@@ -74,6 +74,27 @@ function HomeContainer({ institutions }: Props) {
     }
   };
 
+  React.useEffect(() => {
+    const newListTable = listTable.map((institution) => {
+      const amount = institution.shoppings
+        .map(
+          (previousValue: any, currentValue: any) =>
+            previousValue.amount + currentValue
+        )
+        .reduce(
+          (previousValue: any, currentValue: any) =>
+            previousValue + currentValue
+        );
+
+      return {
+        ...institution,
+        amount,
+      };
+    });
+
+    setListTable(newListTable);
+  }, []);
+
   return (
     <Scontainer>
       <Header handlerIncludeNewInstitution={handlerIncludeNewInstitution} />
