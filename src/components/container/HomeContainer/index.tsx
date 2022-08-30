@@ -47,6 +47,7 @@ function HomeContainer({ institutions }: PropsType) {
     handleInputNewBuy,
     newBuy,
     submenusExpanded,
+    handleInputChange,
   } = useListCollapsibreTable(institutions);
 
   const [inputInstitution, setInputInstitution] =
@@ -116,6 +117,7 @@ function HomeContainer({ institutions }: PropsType) {
                     handleIncludeNewBuy={handleIncludeNewBuy}
                     handleInputNewBuy={handleInputNewBuy}
                     newBuy={newBuy}
+                    handleInputChange={handleInputChange}
                   />
                 )}
               </>

@@ -97,6 +97,35 @@ const useListCollapsibreTable = (list: ListType[]) => {
     }
   };
 
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    institutionId: string
+  ) => {
+    const { id, value, name } = event.target;
+
+    setListTable(
+      listTable.map((institution) => {
+        if (institution.id === institutionId) {
+          return {
+            ...institution,
+            shoppings: institution.shoppings.map((shopping) => {
+              if (shopping.id === id) {
+                return {
+                  ...shopping,
+                  [name]: value,
+                };
+              } else {
+                return shopping;
+              }
+            }),
+          };
+        } else {
+          return institution;
+        }
+      })
+    );
+  };
+
   const submenusExpanded = (itemId: string) => {
     setListTable(
       listTable.map((item) => {
@@ -119,6 +148,7 @@ const useListCollapsibreTable = (list: ListType[]) => {
     newBuy,
     setNewBuy,
     handleInputNewBuy,
+    handleInputChange,
   };
 };
 

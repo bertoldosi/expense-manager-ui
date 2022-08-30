@@ -27,6 +27,7 @@ type PropsType = {
   handleIncludeNewBuy: Function;
   handleInputNewBuy: React.ChangeEventHandler<HTMLInputElement>;
   newBuy: ShoppingType;
+  handleInputChange: Function;
 };
 
 export const ShoppingTable = ({
@@ -35,26 +36,8 @@ export const ShoppingTable = ({
   handleIncludeNewBuy,
   handleInputNewBuy,
   newBuy,
+  handleInputChange,
 }: PropsType) => {
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value, name } = event.target;
-
-    // setShoppingInputs((prevState) => {
-    //   const newShopping = prevState.map((shopping) => {
-    //     if (shopping.id === id) {
-    //       return {
-    //         ...shopping,
-    //         [name]: value,
-    //       };
-    //     } else {
-    //       return shopping;
-    //     }
-    //   });
-
-    //   return newShopping;
-    // });
-  };
-
   return (
     <tr>
       <td colSpan={3}>
@@ -75,7 +58,9 @@ export const ShoppingTable = ({
                     name="description"
                     id={shopping.id}
                     value={shopping.description}
-                    onChange={handleInputChange}
+                    onChange={(event) => {
+                      handleInputChange(event, institution.id);
+                    }}
                   />
                 </td>
                 <td>
@@ -83,7 +68,9 @@ export const ShoppingTable = ({
                     name="amount"
                     id={shopping.id}
                     value={shopping.amount}
-                    onChange={handleInputChange}
+                    onChange={(event) => {
+                      handleInputChange(event, institution.id);
+                    }}
                   />
                 </td>
                 <td>
@@ -91,7 +78,9 @@ export const ShoppingTable = ({
                     name="responsible"
                     id={shopping.id}
                     value={shopping.responsible}
-                    onChange={handleInputChange}
+                    onChange={(event) => {
+                      handleInputChange(event, institution.id);
+                    }}
                   />
                 </td>
               </tr>
