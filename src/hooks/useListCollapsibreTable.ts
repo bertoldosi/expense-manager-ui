@@ -31,6 +31,11 @@ const useListCollapsibreTable = (list: ListType[]) => {
     list.map((item) => {
       return {
         ...item,
+        amount: item.shoppings
+          .map((shopping) => shopping.amount)
+          .reduce(
+            (previousValue, currentValue) => previousValue + currentValue
+          ),
         showSubmenus: false,
         shoppings: item.shoppings.map((menu: ShoppingType) => ({
           ...menu,
