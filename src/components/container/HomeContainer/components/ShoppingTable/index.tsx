@@ -1,5 +1,4 @@
 import React from "react";
-import { v4 as uuidv4 } from "uuid";
 
 import { SsubTable, ScontentButton } from "./styles";
 
@@ -25,37 +24,18 @@ type InstitutionsType = {
 type PropsType = {
   shoppingList: ShoppingType[];
   institution: InstitutionsType;
-  updateInstitutionAmount: Function;
-};
-
-const initialNewBuy = {
-  id: uuidv4(),
-  description: "",
-  amount: "",
-  responsible: "",
+  handleIncludeNewBuy: Function;
+  handleInputNewBuy: React.ChangeEventHandler<HTMLInputElement>;
+  newBuy: ShoppingType;
 };
 
 export const ShoppingTable = ({
   shoppingList,
   institution,
-  updateInstitutionAmount,
+  handleIncludeNewBuy,
+  handleInputNewBuy,
+  newBuy,
 }: PropsType) => {
-  const [newBuy, setNewBuy] = React.useState<ShoppingType>(initialNewBuy);
-
-  const handleIncludeNewBuy = (institution: any) => {
-    const isFilled =
-      newBuy.description != "" &&
-      newBuy.amount != "" &&
-      newBuy.responsible != "";
-
-    if (isFilled) {
-      updateInstitutionAmount(institution.id, newBuy);
-      setNewBuy(initialNewBuy);
-    } else {
-      alert("Precisa preencher todos os campos");
-    }
-  };
-
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value, name } = event.target;
 
@@ -73,15 +53,6 @@ export const ShoppingTable = ({
 
     //   return newShopping;
     // });
-  };
-
-  const handleInputNewBuy = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-
-    setNewBuy((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
   };
 
   return (
@@ -134,7 +105,7 @@ export const ShoppingTable = ({
                   value={newBuy.description}
                   onChange={handleInputNewBuy}
                   onKeyUp={() => {
-                    handleIncludeNewBuy(institution);
+                    handleIncludeNewBuy(institution.id);
                   }}
                 />
               </td>
@@ -145,7 +116,7 @@ export const ShoppingTable = ({
                   value={newBuy.amount}
                   onChange={handleInputNewBuy}
                   onKeyUp={() => {
-                    handleIncludeNewBuy(institution);
+                    handleIncludeNewBuy(institution.id);
                   }}
                 />
               </td>
@@ -156,7 +127,7 @@ export const ShoppingTable = ({
                   value={newBuy.responsible}
                   onChange={handleInputNewBuy}
                   onKeyUp={() => {
-                    handleIncludeNewBuy(institution);
+                    handleIncludeNewBuy(institution.id);
                   }}
                 />
               </td>
@@ -174,7 +145,9 @@ export const ShoppingTable = ({
                 <Button
                   backgroundColor="#FFF"
                   color="#333"
-                  onClick={handleIncludeNewBuy}
+                  onClick={() => {
+                    handleIncludeNewBuy(institution.id);
+                  }}
                 >
                   Salvar
                 </Button>

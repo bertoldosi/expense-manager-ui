@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 type ShoppingType = {
   id: string;
@@ -16,7 +17,16 @@ type ListType = {
   shoppings: ShoppingType[];
 };
 
+const initialNewBuy = {
+  id: uuidv4(),
+  description: "",
+  amount: "",
+  responsible: "",
+};
+
 const useListCollapsibreTable = (list: ListType[]) => {
+  const [newBuy, setNewBuy] = useState<ShoppingType>(initialNewBuy);
+
   const [listTable, setListTable] = useState<ListType[]>(
     list.map((item) => {
       return {
@@ -29,21 +39,39 @@ const useListCollapsibreTable = (list: ListType[]) => {
     })
   );
 
-  const updateInstitutionAmount = (institutionId: any, newBuy: any) => {
-    const newListTable = listTable.map((institution) => {
-      if (institution.id === institutionId) {
-        return {
-          ...institution,
-          shoppings: [...institution.shoppings, newBuy],
-        };
-      } else {
-        return institution;
-      }
-    });
+  const handleInputNewBuy = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
 
-    setListTable(newListTable);
+    setNewBuy((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
-    console.log(newListTable);
+  const handleIncludeNewBuy = (institutionId: string) => {
+    const isFilled =
+      newBuy.description != "" &&
+      newBuy.amount != "" &&
+      newBuy.responsible != "";
+
+    if (isFilled) {
+      setListTable(
+        listTable.map((institution) => {
+          if (institution.id === institutionId) {
+            return {
+              ...institution,
+              shoppings: [...institution.shoppings, newBuy],
+            };
+          } else {
+            return institution;
+          }
+        })
+      );
+
+      setNewBuy(initialNewBuy);
+    } else {
+      alert("Precisa preencher todos os campos");
+    }
   };
 
   const submenusExpanded = (itemId: string) => {
@@ -58,7 +86,15 @@ const useListCollapsibreTable = (list: ListType[]) => {
     );
   };
 
-  return { listTable, setListTable, updateInstitutionAmount, submenusExpanded };
+  return {
+    listTable,
+    setListTable,
+    handleIncludeNewBuy,
+    submenusExpanded,
+    newBuy,
+    setNewBuy,
+    handleInputNewBuy,
+  };
 };
 
 export default useListCollapsibreTable;
