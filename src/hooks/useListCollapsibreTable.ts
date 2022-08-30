@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 type ShoppingType = {
@@ -90,6 +90,21 @@ const useListCollapsibreTable = (list: ListType[]) => {
       })
     );
   };
+
+  useEffect(() => {
+    setListTable(
+      listTable.map((institution) => {
+        return {
+          ...institution,
+          amount: institution.shoppings
+            .map((shopping) => shopping.amount)
+            .reduce(
+              (previousValue, currentValue) => previousValue + currentValue
+            ),
+        };
+      })
+    );
+  }, [listTable]);
 
   return {
     listTable,
