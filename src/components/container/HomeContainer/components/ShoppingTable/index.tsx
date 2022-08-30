@@ -9,14 +9,14 @@ import { Button } from "../../../../common/Button";
 type ShoppingType = {
   id: string;
   description: string;
-  amount: string;
+  amount: string | number;
   responsible: string;
 };
 
 type InstitutionsType = {
   id: string;
   name: string;
-  amount: string;
+  amount: string | number;
   expirationDate: string;
   shoppings: ShoppingType[];
 };

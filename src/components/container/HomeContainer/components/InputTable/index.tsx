@@ -4,7 +4,7 @@ import { Sinput } from "./styles";
 type PropsTypes = {
   name: string;
   id: string;
-  value: string;
+  value: string | number;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   onKeyUp?: any;
   disabled?: boolean;

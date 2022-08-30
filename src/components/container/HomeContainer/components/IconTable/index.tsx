@@ -8,7 +8,7 @@ import { BsChevronUp } from "../../../../icons/BsChevronUp";
 type ItemType = {
   id: string;
   name: string;
-  amount: string;
+  amount: string | number;
   expirationDate: string;
   showSubmenus?: boolean;
 };

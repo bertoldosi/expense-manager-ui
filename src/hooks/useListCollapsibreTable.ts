@@ -4,14 +4,14 @@ import { v4 as uuidv4 } from "uuid";
 type ShoppingType = {
   id: string;
   description: string;
-  amount: string;
+  amount: string | number;
   responsible: string;
 };
 
 type ListType = {
   id: string;
   name: string;
-  amount: string;
+  amount: string | number;
   expirationDate: string;
   showSubmenus?: boolean;
   shoppings: ShoppingType[];
@@ -34,7 +34,8 @@ const useListCollapsibreTable = (list: ListType[]) => {
         amount: item.shoppings
           .map((shopping) => shopping.amount)
           .reduce(
-            (previousValue, currentValue) => previousValue + currentValue
+            (previousValue, currentValue) =>
+              Number(previousValue) + Number(currentValue)
           ),
         showSubmenus: false,
         shoppings: item.shoppings.map((menu: ShoppingType) => ({
@@ -53,6 +54,22 @@ const useListCollapsibreTable = (list: ListType[]) => {
     }));
   };
 
+  const updateInstituiçãoAmount = () => {
+    setListTable(
+      listTable.map((institution) => {
+        return {
+          ...institution,
+          amount: institution.shoppings
+            .map((shopping) => shopping.amount)
+            .reduce(
+              (previousValue, currentValue) =>
+                Number(previousValue) + Number(currentValue)
+            ),
+        };
+      })
+    );
+  };
+
   const handleIncludeNewBuy = (institutionId: string) => {
     const isFilled =
       newBuy.description != "" &&
@@ -65,6 +82,7 @@ const useListCollapsibreTable = (list: ListType[]) => {
           if (institution.id === institutionId) {
             return {
               ...institution,
+              amount: Number(institution.amount) + Number(newBuy.amount),
               shoppings: [...institution.shoppings, newBuy],
             };
           } else {
@@ -91,20 +109,7 @@ const useListCollapsibreTable = (list: ListType[]) => {
     );
   };
 
-  useEffect(() => {
-    setListTable(
-      listTable.map((institution) => {
-        return {
-          ...institution,
-          amount: institution.shoppings
-            .map((shopping) => shopping.amount)
-            .reduce(
-              (previousValue, currentValue) => previousValue + currentValue
-            ),
-        };
-      })
-    );
-  }, [listTable]);
+  useEffect(() => {}, [listTable]);
 
   return {
     listTable,
