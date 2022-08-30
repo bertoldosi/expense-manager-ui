@@ -14,8 +14,18 @@ type ShoppingType = {
   responsible: string;
 };
 
+type InstitutionsType = {
+  id: string;
+  name: string;
+  amount: string;
+  expirationDate: string;
+  shoppings: ShoppingType[];
+};
+
 type PropsType = {
   shoppingList: ShoppingType[];
+  institution: InstitutionsType;
+  updateInstitutionAmount: Function;
 };
 
 const initialNewBuy = {
@@ -25,23 +35,21 @@ const initialNewBuy = {
   responsible: "",
 };
 
-export const ShoppingTable = ({ shoppingList }: PropsType) => {
+export const ShoppingTable = ({
+  shoppingList,
+  institution,
+  updateInstitutionAmount,
+}: PropsType) => {
   const [newBuy, setNewBuy] = React.useState<ShoppingType>(initialNewBuy);
 
-  const [shoppingInputs, setShoppingInputs] =
-    React.useState<ShoppingType[]>(shoppingList);
-
-  const handleIncludeNewBuy = () => {
+  const handleIncludeNewBuy = (institution: any) => {
     const isFilled =
       newBuy.description != "" &&
       newBuy.amount != "" &&
       newBuy.responsible != "";
 
     if (isFilled) {
-      setShoppingInputs((prevState) => {
-        return [...prevState, newBuy];
-      });
-
+      updateInstitutionAmount(institution.id, newBuy);
       setNewBuy(initialNewBuy);
     } else {
       alert("Precisa preencher todos os campos");
@@ -51,20 +59,20 @@ export const ShoppingTable = ({ shoppingList }: PropsType) => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value, name } = event.target;
 
-    setShoppingInputs((prevState) => {
-      const newShopping = prevState.map((shopping) => {
-        if (shopping.id === id) {
-          return {
-            ...shopping,
-            [name]: value,
-          };
-        } else {
-          return shopping;
-        }
-      });
+    // setShoppingInputs((prevState) => {
+    //   const newShopping = prevState.map((shopping) => {
+    //     if (shopping.id === id) {
+    //       return {
+    //         ...shopping,
+    //         [name]: value,
+    //       };
+    //     } else {
+    //       return shopping;
+    //     }
+    //   });
 
-      return newShopping;
-    });
+    //   return newShopping;
+    // });
   };
 
   const handleInputNewBuy = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,7 +97,7 @@ export const ShoppingTable = ({ shoppingList }: PropsType) => {
           </thead>
 
           <tbody>
-            {shoppingInputs.map((shopping, index) => (
+            {shoppingList.map((shopping, index) => (
               <tr key={index}>
                 <td>
                   <InputTable
@@ -125,7 +133,9 @@ export const ShoppingTable = ({ shoppingList }: PropsType) => {
                   id={newBuy.id}
                   value={newBuy.description}
                   onChange={handleInputNewBuy}
-                  onKeyUp={handleIncludeNewBuy}
+                  onKeyUp={() => {
+                    handleIncludeNewBuy(institution);
+                  }}
                 />
               </td>
               <td>
@@ -134,7 +144,9 @@ export const ShoppingTable = ({ shoppingList }: PropsType) => {
                   id={newBuy.id}
                   value={newBuy.amount}
                   onChange={handleInputNewBuy}
-                  onKeyUp={handleIncludeNewBuy}
+                  onKeyUp={() => {
+                    handleIncludeNewBuy(institution);
+                  }}
                 />
               </td>
               <td>
@@ -143,7 +155,9 @@ export const ShoppingTable = ({ shoppingList }: PropsType) => {
                   id={newBuy.id}
                   value={newBuy.responsible}
                   onChange={handleInputNewBuy}
-                  onKeyUp={handleIncludeNewBuy}
+                  onKeyUp={() => {
+                    handleIncludeNewBuy(institution);
+                  }}
                 />
               </td>
             </tr>

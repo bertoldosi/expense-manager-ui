@@ -29,6 +29,23 @@ const useListCollapsibreTable = (list: ListType[]) => {
     })
   );
 
+  const updateInstitutionAmount = (institutionId: any, newBuy: any) => {
+    const newListTable = listTable.map((institution) => {
+      if (institution.id === institutionId) {
+        return {
+          ...institution,
+          shoppings: [...institution.shoppings, newBuy],
+        };
+      } else {
+        return institution;
+      }
+    });
+
+    setListTable(newListTable);
+
+    console.log(newListTable);
+  };
+
   const submenusExpanded = (itemId: string) => {
     setListTable(
       listTable.map((item) => {
@@ -41,7 +58,7 @@ const useListCollapsibreTable = (list: ListType[]) => {
     );
   };
 
-  return { listTable, setListTable, submenusExpanded };
+  return { listTable, setListTable, updateInstitutionAmount, submenusExpanded };
 };
 
 export default useListCollapsibreTable;

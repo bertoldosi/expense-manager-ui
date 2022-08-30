@@ -40,7 +40,7 @@ const initialInputInstitution = {
 };
 
 function HomeContainer({ institutions }: PropsType) {
-  const { listTable, setListTable, submenusExpanded } =
+  const { listTable, setListTable, updateInstitutionAmount, submenusExpanded } =
     useListCollapsibreTable(institutions);
 
   const [inputInstitution, setInputInstitution] =
@@ -104,7 +104,11 @@ function HomeContainer({ institutions }: PropsType) {
                 </tr>
 
                 {institution.showSubmenus && (
-                  <ShoppingTable shoppingList={institution.shoppings} />
+                  <ShoppingTable
+                    shoppingList={institution.shoppings}
+                    institution={institution}
+                    updateInstitutionAmount={updateInstitutionAmount}
+                  />
                 )}
               </>
             );
