@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { maskMorney } from "../helpers/maskMorney";
 
 type ShoppingType = {
   id: string;
@@ -50,7 +51,7 @@ const useListCollapsibreTable = (list: ListType[]) => {
 
     setNewBuy((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: maskMorney(value, name),
     }));
   };
 
@@ -112,7 +113,7 @@ const useListCollapsibreTable = (list: ListType[]) => {
               if (shopping.id === id) {
                 return {
                   ...shopping,
-                  [name]: value,
+                  [name]: maskMorney(value, name),
                 };
               } else {
                 return shopping;
