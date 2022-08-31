@@ -55,20 +55,14 @@ const useListCollapsibreTable = (list: ListType[]) => {
     }));
   };
 
-  const updateInstituiçãoAmount = () => {
-    setListTable(
-      listTable.map((institution) => {
-        return {
-          ...institution,
-          amount: institution.shoppings
-            .map((shopping) => shopping.amount)
-            .reduce(
-              (previousValue, currentValue) =>
-                Number(previousValue) + Number(currentValue)
-            ),
-        };
-      })
-    );
+  const addingValues = (
+    firstValue: string | number,
+    secondValue: string | number
+  ) => {
+    firstValue = String(firstValue).replace(",", ".");
+    secondValue = String(secondValue).replace(",", ".");
+
+    return parseFloat(firstValue) + parseFloat(secondValue);
   };
 
   const handleIncludeNewBuy = (institutionId: string) => {
@@ -83,7 +77,7 @@ const useListCollapsibreTable = (list: ListType[]) => {
           if (institution.id === institutionId) {
             return {
               ...institution,
-              amount: Number(institution.amount) + Number(newBuy.amount),
+              amount: addingValues(institution.amount, newBuy.amount),
               shoppings: [...institution.shoppings, newBuy],
             };
           } else {
