@@ -95,11 +95,11 @@ function HomeContainer({ institutions }: PropsType) {
         </thead>
 
         <tbody>
-          {listTable.map((institution) => {
+          {listTable.map((institution, key) => {
             return (
               <>
                 <tr
-                  key={institution.id}
+                  key={key}
                   onClick={() => {
                     submenusExpanded(institution.id);
                   }}

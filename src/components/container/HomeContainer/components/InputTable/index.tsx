@@ -35,7 +35,7 @@ function InputTable({
   return (
     <Sinput
       name={name}
-      id={id}
+      id={name || id}
       value={isAmount ? `R$ ${value}` : value}
       placeholder={placeholder}
       onChange={onChange}
