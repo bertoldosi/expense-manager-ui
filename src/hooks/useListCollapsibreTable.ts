@@ -32,6 +32,10 @@ const useListCollapsibreTable = (list: ListType[]) => {
     list.map((item) => {
       return {
         ...item,
+        responsibleAmount: {
+          matheus: "19,90",
+          fran: "49,90",
+        },
         amount: item.shoppings
           .map((shopping) => shopping.amount)
           .reduce(
@@ -41,18 +45,25 @@ const useListCollapsibreTable = (list: ListType[]) => {
         showSubmenus: false,
         shoppings: item.shoppings.map((menu: ShoppingType) => ({
           ...menu,
+          responsibleAmount: {
+            matheus: "19,90",
+            fran: "49,90",
+          },
         })),
       };
     })
   );
 
-  const handleInputNewBuy = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-
-    setNewBuy((prevState) => ({
-      ...prevState,
-      [name]: maskMorney(value, name),
-    }));
+  const submenusExpanded = (itemId: string) => {
+    setListTable(
+      listTable.map((item) => {
+        if (itemId === item.id) {
+          return { ...item, showSubmenus: !item.showSubmenus };
+        } else {
+          return item;
+        }
+      })
+    );
   };
 
   const addingValues = (
@@ -67,31 +78,13 @@ const useListCollapsibreTable = (list: ListType[]) => {
     return parseFloat(firstValue) + parseFloat(secondValue);
   };
 
-  const handleIncludeNewBuy = (institutionId: string) => {
-    const isFilled =
-      newBuy.description != "" &&
-      newBuy.amount != "" &&
-      newBuy.responsible != "";
+  const handleInputNewBuy = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
 
-    if (isFilled) {
-      setListTable(
-        listTable.map((institution) => {
-          if (institution.id === institutionId) {
-            return {
-              ...institution,
-              amount: addingValues(institution.amount, newBuy.amount),
-              shoppings: [...institution.shoppings, newBuy],
-            };
-          } else {
-            return institution;
-          }
-        })
-      );
-
-      setNewBuy(initialNewBuy);
-    } else {
-      alert("Precisa preencher todos os campos");
-    }
+    setNewBuy((prevState) => ({
+      ...prevState,
+      [name]: maskMorney(value, name),
+    }));
   };
 
   const handleInputChange = (
@@ -123,17 +116,36 @@ const useListCollapsibreTable = (list: ListType[]) => {
     );
   };
 
-  const submenusExpanded = (itemId: string) => {
-    setListTable(
-      listTable.map((item) => {
-        if (itemId === item.id) {
-          return { ...item, showSubmenus: !item.showSubmenus };
-        } else {
-          return item;
-        }
-      })
-    );
+  const handleIncludeNewBuy = (institutionId: string) => {
+    const isFilled =
+      newBuy.description != "" &&
+      newBuy.amount != "" &&
+      newBuy.responsible != "";
+
+    if (isFilled) {
+      setListTable(
+        listTable.map((institution) => {
+          if (institution.id === institutionId) {
+            return {
+              ...institution,
+              amount: addingValues(institution.amount, newBuy.amount),
+              shoppings: [...institution.shoppings, newBuy],
+            };
+          } else {
+            return institution;
+          }
+        })
+      );
+
+      setNewBuy(initialNewBuy);
+    } else {
+      alert("Precisa preencher todos os campos");
+    }
   };
+
+  React.useEffect(() => {
+    console.log(listTable);
+  }, []);
 
   return {
     listTable,
