@@ -62,6 +62,8 @@ const useListCollapsibreTable = (list: ListType[]) => {
     firstValue = String(firstValue).replace(",", ".");
     secondValue = String(secondValue).replace(",", ".");
 
+    console.log(firstValue, secondValue);
+
     return parseFloat(firstValue) + parseFloat(secondValue);
   };
 
@@ -132,8 +134,6 @@ const useListCollapsibreTable = (list: ListType[]) => {
       })
     );
   };
-
-  useEffect(() => {}, [listTable]);
 
   return {
     listTable,
