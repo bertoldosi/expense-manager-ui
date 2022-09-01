@@ -21,7 +21,7 @@ type ListType = {
 const initialNewBuy = {
   id: uuidv4(),
   description: "",
-  amount: "",
+  amount: "0,00",
   responsible: "",
 };
 

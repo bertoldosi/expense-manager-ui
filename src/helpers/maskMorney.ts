@@ -4,7 +4,7 @@ export const maskMorney = (value: string, name: string) => {
     value = value.replace(/(\d)(\d{2})$/, "$1,$2");
     value = value.replace(/(?=(\d{3})+(\D))\B/g, ".");
 
-    return `R$ ${value}`;
+    return value;
   }
 
   return value;

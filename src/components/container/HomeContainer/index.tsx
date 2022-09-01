@@ -34,7 +34,7 @@ type PropsType = {
 const initialInputInstitution = {
   id: uuidv4(),
   name: "",
-  amount: "",
+  amount: "0,00",
   expirationDate: "",
   shoppings: [],
 };

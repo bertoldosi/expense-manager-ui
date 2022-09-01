@@ -26,13 +26,15 @@ function InputTable({
     }
   };
 
-  const placeholder = name === "amount" ? "R$ 0,00" : "Digite um valor";
+  const isAmount = name === "amount";
+
+  const placeholder = isAmount ? "R$ 0,00" : "Digite um valor";
 
   return (
     <Sinput
       name={name}
       id={id}
-      value={value}
+      value={isAmount ? `R$ ${value}` : value}
       placeholder={placeholder}
       onChange={onChange}
       onKeyUp={handleOnKeyUp}
