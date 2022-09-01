@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { maskMorney } from "../helpers/maskMorney";
+import { maskMorney } from "../helpers/masks";
 
 type ShoppingType = {
   id: string;
@@ -21,7 +21,7 @@ type ListType = {
 const initialNewBuy = {
   id: uuidv4(),
   description: "",
-  amount: "0,00",
+  amount: "",
   responsible: "",
 };
 

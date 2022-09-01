@@ -11,6 +11,7 @@ import InputTable from "./components/InputTable";
 import ContentAmount from "./components/ContentAmount";
 import { ShoppingTable } from "./components/ShoppingTable";
 import { formatMorney } from "../../../helpers/formatMorney";
+import { maskDate } from "../../../helpers/masks";
 
 type ShoppingType = {
   id: string;
@@ -60,7 +61,7 @@ function HomeContainer({ institutions }: PropsType) {
 
     setInputInstitution((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: maskDate(value, name),
     }));
   };
 
@@ -151,6 +152,7 @@ function HomeContainer({ institutions }: PropsType) {
                 value={inputInstitution.expirationDate}
                 onChange={handleInputInstitution}
                 onKeyUp={handlerIncludeNewInstitution}
+                type="date"
               />
             </td>
           </tr>

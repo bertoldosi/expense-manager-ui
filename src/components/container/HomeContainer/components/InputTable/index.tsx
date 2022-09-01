@@ -8,6 +8,7 @@ type PropsTypes = {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   onKeyUp?: any;
   disabled?: boolean;
+  type?: string;
 };
 
 function InputTable({
@@ -17,6 +18,7 @@ function InputTable({
   onChange,
   disabled,
   onKeyUp,
+  type,
 }: PropsTypes) {
   const handleOnKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const keycode = event.keyCode ? event.keyCode : event.which;
@@ -39,6 +41,7 @@ function InputTable({
       onChange={onChange}
       onKeyUp={handleOnKeyUp}
       disabled={disabled}
+      type={type}
     />
   );
 }
