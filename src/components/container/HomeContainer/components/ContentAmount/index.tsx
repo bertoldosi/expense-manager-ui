@@ -21,15 +21,12 @@ function ContentAmount({ responsibleList }: PropsType) {
       </thead>
 
       <tbody>
-        <tr>
-          <td>Matheus</td>
-          <td>R$ 19,90</td>
-        </tr>
-
-        <tr>
-          <td>Matheus</td>
-          <td>R$ 19,90</td>
-        </tr>
+        {responsibleList.map((responsible, index) => (
+          <tr key={index}>
+            <td>{responsible.name}</td>
+            <td>{responsible.amount}</td>
+          </tr>
+        ))}
       </tbody>
     </Stotal>
   );

@@ -44,7 +44,6 @@ export const ShoppingTable = ({
   newBuy,
   handleInputChange,
 }: PropsType) => {
-  console.log(institution);
   return (
     <tr>
       <td colSpan={3}>
@@ -131,7 +130,9 @@ export const ShoppingTable = ({
 
             <tr className="no-border">
               <td colSpan={3}>
-                <ContentAmount responsibleList={[]} />
+                <ContentAmount
+                  responsibleList={institution.responsibleAmount}
+                />
               </td>
             </tr>
           </tbody>

@@ -125,9 +125,9 @@ const useListCollapsibreTable = (list: ListType[]) => {
     }
   };
 
-  React.useEffect(() => {
-    console.log(listTable);
-  }, []);
+  // React.useEffect(() => {
+  //   console.log(listTable);
+  // }, []);
 
   return {
     listTable,
