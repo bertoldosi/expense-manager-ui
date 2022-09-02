@@ -3,7 +3,7 @@ import { Stotal } from "./styles";
 
 type ResponsibleType = {
   name: string;
-  amount: string;
+  amount: string | number;
 };
 
 type PropsType = {

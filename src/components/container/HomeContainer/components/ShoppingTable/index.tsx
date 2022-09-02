@@ -15,7 +15,7 @@ type ShoppingType = {
 
 type ResponsibleAmountType = {
   name: string;
-  amount: string;
+  amount: string | number;
 };
 
 type InstitutionType = {

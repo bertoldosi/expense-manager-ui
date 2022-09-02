@@ -14,10 +14,10 @@ type ShoppingType = {
 
 type ResponsibleAmountType = {
   name: string;
-  amount: string;
+  amount: string | number;
 };
 
-type ListType = {
+type InstitutionType = {
   id: string;
   name: string;
   amount: string | number;
@@ -34,15 +34,15 @@ const initialNewBuy = {
   responsible: "",
 };
 
-const useListCollapsibreTable = (list: ListType[]) => {
+const useListCollapsibreTable = (InstitutionList: InstitutionType[]) => {
   const [newBuy, setNewBuy] = useState<ShoppingType>(initialNewBuy);
 
-  const [listTable, setListTable] = useState<ListType[]>(
-    list.map((item) => {
+  const [listTable, setListTable] = useState<InstitutionType[]>(
+    InstitutionList.map((institution) => {
       return {
-        ...item,
-        responsibleAmount: addingResponsibleAmount(),
-        amount: addingAmountShoppings(item.shoppings),
+        ...institution,
+        responsibleAmount: addingResponsibleAmount(institution),
+        amount: addingAmountShoppings(institution.shoppings),
         showSubmenus: false,
       };
     })
@@ -80,6 +80,7 @@ const useListCollapsibreTable = (list: ListType[]) => {
         if (institution.id === institutionId) {
           return {
             ...institution,
+            responsibleAmount: addingResponsibleAmount(institution),
             shoppings: institution.shoppings.map((shopping) => {
               if (shopping.id === id) {
                 return {
@@ -110,6 +111,7 @@ const useListCollapsibreTable = (list: ListType[]) => {
           if (institution.id === institutionId) {
             return {
               ...institution,
+              responsibleAmount: addingResponsibleAmount(institution),
               amount: addingValues(institution.amount, newBuy.amount),
               shoppings: [...institution.shoppings, newBuy],
             };
@@ -125,9 +127,9 @@ const useListCollapsibreTable = (list: ListType[]) => {
     }
   };
 
-  // React.useEffect(() => {
-  //   console.log(listTable);
-  // }, []);
+  React.useEffect(() => {
+    console.log(listTable);
+  }, [listTable]);
 
   return {
     listTable,
