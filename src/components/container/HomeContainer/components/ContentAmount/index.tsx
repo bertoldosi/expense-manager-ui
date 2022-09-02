@@ -1,7 +1,16 @@
 import React from "react";
 import { Stotal } from "./styles";
 
-function ContentAmount() {
+type ResponsibleType = {
+  name: string;
+  amount: string;
+};
+
+type PropsType = {
+  responsibleList: ResponsibleType[];
+};
+
+function ContentAmount({ responsibleList }: PropsType) {
   return (
     <Stotal>
       <thead>

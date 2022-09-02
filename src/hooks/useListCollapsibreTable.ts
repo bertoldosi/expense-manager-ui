@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { addingAmountShoppings } from "../helpers/addingAmountShoppings";
+import { addingResponsibleAmount } from "../helpers/addingResponsibleAmount";
+import { addingValues } from "../helpers/addingValues";
 import { maskMorney } from "../helpers/masks";
 
 type ShoppingType = {
@@ -9,10 +12,16 @@ type ShoppingType = {
   responsible: string;
 };
 
+type ResponsibleAmountType = {
+  name: string;
+  amount: string;
+};
+
 type ListType = {
   id: string;
   name: string;
   amount: string | number;
+  responsibleAmount: ResponsibleAmountType[];
   expirationDate: string;
   showSubmenus?: boolean;
   shoppings: ShoppingType[];
@@ -32,24 +41,9 @@ const useListCollapsibreTable = (list: ListType[]) => {
     list.map((item) => {
       return {
         ...item,
-        responsibleAmount: {
-          matheus: "19,90",
-          fran: "49,90",
-        },
-        amount: item.shoppings
-          .map((shopping) => shopping.amount)
-          .reduce(
-            (previousValue, currentValue) =>
-              Number(previousValue) + Number(currentValue)
-          ),
+        responsibleAmount: addingResponsibleAmount(),
+        amount: addingAmountShoppings(item.shoppings),
         showSubmenus: false,
-        shoppings: item.shoppings.map((menu: ShoppingType) => ({
-          ...menu,
-          responsibleAmount: {
-            matheus: "19,90",
-            fran: "49,90",
-          },
-        })),
       };
     })
   );
@@ -64,18 +58,6 @@ const useListCollapsibreTable = (list: ListType[]) => {
         }
       })
     );
-  };
-
-  const addingValues = (
-    firstValue: string | number,
-    secondValue: string | number
-  ) => {
-    firstValue = String(firstValue).replace(",", ".");
-    secondValue = String(secondValue).replace(",", ".");
-
-    console.log(firstValue, secondValue);
-
-    return parseFloat(firstValue) + parseFloat(secondValue);
   };
 
   const handleInputNewBuy = (event: React.ChangeEvent<HTMLInputElement>) => {

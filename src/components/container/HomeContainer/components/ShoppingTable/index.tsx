@@ -13,17 +13,23 @@ type ShoppingType = {
   responsible: string;
 };
 
-type InstitutionsType = {
+type ResponsibleAmountType = {
+  name: string;
+  amount: string;
+};
+
+type InstitutionType = {
   id: string;
   name: string;
   amount: string | number;
+  responsibleAmount: ResponsibleAmountType[];
   expirationDate: string;
   shoppings: ShoppingType[];
 };
 
 type PropsType = {
   shoppingList: ShoppingType[];
-  institution: InstitutionsType;
+  institution: InstitutionType;
   handleIncludeNewBuy: Function;
   handleInputNewBuy: React.ChangeEventHandler<HTMLInputElement>;
   newBuy: ShoppingType;
@@ -38,6 +44,7 @@ export const ShoppingTable = ({
   newBuy,
   handleInputChange,
 }: PropsType) => {
+  console.log(institution);
   return (
     <tr>
       <td colSpan={3}>
@@ -124,7 +131,7 @@ export const ShoppingTable = ({
 
             <tr className="no-border">
               <td colSpan={3}>
-                <ContentAmount />
+                <ContentAmount responsibleList={[]} />
               </td>
             </tr>
           </tbody>

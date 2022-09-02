@@ -12,7 +12,7 @@ type ShoppingType = {
   responsible: string;
 };
 
-type InstitutionsType = {
+type InstitutionType = {
   id: string;
   name: string;
   amount: string;
@@ -21,7 +21,7 @@ type InstitutionsType = {
 };
 
 type Props = {
-  institutions: InstitutionsType[];
+  institutions: InstitutionType[];
 };
 
 const Home = ({ institutions }: Props) => {

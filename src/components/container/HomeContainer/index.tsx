@@ -20,22 +20,29 @@ type ShoppingType = {
   responsible: string;
 };
 
-type InstitutionsType = {
+type ResponsibleAmountType = {
+  name: string;
+  amount: string;
+};
+
+type InstitutionType = {
   id: string;
   name: string;
   amount: string | number;
+  responsibleAmount: ResponsibleAmountType[];
   expirationDate: string;
   shoppings: ShoppingType[];
 };
 
 type PropsType = {
-  institutions: InstitutionsType[];
+  institutions: InstitutionType[];
 };
 
 const initialInputInstitution = {
   id: uuidv4(),
   name: "",
   amount: "0,00",
+  responsibleAmount: [],
   expirationDate: "",
   shoppings: [],
 };
@@ -52,7 +59,7 @@ function HomeContainer({ institutions }: PropsType) {
   } = useListCollapsibreTable(institutions);
 
   const [inputInstitution, setInputInstitution] =
-    React.useState<InstitutionsType>(initialInputInstitution);
+    React.useState<InstitutionType>(initialInputInstitution);
 
   const handleInputInstitution = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -159,7 +166,7 @@ function HomeContainer({ institutions }: PropsType) {
         </tbody>
       </Stable>
 
-      <ContentAmount />
+      <ContentAmount responsibleList={[]} />
     </Scontainer>
   );
 }
