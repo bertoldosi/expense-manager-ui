@@ -1,9 +1,4 @@
-type ShoppingType = {
-  id: string;
-  description: string;
-  amount: string | number;
-  responsible: string;
-};
+import { ShoppingType } from "../components/container/HomeContainer/types";
 
 export const addingAmountShoppings = (shoppings: ShoppingType[]) => {
   const newShoppings = shoppings

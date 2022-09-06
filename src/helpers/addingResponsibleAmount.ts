@@ -1,26 +1,4 @@
-import React from "react";
-
-type ShoppingType = {
-  id: string;
-  description: string;
-  amount: string | number;
-  responsible: string;
-};
-
-type ResponsibleAmountType = {
-  name: string;
-  amount: string | number;
-};
-
-type InstitutionType = {
-  id: string;
-  name: string;
-  amount: string | number;
-  responsibleAmount: ResponsibleAmountType[];
-  expirationDate: string;
-  showSubmenus?: boolean;
-  shoppings: ShoppingType[];
-};
+import { InstitutionType } from "../components/container/HomeContainer/types";
 
 export const addingResponsibleAmount = (institution: InstitutionType) => {
   const shoppings = institution.shoppings;
