@@ -8,14 +8,20 @@ import HomeContainer from "../components/container/HomeContainer";
 type ShoppingType = {
   id: string;
   description: string;
-  amount: string;
+  amount: string | number;
   responsible: string;
+};
+
+type ResponsibleAmountType = {
+  name: string;
+  amount: string | number;
 };
 
 type InstitutionType = {
   id: string;
   name: string;
-  amount: string;
+  amount: string | number;
+  responsibleAmount: ResponsibleAmountType[];
   expirationDate: string;
   shoppings: ShoppingType[];
 };
