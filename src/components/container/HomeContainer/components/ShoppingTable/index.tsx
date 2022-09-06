@@ -63,6 +63,17 @@ export const ShoppingTable = ({
     setNewBuy(initialNewBuy);
   };
 
+  React.useEffect(() => {
+    setListTable(
+      listTable.map((institution) => {
+        return {
+          ...institution,
+          responsibleAmount: addingResponsibleAmount(institution),
+        };
+      })
+    );
+  }, [shoppingList]);
+
   return (
     <tr>
       <td colSpan={3}>
