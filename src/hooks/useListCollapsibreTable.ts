@@ -1,29 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { InstitutionType } from "../components/container/HomeContainer/types";
 import { addingAmountShoppings } from "../helpers/addingAmountShoppings";
 import { addingResponsibleAmount } from "../helpers/addingResponsibleAmount";
 import { maskMorney } from "../helpers/masks";
-
-type ShoppingType = {
-  id: string;
-  description: string;
-  amount: string | number;
-  responsible: string;
-};
-
-type ResponsibleAmountType = {
-  name: string;
-  amount: string | number;
-};
-
-type InstitutionType = {
-  id: string;
-  name: string;
-  amount: string | number;
-  responsibleAmount: ResponsibleAmountType[];
-  expirationDate: string;
-  showSubmenus?: boolean;
-  shoppings: ShoppingType[];
-};
 
 const useListCollapsibreTable = (InstitutionList: InstitutionType[]) => {
   const [listTable, setListTable] = useState<InstitutionType[]>(

@@ -1,13 +1,9 @@
 import React from "react";
+import { ResponsibleAmountType } from "../../types";
 import { Stotal } from "./styles";
 
-type ResponsibleType = {
-  name: string;
-  amount: string | number;
-};
-
 type PropsType = {
-  responsibleList: ResponsibleType[];
+  responsibleList: ResponsibleAmountType[];
 };
 
 function ContentAmount({ responsibleList }: PropsType) {

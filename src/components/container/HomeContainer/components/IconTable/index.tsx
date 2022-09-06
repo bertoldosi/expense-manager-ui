@@ -4,17 +4,10 @@ import { Scontent } from "./styles";
 
 import { BsChevronDown } from "../../../../icons/BsChevronDown";
 import { BsChevronUp } from "../../../../icons/BsChevronUp";
-
-type ItemType = {
-  id: string;
-  name: string;
-  amount: string | number;
-  expirationDate: string;
-  showSubmenus?: boolean;
-};
+import { InstitutionType } from "../../types";
 
 type PropsType = {
-  item: ItemType;
+  item: InstitutionType;
 };
 
 function IconTable({ item }: PropsType) {

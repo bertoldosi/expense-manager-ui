@@ -12,27 +12,7 @@ import ContentAmount from "./components/ContentAmount";
 import { ShoppingTable } from "./components/ShoppingTable";
 import { formatMorney } from "../../../helpers/formatMorney";
 import { maskDate } from "../../../helpers/masks";
-
-type ShoppingType = {
-  id: string;
-  description: string;
-  amount: string | number;
-  responsible: string;
-};
-
-type ResponsibleAmountType = {
-  name: string;
-  amount: string | number;
-};
-
-type InstitutionType = {
-  id: string;
-  name: string;
-  amount: string | number;
-  responsibleAmount: ResponsibleAmountType[];
-  expirationDate: string;
-  shoppings: ShoppingType[];
-};
+import { InstitutionType } from "./types";
 
 type PropsType = {
   institutions: InstitutionType[];

@@ -9,27 +9,7 @@ import { Button } from "../../../../common/Button";
 import { maskMorney } from "../../../../../helpers/masks";
 import { addingResponsibleAmount } from "../../../../../helpers/addingResponsibleAmount";
 import { addingValues } from "../../../../../helpers/addingValues";
-
-type ShoppingType = {
-  id: string;
-  description: string;
-  amount: string | number;
-  responsible: string;
-};
-
-type ResponsibleAmountType = {
-  name: string;
-  amount: string | number;
-};
-
-type InstitutionType = {
-  id: string;
-  name: string;
-  amount: string | number;
-  responsibleAmount: ResponsibleAmountType[];
-  expirationDate: string;
-  shoppings: ShoppingType[];
-};
+import { InstitutionType, ShoppingType } from "../../types";
 
 type PropsType = {
   shoppingList: ShoppingType[];
