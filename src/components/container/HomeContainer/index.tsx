@@ -48,15 +48,8 @@ const initialInputInstitution = {
 };
 
 function HomeContainer({ institutions }: PropsType) {
-  const {
-    listTable,
-    setListTable,
-    handleIncludeNewBuy,
-    handleInputNewBuy,
-    newBuy,
-    submenusExpanded,
-    handleInputChange,
-  } = useListCollapsibreTable(institutions);
+  const { listTable, setListTable, submenusExpanded, handleInputChange } =
+    useListCollapsibreTable(institutions);
 
   const [inputInstitution, setInputInstitution] =
     React.useState<InstitutionType>(initialInputInstitution);
@@ -122,10 +115,9 @@ function HomeContainer({ institutions }: PropsType) {
                   <ShoppingTable
                     shoppingList={institution.shoppings}
                     institution={institution}
-                    handleIncludeNewBuy={handleIncludeNewBuy}
-                    handleInputNewBuy={handleInputNewBuy}
-                    newBuy={newBuy}
                     handleInputChange={handleInputChange}
+                    listTable={listTable}
+                    setListTable={setListTable}
                   />
                 )}
               </>

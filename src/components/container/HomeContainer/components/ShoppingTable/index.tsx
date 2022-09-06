@@ -1,10 +1,14 @@
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import { SsubTable, ScontentButton } from "./styles";
 
 import InputTable from "../InputTable";
 import ContentAmount from "../ContentAmount";
 import { Button } from "../../../../common/Button";
+import { maskMorney } from "../../../../../helpers/masks";
+import { addingResponsibleAmount } from "../../../../../helpers/addingResponsibleAmount";
+import { addingValues } from "../../../../../helpers/addingValues";
 
 type ShoppingType = {
   id: string;
@@ -30,20 +34,55 @@ type InstitutionType = {
 type PropsType = {
   shoppingList: ShoppingType[];
   institution: InstitutionType;
-  handleIncludeNewBuy: Function;
-  handleInputNewBuy: React.ChangeEventHandler<HTMLInputElement>;
-  newBuy: ShoppingType;
   handleInputChange: Function;
+  listTable: InstitutionType[];
+  setListTable: React.Dispatch<React.SetStateAction<InstitutionType[]>>;
+};
+
+const initialNewBuy = {
+  id: uuidv4(),
+  description: "VAZIO",
+  amount: "0",
+  responsible: "VAZIO",
 };
 
 export const ShoppingTable = ({
   shoppingList,
   institution,
-  handleIncludeNewBuy,
-  handleInputNewBuy,
-  newBuy,
   handleInputChange,
+  listTable,
+  setListTable,
 }: PropsType) => {
+  const [newBuy, setNewBuy] = React.useState<ShoppingType>(initialNewBuy);
+
+  const handleInputNewBuy = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    setNewBuy((prevState) => ({
+      ...prevState,
+      [name]: maskMorney(value, name),
+    }));
+  };
+
+  const handleIncludeNewBuy = (institutionId: string) => {
+    setListTable(
+      listTable.map((institution) => {
+        if (institution.id === institutionId) {
+          return {
+            ...institution,
+            responsibleAmount: addingResponsibleAmount(institution),
+            amount: addingValues(institution.amount, newBuy.amount),
+            shoppings: [...institution.shoppings, { ...newBuy, id: uuidv4() }],
+          };
+        } else {
+          return institution;
+        }
+      })
+    );
+
+    setNewBuy(initialNewBuy);
+  };
+
   return (
     <tr>
       <td colSpan={3}>
