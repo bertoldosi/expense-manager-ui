@@ -127,9 +127,9 @@ const useListCollapsibreTable = (InstitutionList: InstitutionType[]) => {
     }
   };
 
-  React.useEffect(() => {
-    console.log(listTable);
-  }, [listTable]);
+  // React.useEffect(() => {
+  //   console.log(listTable);
+  // }, [listTable]);
 
   return {
     listTable,
