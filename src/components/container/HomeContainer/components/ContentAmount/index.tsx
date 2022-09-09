@@ -19,7 +19,7 @@ function ContentAmount({ responsibleList }: PropsType) {
       <tbody>
         {responsibleList.map((responsible, index) => (
           <tr key={index}>
-            <td>{responsible.name}</td>
+            <td>{responsible.responsible}</td>
             <td>{responsible.amount}</td>
           </tr>
         ))}

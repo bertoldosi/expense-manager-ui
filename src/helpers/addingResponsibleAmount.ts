@@ -1,24 +1,37 @@
-import { InstitutionType } from "../components/container/HomeContainer/types";
+import {
+  InstitutionType,
+  ResponsibleAmountType,
+  ShoppingType,
+} from "../components/container/HomeContainer/types";
 
 export const addingResponsibleAmount = (institution: InstitutionType) => {
-  const shoppings = institution.shoppings;
+  const newList = institution.shoppings.reduce(
+    (previousValue: ShoppingType[], currentValue) => {
+      const newCurrentValue = {
+        ...currentValue,
+        amount: String(currentValue.amount).replace(",", "."),
+      };
 
-  let novoLista = [];
-  let m = new Map();
+      let responsible = newCurrentValue.responsible;
 
-  for (let shopping of shoppings) {
-    if (m.has(shopping.responsible)) {
-      novoLista[m.get(shopping.responsible)].amount += Number(shopping.amount);
-    } else {
-      m.set(
-        shopping.responsible,
-        novoLista.push({
-          name: shopping.responsible,
-          amount: Number(shopping.amount),
-        }) - 1
+      let repeated = previousValue.find(
+        (elem: ResponsibleAmountType) => elem.responsible === responsible
       );
-    }
-  }
 
-  return novoLista;
+      if (repeated) {
+        repeated.amount = String(repeated.amount).replace(",", ".");
+
+        repeated.amount =
+          parseFloat(repeated.amount) + parseFloat(newCurrentValue.amount);
+        repeated.amount = parseFloat(repeated.amount.toFixed(2));
+      } else {
+        previousValue.push(newCurrentValue);
+      }
+
+      return previousValue;
+    },
+    []
+  );
+
+  return newList;
 };

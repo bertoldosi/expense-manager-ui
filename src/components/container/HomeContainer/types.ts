@@ -6,7 +6,7 @@ export type ShoppingType = {
 };
 
 export type ResponsibleAmountType = {
-  name: string;
+  responsible: string;
   amount: string | number;
 };
 
