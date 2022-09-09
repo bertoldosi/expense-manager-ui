@@ -92,8 +92,6 @@ export const ShoppingTable = ({
         }
       })
     );
-
-    console.log(listTable);
   };
 
   React.useEffect(() => {
