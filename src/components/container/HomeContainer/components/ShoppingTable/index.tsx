@@ -10,6 +10,7 @@ import { maskMorney } from "../../../../../helpers/masks";
 import { addingResponsibleAmount } from "../../../../../helpers/addingResponsibleAmount";
 import { addingValues } from "../../../../../helpers/addingValues";
 import { InstitutionType, ShoppingType } from "../../types";
+import { removeBuy } from "../../../../../helpers/removeBuy";
 
 type PropsType = {
   shoppingList: ShoppingType[];
@@ -78,12 +79,30 @@ export const ShoppingTable = ({
     setNewBuy(initialNewBuy);
   };
 
+  const handleRemoveBuy = (institutionId: string, shoppingId: string) => {
+    setListTable(
+      listTable.map((institution) => {
+        if (institution.id === institutionId) {
+          return {
+            ...institution,
+            shoppings: removeBuy(institution.shoppings, shoppingId),
+          };
+        } else {
+          return institution;
+        }
+      })
+    );
+
+    console.log(listTable);
+  };
+
   React.useEffect(() => {
     setListTable(
       listTable.map((institution) => {
         return {
           ...institution,
           responsibleAmount: addingResponsibleAmount(institution),
+          amount: addingValues(institution.amount, newBuy.amount),
         };
       })
     );
@@ -137,7 +156,13 @@ export const ShoppingTable = ({
                 </td>
 
                 <td className="content-btn">
-                  <button>Remove</button>
+                  <button
+                    onClick={() => {
+                      handleRemoveBuy(institution.id, shopping.id);
+                    }}
+                  >
+                    Remove
+                  </button>
                 </td>
               </tr>
             ))}
