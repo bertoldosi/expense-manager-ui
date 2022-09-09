@@ -11,6 +11,7 @@ import { addingResponsibleAmount } from "../../../../../helpers/addingResponsibl
 import { addingValues } from "../../../../../helpers/addingValues";
 import { InstitutionType, ShoppingType } from "../../types";
 import { removeBuy } from "../../../../../helpers/removeBuy";
+import { subtractingValues } from "../../../../../helpers/subtractingValues";
 
 type PropsType = {
   shoppingList: ShoppingType[];
@@ -79,13 +80,16 @@ export const ShoppingTable = ({
     setNewBuy(initialNewBuy);
   };
 
-  const handleRemoveBuy = (institutionId: string, shoppingId: string) => {
+  const handleRemoveBuy = (institutionId: string, shopping: ShoppingType) => {
+    const shoppingId = shopping.id;
+
     setListTable(
       listTable.map((institution) => {
         if (institution.id === institutionId) {
           return {
             ...institution,
             shoppings: removeBuy(institution.shoppings, shoppingId),
+            amount: subtractingValues(institution.amount, shopping),
           };
         } else {
           return institution;
@@ -156,7 +160,7 @@ export const ShoppingTable = ({
                 <td className="content-btn">
                   <button
                     onClick={() => {
-                      handleRemoveBuy(institution.id, shopping.id);
+                      handleRemoveBuy(institution.id, shopping);
                     }}
                   >
                     Remove
