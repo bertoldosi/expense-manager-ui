@@ -19,6 +19,19 @@ export const SsubTable = styled.table`
       td {
         border: 1px solid #333;
         padding: 1rem;
+
+        &.content-btn {
+          text-align: center;
+
+          button {
+            margin-left: 0.4rem;
+            padding: 0.5rem;
+
+            &:focus {
+              background-color: transparent;
+            }
+          }
+        }
       }
     }
   }

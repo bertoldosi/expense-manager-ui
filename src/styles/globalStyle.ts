@@ -44,6 +44,10 @@ const GlobalStyle = createGlobalStyle`
             border-radius: .3px;
         }
     }
+
+    button{
+        cursor: pointer;    
+    }
 `;
 
 export default GlobalStyle;

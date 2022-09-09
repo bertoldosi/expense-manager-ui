@@ -21,9 +21,9 @@ type PropsType = {
 
 const initialNewBuy = {
   id: uuidv4(),
-  description: "VAZIO",
+  description: "",
   amount: "0",
-  responsible: "VAZIO",
+  responsible: "",
 };
 
 export const ShoppingTable = ({
@@ -48,11 +48,26 @@ export const ShoppingTable = ({
     setListTable(
       listTable.map((institution) => {
         if (institution.id === institutionId) {
+          const description = newBuy.description
+            ? newBuy.description
+            : "SEM/DESC";
+          const responsible = newBuy.responsible
+            ? newBuy.responsible
+            : "SEM/ATRIB";
+
           return {
             ...institution,
             responsibleAmount: addingResponsibleAmount(institution),
             amount: addingValues(institution.amount, newBuy.amount),
-            shoppings: [...institution.shoppings, { ...newBuy, id: uuidv4() }],
+            shoppings: [
+              ...institution.shoppings,
+              {
+                ...newBuy,
+                id: uuidv4(),
+                description: description,
+                responsible: responsible,
+              },
+            ],
           };
         } else {
           return institution;
@@ -83,6 +98,7 @@ export const ShoppingTable = ({
               <th>Descrição</th>
               <th>Total</th>
               <th>Responsável</th>
+              <th>#</th>
             </tr>
           </thead>
 
@@ -119,12 +135,17 @@ export const ShoppingTable = ({
                     }}
                   />
                 </td>
+
+                <td className="content-btn">
+                  <button>Remove</button>
+                </td>
               </tr>
             ))}
 
             <tr>
               <td>
                 <InputTable
+                  autofocus
                   name="description"
                   id={newBuy.id}
                   value={newBuy.description}
@@ -145,7 +166,7 @@ export const ShoppingTable = ({
                   }}
                 />
               </td>
-              <td>
+              <td colSpan={2}>
                 <InputTable
                   name="responsible"
                   id={newBuy.id}
@@ -159,7 +180,7 @@ export const ShoppingTable = ({
             </tr>
 
             <tr className="no-border">
-              <td colSpan={3}>
+              <td colSpan={4}>
                 <ContentAmount
                   responsibleList={institution.responsibleAmount}
                 />
@@ -167,7 +188,7 @@ export const ShoppingTable = ({
             </tr>
           </tbody>
           <tr className="no-border">
-            <td colSpan={3}>
+            <td colSpan={4}>
               <ScontentButton>
                 <Button
                   backgroundColor="#FFF"

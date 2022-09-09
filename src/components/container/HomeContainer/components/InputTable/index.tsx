@@ -9,6 +9,7 @@ type PropsTypes = {
   onKeyUp?: any;
   disabled?: boolean;
   type?: string;
+  autofocus?: boolean;
 };
 
 function InputTable({
@@ -19,6 +20,7 @@ function InputTable({
   disabled,
   onKeyUp,
   type,
+  autofocus,
 }: PropsTypes) {
   const handleOnKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const keycode = event.keyCode ? event.keyCode : event.which;
@@ -34,12 +36,13 @@ function InputTable({
 
   return (
     <Sinput
+      autoFocus={autofocus}
       name={name}
       id={id}
       value={isAmount ? `R$ ${value}` : value}
       placeholder={placeholder}
       onChange={onChange}
-      onKeyUp={handleOnKeyUp}
+      onKeyUp={onKeyUp && handleOnKeyUp}
       disabled={disabled}
       type={type}
     />
