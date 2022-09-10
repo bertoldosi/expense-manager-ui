@@ -41,7 +41,7 @@ function HomeContainer({ institutions }: PropsType) {
   const [inputInstitution, setInputInstitution] =
     React.useState<InstitutionType>(initialInputInstitution);
 
-  const handleInputInstitution = (
+  const onChangeInputInstitution = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const { name, value } = event.target;
@@ -52,7 +52,7 @@ function HomeContainer({ institutions }: PropsType) {
     }));
   };
 
-  const handlerIncludeNewInstitution = () => {
+  const includeNewInstitution = () => {
     const isFilled =
       inputInstitution.name != "" &&
       inputInstitution.amount != "" &&
@@ -77,7 +77,7 @@ function HomeContainer({ institutions }: PropsType) {
 
   return (
     <Scontainer>
-      <Header handlerIncludeNewInstitution={handlerIncludeNewInstitution} />
+      <Header includeNewInstitution={includeNewInstitution} />
       <Stable>
         <thead>
           <tr>
@@ -123,8 +123,8 @@ function HomeContainer({ institutions }: PropsType) {
                 name="name"
                 id={inputInstitution.id}
                 value={inputInstitution.name}
-                onChange={handleInputInstitution}
-                onKeyUp={handlerIncludeNewInstitution}
+                onChange={onChangeInputInstitution}
+                onKeyUp={includeNewInstitution}
               />
             </td>
             <td>
@@ -132,8 +132,8 @@ function HomeContainer({ institutions }: PropsType) {
                 name="amount"
                 id={inputInstitution.id}
                 value={inputInstitution.amount}
-                onChange={handleInputInstitution}
-                onKeyUp={handlerIncludeNewInstitution}
+                onChange={onChangeInputInstitution}
+                onKeyUp={includeNewInstitution}
                 disabled
               />
             </td>
@@ -142,8 +142,8 @@ function HomeContainer({ institutions }: PropsType) {
                 name="expirationDate"
                 id={inputInstitution.id}
                 value={inputInstitution.expirationDate}
-                onChange={handleInputInstitution}
-                onKeyUp={handlerIncludeNewInstitution}
+                onChange={onChangeInputInstitution}
+                onKeyUp={includeNewInstitution}
                 type="date"
               />
             </td>

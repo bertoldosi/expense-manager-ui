@@ -3,16 +3,16 @@ import { Button } from "../../../../common/Button";
 import { Scontent } from "./styles";
 
 type PropsType = {
-  handlerIncludeNewInstitution: React.MouseEventHandler<HTMLButtonElement>;
+  includeNewInstitution: React.MouseEventHandler<HTMLButtonElement>;
 };
 
-function Header({ handlerIncludeNewInstitution }: PropsType) {
+function Header({ includeNewInstitution }: PropsType) {
   return (
     <Scontent>
       <Button
         backgroundColor="#FFF"
         color="#333"
-        onClick={handlerIncludeNewInstitution}
+        onClick={includeNewInstitution}
       >
         Adicionar
       </Button>
