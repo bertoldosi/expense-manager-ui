@@ -33,7 +33,6 @@ function HomeContainer({ institutions }: PropsType) {
     institutionList,
     setInstitutionList,
     handlerShoppingsExpanded,
-    handlerInputChange,
     responsibleTotalAmountList,
     setResponsibleTotalAmountList,
   } = useTable(institutions);
@@ -108,7 +107,6 @@ function HomeContainer({ institutions }: PropsType) {
                   <ShoppingTable
                     shoppingList={institution.shoppings}
                     institution={institution}
-                    handlerInputChange={handlerInputChange}
                     institutionList={institutionList}
                     setInstitutionList={setInstitutionList}
                   />

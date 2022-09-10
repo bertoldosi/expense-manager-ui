@@ -16,7 +16,6 @@ import { subtractingValues } from "../../../../../helpers/subtractingValues";
 type PropsType = {
   shoppingList: ShoppingType[];
   institution: InstitutionType;
-  handlerInputChange: Function;
   institutionList: InstitutionType[];
   setInstitutionList: React.Dispatch<React.SetStateAction<InstitutionType[]>>;
 };
@@ -31,19 +30,48 @@ const initialNewBuy = {
 export const ShoppingTable = ({
   shoppingList,
   institution,
-  handlerInputChange,
   institutionList,
   setInstitutionList,
 }: PropsType) => {
   const [newBuy, setNewBuy] = React.useState<ShoppingType>(initialNewBuy);
 
-  const onChangeInputNewBuy = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeInputAddBuy = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
     setNewBuy((prevState) => ({
       ...prevState,
       [name]: maskMorney(value, name),
     }));
+  };
+
+  const onChangeInputUpdateBuy = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    institutionId: string
+  ) => {
+    const { id, value, name } = event.target;
+
+    setInstitutionList(
+      institutionList.map((institution) => {
+        if (institution.id === institutionId) {
+          return {
+            ...institution,
+            listResponsibleValues: addingResponsibleAmount(institution),
+            shoppings: institution.shoppings.map((shopping) => {
+              if (shopping.id === id) {
+                return {
+                  ...shopping,
+                  [name]: maskMorney(value, name),
+                };
+              } else {
+                return shopping;
+              }
+            }),
+          };
+        } else {
+          return institution;
+        }
+      })
+    );
   };
 
   const includeNewBuy = (institutionId: string) => {
@@ -108,6 +136,8 @@ export const ShoppingTable = ({
         };
       })
     );
+
+    console.log(institutionList);
   }, [shoppingList]);
 
   return (
@@ -132,7 +162,7 @@ export const ShoppingTable = ({
                     id={shopping.id}
                     value={shopping.description}
                     onChange={(event) => {
-                      handlerInputChange(event, institution.id);
+                      onChangeInputUpdateBuy(event, institution.id);
                     }}
                   />
                 </td>
@@ -142,7 +172,7 @@ export const ShoppingTable = ({
                     id={shopping.id}
                     value={shopping.amount}
                     onChange={(event) => {
-                      handlerInputChange(event, institution.id);
+                      onChangeInputUpdateBuy(event, institution.id);
                     }}
                   />
                 </td>
@@ -152,7 +182,7 @@ export const ShoppingTable = ({
                     id={shopping.id}
                     value={shopping.responsible}
                     onChange={(event) => {
-                      handlerInputChange(event, institution.id);
+                      onChangeInputUpdateBuy(event, institution.id);
                     }}
                   />
                 </td>
@@ -176,7 +206,7 @@ export const ShoppingTable = ({
                   name="description"
                   id={newBuy.id}
                   value={newBuy.description}
-                  onChange={onChangeInputNewBuy}
+                  onChange={onChangeInputAddBuy}
                   onKeyUp={() => {
                     includeNewBuy(institution.id);
                   }}
@@ -187,7 +217,7 @@ export const ShoppingTable = ({
                   name="amount"
                   id={newBuy.id}
                   value={newBuy.amount}
-                  onChange={onChangeInputNewBuy}
+                  onChange={onChangeInputAddBuy}
                   onKeyUp={() => {
                     includeNewBuy(institution.id);
                   }}
@@ -198,7 +228,7 @@ export const ShoppingTable = ({
                   name="responsible"
                   id={newBuy.id}
                   value={newBuy.responsible}
-                  onChange={onChangeInputNewBuy}
+                  onChange={onChangeInputAddBuy}
                   onKeyUp={() => {
                     includeNewBuy(institution.id);
                   }}

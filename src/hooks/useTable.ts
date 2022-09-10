@@ -3,7 +3,6 @@ import React from "react";
 import { addingAmountShoppings } from "../helpers/addingAmountShoppings";
 import { addingResponsibleAmount } from "../helpers/addingResponsibleAmount";
 import { addingResponsibleTotalAmount } from "../helpers/addingResponsibleTotalAmount";
-import { maskMorney } from "../helpers/masks";
 
 import {
   InstitutionType,
@@ -41,41 +40,10 @@ const useTable = (InstitutionList: InstitutionType[]) => {
     );
   };
 
-  const handlerInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    institutionId: string
-  ) => {
-    const { id, value, name } = event.target;
-
-    setInstitutionList(
-      institutionList.map((institution) => {
-        if (institution.id === institutionId) {
-          return {
-            ...institution,
-            listResponsibleValues: addingResponsibleAmount(institution),
-            shoppings: institution.shoppings.map((shopping) => {
-              if (shopping.id === id) {
-                return {
-                  ...shopping,
-                  [name]: maskMorney(value, name),
-                };
-              } else {
-                return shopping;
-              }
-            }),
-          };
-        } else {
-          return institution;
-        }
-      })
-    );
-  };
-
   return {
     institutionList,
     setInstitutionList,
     handlerShoppingsExpanded,
-    handlerInputChange,
     responsibleTotalAmountList,
     setResponsibleTotalAmountList,
   };
