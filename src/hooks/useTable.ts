@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   InstitutionType,
-  ResponsibleAmountType,
+  ResponsibleValuesType,
 } from "../components/container/HomeContainer/types";
 import { addingAmountShoppings } from "../helpers/addingAmountShoppings";
 import { addingResponsibleAmount } from "../helpers/addingResponsibleAmount";
@@ -13,7 +13,7 @@ const useTable = (InstitutionList: InstitutionType[]) => {
     InstitutionList.map((institution) => {
       return {
         ...institution,
-        responsibleAmount: addingResponsibleAmount(institution),
+        listResponsibleValues: addingResponsibleAmount(institution),
         amount: addingAmountShoppings(institution.shoppings),
         showSubmenus: false,
       };
@@ -21,7 +21,7 @@ const useTable = (InstitutionList: InstitutionType[]) => {
   );
 
   const [responsibleTotalAmountList, setResponsibleTotalAmountList] = useState<
-    ResponsibleAmountType[]
+    ResponsibleValuesType[]
   >(addingResponsibleTotalAmount(institutionList));
 
   const submenusExpanded = (itemId: string) => {
@@ -47,7 +47,7 @@ const useTable = (InstitutionList: InstitutionType[]) => {
         if (institution.id === institutionId) {
           return {
             ...institution,
-            responsibleAmount: addingResponsibleAmount(institution),
+            listResponsibleValues: addingResponsibleAmount(institution),
             shoppings: institution.shoppings.map((shopping) => {
               if (shopping.id === id) {
                 return {

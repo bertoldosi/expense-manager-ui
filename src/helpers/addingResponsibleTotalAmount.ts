@@ -8,7 +8,7 @@ export const addingResponsibleTotalAmount = (
 ) => {
   const responsibleAmountList = Array();
   institutions.map((institution) => {
-    institution.responsibleAmount.map((responsible) => {
+    institution.listResponsibleValues.map((responsible) => {
       responsibleAmountList.push(responsible);
     });
   });

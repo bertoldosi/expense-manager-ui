@@ -23,7 +23,7 @@ const initialInputInstitution = {
   id: uuidv4(),
   name: "",
   amount: "0,00",
-  responsibleAmount: [],
+  listResponsibleValues: [],
   expirationDate: "",
   shoppings: [],
 };
@@ -151,7 +151,7 @@ function HomeContainer({ institutions }: PropsType) {
         </tbody>
       </Stable>
 
-      <ContentAmount responsibleList={responsibleTotalAmountList} />
+      <ContentAmount listResponsibleValues={responsibleTotalAmountList} />
     </Scontainer>
   );
 }

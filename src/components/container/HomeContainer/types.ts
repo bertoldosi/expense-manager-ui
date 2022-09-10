@@ -5,7 +5,7 @@ export type ShoppingType = {
   responsible: string;
 };
 
-export type ResponsibleAmountType = {
+export type ResponsibleValuesType = {
   responsible: string;
   amount: string | number;
 };
@@ -14,7 +14,7 @@ export type InstitutionType = {
   id: string;
   name: string;
   amount: string | number;
-  responsibleAmount: ResponsibleAmountType[];
+  listResponsibleValues: ResponsibleValuesType[];
   expirationDate: string;
   shoppings: ShoppingType[];
   showSubmenus?: boolean;

@@ -1,6 +1,6 @@
 import {
   InstitutionType,
-  ResponsibleAmountType,
+  ResponsibleValuesType,
   ShoppingType,
 } from "../components/container/HomeContainer/types";
 
@@ -15,7 +15,7 @@ export const addingResponsibleAmount = (institution: InstitutionType) => {
       let responsible = newCurrentValue.responsible;
 
       let repeated = previousValue.find(
-        (elem: ResponsibleAmountType) => elem.responsible === responsible
+        (elem: ResponsibleValuesType) => elem.responsible === responsible
       );
 
       if (repeated) {

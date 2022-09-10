@@ -1,12 +1,12 @@
 import React from "react";
-import { ResponsibleAmountType } from "../../types";
+import { ResponsibleValuesType } from "../../types";
 import { Stotal } from "./styles";
 
 type PropsType = {
-  responsibleList: ResponsibleAmountType[];
+  listResponsibleValues: ResponsibleValuesType[];
 };
 
-function ContentAmount({ responsibleList }: PropsType) {
+function ContentAmount({ listResponsibleValues }: PropsType) {
   return (
     <Stotal>
       <thead>
@@ -17,7 +17,7 @@ function ContentAmount({ responsibleList }: PropsType) {
       </thead>
 
       <tbody>
-        {responsibleList.map((responsible, index) => (
+        {listResponsibleValues.map((responsible, index) => (
           <tr key={index}>
             <td>{responsible.responsible}</td>
             <td>{responsible.amount}</td>

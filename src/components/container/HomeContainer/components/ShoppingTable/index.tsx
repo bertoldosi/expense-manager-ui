@@ -59,7 +59,7 @@ export const ShoppingTable = ({
 
           return {
             ...institution,
-            responsibleAmount: addingResponsibleAmount(institution),
+            listResponsibleValues: addingResponsibleAmount(institution),
             amount: addingValues(institution.amount, newBuy.amount),
             shoppings: [
               ...institution.shoppings,
@@ -103,7 +103,7 @@ export const ShoppingTable = ({
       institutionList.map((institution) => {
         return {
           ...institution,
-          responsibleAmount: addingResponsibleAmount(institution),
+          listResponsibleValues: addingResponsibleAmount(institution),
           amount: addingValues(institution.amount, newBuy.amount),
         };
       })
@@ -209,7 +209,7 @@ export const ShoppingTable = ({
             <tr className="no-border">
               <td colSpan={4}>
                 <ContentAmount
-                  responsibleList={institution.responsibleAmount}
+                  listResponsibleValues={institution.listResponsibleValues}
                 />
               </td>
             </tr>

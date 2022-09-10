@@ -12,7 +12,7 @@ type ShoppingType = {
   responsible: string;
 };
 
-type ResponsibleAmountType = {
+type ResponsibleValuesType = {
   name: string;
   amount: string | number;
 };
@@ -21,7 +21,7 @@ type InstitutionType = {
   id: string;
   name: string;
   amount: string | number;
-  responsibleAmount: ResponsibleAmountType[];
+  responsibleAmount: ResponsibleValuesType[];
   expirationDate: string;
   shoppings: ShoppingType[];
 };
