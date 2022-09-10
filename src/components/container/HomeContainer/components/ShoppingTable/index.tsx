@@ -136,8 +136,6 @@ export const ShoppingTable = ({
         };
       })
     );
-
-    console.log(institutionList);
   }, [shoppingList]);
 
   return (
