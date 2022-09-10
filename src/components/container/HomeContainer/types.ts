@@ -17,5 +17,5 @@ export type InstitutionType = {
   listResponsibleValues: ResponsibleValuesType[];
   expirationDate: string;
   shoppings: ShoppingType[];
-  showSubmenus?: boolean;
+  isShowShoppings?: boolean;
 };

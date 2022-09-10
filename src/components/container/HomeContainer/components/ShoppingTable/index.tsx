@@ -16,7 +16,7 @@ import { subtractingValues } from "../../../../../helpers/subtractingValues";
 type PropsType = {
   shoppingList: ShoppingType[];
   institution: InstitutionType;
-  handleInputChange: Function;
+  handlerInputChange: Function;
   institutionList: InstitutionType[];
   setInstitutionList: React.Dispatch<React.SetStateAction<InstitutionType[]>>;
 };
@@ -31,7 +31,7 @@ const initialNewBuy = {
 export const ShoppingTable = ({
   shoppingList,
   institution,
-  handleInputChange,
+  handlerInputChange,
   institutionList,
   setInstitutionList,
 }: PropsType) => {
@@ -132,7 +132,7 @@ export const ShoppingTable = ({
                     id={shopping.id}
                     value={shopping.description}
                     onChange={(event) => {
-                      handleInputChange(event, institution.id);
+                      handlerInputChange(event, institution.id);
                     }}
                   />
                 </td>
@@ -142,7 +142,7 @@ export const ShoppingTable = ({
                     id={shopping.id}
                     value={shopping.amount}
                     onChange={(event) => {
-                      handleInputChange(event, institution.id);
+                      handlerInputChange(event, institution.id);
                     }}
                   />
                 </td>
@@ -152,7 +152,7 @@ export const ShoppingTable = ({
                     id={shopping.id}
                     value={shopping.responsible}
                     onChange={(event) => {
-                      handleInputChange(event, institution.id);
+                      handlerInputChange(event, institution.id);
                     }}
                   />
                 </td>

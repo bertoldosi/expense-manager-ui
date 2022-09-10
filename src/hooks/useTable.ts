@@ -1,34 +1,39 @@
-import React, { useEffect, useState } from "react";
-import {
-  InstitutionType,
-  ResponsibleValuesType,
-} from "../components/container/HomeContainer/types";
+import React from "react";
+
 import { addingAmountShoppings } from "../helpers/addingAmountShoppings";
 import { addingResponsibleAmount } from "../helpers/addingResponsibleAmount";
 import { addingResponsibleTotalAmount } from "../helpers/addingResponsibleTotalAmount";
 import { maskMorney } from "../helpers/masks";
 
+import {
+  InstitutionType,
+  ResponsibleValuesType,
+} from "../components/container/HomeContainer/types";
+
 const useTable = (InstitutionList: InstitutionType[]) => {
-  const [institutionList, setInstitutionList] = useState<InstitutionType[]>(
+  const [institutionList, setInstitutionList] = React.useState<
+    InstitutionType[]
+  >(
     InstitutionList.map((institution) => {
       return {
         ...institution,
         listResponsibleValues: addingResponsibleAmount(institution),
         amount: addingAmountShoppings(institution.shoppings),
-        showSubmenus: false,
+        isShowShoppings: false,
       };
     })
   );
 
-  const [responsibleTotalAmountList, setResponsibleTotalAmountList] = useState<
-    ResponsibleValuesType[]
-  >(addingResponsibleTotalAmount(institutionList));
+  const [responsibleTotalAmountList, setResponsibleTotalAmountList] =
+    React.useState<ResponsibleValuesType[]>(
+      addingResponsibleTotalAmount(institutionList)
+    );
 
-  const submenusExpanded = (itemId: string) => {
+  const handlerShoppingsExpanded = (itemId: string) => {
     setInstitutionList(
       institutionList.map((item) => {
         if (itemId === item.id) {
-          return { ...item, showSubmenus: !item.showSubmenus };
+          return { ...item, isShowShoppings: !item.isShowShoppings };
         } else {
           return item;
         }
@@ -36,7 +41,7 @@ const useTable = (InstitutionList: InstitutionType[]) => {
     );
   };
 
-  const handleInputChange = (
+  const handlerInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     institutionId: string
   ) => {
@@ -69,8 +74,8 @@ const useTable = (InstitutionList: InstitutionType[]) => {
   return {
     institutionList,
     setInstitutionList,
-    submenusExpanded,
-    handleInputChange,
+    handlerShoppingsExpanded,
+    handlerInputChange,
     responsibleTotalAmountList,
     setResponsibleTotalAmountList,
   };

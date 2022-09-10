@@ -32,8 +32,8 @@ function HomeContainer({ institutions }: PropsType) {
   const {
     institutionList,
     setInstitutionList,
-    submenusExpanded,
-    handleInputChange,
+    handlerShoppingsExpanded,
+    handlerInputChange,
     responsibleTotalAmountList,
     setResponsibleTotalAmountList,
   } = useTable(institutions);
@@ -94,7 +94,7 @@ function HomeContainer({ institutions }: PropsType) {
                 <tr
                   key={key}
                   onClick={() => {
-                    submenusExpanded(institution.id);
+                    handlerShoppingsExpanded(institution.id);
                   }}
                 >
                   <td>
@@ -104,11 +104,11 @@ function HomeContainer({ institutions }: PropsType) {
                   <td>{institution.expirationDate}</td>
                 </tr>
 
-                {institution.showSubmenus && (
+                {institution.isShowShoppings && (
                   <ShoppingTable
                     shoppingList={institution.shoppings}
                     institution={institution}
-                    handleInputChange={handleInputChange}
+                    handlerInputChange={handlerInputChange}
                     institutionList={institutionList}
                     setInstitutionList={setInstitutionList}
                   />

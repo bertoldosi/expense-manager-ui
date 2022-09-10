@@ -11,7 +11,7 @@ type PropsType = {
 };
 
 function IconTable({ item }: PropsType) {
-  return item.showSubmenus ? (
+  return item.isShowShoppings ? (
     <Scontent>
       <BsChevronUp /> {item.name}
     </Scontent>
