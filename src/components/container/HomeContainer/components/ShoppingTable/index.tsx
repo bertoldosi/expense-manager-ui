@@ -9,9 +9,14 @@ import { Button } from "../../../../common/Button";
 import { maskMorney } from "../../../../../helpers/masks";
 import { addingResponsibleAmount } from "../../../../../helpers/addingResponsibleAmount";
 import { addingValues } from "../../../../../helpers/addingValues";
-import { InstitutionType, ShoppingType } from "../../types";
+import {
+  InstitutionType,
+  ResponsibleAmountType,
+  ShoppingType,
+} from "../../types";
 import { removeBuy } from "../../../../../helpers/removeBuy";
 import { subtractingValues } from "../../../../../helpers/subtractingValues";
+import { addingResponsibleTotalAmount } from "../../../../../helpers/addingResponsibleTotalAmount";
 
 type PropsType = {
   shoppingList: ShoppingType[];

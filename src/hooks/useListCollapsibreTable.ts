@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { InstitutionType } from "../components/container/HomeContainer/types";
+import {
+  InstitutionType,
+  ResponsibleAmountType,
+} from "../components/container/HomeContainer/types";
 import { addingAmountShoppings } from "../helpers/addingAmountShoppings";
 import { addingResponsibleAmount } from "../helpers/addingResponsibleAmount";
+import { addingResponsibleTotalAmount } from "../helpers/addingResponsibleTotalAmount";
 import { maskMorney } from "../helpers/masks";
 
 const useListCollapsibreTable = (InstitutionList: InstitutionType[]) => {
@@ -15,6 +19,10 @@ const useListCollapsibreTable = (InstitutionList: InstitutionType[]) => {
       };
     })
   );
+
+  const [responsibleTotalAmountList, setResponsibleTotalAmountList] = useState<
+    ResponsibleAmountType[]
+  >(addingResponsibleTotalAmount(listTable));
 
   const submenusExpanded = (itemId: string) => {
     setListTable(
@@ -67,6 +75,8 @@ const useListCollapsibreTable = (InstitutionList: InstitutionType[]) => {
     setListTable,
     submenusExpanded,
     handleInputChange,
+    responsibleTotalAmountList,
+    setResponsibleTotalAmountList,
   };
 };
 

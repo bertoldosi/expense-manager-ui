@@ -13,6 +13,7 @@ import { ShoppingTable } from "./components/ShoppingTable";
 import { formatMorney } from "../../../helpers/formatMorney";
 import { maskDate } from "../../../helpers/masks";
 import { InstitutionType } from "./types";
+import { addingResponsibleTotalAmount } from "../../../helpers/addingResponsibleTotalAmount";
 
 type PropsType = {
   institutions: InstitutionType[];
@@ -28,8 +29,14 @@ const initialInputInstitution = {
 };
 
 function HomeContainer({ institutions }: PropsType) {
-  const { listTable, setListTable, submenusExpanded, handleInputChange } =
-    useListCollapsibreTable(institutions);
+  const {
+    listTable,
+    setListTable,
+    submenusExpanded,
+    handleInputChange,
+    responsibleTotalAmountList,
+    setResponsibleTotalAmountList,
+  } = useListCollapsibreTable(institutions);
 
   const [inputInstitution, setInputInstitution] =
     React.useState<InstitutionType>(initialInputInstitution);
@@ -61,6 +68,10 @@ function HomeContainer({ institutions }: PropsType) {
       alert("Precisa preencher todos os campos");
     }
   };
+
+  React.useEffect(() => {
+    setResponsibleTotalAmountList(addingResponsibleTotalAmount(listTable));
+  }, [listTable]);
 
   return (
     <Scontainer>
@@ -138,7 +149,7 @@ function HomeContainer({ institutions }: PropsType) {
         </tbody>
       </Stable>
 
-      <ContentAmount responsibleList={[]} />
+      <ContentAmount responsibleList={responsibleTotalAmountList} />
     </Scontainer>
   );
 }
