@@ -12,6 +12,7 @@ import { addingValues } from "../../../../../helpers/addingValues";
 import { InstitutionType, ShoppingType } from "../../types";
 import { removingBuy } from "../../../../../helpers/removingBuy";
 import { subtractingValues } from "../../../../../helpers/subtractingValues";
+import { addingAmountShoppings } from "../../../../../helpers/addingAmountShoppings";
 
 type PropsType = {
   shoppingList: ShoppingType[];
@@ -132,7 +133,7 @@ export const ShoppingTable = ({
         return {
           ...institution,
           listResponsibleValues: addingResponsibleAmount(institution),
-          amount: addingValues(institution.amount, newBuy.amount),
+          amount: addingAmountShoppings(institution.shoppings),
         };
       })
     );
