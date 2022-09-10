@@ -4,33 +4,13 @@ import { gql } from "@apollo/client";
 
 import { client } from "../services/ApolloClient";
 import HomeContainer from "../components/container/HomeContainer";
+import { InstitutionType } from "../components/container/HomeContainer/types";
 
-type ShoppingType = {
-  id: string;
-  description: string;
-  amount: string | number;
-  responsible: string;
-};
-
-type ResponsibleValuesType = {
-  name: string;
-  amount: string | number;
-};
-
-type InstitutionType = {
-  id: string;
-  name: string;
-  amount: string | number;
-  responsibleAmount: ResponsibleValuesType[];
-  expirationDate: string;
-  shoppings: ShoppingType[];
-};
-
-type Props = {
+type PropsType = {
   institutions: InstitutionType[];
 };
 
-const Home = ({ institutions }: Props) => {
+const Home = ({ institutions }: PropsType) => {
   return (
     <>
       <Head>
