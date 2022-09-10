@@ -31,7 +31,6 @@ function InputTable({
   };
 
   const isAmount = name === "amount";
-
   const placeholder = isAmount ? "R$ 0,00" : "Digite um valor";
 
   return (

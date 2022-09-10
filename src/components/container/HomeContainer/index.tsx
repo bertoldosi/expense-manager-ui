@@ -8,7 +8,7 @@ import useTable from "../../../hooks/useTable";
 import Header from "./components/Header";
 import IconTable from "./components/IconTable";
 import InputTable from "./components/InputTable";
-import ContentAmount from "./components/ContentAmount";
+import TableTotalAmount from "./components/TableTotalAmount";
 import { ShoppingTable } from "./components/ShoppingTable";
 import { formatMorney } from "../../../helpers/formatMorney";
 import { maskDate } from "../../../helpers/masks";
@@ -151,7 +151,7 @@ function HomeContainer({ institutions }: PropsType) {
         </tbody>
       </Stable>
 
-      <ContentAmount listResponsibleValues={responsibleTotalAmountList} />
+      <TableTotalAmount listResponsibleValues={responsibleTotalAmountList} />
     </Scontainer>
   );
 }

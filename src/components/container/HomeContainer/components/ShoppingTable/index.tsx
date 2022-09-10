@@ -4,13 +4,13 @@ import { v4 as uuidv4 } from "uuid";
 import { SsubTable, ScontentButton } from "./styles";
 
 import InputTable from "../InputTable";
-import ContentAmount from "../ContentAmount";
+import TableTotalAmount from "../TableTotalAmount";
 import { Button } from "../../../../common/Button";
 import { maskMorney } from "../../../../../helpers/masks";
 import { addingResponsibleAmount } from "../../../../../helpers/addingResponsibleAmount";
 import { addingValues } from "../../../../../helpers/addingValues";
 import { InstitutionType, ShoppingType } from "../../types";
-import { removeBuy } from "../../../../../helpers/removeBuy";
+import { removingBuy } from "../../../../../helpers/removingBuy";
 import { subtractingValues } from "../../../../../helpers/subtractingValues";
 
 type PropsType = {
@@ -37,7 +37,7 @@ export const ShoppingTable = ({
 }: PropsType) => {
   const [newBuy, setNewBuy] = React.useState<ShoppingType>(initialNewBuy);
 
-  const handleInputNewBuy = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeInputNewBuy = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
     setNewBuy((prevState) => ({
@@ -46,7 +46,7 @@ export const ShoppingTable = ({
     }));
   };
 
-  const handleIncludeNewBuy = (institutionId: string) => {
+  const includeNewBuy = (institutionId: string) => {
     setInstitutionList(
       institutionList.map((institution) => {
         if (institution.id === institutionId) {
@@ -80,7 +80,7 @@ export const ShoppingTable = ({
     setNewBuy(initialNewBuy);
   };
 
-  const handleRemoveBuy = (institutionId: string, shopping: ShoppingType) => {
+  const removeBuy = (institutionId: string, shopping: ShoppingType) => {
     const shoppingId = shopping.id;
 
     setInstitutionList(
@@ -88,7 +88,7 @@ export const ShoppingTable = ({
         if (institution.id === institutionId) {
           return {
             ...institution,
-            shoppings: removeBuy(institution.shoppings, shoppingId),
+            shoppings: removingBuy(institution.shoppings, shoppingId),
             amount: subtractingValues(institution.amount, shopping),
           };
         } else {
@@ -160,7 +160,7 @@ export const ShoppingTable = ({
                 <td className="content-btn">
                   <button
                     onClick={() => {
-                      handleRemoveBuy(institution.id, shopping);
+                      removeBuy(institution.id, shopping);
                     }}
                   >
                     Remove
@@ -176,9 +176,9 @@ export const ShoppingTable = ({
                   name="description"
                   id={newBuy.id}
                   value={newBuy.description}
-                  onChange={handleInputNewBuy}
+                  onChange={onChangeInputNewBuy}
                   onKeyUp={() => {
-                    handleIncludeNewBuy(institution.id);
+                    includeNewBuy(institution.id);
                   }}
                 />
               </td>
@@ -187,9 +187,9 @@ export const ShoppingTable = ({
                   name="amount"
                   id={newBuy.id}
                   value={newBuy.amount}
-                  onChange={handleInputNewBuy}
+                  onChange={onChangeInputNewBuy}
                   onKeyUp={() => {
-                    handleIncludeNewBuy(institution.id);
+                    includeNewBuy(institution.id);
                   }}
                 />
               </td>
@@ -198,9 +198,9 @@ export const ShoppingTable = ({
                   name="responsible"
                   id={newBuy.id}
                   value={newBuy.responsible}
-                  onChange={handleInputNewBuy}
+                  onChange={onChangeInputNewBuy}
                   onKeyUp={() => {
-                    handleIncludeNewBuy(institution.id);
+                    includeNewBuy(institution.id);
                   }}
                 />
               </td>
@@ -208,7 +208,7 @@ export const ShoppingTable = ({
 
             <tr className="no-border">
               <td colSpan={4}>
-                <ContentAmount
+                <TableTotalAmount
                   listResponsibleValues={institution.listResponsibleValues}
                 />
               </td>
@@ -221,7 +221,7 @@ export const ShoppingTable = ({
                   backgroundColor="#FFF"
                   color="#333"
                   onClick={() => {
-                    handleIncludeNewBuy(institution.id);
+                    includeNewBuy(institution.id);
                   }}
                 >
                   Salvar

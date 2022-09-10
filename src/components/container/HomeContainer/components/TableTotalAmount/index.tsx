@@ -6,7 +6,7 @@ type PropsType = {
   listResponsibleValues: ResponsibleValuesType[];
 };
 
-function ContentAmount({ listResponsibleValues }: PropsType) {
+function TableTotalAmount({ listResponsibleValues }: PropsType) {
   return (
     <Stotal>
       <thead>
@@ -28,4 +28,4 @@ function ContentAmount({ listResponsibleValues }: PropsType) {
   );
 }
 
-export default ContentAmount;
+export default TableTotalAmount;
