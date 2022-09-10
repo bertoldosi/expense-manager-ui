@@ -9,21 +9,16 @@ import { Button } from "../../../../common/Button";
 import { maskMorney } from "../../../../../helpers/masks";
 import { addingResponsibleAmount } from "../../../../../helpers/addingResponsibleAmount";
 import { addingValues } from "../../../../../helpers/addingValues";
-import {
-  InstitutionType,
-  ResponsibleAmountType,
-  ShoppingType,
-} from "../../types";
+import { InstitutionType, ShoppingType } from "../../types";
 import { removeBuy } from "../../../../../helpers/removeBuy";
 import { subtractingValues } from "../../../../../helpers/subtractingValues";
-import { addingResponsibleTotalAmount } from "../../../../../helpers/addingResponsibleTotalAmount";
 
 type PropsType = {
   shoppingList: ShoppingType[];
   institution: InstitutionType;
   handleInputChange: Function;
-  listTable: InstitutionType[];
-  setListTable: React.Dispatch<React.SetStateAction<InstitutionType[]>>;
+  institutionList: InstitutionType[];
+  setInstitutionList: React.Dispatch<React.SetStateAction<InstitutionType[]>>;
 };
 
 const initialNewBuy = {
@@ -37,8 +32,8 @@ export const ShoppingTable = ({
   shoppingList,
   institution,
   handleInputChange,
-  listTable,
-  setListTable,
+  institutionList,
+  setInstitutionList,
 }: PropsType) => {
   const [newBuy, setNewBuy] = React.useState<ShoppingType>(initialNewBuy);
 
@@ -52,8 +47,8 @@ export const ShoppingTable = ({
   };
 
   const handleIncludeNewBuy = (institutionId: string) => {
-    setListTable(
-      listTable.map((institution) => {
+    setInstitutionList(
+      institutionList.map((institution) => {
         if (institution.id === institutionId) {
           const description = newBuy.description
             ? newBuy.description
@@ -88,8 +83,8 @@ export const ShoppingTable = ({
   const handleRemoveBuy = (institutionId: string, shopping: ShoppingType) => {
     const shoppingId = shopping.id;
 
-    setListTable(
-      listTable.map((institution) => {
+    setInstitutionList(
+      institutionList.map((institution) => {
         if (institution.id === institutionId) {
           return {
             ...institution,
@@ -104,8 +99,8 @@ export const ShoppingTable = ({
   };
 
   React.useEffect(() => {
-    setListTable(
-      listTable.map((institution) => {
+    setInstitutionList(
+      institutionList.map((institution) => {
         return {
           ...institution,
           responsibleAmount: addingResponsibleAmount(institution),

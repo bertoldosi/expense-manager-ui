@@ -8,8 +8,8 @@ import { addingResponsibleAmount } from "../helpers/addingResponsibleAmount";
 import { addingResponsibleTotalAmount } from "../helpers/addingResponsibleTotalAmount";
 import { maskMorney } from "../helpers/masks";
 
-const useListCollapsibreTable = (InstitutionList: InstitutionType[]) => {
-  const [listTable, setListTable] = useState<InstitutionType[]>(
+const useTable = (InstitutionList: InstitutionType[]) => {
+  const [institutionList, setInstitutionList] = useState<InstitutionType[]>(
     InstitutionList.map((institution) => {
       return {
         ...institution,
@@ -22,11 +22,11 @@ const useListCollapsibreTable = (InstitutionList: InstitutionType[]) => {
 
   const [responsibleTotalAmountList, setResponsibleTotalAmountList] = useState<
     ResponsibleAmountType[]
-  >(addingResponsibleTotalAmount(listTable));
+  >(addingResponsibleTotalAmount(institutionList));
 
   const submenusExpanded = (itemId: string) => {
-    setListTable(
-      listTable.map((item) => {
+    setInstitutionList(
+      institutionList.map((item) => {
         if (itemId === item.id) {
           return { ...item, showSubmenus: !item.showSubmenus };
         } else {
@@ -42,8 +42,8 @@ const useListCollapsibreTable = (InstitutionList: InstitutionType[]) => {
   ) => {
     const { id, value, name } = event.target;
 
-    setListTable(
-      listTable.map((institution) => {
+    setInstitutionList(
+      institutionList.map((institution) => {
         if (institution.id === institutionId) {
           return {
             ...institution,
@@ -66,13 +66,9 @@ const useListCollapsibreTable = (InstitutionList: InstitutionType[]) => {
     );
   };
 
-  // useEffect(() => {
-  //   console.log(listTable);
-  // }, [listTable]);
-
   return {
-    listTable,
-    setListTable,
+    institutionList,
+    setInstitutionList,
     submenusExpanded,
     handleInputChange,
     responsibleTotalAmountList,
@@ -80,4 +76,4 @@ const useListCollapsibreTable = (InstitutionList: InstitutionType[]) => {
   };
 };
 
-export default useListCollapsibreTable;
+export default useTable;

@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { Scontainer, Stable } from "./styles";
 
-import useListCollapsibreTable from "../../../hooks/useListCollapsibreTable";
+import useTable from "../../../hooks/useTable";
 
 import Header from "./components/Header";
 import IconTable from "./components/IconTable";
@@ -30,13 +30,13 @@ const initialInputInstitution = {
 
 function HomeContainer({ institutions }: PropsType) {
   const {
-    listTable,
-    setListTable,
+    institutionList,
+    setInstitutionList,
     submenusExpanded,
     handleInputChange,
     responsibleTotalAmountList,
     setResponsibleTotalAmountList,
-  } = useListCollapsibreTable(institutions);
+  } = useTable(institutions);
 
   const [inputInstitution, setInputInstitution] =
     React.useState<InstitutionType>(initialInputInstitution);
@@ -59,7 +59,7 @@ function HomeContainer({ institutions }: PropsType) {
       inputInstitution.expirationDate != "";
 
     if (isFilled) {
-      setListTable((prevState) => {
+      setInstitutionList((prevState) => {
         return [...prevState, inputInstitution];
       });
 
@@ -70,8 +70,10 @@ function HomeContainer({ institutions }: PropsType) {
   };
 
   React.useEffect(() => {
-    setResponsibleTotalAmountList(addingResponsibleTotalAmount(listTable));
-  }, [listTable]);
+    setResponsibleTotalAmountList(
+      addingResponsibleTotalAmount(institutionList)
+    );
+  }, [institutionList]);
 
   return (
     <Scontainer>
@@ -86,7 +88,7 @@ function HomeContainer({ institutions }: PropsType) {
         </thead>
 
         <tbody>
-          {listTable.map((institution, key) => {
+          {institutionList.map((institution, key) => {
             return (
               <>
                 <tr
@@ -107,8 +109,8 @@ function HomeContainer({ institutions }: PropsType) {
                     shoppingList={institution.shoppings}
                     institution={institution}
                     handleInputChange={handleInputChange}
-                    listTable={listTable}
-                    setListTable={setListTable}
+                    institutionList={institutionList}
+                    setInstitutionList={setInstitutionList}
                   />
                 )}
               </>
