@@ -8,11 +8,11 @@ import TableTotalAmount from "../TableTotalAmount";
 import { Button } from "../../../../common/Button";
 import { maskMorney } from "../../../../../helpers/masks";
 import { addingResponsibleAmount } from "../../../../../helpers/addingResponsibleAmount";
-import { addingValues } from "../../../../../helpers/addingValues";
 import { InstitutionType, ShoppingType } from "../../types";
 import { removingBuy } from "../../../../../helpers/removingBuy";
 import { subtractingValues } from "../../../../../helpers/subtractingValues";
 import { addingAmountShoppings } from "../../../../../helpers/addingAmountShoppings";
+import { sumAmountMoney } from "../../../../../helpers/sumAmountMoney";
 
 type PropsType = {
   shoppingList: ShoppingType[];
@@ -89,7 +89,7 @@ export const ShoppingTable = ({
           return {
             ...institution,
             listResponsibleValues: addingResponsibleAmount(institution),
-            amount: addingValues(institution.amount, newBuy.amount),
+            amount: sumAmountMoney(institution.amount, newBuy.amount),
             shoppings: [
               ...institution.shoppings,
               {

@@ -1,4 +1,4 @@
-export const somandoDinheiro = (firstNumber: any, secondNumber: any) => {
+export const sumAmountMoney = (firstNumber: any, secondNumber: any) => {
   firstNumber = String(firstNumber).replace(".", "");
   firstNumber = String(firstNumber).replace(",", "");
 

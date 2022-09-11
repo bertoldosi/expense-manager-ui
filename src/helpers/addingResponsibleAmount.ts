@@ -3,7 +3,7 @@ import {
   ResponsibleValuesType,
   ShoppingType,
 } from "../components/container/HomeContainer/types";
-import { somandoDinheiro } from "./somandoDinheiro";
+import { sumAmountMoney } from "./sumAmountMoney";
 
 export const addingResponsibleAmount = (institution: InstitutionType) => {
   const newList = institution.shoppings.reduce(
@@ -20,7 +20,7 @@ export const addingResponsibleAmount = (institution: InstitutionType) => {
       );
 
       if (repeated) {
-        repeated.amount = somandoDinheiro(
+        repeated.amount = sumAmountMoney(
           repeated.amount,
           newCurrentValue.amount
         );

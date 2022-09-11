@@ -1,12 +1,12 @@
 import { ShoppingType } from "../components/container/HomeContainer/types";
-import { somandoDinheiro } from "./somandoDinheiro";
+import { sumAmountMoney } from "./sumAmountMoney";
 
 export const addingAmountShoppings = (shoppings: ShoppingType[]) => {
   if (shoppings.length > 0) {
     const newShoppings = shoppings
       .map((shopping) => shopping.amount)
       .reduce((previousValue, currentValue) => {
-        const result = somandoDinheiro(previousValue, currentValue);
+        const result = sumAmountMoney(previousValue, currentValue);
 
         return result;
       });
