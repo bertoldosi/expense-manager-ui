@@ -2,6 +2,7 @@ import {
   InstitutionType,
   ShoppingType,
 } from "../components/container/HomeContainer/types";
+import { sumAmountMoney } from "./sumAmountMoney";
 
 export const sumTotalResponsible = (institutions: InstitutionType[]) => {
   const responsibleAmountList = Array();
@@ -13,19 +14,19 @@ export const sumTotalResponsible = (institutions: InstitutionType[]) => {
 
   const newList = responsibleAmountList.reduce(
     (previousValue: ShoppingType[], currentValue: ShoppingType) => {
-      const newCurrentValue = {
+      let newCurrentValue = {
         ...currentValue,
-        amount: String(currentValue.amount).replace(",", "."),
+        amount: currentValue.amount,
       };
       let responsible = newCurrentValue.responsible;
       let repeated = previousValue.find(
         (elem: ShoppingType) => elem.responsible === responsible
       );
       if (repeated) {
-        repeated.amount = String(repeated.amount).replace(",", ".");
-        repeated.amount =
-          parseFloat(repeated.amount) + parseFloat(newCurrentValue.amount);
-        repeated.amount = parseFloat(repeated.amount.toFixed(2));
+        repeated.amount = sumAmountMoney(
+          repeated.amount,
+          newCurrentValue.amount
+        );
       } else {
         previousValue.push(newCurrentValue);
       }
