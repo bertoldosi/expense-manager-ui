@@ -10,6 +10,7 @@ type PropsTypes = {
   disabled?: boolean;
   type?: string;
   autofocus?: boolean;
+  tabIndex?: number | undefined;
 };
 
 function InputTable({
@@ -21,12 +22,17 @@ function InputTable({
   onKeyUp,
   type,
   autofocus,
+  tabIndex,
 }: PropsTypes) {
   const handleOnKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const keycode = event.keyCode ? event.keyCode : event.which;
 
     if (keycode == 13) {
       onKeyUp();
+
+      const inputs = window.document.getElementsByName("description");
+      const lastInput = inputs[inputs.length - 1];
+      lastInput.focus();
     }
   };
 
@@ -36,6 +42,7 @@ function InputTable({
 
   return (
     <Sinput
+      tabIndex={tabIndex}
       autoFocus={autofocus}
       name={name}
       id={id}
