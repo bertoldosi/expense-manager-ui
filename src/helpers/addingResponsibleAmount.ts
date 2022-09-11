@@ -3,13 +3,14 @@ import {
   ResponsibleValuesType,
   ShoppingType,
 } from "../components/container/HomeContainer/types";
+import { somandoDinheiro } from "./somandoDinheiro";
 
 export const addingResponsibleAmount = (institution: InstitutionType) => {
   const newList = institution.shoppings.reduce(
     (previousValue: ShoppingType[], currentValue) => {
-      const newCurrentValue = {
+      let newCurrentValue = {
         ...currentValue,
-        amount: String(currentValue.amount).replace(",", "."),
+        amount: currentValue.amount,
       };
 
       let responsible = newCurrentValue.responsible;
@@ -19,11 +20,10 @@ export const addingResponsibleAmount = (institution: InstitutionType) => {
       );
 
       if (repeated) {
-        repeated.amount = String(repeated.amount).replace(",", ".");
-
-        repeated.amount =
-          parseFloat(repeated.amount) + parseFloat(newCurrentValue.amount);
-        repeated.amount = parseFloat(repeated.amount.toFixed(2));
+        repeated.amount = somandoDinheiro(
+          repeated.amount,
+          newCurrentValue.amount
+        );
       } else {
         previousValue.push(newCurrentValue);
       }
