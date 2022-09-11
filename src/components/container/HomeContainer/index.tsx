@@ -13,7 +13,7 @@ import { ShoppingTable } from "./components/ShoppingTable";
 import { formatMorney } from "../../../helpers/formatMorney";
 import { maskDate } from "../../../helpers/masks";
 import { InstitutionType } from "./types";
-import { addingResponsibleTotalAmount } from "../../../helpers/addingResponsibleTotalAmount";
+import { sumTotalResponsible } from "../../../helpers/sumTotalResponsible";
 
 type PropsType = {
   institutions: InstitutionType[];
@@ -69,9 +69,7 @@ function HomeContainer({ institutions }: PropsType) {
   };
 
   React.useEffect(() => {
-    setResponsibleTotalAmountList(
-      addingResponsibleTotalAmount(institutionList)
-    );
+    setResponsibleTotalAmountList(sumTotalResponsible(institutionList));
   }, [institutionList]);
 
   return (

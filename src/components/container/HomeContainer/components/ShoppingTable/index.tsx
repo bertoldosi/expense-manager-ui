@@ -7,11 +7,11 @@ import InputTable from "../InputTable";
 import TableTotalAmount from "../TableTotalAmount";
 import { Button } from "../../../../common/Button";
 import { maskMorney } from "../../../../../helpers/masks";
-import { addingResponsibleAmount } from "../../../../../helpers/addingResponsibleAmount";
+import { sumAmountResponsible } from "../../../../../helpers/sumAmountResponsible";
 import { InstitutionType, ShoppingType } from "../../types";
 import { removingBuy } from "../../../../../helpers/removingBuy";
 import { subtractingValues } from "../../../../../helpers/subtractingValues";
-import { addingAmountShoppings } from "../../../../../helpers/addingAmountShoppings";
+import { updateAmountShoppings } from "../../../../../helpers/updateAmountShoppings";
 import { sumAmountMoney } from "../../../../../helpers/sumAmountMoney";
 
 type PropsType = {
@@ -56,7 +56,7 @@ export const ShoppingTable = ({
         if (institution.id === institutionId) {
           return {
             ...institution,
-            listResponsibleValues: addingResponsibleAmount(institution),
+            listResponsibleValues: sumAmountResponsible(institution),
             shoppings: institution.shoppings.map((shopping) => {
               if (shopping.id === id) {
                 return {
@@ -88,7 +88,7 @@ export const ShoppingTable = ({
 
           return {
             ...institution,
-            listResponsibleValues: addingResponsibleAmount(institution),
+            listResponsibleValues: sumAmountResponsible(institution),
             amount: sumAmountMoney(institution.amount, newBuy.amount),
             shoppings: [
               ...institution.shoppings,
@@ -132,8 +132,8 @@ export const ShoppingTable = ({
       institutionList.map((institution) => {
         return {
           ...institution,
-          listResponsibleValues: addingResponsibleAmount(institution),
-          amount: addingAmountShoppings(institution.shoppings),
+          listResponsibleValues: sumAmountResponsible(institution),
+          amount: updateAmountShoppings(institution.shoppings),
         };
       })
     );

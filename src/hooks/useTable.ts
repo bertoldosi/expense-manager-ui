@@ -1,8 +1,8 @@
 import React from "react";
 
-import { addingAmountShoppings } from "../helpers/addingAmountShoppings";
-import { addingResponsibleAmount } from "../helpers/addingResponsibleAmount";
-import { addingResponsibleTotalAmount } from "../helpers/addingResponsibleTotalAmount";
+import { updateAmountShoppings } from "../helpers/updateAmountShoppings";
+import { sumAmountResponsible } from "../helpers/sumAmountResponsible";
+import { sumTotalResponsible } from "../helpers/sumTotalResponsible";
 
 import {
   InstitutionType,
@@ -16,8 +16,8 @@ const useTable = (InstitutionList: InstitutionType[]) => {
     InstitutionList.map((institution) => {
       return {
         ...institution,
-        listResponsibleValues: addingResponsibleAmount(institution),
-        amount: addingAmountShoppings(institution.shoppings),
+        listResponsibleValues: sumAmountResponsible(institution),
+        amount: updateAmountShoppings(institution.shoppings),
         isShowShoppings: false,
       };
     })
@@ -25,7 +25,7 @@ const useTable = (InstitutionList: InstitutionType[]) => {
 
   const [responsibleTotalAmountList, setResponsibleTotalAmountList] =
     React.useState<ResponsibleValuesType[]>(
-      addingResponsibleTotalAmount(institutionList)
+      sumTotalResponsible(institutionList)
     );
 
   const handlerShoppingsExpanded = (itemId: string) => {

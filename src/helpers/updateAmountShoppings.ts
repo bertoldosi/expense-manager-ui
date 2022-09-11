@@ -1,7 +1,7 @@
 import { ShoppingType } from "../components/container/HomeContainer/types";
 import { sumAmountMoney } from "./sumAmountMoney";
 
-export const addingAmountShoppings = (shoppings: ShoppingType[]) => {
+export const updateAmountShoppings = (shoppings: ShoppingType[]) => {
   if (shoppings.length > 0) {
     const newShoppings = shoppings
       .map((shopping) => shopping.amount)

@@ -5,7 +5,7 @@ import {
 } from "../components/container/HomeContainer/types";
 import { sumAmountMoney } from "./sumAmountMoney";
 
-export const addingResponsibleAmount = (institution: InstitutionType) => {
+export const sumAmountResponsible = (institution: InstitutionType) => {
   const newList = institution.shoppings.reduce(
     (previousValue: ShoppingType[], currentValue) => {
       let newCurrentValue = {

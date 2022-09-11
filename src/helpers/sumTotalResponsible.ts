@@ -3,9 +3,7 @@ import {
   ShoppingType,
 } from "../components/container/HomeContainer/types";
 
-export const addingResponsibleTotalAmount = (
-  institutions: InstitutionType[]
-) => {
+export const sumTotalResponsible = (institutions: InstitutionType[]) => {
   const responsibleAmountList = Array();
   institutions.map((institution) => {
     institution.listResponsibleValues.map((responsible) => {
