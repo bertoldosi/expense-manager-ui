@@ -1,4 +1,5 @@
 import React from "react";
+import { formatMorney } from "../../../../../helpers/formatMorney";
 import { ResponsibleValuesType } from "../../types";
 import { Stotal } from "./styles";
 
@@ -20,7 +21,7 @@ function TableTotalAmount({ listResponsibleValues }: PropsType) {
         {listResponsibleValues.map((responsible, index) => (
           <tr key={index}>
             <td>{responsible.responsible}</td>
-            <td>{responsible.amount}</td>
+            <td>{formatMorney(responsible.amount)}</td>
           </tr>
         ))}
       </tbody>

@@ -24,7 +24,7 @@ type PropsType = {
 const initialNewBuy = {
   id: uuidv4(),
   description: "",
-  amount: "0",
+  amount: "",
   responsible: "",
 };
 

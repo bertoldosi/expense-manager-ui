@@ -1,13 +1,24 @@
+function maskCurrency(value: any, locale = "pt-BR", currency = "BRL") {
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency,
+  }).format(value);
+}
+
 export const maskMorney = (value: string, name: string) => {
   if (name === "amount") {
-    value = value.replace(/\D/g, "");
-    value = value.replace(/(\d)(\d{2})$/, "$1,$2");
-    value = value.replace(/(?=(\d{3})+(\D))\B/g, ".");
+    const onlyDigits = value
+      .split("")
+      .filter((s) => /\d/.test(s))
+      .join("")
+      .padStart(3, "0");
+    const digitsFloat = onlyDigits.slice(0, -2) + "." + onlyDigits.slice(-2);
+    const valueFormat = maskCurrency(digitsFloat);
 
+    return valueFormat.replace("R$", "").replace(/\s/g, "");
+  } else {
     return value;
   }
-
-  return value;
 };
 
 export const maskDate = (value: string, name: string) => {

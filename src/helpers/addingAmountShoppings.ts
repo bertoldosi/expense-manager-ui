@@ -1,20 +1,23 @@
 import { ShoppingType } from "../components/container/HomeContainer/types";
 
 export const addingAmountShoppings = (shoppings: ShoppingType[]) => {
-  const newShoppings = shoppings
-    .map((shopping) => shopping.amount)
-    .reduce((previousValue, currentValue) => {
-      previousValue = String(previousValue).replace(",", ".");
-      currentValue = String(currentValue).replace(",", ".");
+  if (shoppings.length > 0) {
+    const newShoppings = shoppings
+      .map((shopping) => shopping.amount)
+      .reduce((previousValue, currentValue) => {
+        currentValue = String(currentValue).replace(".", "");
+        currentValue = String(currentValue).replace(",", "");
 
-      console.log(previousValue);
+        previousValue = String(previousValue).replace(".", "");
+        previousValue = String(previousValue).replace(",", "");
 
-      if (previousValue === "") {
-        previousValue = "0";
-      }
+        const result = Number(previousValue) + Number(currentValue);
 
-      return parseFloat(previousValue) + parseFloat(currentValue);
-    });
+        return result;
+      });
 
-  return newShoppings;
+    return newShoppings;
+  } else {
+    return 0;
+  }
 };

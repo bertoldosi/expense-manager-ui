@@ -31,6 +31,7 @@ function InputTable({
   };
 
   const isAmount = name === "amount";
+
   const placeholder = isAmount ? "R$ 0,00" : "Digite um valor";
 
   return (
@@ -38,7 +39,7 @@ function InputTable({
       autoFocus={autofocus}
       name={name}
       id={id}
-      value={isAmount ? `R$ ${value}` : value}
+      value={value}
       placeholder={placeholder}
       onChange={onChange}
       onKeyUp={onKeyUp && handleOnKeyUp}
