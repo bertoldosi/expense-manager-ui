@@ -30,8 +30,8 @@ function InputTable({
     if (keycode == 13) {
       onKeyUp();
 
-      const inputs = window.document.getElementsByName("description");
-      const lastInput = inputs[inputs.length - 1];
+      const inputsTable = window.document.getElementsByName("description");
+      const lastInput = inputsTable[inputsTable.length - 1];
       lastInput.focus();
     }
   };
