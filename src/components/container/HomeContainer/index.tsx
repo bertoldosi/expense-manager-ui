@@ -74,7 +74,6 @@ function HomeContainer({ institutions }: PropsType) {
 
   return (
     <Scontainer>
-      <Header includeNewInstitution={includeNewInstitution} />
       <Stable>
         <thead>
           <tr>

@@ -14,8 +14,13 @@ export type InstitutionType = {
   id: string;
   name: string;
   amount: string | number;
-  listResponsibleValues: ResponsibleValuesType[];
+  listResponsibleValues?: ResponsibleValuesType[];
   expirationDate: string;
   shoppings: ShoppingType[];
   isShowShoppings?: boolean;
+};
+
+export type MonthType = {
+  name: string;
+  institutions: InstitutionType[];
 };

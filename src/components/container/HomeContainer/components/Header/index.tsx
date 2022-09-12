@@ -1,15 +1,30 @@
 import React from "react";
 import { Button } from "../../../../common/Button";
-import { Scontent } from "./styles";
+import { MonthType } from "../../types";
+import { Scontent, Slink } from "./styles";
 
 type PropsType = {
-  includeNewInstitution: React.MouseEventHandler<HTMLButtonElement>;
+  monthList: MonthType[];
+  nowMonth: string;
+  setNowMonth: React.Dispatch<React.SetStateAction<string>>;
 };
 
-function Header({ includeNewInstitution }: PropsType) {
+function Header({ monthList, setNowMonth, nowMonth }: PropsType) {
   return (
     <Scontent>
-      <Button
+      {monthList.map((month) => (
+        <Slink
+          isSeleted={month.name === nowMonth}
+          type="button"
+          onClick={() => {
+            setNowMonth(month.name);
+          }}
+        >
+          {month.name}
+        </Slink>
+      ))}
+
+      {/* <Button
         backgroundColor="#FFF"
         color="#333"
         onClick={includeNewInstitution}
@@ -18,7 +33,7 @@ function Header({ includeNewInstitution }: PropsType) {
       </Button>
       <Button backgroundColor="#333" color="#fff">
         Importar
-      </Button>
+      </Button> */}
     </Scontent>
   );
 }

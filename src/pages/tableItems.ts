@@ -20,45 +20,61 @@ import { v4 as uuidv4 } from "uuid";
 
 export default [
   {
-    id: "debito-card",
-    name: "Débito",
-    amount: "R$ 19,90",
-    expirationDate: "10/10/2022",
-    shopping: [
+    name: "Jan",
+    institutions: [
       {
-        id: uuidv4(),
-        description: "Amazon",
-        amount: "R$ 19,90",
-        responsible: "matheus",
+        id: "cl7aqiqzw35g30cj1fb8zxdyz",
+        name: "Nubank",
+        amount: "0",
+        expirationDate: "2022-10-10",
+        shoppings: [
+          {
+            id: "cl7ah039o2v430blxf3c6au36",
+            description: "Amazon",
+            amount: "10,00",
+            responsible: "matheus",
+          },
+        ],
       },
-
       {
-        id: uuidv4(),
-        description: "Shoope",
-        amount: "R$ 199,90",
-        responsible: "fran",
+        id: "cl7aqlnh935mf0cj1glszjb33",
+        name: "Débito",
+        amount: "0",
+        expirationDate: "2022-01-01",
+        shoppings: [
+          {
+            id: "cl7ah039o2v430blxf3c6au36",
+            description: "Amazon",
+            amount: "10,00",
+            responsible: "matheus",
+          },
+          {
+            id: "cl7wde6te3h450bkd17rhttu8",
+            description: "Casa",
+            amount: "100.000,00",
+            responsible: "matheus",
+          },
+        ],
       },
     ],
   },
 
   {
-    id: "nubank-card",
-    name: "Nubank",
-    amount: "R$ 19,90",
-    expirationDate: "10/10/2022",
-    shopping: [
+    name: "Fev",
+    institutions: [
       {
-        id: uuidv4(),
-        description: "Amazon",
-        amount: "R$ 19,90",
-        responsible: "matheus",
-      },
-
-      {
-        id: uuidv4(),
-        description: "Shoope",
-        amount: "R$ 199,90",
-        responsible: "fran",
+        id: "cl7aqiqzw35g30cj1fb8zxdyz",
+        name: "Nubank",
+        amount: "0",
+        expirationDate: "2022-10-10",
+        shoppings: [
+          {
+            id: "cl7ah039o2v430blxf3c6au36",
+            description: "Amazon",
+            amount: "10,00",
+            responsible: "matheus",
+          },
+        ],
       },
     ],
   },
