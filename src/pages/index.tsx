@@ -1,19 +1,18 @@
 import Head from "next/head";
 import type { GetServerSideProps } from "next";
 import { gql } from "@apollo/client";
-import list from "./tableItems";
 
 import { client } from "../services/ApolloClient";
 import HomeContainer from "../components/container/HomeContainer";
-import { InstitutionType } from "../components/container/HomeContainer/types";
+import { MonthType } from "../components/container/HomeContainer/types";
 import Header from "../components/container/HomeContainer/components/Header";
 import React from "react";
 
 type PropsType = {
-  institutions: InstitutionType[];
+  months: MonthType[];
 };
 
-const Home = ({ institutions }: PropsType) => {
+const Home = ({ months }: PropsType) => {
   const [nowMonth, setNowMonth] = React.useState<number>(
     () => new Date().getMonth() + 1
   );
@@ -28,10 +27,10 @@ const Home = ({ institutions }: PropsType) => {
         <Header
           nowMonth={nowMonth}
           setNowMonth={setNowMonth}
-          monthList={list}
+          monthList={months}
         />
 
-        {list.map(
+        {months.map(
           (month, index) =>
             month.mesNumber === nowMonth && (
               <HomeContainer key={index} institutions={month.institutions} />
@@ -46,23 +45,27 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { data } = await client.query({
     query: gql`
       query MyQuery {
-        institutions {
-          id
+        months(orderBy: mesNumber_ASC) {
           name
-          amount
-          expirationDate
-          shoppings {
+          mesNumber
+          institutions {
             id
-            description
+            name
             amount
-            responsible
+            expirationDate
+            shoppings {
+              id
+              description
+              amount
+              responsible
+            }
           }
         }
       }
     `,
   });
 
-  return { props: { institutions: data.institutions } };
+  return { props: { months: data.months } };
 };
 
 export default Home;
