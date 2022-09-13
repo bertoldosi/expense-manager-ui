@@ -4,7 +4,7 @@ import { ResponsibleValuesType } from "../../types";
 import { Stotal } from "./styles";
 
 type PropsType = {
-  listResponsibleValues: ResponsibleValuesType[];
+  listResponsibleValues: ResponsibleValuesType[] | undefined;
 };
 
 function TableTotalAmount({ listResponsibleValues }: PropsType) {
@@ -18,7 +18,7 @@ function TableTotalAmount({ listResponsibleValues }: PropsType) {
       </thead>
 
       <tbody>
-        {listResponsibleValues.map((responsible, index) => (
+        {listResponsibleValues?.map((responsible, index) => (
           <tr key={index}>
             <td>{responsible.responsible}</td>
             <td>{formatMorney(responsible.amount)}</td>
