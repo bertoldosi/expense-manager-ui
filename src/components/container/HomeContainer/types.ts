@@ -22,5 +22,6 @@ export type InstitutionType = {
 
 export type MonthType = {
   name: string;
+  mesNumber: number;
   institutions: InstitutionType[];
 };

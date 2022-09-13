@@ -5,8 +5,8 @@ import { Scontent, Slink } from "./styles";
 
 type PropsType = {
   monthList: MonthType[];
-  nowMonth: string;
-  setNowMonth: React.Dispatch<React.SetStateAction<string>>;
+  nowMonth: number;
+  setNowMonth: React.Dispatch<React.SetStateAction<number>>;
 };
 
 function Header({ monthList, setNowMonth, nowMonth }: PropsType) {
@@ -14,10 +14,10 @@ function Header({ monthList, setNowMonth, nowMonth }: PropsType) {
     <Scontent>
       {monthList.map((month) => (
         <Slink
-          isSeleted={month.name === nowMonth}
+          isSeleted={month.mesNumber === nowMonth}
           type="button"
           onClick={() => {
-            setNowMonth(month.name);
+            setNowMonth(month.mesNumber);
           }}
         >
           {month.name}

@@ -32,7 +32,7 @@ function InputTable({
 
       const inputsTable = window.document.getElementsByName("description");
       const lastInput = inputsTable[inputsTable.length - 1];
-      lastInput.focus();
+      lastInput?.focus();
     }
   };
 

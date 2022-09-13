@@ -14,7 +14,9 @@ type PropsType = {
 };
 
 const Home = ({ institutions }: PropsType) => {
-  const [nowMonth, setNowMonth] = React.useState<string>("Fev");
+  const [nowMonth, setNowMonth] = React.useState<number>(
+    () => new Date().getMonth() + 1
+  );
 
   return (
     <>
@@ -31,7 +33,7 @@ const Home = ({ institutions }: PropsType) => {
 
         {list.map(
           (month, index) =>
-            month.name === nowMonth && (
+            month.mesNumber === nowMonth && (
               <HomeContainer key={index} institutions={month.institutions} />
             )
         )}
