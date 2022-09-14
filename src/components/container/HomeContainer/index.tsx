@@ -14,6 +14,8 @@ import { formatMorney } from "../../../helpers/formatMorney";
 import { maskDate } from "../../../helpers/masks";
 import { InstitutionType } from "./types";
 import { sumTotalResponsible } from "../../../helpers/sumTotalResponsible";
+import { client } from "../../../services/ApolloClient";
+import { gql, useMutation } from "@apollo/client";
 
 type PropsType = {
   institutions: InstitutionType[];
@@ -28,7 +30,36 @@ const initialInputInstitution = {
   shoppings: [],
 };
 
+const CREATE_INSTITUTION = gql`
+  mutation CreateInstitution($name: String!, $expirationDate: Date!) {
+    createInstitution(data: { name: $name, expirationDate: $expirationDate }) {
+      id
+    }
+  }
+`;
+
+const PUBLISH_INSTITUTION = gql`
+  mutation PublishInstitution($id: ID!) {
+    publishInstitution(where: { id: $id }, to: PUBLISHED) {
+      id
+    }
+  }
+`;
+
+const UPDATE_MONTH = gql`
+  mutation UpdateMonth($institutionId: String!, $monthId: String!) {
+    updateMonth(
+      data: { institutions: { set: { id: $institutionId } } }
+      where: { id: $monthId }
+    )
+  }
+`;
+
 function HomeContainer({ institutions }: PropsType) {
+  const [CreateInstitution] = useMutation(CREATE_INSTITUTION);
+  const [PublishInstitution] = useMutation(PUBLISH_INSTITUTION);
+  const [UpdateMonth] = useMutation(UPDATE_MONTH);
+
   const {
     institutionList,
     setInstitutionList,
@@ -60,6 +91,16 @@ function HomeContainer({ institutions }: PropsType) {
     if (isFilled) {
       setInstitutionList((prevState) => {
         return [...prevState, inputInstitution];
+      });
+
+      CreateInstitution({
+        variables: inputInstitution,
+      }).then((response) => {
+        PublishInstitution({
+          variables: {
+            id: response.data.createInstitution.id,
+          },
+        });
       });
 
       setInputInstitution(initialInputInstitution);

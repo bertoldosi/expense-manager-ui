@@ -18,6 +18,18 @@ import { v4 as uuidv4 } from "uuid";
 //   }
 // }
 
+// client.mutate({
+//   mutation: gql`
+//     mutation CreateInstitution {
+//       createInstitution(
+//         data: { name: "Teste teste", expirationDate: "2022-10-10" }
+//       ) {
+//         id
+//       }
+//     }
+//   `,
+// });
+
 export default [
   {
     name: "Jan",
