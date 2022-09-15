@@ -13,6 +13,7 @@ import { removingBuy } from "../../../../../helpers/removingBuy";
 import { subtractingValues } from "../../../../../helpers/subtractingValues";
 import { updateAmountShoppings } from "../../../../../helpers/updateAmountShoppings";
 import { sumAmountMoney } from "../../../../../helpers/sumAmountMoney";
+import { createShopping } from "../../../../../services/request/createShopping";
 
 type PropsType = {
   shoppingList: ShoppingType[];
@@ -75,7 +76,7 @@ export const ShoppingTable = ({
     );
   };
 
-  const includeNewBuy = (institutionId: string) => {
+  const includeNewBuy = async (institutionId: string) => {
     setInstitutionList(
       institutionList.map((institution) => {
         if (institution.id === institutionId) {
@@ -106,6 +107,7 @@ export const ShoppingTable = ({
       })
     );
 
+    await createShopping(institutionId, newBuy);
     setNewBuy(initialNewBuy);
   };
 
