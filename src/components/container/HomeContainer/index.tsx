@@ -12,13 +12,12 @@ import TableTotalAmount from "./components/TableTotalAmount";
 import { ShoppingTable } from "./components/ShoppingTable";
 import { formatMorney } from "../../../helpers/formatMorney";
 import { maskDate } from "../../../helpers/masks";
-import { InstitutionType } from "./types";
+import { InstitutionType, MonthType } from "./types";
 import { sumTotalResponsible } from "../../../helpers/sumTotalResponsible";
-import { client } from "../../../services/ApolloClient";
-import { gql, useMutation } from "@apollo/client";
+import { createInstitution } from "../../../services/request/createInstitution";
 
 type PropsType = {
-  institutions: InstitutionType[];
+  month: MonthType;
 };
 
 const initialInputInstitution = {
@@ -30,43 +29,14 @@ const initialInputInstitution = {
   shoppings: [],
 };
 
-const CREATE_INSTITUTION = gql`
-  mutation CreateInstitution($name: String!, $expirationDate: Date!) {
-    createInstitution(data: { name: $name, expirationDate: $expirationDate }) {
-      id
-    }
-  }
-`;
-
-const PUBLISH_INSTITUTION = gql`
-  mutation PublishInstitution($id: ID!) {
-    publishInstitution(where: { id: $id }, to: PUBLISHED) {
-      id
-    }
-  }
-`;
-
-const UPDATE_MONTH = gql`
-  mutation UpdateMonth($institutionId: String!, $monthId: String!) {
-    updateMonth(
-      data: { institutions: { set: { id: $institutionId } } }
-      where: { id: $monthId }
-    )
-  }
-`;
-
-function HomeContainer({ institutions }: PropsType) {
-  const [CreateInstitution] = useMutation(CREATE_INSTITUTION);
-  const [PublishInstitution] = useMutation(PUBLISH_INSTITUTION);
-  const [UpdateMonth] = useMutation(UPDATE_MONTH);
-
+function HomeContainer({ month }: PropsType) {
   const {
     institutionList,
     setInstitutionList,
     handlerShoppingsExpanded,
     responsibleTotalAmountList,
     setResponsibleTotalAmountList,
-  } = useTable(institutions);
+  } = useTable(month.institutions);
 
   const [inputInstitution, setInputInstitution] =
     React.useState<InstitutionType>(initialInputInstitution);
@@ -82,7 +52,7 @@ function HomeContainer({ institutions }: PropsType) {
     }));
   };
 
-  const includeNewInstitution = () => {
+  const includeNewInstitution = async () => {
     const isFilled =
       inputInstitution.name != "" &&
       inputInstitution.amount != "" &&
@@ -93,17 +63,9 @@ function HomeContainer({ institutions }: PropsType) {
         return [...prevState, inputInstitution];
       });
 
-      CreateInstitution({
-        variables: inputInstitution,
-      }).then((response) => {
-        PublishInstitution({
-          variables: {
-            id: response.data.createInstitution.id,
-          },
-        });
-      });
-
       setInputInstitution(initialInputInstitution);
+
+      await createInstitution(inputInstitution, month.id);
     } else {
       alert("Precisa preencher todos os campos");
     }
