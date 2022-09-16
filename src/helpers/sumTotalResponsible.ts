@@ -7,7 +7,7 @@ import { sumAmountMoney } from "./sumAmountMoney";
 export const sumTotalResponsible = (institutions: InstitutionType[]) => {
   const responsibleAmountList = Array();
   institutions.map((institution) => {
-    institution.listResponsibleValues.map((responsible) => {
+    institution.listResponsibleValues?.map((responsible) => {
       responsibleAmountList.push(responsible);
     });
   });
