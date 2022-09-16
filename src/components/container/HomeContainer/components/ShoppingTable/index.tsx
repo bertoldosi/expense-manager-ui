@@ -40,6 +40,8 @@ export const ShoppingTable = ({
   const [newShopping, setNewShopping] =
     React.useState<ShoppingType>(initialNewShopping);
 
+  const [isRequest, setIsRequest] = React.useState(false);
+
   const onChangeInputAddShopping = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -128,9 +130,13 @@ export const ShoppingTable = ({
     institutionId: string,
     shopping: ShoppingType
   ) => {
+    setIsRequest(true);
+
     const shoppingId = shopping.id;
 
-    deleteShopping(shoppingId).then(() => {
+    await deleteShopping(shoppingId);
+
+    setTimeout(() => {
       setInstitutionList(
         institutionList.map((institution) => {
           if (institution.id === institutionId) {
@@ -144,39 +150,46 @@ export const ShoppingTable = ({
           }
         })
       );
-    });
+
+      setIsRequest(false);
+    }, 2000);
   };
 
   const updateBuy = async (
     institutionId: string,
     shoppingUpdate: ShoppingType
   ) => {
+    setIsRequest(true);
     const shoppingId = shoppingUpdate.id;
 
     await updateShopping(shoppingUpdate);
 
-    setInstitutionList(
-      institutionList.map((institution) => {
-        if (institution.id === institutionId) {
-          return {
-            ...institution,
-            listResponsibleValues: sumAmountResponsible(institution),
-            shoppings: institution.shoppings.map((shopping) => {
-              if (shopping.id === shoppingId) {
-                return {
-                  ...shoppingUpdate,
-                  isUpdate: false,
-                };
-              } else {
-                return shopping;
-              }
-            }),
-          };
-        } else {
-          return institution;
-        }
-      })
-    );
+    setTimeout(() => {
+      setInstitutionList(
+        institutionList.map((institution) => {
+          if (institution.id === institutionId) {
+            return {
+              ...institution,
+              listResponsibleValues: sumAmountResponsible(institution),
+              shoppings: institution.shoppings.map((shopping) => {
+                if (shopping.id === shoppingId) {
+                  return {
+                    ...shoppingUpdate,
+                    isUpdate: false,
+                  };
+                } else {
+                  return shopping;
+                }
+              }),
+            };
+          } else {
+            return institution;
+          }
+        })
+      );
+
+      setIsRequest(false);
+    }, 3000);
   };
 
   React.useEffect(() => {
@@ -244,6 +257,7 @@ export const ShoppingTable = ({
                 <td className="content-btn">
                   {shopping.isUpdate && (
                     <button
+                      disabled={isRequest}
                       onClick={() => {
                         updateBuy(institution.id, shopping);
                       }}
@@ -253,6 +267,7 @@ export const ShoppingTable = ({
                   )}
 
                   <button
+                    disabled={isRequest}
                     onClick={() => {
                       removeShopping(institution.id, shopping);
                     }}
