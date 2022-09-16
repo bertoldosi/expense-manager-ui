@@ -48,12 +48,12 @@ const PUBLISH_INSTITUTION = gql`
 
 export const createShopping = async (
   institutionId: string,
-  newBuy: ShoppingType
+  newShopping: ShoppingType
 ) => {
   const { createShopping } = await hygraph.request(CREATE_SHOPPING, {
-    description: newBuy.description,
-    responsible: newBuy.responsible,
-    amount: newBuy.amount,
+    description: newShopping.description,
+    responsible: newShopping.responsible,
+    amount: newShopping.amount,
   });
 
   hygraph.request(PUBLISH_SHOPPING, {

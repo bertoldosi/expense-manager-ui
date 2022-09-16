@@ -9,7 +9,7 @@ import { Button } from "../../../../common/Button";
 import { maskMorney } from "../../../../../helpers/masks";
 import { sumAmountResponsible } from "../../../../../helpers/sumAmountResponsible";
 import { InstitutionType, ShoppingType } from "../../types";
-import { removingBuy } from "../../../../../helpers/removingBuy";
+import { removingShopping } from "../../../../../helpers/removingShopping";
 import { subtractingValues } from "../../../../../helpers/subtractingValues";
 import { updateAmountShoppings } from "../../../../../helpers/updateAmountShoppings";
 import { sumAmountMoney } from "../../../../../helpers/sumAmountMoney";
@@ -24,7 +24,7 @@ type PropsType = {
   setInstitutionList: React.Dispatch<React.SetStateAction<InstitutionType[]>>;
 };
 
-const initialNewBuy = {
+const initialNewShopping = {
   id: uuidv4(),
   description: "",
   amount: "",
@@ -37,18 +37,21 @@ export const ShoppingTable = ({
   institutionList,
   setInstitutionList,
 }: PropsType) => {
-  const [newBuy, setNewBuy] = React.useState<ShoppingType>(initialNewBuy);
+  const [newShopping, setNewShopping] =
+    React.useState<ShoppingType>(initialNewShopping);
 
-  const onChangeInputAddBuy = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeInputAddShopping = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = event.target;
 
-    setNewBuy((prevState) => ({
+    setNewShopping((prevState) => ({
       ...prevState,
       [name]: maskMorney(value, name),
     }));
   };
 
-  const onChangeInputUpdateBuy = (
+  const onChangeInputUpdateShopping = (
     event: React.ChangeEvent<HTMLInputElement>,
     institutionId: string
   ) => {
@@ -79,10 +82,14 @@ export const ShoppingTable = ({
     );
   };
 
-  const includeNewBuy = async (institutionId: string) => {
-    const description = newBuy.description ? newBuy.description : "SEM/DESC";
-    const responsible = newBuy.responsible ? newBuy.responsible : "SEM/ATRIB";
-    const amount = newBuy.amount ? newBuy.amount : "0";
+  const includeShopping = async (institutionId: string) => {
+    const description = newShopping.description
+      ? newShopping.description
+      : "SEM/DESC";
+    const responsible = newShopping.responsible
+      ? newShopping.responsible
+      : "SEM/ATRIB";
+    const amount = newShopping.amount ? newShopping.amount : "0";
 
     await createShopping(institutionId, {
       id: uuidv4(),
@@ -97,11 +104,11 @@ export const ShoppingTable = ({
           return {
             ...institution,
             listResponsibleValues: sumAmountResponsible(institution),
-            amount: sumAmountMoney(institution.amount, newBuy.amount),
+            amount: sumAmountMoney(institution.amount, newShopping.amount),
             shoppings: [
               ...institution.shoppings,
               {
-                ...newBuy,
+                ...newShopping,
                 id: uuidv4(),
                 description: description,
                 responsible: responsible,
@@ -114,10 +121,13 @@ export const ShoppingTable = ({
       })
     );
 
-    setNewBuy(initialNewBuy);
+    setNewShopping(initialNewShopping);
   };
 
-  const removeBuy = async (institutionId: string, shopping: ShoppingType) => {
+  const removeShopping = async (
+    institutionId: string,
+    shopping: ShoppingType
+  ) => {
     const shoppingId = shopping.id;
     await deleteShopping(shoppingId);
 
@@ -126,7 +136,7 @@ export const ShoppingTable = ({
         if (institution.id === institutionId) {
           return {
             ...institution,
-            shoppings: removingBuy(institution.shoppings, shoppingId),
+            shoppings: removingShopping(institution.shoppings, shoppingId),
             amount: subtractingValues(institution.amount, shopping),
           };
         } else {
@@ -202,7 +212,7 @@ export const ShoppingTable = ({
                     id={shopping.id}
                     value={shopping.description}
                     onChange={(event) => {
-                      onChangeInputUpdateBuy(event, institution.id);
+                      onChangeInputUpdateShopping(event, institution.id);
                     }}
                   />
                 </td>
@@ -212,7 +222,7 @@ export const ShoppingTable = ({
                     id={shopping.id}
                     value={shopping.amount}
                     onChange={(event) => {
-                      onChangeInputUpdateBuy(event, institution.id);
+                      onChangeInputUpdateShopping(event, institution.id);
                     }}
                   />
                 </td>
@@ -222,7 +232,7 @@ export const ShoppingTable = ({
                     id={shopping.id}
                     value={shopping.responsible}
                     onChange={(event) => {
-                      onChangeInputUpdateBuy(event, institution.id);
+                      onChangeInputUpdateShopping(event, institution.id);
                     }}
                   />
                 </td>
@@ -240,7 +250,7 @@ export const ShoppingTable = ({
 
                   <button
                     onClick={() => {
-                      removeBuy(institution.id, shopping);
+                      removeShopping(institution.id, shopping);
                     }}
                   >
                     Remove
@@ -254,33 +264,33 @@ export const ShoppingTable = ({
                 <InputTable
                   autofocus
                   name="description"
-                  id={newBuy.id}
-                  value={newBuy.description}
-                  onChange={onChangeInputAddBuy}
+                  id={newShopping.id}
+                  value={newShopping.description}
+                  onChange={onChangeInputAddShopping}
                   onKeyUp={() => {
-                    includeNewBuy(institution.id);
+                    includeShopping(institution.id);
                   }}
                 />
               </td>
               <td>
                 <InputTable
                   name="amount"
-                  id={newBuy.id}
-                  value={newBuy.amount}
-                  onChange={onChangeInputAddBuy}
+                  id={newShopping.id}
+                  value={newShopping.amount}
+                  onChange={onChangeInputAddShopping}
                   onKeyUp={() => {
-                    includeNewBuy(institution.id);
+                    includeShopping(institution.id);
                   }}
                 />
               </td>
               <td colSpan={2}>
                 <InputTable
                   name="responsible"
-                  id={newBuy.id}
-                  value={newBuy.responsible}
-                  onChange={onChangeInputAddBuy}
+                  id={newShopping.id}
+                  value={newShopping.responsible}
+                  onChange={onChangeInputAddShopping}
                   onKeyUp={() => {
-                    includeNewBuy(institution.id);
+                    includeShopping(institution.id);
                   }}
                 />
               </td>
@@ -301,7 +311,7 @@ export const ShoppingTable = ({
                   backgroundColor="#FFF"
                   color="#333"
                   onClick={() => {
-                    includeNewBuy(institution.id);
+                    includeShopping(institution.id);
                   }}
                 >
                   Salvar
