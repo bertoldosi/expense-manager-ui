@@ -78,16 +78,20 @@ export const ShoppingTable = ({
   };
 
   const includeNewBuy = async (institutionId: string) => {
+    const description = newBuy.description ? newBuy.description : "SEM/DESC";
+    const responsible = newBuy.responsible ? newBuy.responsible : "SEM/ATRIB";
+    const amount = newBuy.amount ? newBuy.amount : "0";
+
+    await createShopping(institutionId, {
+      id: uuidv4(),
+      description,
+      responsible,
+      amount,
+    });
+
     setInstitutionList(
       institutionList.map((institution) => {
         if (institution.id === institutionId) {
-          const description = newBuy.description
-            ? newBuy.description
-            : "SEM/DESC";
-          const responsible = newBuy.responsible
-            ? newBuy.responsible
-            : "SEM/ATRIB";
-
           return {
             ...institution,
             listResponsibleValues: sumAmountResponsible(institution),
@@ -108,7 +112,6 @@ export const ShoppingTable = ({
       })
     );
 
-    await createShopping(institutionId, newBuy);
     setNewBuy(initialNewBuy);
   };
 
