@@ -1,19 +1,15 @@
 import Head from "next/head";
 import type { GetServerSideProps } from "next";
 
-import { hygraph } from "../services/HygraphClient";
+import { hygraph, gql } from "../services/HygraphClient";
 import HomeContainer from "../components/container/HomeContainer";
 import { MonthType } from "../components/container/HomeContainer/types";
 import Header from "../components/container/HomeContainer/components/Header";
 import React from "react";
 
-type PropsType = {
-  months: MonthType[];
-};
-
-const GET_MONTHS = `
+const GET_MONTHS = gql`
   query {
-    months(orderBy: mesNumber_ASC) {
+    months(orderBy: mesNumber_ASC, first: 12) {
       id
       name
       mesNumber
