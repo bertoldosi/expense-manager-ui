@@ -1,42 +1,49 @@
-import { hygraph } from "../HygraphClient";
-import {} from "graphql";
+import { hygraph, gql } from "../HygraphClient";
 import { ShoppingType } from "../../components/container/HomeContainer/types";
 
-const CREATE_SHOPPING = `
-    mutation CreateShopping($description: String!, $responsible: String!, $amount: String!) {
-        createShopping(
-        data: {description: $description, responsible: $responsible, amount: $amount}
-        ) {
-        id
-        }
+const CREATE_SHOPPING = gql`
+  mutation CreateShopping(
+    $description: String!
+    $responsible: String!
+    $amount: String!
+  ) {
+    createShopping(
+      data: {
+        description: $description
+        responsible: $responsible
+        amount: $amount
+      }
+    ) {
+      id
     }
+  }
 `;
 
-const PUBLISH_SHOPPING = `
-    mutation PublishShopping($shoppingId: ID!) {
-        publishShopping(where: {id: $shoppingId}, to: PUBLISHED) {
-        id
-        }
+const PUBLISH_SHOPPING = gql`
+  mutation PublishShopping($shoppingId: ID!) {
+    publishShopping(where: { id: $shoppingId }, to: PUBLISHED) {
+      id
     }
+  }
 `;
 
-const UPDATE_INSTITUTION = `
-    mutation UpdateInstitution($institutionId: ID!, $shoppingId: ID!) {
-        updateInstitution(
-        data: {shoppings: {connect: {where: {id: $shoppingId}}}}
-        where: {id: $institutionId}
-        ) {
-        id
-        }
+const UPDATE_INSTITUTION = gql`
+  mutation UpdateInstitution($institutionId: ID!, $shoppingId: ID!) {
+    updateInstitution(
+      data: { shoppings: { connect: { where: { id: $shoppingId } } } }
+      where: { id: $institutionId }
+    ) {
+      id
     }
+  }
 `;
 
-const PUBLISH_INSTITUTION = `
-    mutation PublishInstitution($institutionId: ID!) {
-        publishInstitution(where: {id: $institutionId}, to: PUBLISHED) {
-        id
-        }
+const PUBLISH_INSTITUTION = gql`
+  mutation PublishInstitution($institutionId: ID!) {
+    publishInstitution(where: { id: $institutionId }, to: PUBLISHED) {
+      id
     }
+  }
 `;
 
 export const createShopping = async (

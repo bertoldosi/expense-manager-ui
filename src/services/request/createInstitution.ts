@@ -1,39 +1,39 @@
 import { InstitutionType } from "../../components/container/HomeContainer/types";
-import { hygraph } from "../HygraphClient";
+import { hygraph, gql } from "../HygraphClient";
 
-const CREATE_INSTITUTION = `
-mutation CreateInstitution($name: String!, $expirationDate: Date!) {
-  createInstitution(data: { name: $name, expirationDate: $expirationDate }) {
-    id
+const CREATE_INSTITUTION = gql`
+  mutation CreateInstitution($name: String!, $expirationDate: Date!) {
+    createInstitution(data: { name: $name, expirationDate: $expirationDate }) {
+      id
+    }
   }
-}
 `;
 
-const PUBLISH_INSTITUTION = `
-mutation PublishInstitution($id: ID!) {
-  publishInstitution(where: { id: $id }, to: PUBLISHED) {
-    id
+const PUBLISH_INSTITUTION = gql`
+  mutation PublishInstitution($id: ID!) {
+    publishInstitution(where: { id: $id }, to: PUBLISHED) {
+      id
+    }
   }
-}
 `;
 
-const UPDATE_MONTH = `
-mutation UpdateMonth($institutionId: ID!, $monthId: ID!) {
-  updateMonth(
-    data: { institutions: { connect: { where: { id: $institutionId } } } }
-    where: { id: $monthId }
-  ) {
-    id
+const UPDATE_MONTH = gql`
+  mutation UpdateMonth($institutionId: ID!, $monthId: ID!) {
+    updateMonth(
+      data: { institutions: { connect: { where: { id: $institutionId } } } }
+      where: { id: $monthId }
+    ) {
+      id
+    }
   }
-}
 `;
 
-const PUBLISH_MONTH = `
-mutation PublishMonth($id: ID!) {
-  publishMonth(where: { id: $id }, to: PUBLISHED) {
-    id
+const PUBLISH_MONTH = gql`
+  mutation PublishMonth($id: ID!) {
+    publishMonth(where: { id: $id }, to: PUBLISHED) {
+      id
+    }
   }
-}
 `;
 
 export const createInstitution = async (
