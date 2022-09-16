@@ -14,6 +14,7 @@ import { subtractingValues } from "../../../../../helpers/subtractingValues";
 import { updateAmountShoppings } from "../../../../../helpers/updateAmountShoppings";
 import { sumAmountMoney } from "../../../../../helpers/sumAmountMoney";
 import { createShopping } from "../../../../../services/request/createShopping";
+import { deleteShopping } from "../../../../../services/request/deleteShopping";
 
 type PropsType = {
   shoppingList: ShoppingType[];
@@ -111,8 +112,9 @@ export const ShoppingTable = ({
     setNewBuy(initialNewBuy);
   };
 
-  const removeBuy = (institutionId: string, shopping: ShoppingType) => {
+  const removeBuy = async (institutionId: string, shopping: ShoppingType) => {
     const shoppingId = shopping.id;
+    await deleteShopping(shoppingId);
 
     setInstitutionList(
       institutionList.map((institution) => {
