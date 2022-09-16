@@ -3,6 +3,7 @@ export type ShoppingType = {
   description: string;
   amount: string | number;
   responsible: string;
+  isUpdate?: boolean;
 };
 
 export type ResponsibleValuesType = {

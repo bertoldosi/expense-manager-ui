@@ -19,6 +19,12 @@ const useTable = (InstitutionList: InstitutionType[]) => {
         listResponsibleValues: sumAmountResponsible(institution),
         amount: updateAmountShoppings(institution.shoppings),
         isShowShoppings: false,
+        shoppings: institution.shoppings.map((shopping) => {
+          return {
+            ...shopping,
+            isUpdate: false,
+          };
+        }),
       };
     })
   );

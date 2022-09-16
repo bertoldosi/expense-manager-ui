@@ -15,6 +15,7 @@ import { updateAmountShoppings } from "../../../../../helpers/updateAmountShoppi
 import { sumAmountMoney } from "../../../../../helpers/sumAmountMoney";
 import { createShopping } from "../../../../../services/request/createShopping";
 import { deleteShopping } from "../../../../../services/request/deleteShopping";
+import { updateShopping } from "../../../../../services/request/updateShopping";
 
 type PropsType = {
   shoppingList: ShoppingType[];
@@ -64,6 +65,7 @@ export const ShoppingTable = ({
                 return {
                   ...shopping,
                   [name]: maskMorney(value, name),
+                  isUpdate: true,
                 };
               } else {
                 return shopping;
@@ -134,6 +136,38 @@ export const ShoppingTable = ({
     );
   };
 
+  const updateBuy = async (
+    institutionId: string,
+    shoppingUpdate: ShoppingType
+  ) => {
+    const shoppingId = shoppingUpdate.id;
+
+    await updateShopping(shoppingUpdate);
+
+    setInstitutionList(
+      institutionList.map((institution) => {
+        if (institution.id === institutionId) {
+          return {
+            ...institution,
+            listResponsibleValues: sumAmountResponsible(institution),
+            shoppings: institution.shoppings.map((shopping) => {
+              if (shopping.id === shoppingId) {
+                return {
+                  ...shoppingUpdate,
+                  isUpdate: false,
+                };
+              } else {
+                return shopping;
+              }
+            }),
+          };
+        } else {
+          return institution;
+        }
+      })
+    );
+  };
+
   React.useEffect(() => {
     setInstitutionList(
       institutionList.map((institution) => {
@@ -194,6 +228,16 @@ export const ShoppingTable = ({
                 </td>
 
                 <td className="content-btn">
+                  {shopping.isUpdate && (
+                    <button
+                      onClick={() => {
+                        updateBuy(institution.id, shopping);
+                      }}
+                    >
+                      Salvar
+                    </button>
+                  )}
+
                   <button
                     onClick={() => {
                       removeBuy(institution.id, shopping);
