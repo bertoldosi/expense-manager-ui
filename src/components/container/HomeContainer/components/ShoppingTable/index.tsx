@@ -129,21 +129,22 @@ export const ShoppingTable = ({
     shopping: ShoppingType
   ) => {
     const shoppingId = shopping.id;
-    await deleteShopping(shoppingId);
 
-    setInstitutionList(
-      institutionList.map((institution) => {
-        if (institution.id === institutionId) {
-          return {
-            ...institution,
-            shoppings: removingShopping(institution.shoppings, shoppingId),
-            amount: subtractingValues(institution.amount, shopping),
-          };
-        } else {
-          return institution;
-        }
-      })
-    );
+    deleteShopping(shoppingId).then(() => {
+      setInstitutionList(
+        institutionList.map((institution) => {
+          if (institution.id === institutionId) {
+            return {
+              ...institution,
+              shoppings: removingShopping(institution.shoppings, shoppingId),
+              amount: subtractingValues(institution.amount, shopping),
+            };
+          } else {
+            return institution;
+          }
+        })
+      );
+    });
   };
 
   const updateBuy = async (
@@ -196,16 +197,19 @@ export const ShoppingTable = ({
         <SsubTable>
           <thead>
             <tr>
+              <th className="center">#</th>
               <th>Descrição</th>
               <th>Total</th>
               <th>Responsável</th>
-              <th>#</th>
+              <th className="center">#</th>
             </tr>
           </thead>
 
           <tbody>
             {shoppingList.map((shopping, index) => (
               <tr key={index}>
+                <td className="center">{index + 1}</td>
+
                 <td>
                   <InputTable
                     name="description"
@@ -260,7 +264,7 @@ export const ShoppingTable = ({
             ))}
 
             <tr>
-              <td>
+              <td colSpan={2}>
                 <InputTable
                   autofocus
                   name="description"
@@ -296,29 +300,30 @@ export const ShoppingTable = ({
               </td>
             </tr>
 
+            <tr>
+              <td colSpan={5}>
+                <ScontentButton>
+                  <Button
+                    backgroundColor="#FFF"
+                    color="#333"
+                    onClick={() => {
+                      includeShopping(institution.id);
+                    }}
+                  >
+                    Adicionar
+                  </Button>
+                </ScontentButton>
+              </td>
+            </tr>
+
             <tr className="no-border">
-              <td colSpan={4}>
+              <td colSpan={5}>
                 <TableTotalAmount
                   listResponsibleValues={institution.listResponsibleValues}
                 />
               </td>
             </tr>
           </tbody>
-          <tr className="no-border">
-            <td colSpan={4}>
-              <ScontentButton>
-                <Button
-                  backgroundColor="#FFF"
-                  color="#333"
-                  onClick={() => {
-                    includeShopping(institution.id);
-                  }}
-                >
-                  Salvar
-                </Button>
-              </ScontentButton>
-            </td>
-          </tr>
         </SsubTable>
       </td>
     </tr>

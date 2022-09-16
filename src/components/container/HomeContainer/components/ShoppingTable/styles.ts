@@ -3,6 +3,10 @@ import styled from "styled-components";
 export const SsubTable = styled.table`
   border-collapse: collapse;
   width: 100%;
+  background-color: #3333;
+  padding: 1rem !important;
+  border-radius: 0.5rem !important;
+  overflow: hidden;
 
   thead {
     tr {
@@ -10,6 +14,10 @@ export const SsubTable = styled.table`
         text-align: start;
         padding: 1rem;
         border: 1px solid #333;
+
+        &.center {
+          text-align: center;
+        }
       }
     }
   }
@@ -19,6 +27,10 @@ export const SsubTable = styled.table`
       td {
         border: 1px solid #333;
         padding: 1rem;
+
+        &.center {
+          text-align: center;
+        }
 
         &.content-btn {
           text-align: center;
@@ -30,6 +42,14 @@ export const SsubTable = styled.table`
             &:focus {
               background-color: transparent;
             }
+          }
+        }
+
+        &.no-border {
+          border: transparent !important;
+
+          td {
+            border: none;
           }
         }
       }
