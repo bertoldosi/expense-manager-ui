@@ -23,6 +23,7 @@ type PropsType = {
 
 const initialInputInstitution = {
   id: "",
+  reference: uuidv4(),
   name: "",
   amount: "0,00",
   listResponsibleValues: [],
@@ -59,14 +60,9 @@ function HomeContainer({ month }: PropsType) {
       inputInstitution.amount != "" &&
       inputInstitution.expirationDate != "";
 
-    const { id: institutionId } = await createInstitution(
-      inputInstitution,
-      month.id
-    );
-
     if (isFilled) {
       setInstitutionList((prevState) => {
-        return [...prevState, { ...inputInstitution, id: institutionId }];
+        return [...prevState, { ...inputInstitution, reference: uuidv4() }];
       });
 
       setInputInstitution(initialInputInstitution);
@@ -97,7 +93,7 @@ function HomeContainer({ month }: PropsType) {
                 <tr
                   key={key}
                   onClick={() => {
-                    handlerShoppingsExpanded(institution.id);
+                    handlerShoppingsExpanded(institution.reference);
                   }}
                 >
                   <td>
@@ -123,7 +119,7 @@ function HomeContainer({ month }: PropsType) {
             <td>
               <InputTable
                 name="name"
-                id={inputInstitution.id}
+                id={inputInstitution.reference}
                 value={inputInstitution.name}
                 onChange={onChangeInputInstitution}
                 onKeyUp={includeNewInstitution}
@@ -132,7 +128,7 @@ function HomeContainer({ month }: PropsType) {
             <td>
               <InputTable
                 name="amount"
-                id={inputInstitution.id}
+                id={inputInstitution.reference}
                 value={inputInstitution.amount}
                 onChange={onChangeInputInstitution}
                 onKeyUp={includeNewInstitution}
@@ -142,7 +138,7 @@ function HomeContainer({ month }: PropsType) {
             <td>
               <InputTable
                 name="expirationDate"
-                id={inputInstitution.id}
+                id={inputInstitution.reference}
                 value={inputInstitution.expirationDate}
                 onChange={onChangeInputInstitution}
                 onKeyUp={includeNewInstitution}

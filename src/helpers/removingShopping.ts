@@ -5,7 +5,7 @@ export const removingShopping = (
   shoppingId: string
 ) => {
   const resultFilter = shoppings.filter((shopping) => {
-    return shopping.id != shoppingId;
+    return shopping.reference != shoppingId;
   });
 
   return resultFilter;

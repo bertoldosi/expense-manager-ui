@@ -26,6 +26,7 @@ type PropsType = {
 
 const initialNewShopping = {
   id: "",
+  reference: uuidv4(),
   description: "",
   amount: "",
   responsible: "",
@@ -61,12 +62,12 @@ export const ShoppingTable = ({
 
     setInstitutionList(
       institutionList.map((institution) => {
-        if (institution.id === institutionId) {
+        if (institution.reference === institutionId) {
           return {
             ...institution,
             listResponsibleValues: sumAmountResponsible(institution),
             shoppings: institution.shoppings.map((shopping) => {
-              if (shopping.id === id) {
+              if (shopping.reference === id) {
                 return {
                   ...shopping,
                   [name]: maskMorney(value, name),
@@ -93,16 +94,9 @@ export const ShoppingTable = ({
       : "SEM/ATRIB";
     const amount = newShopping.amount ? newShopping.amount : "0";
 
-    const { id: shoppingId } = await createShopping(institutionId, {
-      ...newShopping,
-      description,
-      responsible,
-      amount,
-    });
-
     setInstitutionList(
       institutionList.map((institution) => {
-        if (institution.id === institutionId) {
+        if (institution.reference === institutionId) {
           return {
             ...institution,
             listResponsibleValues: sumAmountResponsible(institution),
@@ -111,9 +105,10 @@ export const ShoppingTable = ({
               ...institution.shoppings,
               {
                 ...newShopping,
-                id: shoppingId,
+                reference: uuidv4(),
                 description: description,
                 responsible: responsible,
+                amount,
               },
             ],
           };
@@ -132,27 +127,26 @@ export const ShoppingTable = ({
   ) => {
     setIsRequest(true);
 
-    const shoppingId = shopping.id;
+    const shoppingReference = shopping.reference;
 
-    await deleteShopping(shoppingId);
+    setInstitutionList(
+      institutionList.map((institution) => {
+        if (institution.reference === institutionId) {
+          return {
+            ...institution,
+            shoppings: removingShopping(
+              institution.shoppings,
+              shoppingReference
+            ),
+            amount: subtractingValues(institution.amount, shopping),
+          };
+        } else {
+          return institution;
+        }
+      })
+    );
 
-    setTimeout(() => {
-      setInstitutionList(
-        institutionList.map((institution) => {
-          if (institution.id === institutionId) {
-            return {
-              ...institution,
-              shoppings: removingShopping(institution.shoppings, shoppingId),
-              amount: subtractingValues(institution.amount, shopping),
-            };
-          } else {
-            return institution;
-          }
-        })
-      );
-
-      setIsRequest(false);
-    }, 2000);
+    setIsRequest(false);
   };
 
   const updateBuy = async (
@@ -160,36 +154,34 @@ export const ShoppingTable = ({
     shoppingUpdate: ShoppingType
   ) => {
     setIsRequest(true);
-    const shoppingId = shoppingUpdate.id;
+    const shoppingReference = shoppingUpdate.reference;
 
     await updateShopping(shoppingUpdate);
 
-    setTimeout(() => {
-      setInstitutionList(
-        institutionList.map((institution) => {
-          if (institution.id === institutionId) {
-            return {
-              ...institution,
-              listResponsibleValues: sumAmountResponsible(institution),
-              shoppings: institution.shoppings.map((shopping) => {
-                if (shopping.id === shoppingId) {
-                  return {
-                    ...shoppingUpdate,
-                    isUpdate: false,
-                  };
-                } else {
-                  return shopping;
-                }
-              }),
-            };
-          } else {
-            return institution;
-          }
-        })
-      );
+    setInstitutionList(
+      institutionList.map((institution) => {
+        if (institution.reference === institutionId) {
+          return {
+            ...institution,
+            listResponsibleValues: sumAmountResponsible(institution),
+            shoppings: institution.shoppings.map((shopping) => {
+              if (shopping.reference === shoppingReference) {
+                return {
+                  ...shoppingUpdate,
+                  isUpdate: false,
+                };
+              } else {
+                return shopping;
+              }
+            }),
+          };
+        } else {
+          return institution;
+        }
+      })
+    );
 
-      setIsRequest(false);
-    }, 3000);
+    setIsRequest(false);
   };
 
   React.useEffect(() => {
@@ -226,30 +218,30 @@ export const ShoppingTable = ({
                 <td>
                   <InputTable
                     name="description"
-                    id={shopping.id}
+                    id={shopping.reference}
                     value={shopping.description}
                     onChange={(event) => {
-                      onChangeInputUpdateShopping(event, institution.id);
+                      onChangeInputUpdateShopping(event, institution.reference);
                     }}
                   />
                 </td>
                 <td>
                   <InputTable
                     name="amount"
-                    id={shopping.id}
+                    id={shopping.reference}
                     value={shopping.amount}
                     onChange={(event) => {
-                      onChangeInputUpdateShopping(event, institution.id);
+                      onChangeInputUpdateShopping(event, institution.reference);
                     }}
                   />
                 </td>
                 <td>
                   <InputTable
                     name="responsible"
-                    id={shopping.id}
+                    id={shopping.reference}
                     value={shopping.responsible}
                     onChange={(event) => {
-                      onChangeInputUpdateShopping(event, institution.id);
+                      onChangeInputUpdateShopping(event, institution.reference);
                     }}
                   />
                 </td>
@@ -259,7 +251,7 @@ export const ShoppingTable = ({
                     <button
                       disabled={isRequest}
                       onClick={() => {
-                        updateBuy(institution.id, shopping);
+                        updateBuy(institution.reference, shopping);
                       }}
                     >
                       Salvar
@@ -269,7 +261,7 @@ export const ShoppingTable = ({
                   <button
                     disabled={isRequest}
                     onClick={() => {
-                      removeShopping(institution.id, shopping);
+                      removeShopping(institution.reference, shopping);
                     }}
                   >
                     Remove
@@ -283,33 +275,33 @@ export const ShoppingTable = ({
                 <InputTable
                   autofocus
                   name="description"
-                  id={newShopping.id}
+                  id={newShopping.reference}
                   value={newShopping.description}
                   onChange={onChangeInputAddShopping}
                   onKeyUp={() => {
-                    includeShopping(institution.id);
+                    includeShopping(institution.reference);
                   }}
                 />
               </td>
               <td>
                 <InputTable
                   name="amount"
-                  id={newShopping.id}
+                  id={newShopping.reference}
                   value={newShopping.amount}
                   onChange={onChangeInputAddShopping}
                   onKeyUp={() => {
-                    includeShopping(institution.id);
+                    includeShopping(institution.reference);
                   }}
                 />
               </td>
               <td colSpan={2}>
                 <InputTable
                   name="responsible"
-                  id={newShopping.id}
+                  id={newShopping.reference}
                   value={newShopping.responsible}
                   onChange={onChangeInputAddShopping}
                   onKeyUp={() => {
-                    includeShopping(institution.id);
+                    includeShopping(institution.reference);
                   }}
                 />
               </td>
@@ -322,7 +314,7 @@ export const ShoppingTable = ({
                     backgroundColor="#FFF"
                     color="#333"
                     onClick={() => {
-                      includeShopping(institution.id);
+                      includeShopping(institution.reference);
                     }}
                   >
                     Adicionar

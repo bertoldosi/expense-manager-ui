@@ -1,5 +1,6 @@
 export type ShoppingType = {
   id: string;
+  reference: string;
   description: string;
   amount: string | number;
   responsible: string;
@@ -13,6 +14,7 @@ export type ResponsibleValuesType = {
 
 export type InstitutionType = {
   id: string;
+  reference: string;
   name: string;
   amount: string | number;
   listResponsibleValues?: ResponsibleValuesType[];

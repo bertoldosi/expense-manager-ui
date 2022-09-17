@@ -37,7 +37,7 @@ const useTable = (InstitutionList: InstitutionType[]) => {
   const handlerShoppingsExpanded = (itemId: string) => {
     setInstitutionList(
       institutionList.map((item) => {
-        if (itemId === item.id) {
+        if (itemId === item.reference) {
           return { ...item, isShowShoppings: !item.isShowShoppings };
         } else {
           return item;
