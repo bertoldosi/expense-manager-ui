@@ -15,13 +15,14 @@ import { maskDate } from "../../../helpers/masks";
 import { InstitutionType, MonthType } from "./types";
 import { sumTotalResponsible } from "../../../helpers/sumTotalResponsible";
 import { createInstitution } from "../../../services/request/createInstitution";
+import { salvarEmLote } from "../../../helpers/salvarEmLote";
 
 type PropsType = {
   month: MonthType;
 };
 
 const initialInputInstitution = {
-  id: uuidv4(),
+  id: "",
   name: "",
   amount: "0,00",
   listResponsibleValues: [],
@@ -58,14 +59,17 @@ function HomeContainer({ month }: PropsType) {
       inputInstitution.amount != "" &&
       inputInstitution.expirationDate != "";
 
+    const { id: institutionId } = await createInstitution(
+      inputInstitution,
+      month.id
+    );
+
     if (isFilled) {
       setInstitutionList((prevState) => {
-        return [...prevState, inputInstitution];
+        return [...prevState, { ...inputInstitution, id: institutionId }];
       });
 
       setInputInstitution(initialInputInstitution);
-
-      await createInstitution(inputInstitution, month.id);
     } else {
       alert("Precisa preencher todos os campos");
     }
@@ -150,6 +154,13 @@ function HomeContainer({ month }: PropsType) {
       </Stable>
 
       <TableTotalAmount listResponsibleValues={responsibleTotalAmountList} />
+      <button
+        onClick={() => {
+          salvarEmLote();
+        }}
+      >
+        Salvar em lote
+      </button>
     </Scontainer>
   );
 }

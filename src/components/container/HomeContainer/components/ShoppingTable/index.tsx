@@ -25,7 +25,7 @@ type PropsType = {
 };
 
 const initialNewShopping = {
-  id: uuidv4(),
+  id: "",
   description: "",
   amount: "",
   responsible: "",
@@ -93,8 +93,8 @@ export const ShoppingTable = ({
       : "SEM/ATRIB";
     const amount = newShopping.amount ? newShopping.amount : "0";
 
-    await createShopping(institutionId, {
-      id: uuidv4(),
+    const { id: shoppingId } = await createShopping(institutionId, {
+      ...newShopping,
       description,
       responsible,
       amount,
@@ -111,7 +111,7 @@ export const ShoppingTable = ({
               ...institution.shoppings,
               {
                 ...newShopping,
-                id: uuidv4(),
+                id: shoppingId,
                 description: description,
                 responsible: responsible,
               },

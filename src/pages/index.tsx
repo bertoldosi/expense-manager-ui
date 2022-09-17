@@ -7,7 +7,7 @@ import { MonthType } from "../components/container/HomeContainer/types";
 import Header from "../components/container/HomeContainer/components/Header";
 import React from "react";
 
-const GET_MONTHS = gql`
+export const GET_MONTHS = gql`
   query {
     months(orderBy: mesNumber_ASC, first: 12) {
       id

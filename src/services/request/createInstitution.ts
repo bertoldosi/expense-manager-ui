@@ -57,4 +57,8 @@ export const createInstitution = async (
   hygraph.request(PUBLISH_MONTH, {
     id: updateMonth.id,
   });
+
+  return {
+    ...createInstitution,
+  };
 };

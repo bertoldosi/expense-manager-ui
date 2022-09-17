@@ -68,4 +68,8 @@ export const createShopping = async (
   hygraph.request(PUBLISH_INSTITUTION, {
     institutionId: updateInstitution.id,
   });
+
+  return {
+    ...createShopping,
+  };
 };
