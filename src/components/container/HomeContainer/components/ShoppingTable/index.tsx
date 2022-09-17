@@ -115,11 +115,11 @@ export const ShoppingTable = ({
         })
       );
 
-      createShopping(institutionId, {
-        ...newShopping,
-        reference: uuidv4(),
-        responsible,
-      });
+      // createShopping(institutionId, {
+      //   ...newShopping,
+      //   reference: uuidv4(),
+      //   responsible,
+      // });
 
       setNewShopping(initialNewShopping);
     } else {

@@ -59,10 +59,10 @@ function HomeContainer({ month }: PropsType) {
       inputInstitution.amount != "" &&
       inputInstitution.expirationDate != "";
 
-    await createInstitution(
-      { ...inputInstitution, reference: uuidv4() },
-      month.id
-    );
+    // await createInstitution(
+    //   { ...inputInstitution, reference: uuidv4() },
+    //   month.id
+    // );
 
     if (isFilled) {
       setInstitutionList((prevState) => {
