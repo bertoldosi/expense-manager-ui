@@ -22,7 +22,6 @@ type PropsType = {
 };
 
 const initialInputInstitution = {
-  id: "",
   reference: uuidv4(),
   name: "",
   amount: "0,00",
@@ -59,6 +58,11 @@ function HomeContainer({ month }: PropsType) {
       inputInstitution.name != "" &&
       inputInstitution.amount != "" &&
       inputInstitution.expirationDate != "";
+
+    await createInstitution(
+      { ...inputInstitution, reference: uuidv4() },
+      month.id
+    );
 
     if (isFilled) {
       setInstitutionList((prevState) => {

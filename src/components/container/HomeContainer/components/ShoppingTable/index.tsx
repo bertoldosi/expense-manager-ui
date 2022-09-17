@@ -16,6 +16,7 @@ import { sumAmountMoney } from "../../../../../helpers/sumAmountMoney";
 import { createShopping } from "../../../../../services/request/createShopping";
 import { deleteShopping } from "../../../../../services/request/deleteShopping";
 import { updateShopping } from "../../../../../services/request/updateShopping";
+import { salvarEmLote } from "../../../../../helpers/salvarEmLote";
 
 type PropsType = {
   shoppingList: ShoppingType[];
@@ -25,7 +26,6 @@ type PropsType = {
 };
 
 const initialNewShopping = {
-  id: "",
   reference: uuidv4(),
   description: "",
   amount: "",
@@ -85,40 +85,46 @@ export const ShoppingTable = ({
     );
   };
 
-  const includeShopping = async (institutionId: string) => {
-    const description = newShopping.description
-      ? newShopping.description
-      : "SEM/DESC";
+  const includeShopping = (institutionId: string) => {
     const responsible = newShopping.responsible
       ? newShopping.responsible
       : "SEM/ATRIB";
-    const amount = newShopping.amount ? newShopping.amount : "0";
 
-    setInstitutionList(
-      institutionList.map((institution) => {
-        if (institution.reference === institutionId) {
-          return {
-            ...institution,
-            listResponsibleValues: sumAmountResponsible(institution),
-            amount: sumAmountMoney(institution.amount, newShopping.amount),
-            shoppings: [
-              ...institution.shoppings,
-              {
-                ...newShopping,
-                reference: uuidv4(),
-                description: description,
-                responsible: responsible,
-                amount,
-              },
-            ],
-          };
-        } else {
-          return institution;
-        }
-      })
-    );
+    const isFilled = newShopping.description != "" && newShopping.amount != "";
 
-    setNewShopping(initialNewShopping);
+    if (isFilled) {
+      setInstitutionList(
+        institutionList.map((institution) => {
+          if (institution.reference === institutionId) {
+            return {
+              ...institution,
+              listResponsibleValues: sumAmountResponsible(institution),
+              amount: sumAmountMoney(institution.amount, newShopping.amount),
+              shoppings: [
+                ...institution.shoppings,
+                {
+                  ...newShopping,
+                  reference: uuidv4(),
+                  responsible: responsible,
+                },
+              ],
+            };
+          } else {
+            return institution;
+          }
+        })
+      );
+
+      createShopping(institutionId, {
+        ...newShopping,
+        reference: uuidv4(),
+        responsible,
+      });
+
+      setNewShopping(initialNewShopping);
+    } else {
+      alert("Precisa preencher descrição e valor!");
+    }
   };
 
   const removeShopping = async (
@@ -128,6 +134,9 @@ export const ShoppingTable = ({
     setIsRequest(true);
 
     const shoppingReference = shopping.reference;
+    await deleteShopping(shoppingReference).then(() => {
+      setIsRequest(false);
+    });
 
     setInstitutionList(
       institutionList.map((institution) => {
@@ -145,8 +154,6 @@ export const ShoppingTable = ({
         }
       })
     );
-
-    setIsRequest(false);
   };
 
   const updateBuy = async (

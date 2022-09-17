@@ -14,12 +14,12 @@ export const GET_MONTHS = gql`
       name
       mesNumber
       institutions {
-        id
+        reference
         name
         amount
         expirationDate
         shoppings {
-          id
+          reference
           description
           amount
           responsible

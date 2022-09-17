@@ -1,60 +1,30 @@
 import { GET_MONTHS } from "../pages";
+import { v4 as uuidv4 } from "uuid";
+
 // import { monthsMock } from "../pages/monthsMock";
 import { hygraph } from "../services/HygraphClient";
 import { createNewInstitution } from "../services/request/createNewInstitution";
+import { createShopping } from "../services/request/createShopping";
 import { getInstitution } from "../services/request/getInstitution";
+import { getShopping } from "../services/request/getShopping";
 import { publishInstitution } from "../services/request/publishInstitution";
 import { updateMonthInstitution } from "../services/request/updateMonthInstitution";
 
-const monthsList = new Array();
-const institutions = new Array();
-const shoppings = new Array();
+const create = async (institution) => {
+  institution.shoppings.map(async (shopping) => {
+    const isShopping = await getShopping(shopping.reference);
 
-const monthsIds = new Array();
-const institutionIds = new Array();
-const shoppingIds = new Array();
-
-const create = (months) => {
-  months.map((month) => {
-    monthsList.push(month);
-
-    month.institutions.map(async (institution) => {
-      const isInstitution = await getInstitution(institution.id);
-
-      if (!isInstitution) {
-        console.log(isInstitution);
-        const newInstitution = await createNewInstitution(institution);
-
-        institutions.push(newInstitution);
-        await publishInstitution(newInstitution.id);
-      }
-
-      institution.shoppings.map((shopping) => {
-        shoppings.push(shopping);
+    if (!isShopping.reference) {
+      await createShopping(institution.reference, {
+        ...shopping,
+        reference: uuidv4(),
       });
-    });
+    }
   });
 };
 
-export const salvarEmLote = (months) => {
-  create(months);
+export const salvarEmLote = async (institution) => {
+  await create(institution);
 
-  months.map((month) => {
-    monthsIds.push(month.id);
-
-    month.institutions.map((institution) => {
-      institutionIds.push(institution.id);
-
-      // updateMonthInstitution(month.id, institution.id);
-
-      institution.shoppings.map((shopping) => {
-        shoppingIds.push(shopping.id);
-      });
-    });
-  });
-
-  // console.log(months);
-  // console.log(monthsIds);
-  // console.log(institutionIds);
-  // console.log(shoppingIds);
+  return;
 };

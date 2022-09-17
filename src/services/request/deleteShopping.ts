@@ -1,15 +1,15 @@
-import { hygraph } from "../HygraphClient";
+import { hygraph, gql } from "../HygraphClient";
 
-const DELETE_SHOPPING = `
-    mutation DeleteShopping($id: ID!) {
-        deleteShopping(where: {id: $id}) {
-        id
-        }
+const DELETE_SHOPPING = gql`
+  mutation DeleteShopping($reference: String!) {
+    deleteShopping(where: { reference: $reference }) {
+      reference
     }
-  `;
+  }
+`;
 
-export const deleteShopping = async (id: string) => {
+export const deleteShopping = async (reference: string) => {
   hygraph.request(DELETE_SHOPPING, {
-    id,
+    reference,
   });
 };
