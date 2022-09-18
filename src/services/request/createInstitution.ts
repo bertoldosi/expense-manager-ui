@@ -14,23 +14,27 @@ const CREATE_INSTITUTION = gql`
         expirationDate: $expirationDate
       }
     ) {
-      id
+      reference
     }
   }
 `;
 
 const PUBLISH_INSTITUTION = gql`
-  mutation PublishInstitution($id: ID!) {
-    publishInstitution(where: { id: $id }, to: PUBLISHED) {
-      id
+  mutation PublishInstitution($reference: String!) {
+    publishInstitution(where: { reference: $reference }, to: PUBLISHED) {
+      reference
     }
   }
 `;
 
 const UPDATE_MONTH = gql`
-  mutation UpdateMonth($institutionId: ID!, $monthId: ID!) {
+  mutation UpdateMonth($institutionReference: ID!, $monthId: ID!) {
     updateMonth(
-      data: { institutions: { connect: { where: { id: $institutionId } } } }
+      data: {
+        institutions: {
+          connect: { where: { reference: $institutionReference } }
+        }
+      }
       where: { id: $monthId }
     ) {
       id
@@ -56,11 +60,11 @@ export const createInstitution = async (
   );
 
   hygraph.request(PUBLISH_INSTITUTION, {
-    id: createInstitution.id,
+    reference: createInstitution.reference,
   });
 
   const { updateMonth } = await hygraph.request(UPDATE_MONTH, {
-    institutionId: createInstitution.id,
+    institutionReference: createInstitution.reference,
     monthId,
   });
 
