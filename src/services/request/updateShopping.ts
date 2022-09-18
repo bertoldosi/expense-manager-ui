@@ -3,28 +3,29 @@ import { gql, hygraph } from "../HygraphClient";
 
 const UPDATE_SHOPPING = gql`
   mutation UpdateShopping(
-    $id: ID!
+    $reference: String!
     $description: String!
     $amount: String!
     $responsible: String!
   ) {
     updateShopping(
       data: {
+        reference: $reference
         description: $description
         amount: $amount
         responsible: $responsible
       }
-      where: { id: $id }
+      where: { reference: $reference }
     ) {
-      id
+      reference
     }
   }
 `;
 
 const PUBLISH_SHOPPING = gql`
-  mutation PublishShopping($shoppingId: ID!) {
-    publishShopping(where: { id: $shoppingId }, to: PUBLISHED) {
-      id
+  mutation PublishShopping($shoppingReference: String!) {
+    publishShopping(where: { reference: $shoppingReference }, to: PUBLISHED) {
+      reference
     }
   }
 `;
@@ -35,6 +36,6 @@ export const updateShopping = async (shoppingUpdate: ShoppingType) => {
   });
 
   hygraph.request(PUBLISH_SHOPPING, {
-    shoppingId: updateShopping.id,
+    shoppingReference: updateShopping.reference,
   });
 };

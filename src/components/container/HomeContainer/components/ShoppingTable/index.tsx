@@ -16,7 +16,6 @@ import { sumAmountMoney } from "../../../../../helpers/sumAmountMoney";
 import { createShopping } from "../../../../../services/request/createShopping";
 import { deleteShopping } from "../../../../../services/request/deleteShopping";
 import { updateShopping } from "../../../../../services/request/updateShopping";
-import { salvarEmLote } from "../../../../../helpers/salvarEmLote";
 
 type PropsType = {
   shoppingList: ShoppingType[];
@@ -115,11 +114,11 @@ export const ShoppingTable = ({
         })
       );
 
-      // createShopping(institutionId, {
-      //   ...newShopping,
-      //   reference: uuidv4(),
-      //   responsible,
-      // });
+      createShopping(institutionId, {
+        ...newShopping,
+        reference: uuidv4(),
+        responsible,
+      });
 
       setNewShopping(initialNewShopping);
     } else {
