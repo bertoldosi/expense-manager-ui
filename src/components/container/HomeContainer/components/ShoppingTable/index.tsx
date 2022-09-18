@@ -152,7 +152,9 @@ export const ShoppingTable = ({
       })
     );
 
-    setIsRequest(false);
+    setTimeout(() => {
+      setIsRequest(false);
+    }, 1000);
   };
 
   const updateBuy = async (
@@ -187,7 +189,9 @@ export const ShoppingTable = ({
       })
     );
 
-    setIsRequest(false);
+    setTimeout(() => {
+      setIsRequest(false);
+    }, 1000);
   };
 
   React.useEffect(() => {
