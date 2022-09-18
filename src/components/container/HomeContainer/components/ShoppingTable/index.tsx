@@ -133,9 +133,7 @@ export const ShoppingTable = ({
     setIsRequest(true);
 
     const shoppingReference = shopping.reference;
-    await deleteShopping(shoppingReference).then(() => {
-      setIsRequest(false);
-    });
+    await deleteShopping(shoppingReference);
 
     setInstitutionList(
       institutionList.map((institution) => {
@@ -153,6 +151,8 @@ export const ShoppingTable = ({
         }
       })
     );
+
+    setIsRequest(false);
   };
 
   const updateBuy = async (
