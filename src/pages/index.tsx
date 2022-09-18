@@ -1,5 +1,4 @@
 import Head from "next/head";
-import type { GetServerSideProps } from "next";
 
 import { hygraph, gql } from "../services/HygraphClient";
 import HomeContainer from "../components/container/HomeContainer";

@@ -1,4 +1,4 @@
-export const monthsMock = [
+const monthsMock = [
   {
     id: "cl80ra8j70g2e0ckesnso0lr5",
     name: "Jan",
@@ -88,3 +88,5 @@ export const monthsMock = [
     institutions: [],
   },
 ];
+
+export default monthsMock;
