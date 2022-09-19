@@ -15,10 +15,6 @@ app.prepare().then(() => {
   server.use(bp.json());
   server.use(bp.urlencoded({ extended: true }));
 
-  server.get("/api", async (req, res) => {
-    res.status(200).send("Hello!");
-  });
-
   server.use("/api/shopping", routerShopping);
 
   server.get("*/*", (req, res) => {
