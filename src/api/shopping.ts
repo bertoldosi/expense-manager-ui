@@ -1,5 +1,11 @@
+import { ShoppingType } from "../components/container/HomeContainer/types";
 import apiGateway from "../lib/axios-instance-local";
 
-export const GetShopping = async () => {
-  return apiGateway.get("/api/shopping");
+type Payload = {
+  institutionId: string;
+  shopping: ShoppingType;
+};
+
+export const createNewShopping = async (payload: Payload) => {
+  return apiGateway.post("/api/shopping", payload);
 };

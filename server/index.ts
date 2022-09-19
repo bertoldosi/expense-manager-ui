@@ -1,26 +1,31 @@
-const express = require("express");
-const next = require("next");
+import express from "express";
+import next from "next";
 
 const port = process.env.PORT || 3000;
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
+import bp from "body-parser";
+
+import routerShopping from "./routes/shopping";
 
 app.prepare().then(() => {
   const server = express();
 
+  server.use(bp.json());
+  server.use(bp.urlencoded({ extended: true }));
+
   server.get("/api", async (req, res) => {
-    res.status(200).send("Hello api!");
+    res.status(200).send("Hello!");
   });
 
-  require("./routes/shopping")(server);
+  server.use("/api/shopping", routerShopping);
 
   server.get("*/*", (req, res) => {
     return handle(req, res);
   });
 
-  server.listen(port, (err) => {
-    if (err) throw err;
+  server.listen(port, () => {
     console.log(`> Ready on http://localhost:${port}`);
   });
 });

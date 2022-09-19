@@ -15,7 +15,6 @@ import { maskDate } from "../../../helpers/masks";
 import { InstitutionType, MonthType } from "./types";
 import { sumTotalResponsible } from "../../../helpers/sumTotalResponsible";
 import { createInstitution } from "../../../services/request/createInstitution";
-import { GetShopping } from "../../../api/shopping";
 
 type PropsType = {
   month: MonthType;
@@ -154,14 +153,6 @@ function HomeContainer({ month }: PropsType) {
       </Stable>
 
       <TableTotalAmount listResponsibleValues={responsibleTotalAmountList} />
-
-      <button
-        onClick={() => {
-          GetShopping();
-        }}
-      >
-        Servet test
-      </button>
     </Scontainer>
   );
 }

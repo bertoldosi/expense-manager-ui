@@ -16,6 +16,7 @@ import { sumAmountMoney } from "../../../../../helpers/sumAmountMoney";
 import { createShopping } from "../../../../../services/request/createShopping";
 import { deleteShopping } from "../../../../../services/request/deleteShopping";
 import { updateShopping } from "../../../../../services/request/updateShopping";
+import { createNewShopping } from "../../../../../api/shopping";
 
 type PropsType = {
   shoppingList: ShoppingType[];
@@ -84,12 +85,23 @@ export const ShoppingTable = ({
     );
   };
 
-  const includeShopping = (institutionId: string) => {
+  const includeShopping = async (institutionId: string) => {
     const responsible = newShopping.responsible
       ? newShopping.responsible
       : "SEM/ATRIB";
 
     const isFilled = newShopping.description != "" && newShopping.amount != "";
+
+    const shopping = {
+      ...newShopping,
+      reference: uuidv4(),
+      responsible,
+    };
+
+    await createNewShopping({
+      institutionId,
+      shopping,
+    });
 
     if (isFilled) {
       setInstitutionList(
@@ -113,12 +125,6 @@ export const ShoppingTable = ({
           }
         })
       );
-
-      createShopping(institutionId, {
-        ...newShopping,
-        reference: uuidv4(),
-        responsible,
-      });
 
       setNewShopping(initialNewShopping);
     } else {
