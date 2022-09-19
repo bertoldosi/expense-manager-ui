@@ -9,7 +9,11 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   const server = express();
 
-  require("./routes/weather")(server);
+  server.get("/api", async (req, res) => {
+    res.status(200).send("Hello api!");
+  });
+
+  require("./routes/shopping")(server);
 
   server.get("*/*", (req, res) => {
     return handle(req, res);
