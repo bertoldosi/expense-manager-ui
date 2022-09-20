@@ -5,10 +5,10 @@ type LinkPropsType = {
 };
 
 export const Scontent = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 4rem;
+  width: 100%;
+  overflow-x: auto;
+  height: 5rem;
+  text-align: center;
 `;
 
 export const Slink = styled.a<LinkPropsType>`

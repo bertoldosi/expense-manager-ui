@@ -5,6 +5,7 @@ import HomeContainer from "../components/container/HomeContainer";
 import { MonthType } from "../components/container/HomeContainer/types";
 import Header from "../components/container/HomeContainer/components/Header";
 import React from "react";
+import styled from "styled-components";
 
 export const GET_MONTHS = gql`
   query {
@@ -26,6 +27,12 @@ export const GET_MONTHS = gql`
       }
     }
   }
+`;
+
+const Smain = styled.main`
+  width: 100%;
+  max-width: 120rem;
+  margin: 0 auto;
 `;
 
 const Home = () => {
@@ -50,7 +57,7 @@ const Home = () => {
         <title>Expense Manager</title>
       </Head>
 
-      <main>
+      <Smain>
         <Header
           nowMonth={nowMonth}
           setNowMonth={setNowMonth}
@@ -63,7 +70,7 @@ const Home = () => {
               <HomeContainer key={index} month={month} />
             )
         )}
-      </main>
+      </Smain>
     </>
   );
 };

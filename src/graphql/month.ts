@@ -15,6 +15,28 @@ const UPDATE_MONTH = gql`
   }
 `;
 
+export const GET_MONTHS = gql`
+  query {
+    months(orderBy: mesNumber_ASC, first: 12) {
+      id
+      name
+      mesNumber
+      institutions {
+        reference
+        name
+        amount
+        expirationDate
+        shoppings(first: 5000) {
+          reference
+          description
+          amount
+          responsible
+        }
+      }
+    }
+  }
+`;
+
 export const updateMonthInstitution = async (
   monthId: string,
   institutionReference: string
@@ -30,5 +52,15 @@ export const updateMonthInstitution = async (
 
   return {
     ...updateMonth,
+  };
+};
+
+export const getMonths = async () => {
+  const { months } = await hygraph.request(GET_MONTHS).catch((error) => {
+    console.log(error);
+  });
+
+  return {
+    ...months,
   };
 };
