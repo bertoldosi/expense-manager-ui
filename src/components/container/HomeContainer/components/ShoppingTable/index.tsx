@@ -41,8 +41,6 @@ export const ShoppingTable = ({
   const [newShopping, setNewShopping] =
     React.useState<ShoppingType>(initialNewShopping);
 
-  const [isRequest, setIsRequest] = React.useState(false);
-
   const onChangeAddShopping = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
@@ -132,8 +130,6 @@ export const ShoppingTable = ({
     institutionId: string,
     shopping: ShoppingType
   ) => {
-    setIsRequest(true);
-
     const shoppingReference = shopping.reference;
     await deleteShopping(shoppingReference);
 
@@ -153,17 +149,12 @@ export const ShoppingTable = ({
         }
       })
     );
-
-    setTimeout(() => {
-      setIsRequest(false);
-    }, 1000);
   };
 
   const updateShopping = async (
     institutionId: string,
     shoppingUpdate: ShoppingType
   ) => {
-    setIsRequest(true);
     const shoppingReference = shoppingUpdate.reference;
 
     await upShopping(shoppingUpdate);
@@ -190,10 +181,6 @@ export const ShoppingTable = ({
         }
       })
     );
-
-    setTimeout(() => {
-      setIsRequest(false);
-    }, 1000);
   };
 
   React.useEffect(() => {
@@ -261,7 +248,6 @@ export const ShoppingTable = ({
                 <td className="content-btn">
                   {shopping.isUpdate && (
                     <button
-                      disabled={isRequest}
                       onClick={() => {
                         updateShopping(institution.reference, shopping);
                       }}
@@ -271,7 +257,6 @@ export const ShoppingTable = ({
                   )}
 
                   <button
-                    disabled={isRequest}
                     onClick={() => {
                       removeShopping(institution.reference, shopping);
                     }}
