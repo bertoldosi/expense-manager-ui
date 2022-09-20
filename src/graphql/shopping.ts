@@ -52,9 +52,13 @@ const DELETE_SHOPPING = gql`
 `;
 
 export const createShopping = async (shopping: ShoppingType) => {
-  const { createShopping } = await hygraph.request(CREATE_SHOPPING, {
-    ...shopping,
-  });
+  const { createShopping } = await hygraph
+    .request(CREATE_SHOPPING, {
+      ...shopping,
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
   return {
     ...createShopping,
@@ -62,9 +66,13 @@ export const createShopping = async (shopping: ShoppingType) => {
 };
 
 export const updateShopping = async (shopping: ShoppingType) => {
-  const { updateShopping } = await hygraph.request(UPDATE_SHOPPING, {
-    ...shopping,
-  });
+  const { updateShopping } = await hygraph
+    .request(UPDATE_SHOPPING, {
+      ...shopping,
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
   return {
     ...updateShopping,
@@ -72,9 +80,13 @@ export const updateShopping = async (shopping: ShoppingType) => {
 };
 
 export const deleteShopping = async (reference: string) => {
-  const { deleteShopping } = await hygraph.request(DELETE_SHOPPING, {
-    reference,
-  });
+  const { deleteShopping } = await hygraph
+    .request(DELETE_SHOPPING, {
+      reference,
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
   return {
     ...deleteShopping,

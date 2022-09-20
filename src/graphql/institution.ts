@@ -37,10 +37,11 @@ const UPDATE_INSTITUTION_SHOPPING = gql`
 `;
 
 export const createInstitution = async (institution: InstitutionType) => {
-  const { createInstitution } = await hygraph.request(
-    CREATE_INSTITUTION,
-    institution
-  );
+  const { createInstitution } = await hygraph
+    .request(CREATE_INSTITUTION, institution)
+    .catch((error) => {
+      console.log(error);
+    });
 
   return {
     ...createInstitution,
@@ -51,13 +52,14 @@ export const updateInstitutionShopping = async (
   institutionReference: string,
   shoppingReference: string
 ) => {
-  const { updateInstitution } = await hygraph.request(
-    UPDATE_INSTITUTION_SHOPPING,
-    {
+  const { updateInstitution } = await hygraph
+    .request(UPDATE_INSTITUTION_SHOPPING, {
       institutionReference,
       shoppingReference,
-    }
-  );
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
   return {
     ...updateInstitution,
