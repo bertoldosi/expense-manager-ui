@@ -14,7 +14,8 @@ import { formatMorney } from "../../../helpers/formatMorney";
 import { maskDate } from "../../../helpers/masks";
 import { InstitutionType, MonthType } from "./types";
 import { sumTotalResponsible } from "../../../helpers/sumTotalResponsible";
-import { createInstitution } from "../../../services/request/createInstitution";
+import { createInstitution } from "../../../graphql/institution";
+import { updateMonthInstitution } from "../../../graphql/month";
 
 type PropsType = {
   month: MonthType;
@@ -58,14 +59,17 @@ function HomeContainer({ month }: PropsType) {
       inputInstitution.amount != "" &&
       inputInstitution.expirationDate != "";
 
-    await createInstitution(
-      { ...inputInstitution, reference: uuidv4() },
-      month.id
+    const newInstitution = { ...inputInstitution, reference: uuidv4() };
+
+    const { reference: institutionReference } = await createInstitution(
+      newInstitution
     );
+
+    await updateMonthInstitution(month.id, institutionReference);
 
     if (isFilled) {
       setInstitutionList((prevState) => {
-        return [...prevState, { ...inputInstitution, reference: uuidv4() }];
+        return [...prevState, newInstitution];
       });
 
       setInputInstitution(initialInputInstitution);

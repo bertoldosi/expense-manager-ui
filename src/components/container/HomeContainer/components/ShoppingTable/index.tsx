@@ -13,10 +13,10 @@ import { removingShopping } from "../../../../../helpers/removingShopping";
 import { subtractingValues } from "../../../../../helpers/subtractingValues";
 import { updateAmountShoppings } from "../../../../../helpers/updateAmountShoppings";
 import { sumAmountMoney } from "../../../../../helpers/sumAmountMoney";
-import { createShopping } from "../../../../../services/request/createShopping";
-import { deleteShopping } from "../../../../../services/request/deleteShopping";
-import { updateShopping } from "../../../../../services/request/updateShopping";
-import { createNewShopping } from "../../../../../api/shopping";
+import { deleteShopping } from "../../../../../graphql/shopping";
+import { updateShopping } from "../../../../../graphql/shopping";
+import { createShopping } from "../../../../../graphql/shopping";
+import { updateInstitutionShopping } from "../../../../../graphql/institution";
 
 type PropsType = {
   shoppingList: ShoppingType[];
@@ -98,10 +98,8 @@ export const ShoppingTable = ({
       responsible,
     };
 
-    await createNewShopping({
-      institutionId,
-      shopping,
-    });
+    const { reference: shoppingReference } = await createShopping(shopping);
+    await updateInstitutionShopping(institutionId, shoppingReference);
 
     if (isFilled) {
       setInstitutionList(
