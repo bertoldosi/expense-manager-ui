@@ -131,7 +131,6 @@ export const ShoppingTable = ({
     shopping: ShoppingType
   ) => {
     const shoppingReference = shopping.reference;
-    await deleteShopping(shoppingReference);
 
     setInstitutionList(
       institutionList.map((institution) => {
@@ -149,6 +148,8 @@ export const ShoppingTable = ({
         }
       })
     );
+
+    await deleteShopping(shoppingReference);
   };
 
   const updateShopping = async (
