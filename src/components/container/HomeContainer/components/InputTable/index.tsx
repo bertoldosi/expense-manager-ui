@@ -1,4 +1,5 @@
 import React from "react";
+import { focusInput } from "../../../../../helpers/focusInput";
 import { Sinput } from "./styles";
 
 type PropsTypes = {
@@ -29,10 +30,7 @@ function InputTable({
 
     if (keycode == 13) {
       onKeyUp();
-
-      const inputsTable = window.document.getElementsByName("description");
-      const lastInput = inputsTable[inputsTable.length - 1];
-      lastInput?.focus();
+      focusInput();
     }
   };
 

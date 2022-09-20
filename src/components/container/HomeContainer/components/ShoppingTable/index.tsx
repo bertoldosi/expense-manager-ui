@@ -17,6 +17,7 @@ import { deleteShopping } from "../../../../../graphql/shopping";
 import { updateShopping as upShopping } from "../../../../../graphql/shopping";
 import { createShopping } from "../../../../../graphql/shopping";
 import { updateInstitutionShopping } from "../../../../../graphql/institution";
+import { focusInput } from "../../../../../helpers/focusInput";
 
 type PropsType = {
   shoppingList: ShoppingType[];
@@ -128,6 +129,7 @@ export const ShoppingTable = ({
 
             setNewShopping(initialNewShopping);
             setRequest(false);
+            focusInput();
           }
         );
       });
@@ -292,7 +294,6 @@ export const ShoppingTable = ({
             <tr>
               <td colSpan={2}>
                 <InputTable
-                  disabled={request}
                   autofocus
                   name="description"
                   id={newShopping.reference}
