@@ -14,7 +14,7 @@ import { subtractingValues } from "../../../../../helpers/subtractingValues";
 import { updateAmountShoppings } from "../../../../../helpers/updateAmountShoppings";
 import { sumAmountMoney } from "../../../../../helpers/sumAmountMoney";
 import { deleteShopping } from "../../../../../graphql/shopping";
-import { updateShopping } from "../../../../../graphql/shopping";
+import { updateShopping as upShopping } from "../../../../../graphql/shopping";
 import { createShopping } from "../../../../../graphql/shopping";
 import { updateInstitutionShopping } from "../../../../../graphql/institution";
 
@@ -43,9 +43,7 @@ export const ShoppingTable = ({
 
   const [isRequest, setIsRequest] = React.useState(false);
 
-  const onChangeInputAddShopping = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const onChangeAddShopping = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
     setNewShopping((prevState) => ({
@@ -54,7 +52,7 @@ export const ShoppingTable = ({
     }));
   };
 
-  const onChangeInputUpdateShopping = (
+  const onChangeUpdateShopping = (
     event: React.ChangeEvent<HTMLInputElement>,
     institutionId: string
   ) => {
@@ -161,14 +159,14 @@ export const ShoppingTable = ({
     }, 1000);
   };
 
-  const updateBuy = async (
+  const updateShopping = async (
     institutionId: string,
     shoppingUpdate: ShoppingType
   ) => {
     setIsRequest(true);
     const shoppingReference = shoppingUpdate.reference;
 
-    await updateShopping(shoppingUpdate);
+    await upShopping(shoppingUpdate);
 
     setInstitutionList(
       institutionList.map((institution) => {
@@ -235,7 +233,7 @@ export const ShoppingTable = ({
                     id={shopping.reference}
                     value={shopping.description}
                     onChange={(event) => {
-                      onChangeInputUpdateShopping(event, institution.reference);
+                      onChangeUpdateShopping(event, institution.reference);
                     }}
                   />
                 </td>
@@ -245,7 +243,7 @@ export const ShoppingTable = ({
                     id={shopping.reference}
                     value={shopping.amount}
                     onChange={(event) => {
-                      onChangeInputUpdateShopping(event, institution.reference);
+                      onChangeUpdateShopping(event, institution.reference);
                     }}
                   />
                 </td>
@@ -255,7 +253,7 @@ export const ShoppingTable = ({
                     id={shopping.reference}
                     value={shopping.responsible}
                     onChange={(event) => {
-                      onChangeInputUpdateShopping(event, institution.reference);
+                      onChangeUpdateShopping(event, institution.reference);
                     }}
                   />
                 </td>
@@ -265,7 +263,7 @@ export const ShoppingTable = ({
                     <button
                       disabled={isRequest}
                       onClick={() => {
-                        updateBuy(institution.reference, shopping);
+                        updateShopping(institution.reference, shopping);
                       }}
                     >
                       Salvar
@@ -291,7 +289,7 @@ export const ShoppingTable = ({
                   name="description"
                   id={newShopping.reference}
                   value={newShopping.description}
-                  onChange={onChangeInputAddShopping}
+                  onChange={onChangeAddShopping}
                   onKeyUp={() => {
                     includeShopping(institution.reference);
                   }}
@@ -302,7 +300,7 @@ export const ShoppingTable = ({
                   name="amount"
                   id={newShopping.reference}
                   value={newShopping.amount}
-                  onChange={onChangeInputAddShopping}
+                  onChange={onChangeAddShopping}
                   onKeyUp={() => {
                     includeShopping(institution.reference);
                   }}
@@ -313,7 +311,7 @@ export const ShoppingTable = ({
                   name="responsible"
                   id={newShopping.reference}
                   value={newShopping.responsible}
-                  onChange={onChangeInputAddShopping}
+                  onChange={onChangeAddShopping}
                   onKeyUp={() => {
                     includeShopping(institution.reference);
                   }}
