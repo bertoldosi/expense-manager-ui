@@ -17,7 +17,7 @@ export const GET_MONTHS = gql`
         name
         amount
         expirationDate
-        shoppings {
+        shoppings(first: 500) {
           reference
           description
           amount
