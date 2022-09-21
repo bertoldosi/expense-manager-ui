@@ -58,13 +58,13 @@ export const ShoppingTable = ({
 
   const onChangeUpdateShopping = (
     event: React.ChangeEvent<HTMLInputElement>,
-    institutionId: string
+    institutionReference: string
   ) => {
     const { id, value, name } = event.target;
 
     setInstitutionList(
       institutionList.map((institution) => {
-        if (institution.reference === institutionId) {
+        if (institution.reference === institutionReference) {
           return {
             ...institution,
             listResponsibleValues: sumAmountResponsible(institution),
@@ -89,13 +89,13 @@ export const ShoppingTable = ({
 
   const onChangeUpdateRepeatShopping = (
     event: React.ChangeEvent<HTMLInputElement>,
-    institutionId: string
+    institutionReference: string
   ) => {
     const { id, checked, name } = event.target;
 
     setInstitutionList(
       institutionList.map((institution) => {
-        if (institution.reference === institutionId) {
+        if (institution.reference === institutionReference) {
           return {
             ...institution,
             shoppings: institution.shoppings.map((shopping) => {
@@ -117,7 +117,7 @@ export const ShoppingTable = ({
     );
   };
 
-  const includeShopping = async (institutionId: string) => {
+  const includeShopping = async (institutionReference: string) => {
     setRequest(true);
 
     const responsible = newShopping.responsible
@@ -133,38 +133,39 @@ export const ShoppingTable = ({
 
     if (isFilled) {
       createShopping(shopping).then(({ reference: shoppingReference }) => {
-        updateInstitutionShopping(institutionId, shoppingReference).finally(
-          () => {
-            setInstitutionList(
-              institutionList.map((institution) => {
-                if (institution.reference === institutionId) {
-                  return {
-                    ...institution,
-                    listResponsibleValues: sumAmountResponsible(institution),
-                    amount: sumAmountMoney(
-                      institution.amount,
-                      newShopping.amount
-                    ),
-                    shoppings: [
-                      ...institution.shoppings,
-                      {
-                        ...newShopping,
-                        reference: uuidv4(),
-                        responsible: responsible,
-                      },
-                    ],
-                  };
-                } else {
-                  return institution;
-                }
-              })
-            );
+        updateInstitutionShopping(
+          institutionReference,
+          shoppingReference
+        ).finally(() => {
+          setInstitutionList(
+            institutionList.map((institution) => {
+              if (institution.reference === institutionReference) {
+                return {
+                  ...institution,
+                  listResponsibleValues: sumAmountResponsible(institution),
+                  amount: sumAmountMoney(
+                    institution.amount,
+                    newShopping.amount
+                  ),
+                  shoppings: [
+                    ...institution.shoppings,
+                    {
+                      ...newShopping,
+                      reference: uuidv4(),
+                      responsible: responsible,
+                    },
+                  ],
+                };
+              } else {
+                return institution;
+              }
+            })
+          );
 
-            setNewShopping(initialNewShopping);
-            setRequest(false);
-            focusInput();
-          }
-        );
+          setNewShopping(initialNewShopping);
+          setRequest(false);
+          focusInput();
+        });
       });
     } else {
       alert("Precisa preencher descrição e valor!");
@@ -173,7 +174,7 @@ export const ShoppingTable = ({
   };
 
   const removeShopping = async (
-    institutionId: string,
+    institutionReference: string,
     shopping: ShoppingType
   ) => {
     setRequest(true);
@@ -182,7 +183,7 @@ export const ShoppingTable = ({
     deleteShopping(shoppingReference).finally(() => {
       setInstitutionList(
         institutionList.map((institution) => {
-          if (institution.reference === institutionId) {
+          if (institution.reference === institutionReference) {
             return {
               ...institution,
               shoppings: removingShopping(
@@ -201,7 +202,7 @@ export const ShoppingTable = ({
   };
 
   const updateShopping = async (
-    institutionId: string,
+    institutionReference: string,
     shoppingUpdate: ShoppingType
   ) => {
     setRequest(true);
@@ -210,7 +211,7 @@ export const ShoppingTable = ({
     upShopping(shoppingUpdate).finally(() => {
       setInstitutionList(
         institutionList.map((institution) => {
-          if (institution.reference === institutionId) {
+          if (institution.reference === institutionReference) {
             return {
               ...institution,
               listResponsibleValues: sumAmountResponsible(institution),
