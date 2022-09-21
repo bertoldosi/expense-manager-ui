@@ -9,6 +9,7 @@ export const Scontent = styled.div`
   overflow-x: auto;
   height: 5rem;
   text-align: center;
+  margin-top: 2rem;
 `;
 
 export const Slink = styled.a<LinkPropsType>`
