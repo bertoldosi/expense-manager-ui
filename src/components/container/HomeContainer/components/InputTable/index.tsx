@@ -40,6 +40,7 @@ function InputTable({
 
   return (
     <Sinput
+      autoComplete="off"
       tabIndex={tabIndex}
       autoFocus={autofocus}
       name={name}
