@@ -226,6 +226,7 @@ export const ShoppingTable = ({
               <th>Descrição</th>
               <th>Total</th>
               <th>Responsável</th>
+              <th>Repetir</th>
               <th className="center">#</th>
             </tr>
           </thead>
@@ -269,6 +270,19 @@ export const ShoppingTable = ({
                   />
                 </td>
 
+                <td>
+                  <InputTable
+                    type="checkbox"
+                    disabled={request}
+                    name="responsible"
+                    id={shopping.reference}
+                    value={shopping.responsible}
+                    onChange={(event) => {
+                      onChangeUpdateShopping(event, institution.reference);
+                    }}
+                  />
+                </td>
+
                 <td className="center">
                   {shopping.isUpdate ? (
                     <Save
@@ -294,7 +308,7 @@ export const ShoppingTable = ({
             ))}
 
             <tr>
-              <td colSpan={2}>
+              <td colSpan={3}>
                 <InputTable
                   autofocus
                   name="description"
@@ -333,7 +347,7 @@ export const ShoppingTable = ({
             </tr>
 
             <tr>
-              <td colSpan={5}>
+              <td colSpan={6}>
                 <ScontentButton>
                   <Button
                     disabled={request}
@@ -350,7 +364,7 @@ export const ShoppingTable = ({
             </tr>
 
             <tr className="no-border">
-              <td colSpan={5}>
+              <td colSpan={6}>
                 <TableTotalAmount
                   listResponsibleValues={institution.listResponsibleValues}
                 />
