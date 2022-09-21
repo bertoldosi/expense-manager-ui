@@ -18,6 +18,8 @@ import { updateShopping as upShopping } from "../../../../../graphql/shopping";
 import { createShopping } from "../../../../../graphql/shopping";
 import { updateInstitutionShopping } from "../../../../../graphql/institution";
 import { focusInput } from "../../../../../helpers/focusInput";
+import { Trash } from "../../../../icons/Trash";
+import { Save } from "../../../../icons/Save";
 
 type PropsType = {
   shoppingList: ShoppingType[];
@@ -267,26 +269,26 @@ export const ShoppingTable = ({
                   />
                 </td>
 
-                <td className="content-btn">
-                  {shopping.isUpdate && (
-                    <button
+                <td className="center">
+                  {shopping.isUpdate ? (
+                    <Save
+                      width={20}
+                      height={20}
                       disabled={request}
                       onClick={() => {
                         updateShopping(institution.reference, shopping);
                       }}
-                    >
-                      Salvar
-                    </button>
+                    />
+                  ) : (
+                    <Trash
+                      width={20}
+                      height={20}
+                      disabled={request}
+                      onClick={() => {
+                        removeShopping(institution.reference, shopping);
+                      }}
+                    />
                   )}
-
-                  <button
-                    disabled={request}
-                    onClick={() => {
-                      removeShopping(institution.reference, shopping);
-                    }}
-                  >
-                    Remove
-                  </button>
                 </td>
               </tr>
             ))}

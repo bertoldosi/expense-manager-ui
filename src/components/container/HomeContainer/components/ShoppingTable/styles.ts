@@ -32,19 +32,6 @@ export const SsubTable = styled.table`
           text-align: center;
         }
 
-        &.content-btn {
-          text-align: center;
-
-          button {
-            margin-left: 0.4rem;
-            padding: 0.5rem;
-
-            &:focus {
-              background-color: transparent;
-            }
-          }
-        }
-
         &.no-border {
           border: transparent !important;
 
