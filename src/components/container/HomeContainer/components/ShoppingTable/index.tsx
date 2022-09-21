@@ -33,6 +33,7 @@ const initialNewShopping = {
   description: "",
   amount: "",
   responsible: "",
+  repeat: false,
 };
 
 export const ShoppingTable = ({
@@ -72,6 +73,36 @@ export const ShoppingTable = ({
                 return {
                   ...shopping,
                   [name]: maskMorney(value, name),
+                  isUpdate: true,
+                };
+              } else {
+                return shopping;
+              }
+            }),
+          };
+        } else {
+          return institution;
+        }
+      })
+    );
+  };
+
+  const onChangeUpdateRepeatShopping = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    institutionId: string
+  ) => {
+    const { id, checked, name } = event.target;
+
+    setInstitutionList(
+      institutionList.map((institution) => {
+        if (institution.reference === institutionId) {
+          return {
+            ...institution,
+            shoppings: institution.shoppings.map((shopping) => {
+              if (shopping.reference === id) {
+                return {
+                  ...shopping,
+                  [name]: checked,
                   isUpdate: true,
                 };
               } else {
@@ -270,15 +301,18 @@ export const ShoppingTable = ({
                   />
                 </td>
 
-                <td>
+                <td className="center">
                   <InputTable
                     type="checkbox"
                     disabled={request}
-                    name="responsible"
+                    name="repeat"
                     id={shopping.reference}
-                    value={shopping.responsible}
+                    checked={shopping.repeat}
                     onChange={(event) => {
-                      onChangeUpdateShopping(event, institution.reference);
+                      onChangeUpdateRepeatShopping(
+                        event,
+                        institution.reference
+                      );
                     }}
                   />
                 </td>

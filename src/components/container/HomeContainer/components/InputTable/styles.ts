@@ -13,3 +13,8 @@ export const Sinput = styled.input`
     color: #fff;
   }
 `;
+
+export const SinputCheckbox = styled.input`
+  width: 3rem;
+  cursor: pointer;
+`;

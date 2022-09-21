@@ -8,6 +8,7 @@ const CREATE_SHOPPING = gql`
     $description: String!
     $responsible: String!
     $amount: String!
+    $repeat: Boolean!
   ) {
     createShopping(
       data: {
@@ -15,6 +16,7 @@ const CREATE_SHOPPING = gql`
         description: $description
         responsible: $responsible
         amount: $amount
+        repeat: $repeat
       }
     ) {
       reference
@@ -28,6 +30,7 @@ const UPDATE_SHOPPING = gql`
     $description: String!
     $amount: String!
     $responsible: String!
+    $repeat: Boolean!
   ) {
     updateShopping(
       data: {
@@ -35,6 +38,7 @@ const UPDATE_SHOPPING = gql`
         description: $description
         amount: $amount
         responsible: $responsible
+        repeat: $repeat
       }
       where: { reference: $reference }
     ) {

@@ -23,6 +23,7 @@ export const GET_MONTHS = gql`
           description
           amount
           responsible
+          repeat
         }
       }
     }

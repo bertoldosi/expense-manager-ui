@@ -80,6 +80,7 @@ function HomeContainer({ month }: PropsType) {
 
   React.useEffect(() => {
     setResponsibleTotalAmountList(sumTotalResponsible(institutionList));
+    console.log(institutionList);
   }, [institutionList]);
 
   return (

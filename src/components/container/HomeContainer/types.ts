@@ -4,6 +4,7 @@ export type ShoppingType = {
   amount: string | number;
   responsible: string;
   isUpdate?: boolean;
+  repeat?: boolean;
 };
 
 export type ResponsibleValuesType = {
