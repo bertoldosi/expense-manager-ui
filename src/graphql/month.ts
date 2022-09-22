@@ -37,6 +37,18 @@ export const GET_MONTHS = gql`
   }
 `;
 
+const GET_MONTH_NUMBER = gql`
+  query GetMonthNumber($mesNumber: Int!) {
+    month(where: { mesNumber: $mesNumber }) {
+      id
+      institutions {
+        reference
+        name
+      }
+    }
+  }
+`;
+
 export const updateMonthInstitution = async (
   monthId: string,
   institutionReference: string
@@ -62,5 +74,19 @@ export const getMonths = async () => {
 
   return {
     ...months,
+  };
+};
+
+export const getMonthNumber = async (mesNumber: Number) => {
+  const { month } = await hygraph
+    .request(GET_MONTH_NUMBER, {
+      mesNumber,
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  return {
+    ...month,
   };
 };

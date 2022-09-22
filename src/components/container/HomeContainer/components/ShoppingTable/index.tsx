@@ -8,7 +8,7 @@ import TableTotalAmount from "../TableTotalAmount";
 import { Button } from "../../../../common/Button";
 import { maskMorney } from "../../../../../helpers/masks";
 import { sumAmountResponsible } from "../../../../../helpers/sumAmountResponsible";
-import { InstitutionType, ShoppingType } from "../../types";
+import { InstitutionType, MonthType, ShoppingType } from "../../types";
 import { removingShopping } from "../../../../../helpers/removingShopping";
 import { subtractingValues } from "../../../../../helpers/subtractingValues";
 import { updateAmountShoppings } from "../../../../../helpers/updateAmountShoppings";
@@ -16,16 +16,25 @@ import { sumAmountMoney } from "../../../../../helpers/sumAmountMoney";
 import { deleteShopping } from "../../../../../graphql/shopping";
 import { updateShopping as upShopping } from "../../../../../graphql/shopping";
 import { createShopping } from "../../../../../graphql/shopping";
-import { updateInstitutionShopping } from "../../../../../graphql/institution";
+import {
+  createInstitutionShoppings,
+  updateInstitutionShopping,
+} from "../../../../../graphql/institution";
 import { focusInput } from "../../../../../helpers/focusInput";
 import { Trash } from "../../../../icons/Trash";
 import { Save } from "../../../../icons/Save";
+import {
+  getMonthNumber,
+  updateMonthInstitution,
+} from "../../../../../graphql/month";
+import useMonth from "../../../../../hooks/useMonth";
 
 type PropsType = {
   shoppingList: ShoppingType[];
   institution: InstitutionType;
   institutionList: InstitutionType[];
   setInstitutionList: React.Dispatch<React.SetStateAction<InstitutionType[]>>;
+  month: MonthType;
 };
 
 const initialNewShopping = {
@@ -41,6 +50,7 @@ export const ShoppingTable = ({
   institution,
   institutionList,
   setInstitutionList,
+  month,
 }: PropsType) => {
   const [newShopping, setNewShopping] =
     React.useState<ShoppingType>(initialNewShopping);
@@ -103,7 +113,6 @@ export const ShoppingTable = ({
                 return {
                   ...shopping,
                   [name]: checked,
-                  isUpdate: true,
                 };
               } else {
                 return shopping;
@@ -236,6 +245,39 @@ export const ShoppingTable = ({
     });
   };
 
+  const repeatInstitution = async () => {
+    const { id: monthId, institutions } = await getMonthNumber(
+      month.mesNumber + 1
+    );
+
+    const institutionsFilter = institutions.filter(
+      (institutionFilter: InstitutionType) =>
+        institutionFilter.name === institution.name
+    );
+
+    const notInstitutionCreated = institutionsFilter.length === 0;
+
+    if (notInstitutionCreated) {
+      if (monthId) {
+        const institutionRepeat = {
+          ...institution,
+          reference: uuidv4(),
+          shoppings: institution.shoppings.filter(
+            (shopping) => shopping.repeat
+          ),
+        };
+
+        const { reference: institutionReference } =
+          await createInstitutionShoppings(institutionRepeat);
+        await updateMonthInstitution(monthId, institutionReference);
+      } else {
+        alert("Mês não encontrado!");
+      }
+    } else {
+      alert("Add somente as compras");
+    }
+  };
+
   React.useEffect(() => {
     setInstitutionList(
       institutionList.map((institution) => {
@@ -258,7 +300,6 @@ export const ShoppingTable = ({
               <th>Descrição</th>
               <th>Total</th>
               <th>Responsável</th>
-              <th>Repetir</th>
               <th className="center">#</th>
             </tr>
           </thead>
@@ -266,7 +307,21 @@ export const ShoppingTable = ({
           <tbody>
             {shoppingList.map((shopping, index) => (
               <tr key={index}>
-                <td className="center">{index + 1}</td>
+                <td className="center">
+                  <InputTable
+                    type="checkbox"
+                    disabled={request}
+                    name="repeat"
+                    id={shopping.reference}
+                    checked={shopping.repeat}
+                    onChange={(event) => {
+                      onChangeUpdateRepeatShopping(
+                        event,
+                        institution.reference
+                      );
+                    }}
+                  />
+                </td>
 
                 <td>
                   <InputTable
@@ -303,22 +358,6 @@ export const ShoppingTable = ({
                 </td>
 
                 <td className="center">
-                  <InputTable
-                    type="checkbox"
-                    disabled={request}
-                    name="repeat"
-                    id={shopping.reference}
-                    checked={shopping.repeat}
-                    onChange={(event) => {
-                      onChangeUpdateRepeatShopping(
-                        event,
-                        institution.reference
-                      );
-                    }}
-                  />
-                </td>
-
-                <td className="center">
                   {shopping.isUpdate ? (
                     <Save
                       width={20}
@@ -343,7 +382,7 @@ export const ShoppingTable = ({
             ))}
 
             <tr>
-              <td colSpan={3}>
+              <td colSpan={2}>
                 <InputTable
                   autofocus
                   name="description"
@@ -397,6 +436,8 @@ export const ShoppingTable = ({
                 </ScontentButton>
               </td>
             </tr>
+
+            <button onClick={repeatInstitution}>teste</button>
 
             <tr className="no-border">
               <td colSpan={6}>

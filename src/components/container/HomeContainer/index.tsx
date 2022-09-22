@@ -116,6 +116,7 @@ function HomeContainer({ month }: PropsType) {
                     institution={institution}
                     institutionList={institutionList}
                     setInstitutionList={setInstitutionList}
+                    month={month}
                   />
                 )}
               </>
