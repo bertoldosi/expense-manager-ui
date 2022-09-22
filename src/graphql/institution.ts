@@ -97,7 +97,6 @@ export const createInstitutionShoppings = async (
         description: shopping.description,
         amount: shopping.amount,
         responsible: shopping.responsible,
-        repeat: false,
       })),
     })
     .catch((error) => {
@@ -137,7 +136,6 @@ export const updateInstitutionShoppings = async (
       description: shopping.description,
       amount: shopping.amount,
       responsible: shopping.responsible,
-      repeat: false,
     };
   });
 
