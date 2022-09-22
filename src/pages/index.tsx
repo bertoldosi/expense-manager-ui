@@ -37,17 +37,7 @@ const Smain = styled.main`
 `;
 
 const Home = () => {
-  const { nowMonth, setNowMonth } = useMonth();
-  const [months, setMonths] = React.useState<MonthType[]>([]);
-
-  const getMonths = async () => {
-    const { months } = (await hygraph.request(GET_MONTHS)) || [];
-    setMonths(months);
-  };
-
-  React.useEffect(() => {
-    getMonths();
-  }, [nowMonth]);
+  const { nowMonth, months, setNowMonth } = useMonth();
 
   return (
     <>
