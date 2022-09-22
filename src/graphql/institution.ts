@@ -1,7 +1,10 @@
 import { hygraph, gql } from "../services/HygraphClient";
 import { v4 as uuidv4 } from "uuid";
 
-import { InstitutionType } from "../components/container/HomeContainer/types";
+import {
+  InstitutionType,
+  ShoppingType,
+} from "../components/container/HomeContainer/types";
 
 const CREATE_INSTITUTION = gql`
   mutation CreateInstitution(
@@ -57,6 +60,20 @@ const UPDATE_INSTITUTION_SHOPPING = gql`
   }
 `;
 
+const UPDATE_INSTITUTION_SHOPPINGS = gql`
+  mutation UpdateInstitutionShoppings(
+    $institutionReference: String!
+    $shoppings: [ShoppingCreateInput!]
+  ) {
+    updateInstitution(
+      data: { shoppings: { create: $shoppings } }
+      where: { reference: $institutionReference }
+    ) {
+      reference
+    }
+  }
+`;
+
 export const createInstitution = async (institution: InstitutionType) => {
   const { createInstitution } = await hygraph
     .request(CREATE_INSTITUTION, institution)
@@ -100,6 +117,34 @@ export const updateInstitutionShopping = async (
     .request(UPDATE_INSTITUTION_SHOPPING, {
       institutionReference,
       shoppingReference,
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  return {
+    ...updateInstitution,
+  };
+};
+
+export const updateInstitutionShoppings = async (
+  institutionReference: string,
+  shoppings: ShoppingType[]
+) => {
+  const newShoppings = shoppings.map((shopping) => {
+    return {
+      reference: uuidv4(),
+      description: shopping.description,
+      amount: shopping.amount,
+      responsible: shopping.responsible,
+      repeat: false,
+    };
+  });
+
+  const { updateInstitution } = await hygraph
+    .request(UPDATE_INSTITUTION_SHOPPINGS, {
+      institutionReference,
+      shoppings: newShoppings,
     })
     .catch((error) => {
       console.log(error);

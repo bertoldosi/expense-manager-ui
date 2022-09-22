@@ -19,6 +19,7 @@ import { createShopping } from "../../../../../graphql/shopping";
 import {
   createInstitutionShoppings,
   updateInstitutionShopping,
+  updateInstitutionShoppings,
 } from "../../../../../graphql/institution";
 import { focusInput } from "../../../../../helpers/focusInput";
 import { Trash } from "../../../../icons/Trash";
@@ -27,7 +28,6 @@ import {
   getMonthNumber,
   updateMonthInstitution,
 } from "../../../../../graphql/month";
-import useMonth from "../../../../../hooks/useMonth";
 
 type PropsType = {
   shoppingList: ShoppingType[];
@@ -274,7 +274,11 @@ export const ShoppingTable = ({
         alert("Mês não encontrado!");
       }
     } else {
-      alert("Add somente as compras");
+      const shoppingsRepeat = institution.shoppings.filter(
+        (shopping) => shopping.repeat
+      );
+      const institutionReference = institutions[0].reference;
+      await updateInstitutionShoppings(institutionReference, shoppingsRepeat);
     }
   };
 
