@@ -49,4 +49,5 @@ export const ScontentButton = styled.div`
   align-items: center;
   justify-content: end;
   padding: 2rem 0;
+  gap: 1rem;
 `;

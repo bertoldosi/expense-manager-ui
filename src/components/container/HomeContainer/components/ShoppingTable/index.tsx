@@ -250,35 +250,43 @@ export const ShoppingTable = ({
       month.mesNumber + 1
     );
 
-    const institutionsFilter = institutions.filter(
-      (institutionFilter: InstitutionType) =>
-        institutionFilter.name === institution.name
-    );
+    const isInstitutionRepeat =
+      institution.shoppings.filter((shopping) => shopping.repeat).length > 0;
 
-    const notInstitutionCreated = institutionsFilter.length === 0;
+    if (isInstitutionRepeat) {
+      const institutionsFilter = institutions.filter(
+        (institutionFilter: InstitutionType) =>
+          institutionFilter.name === institution.name
+      );
 
-    if (notInstitutionCreated) {
-      if (monthId) {
-        const institutionRepeat = {
-          ...institution,
-          reference: uuidv4(),
-          shoppings: institution.shoppings.filter(
-            (shopping) => shopping.repeat
-          ),
-        };
+      const notInstitutionCreated = institutionsFilter.length === 0;
 
-        const { reference: institutionReference } =
-          await createInstitutionShoppings(institutionRepeat);
-        await updateMonthInstitution(monthId, institutionReference);
+      if (notInstitutionCreated) {
+        if (monthId) {
+          const institutionRepeat = {
+            ...institution,
+            reference: uuidv4(),
+            shoppings: institution.shoppings.filter(
+              (shopping) => shopping.repeat
+            ),
+          };
+
+          const { reference: institutionReference } =
+            await createInstitutionShoppings(institutionRepeat);
+          await updateMonthInstitution(monthId, institutionReference);
+        } else {
+          alert("Mês não encontrado!");
+        }
       } else {
-        alert("Mês não encontrado!");
+        const shoppingsRepeat = institution.shoppings.filter(
+          (shopping) => shopping.repeat
+        );
+
+        const institutionReference = institutions[0].reference;
+        await updateInstitutionShoppings(institutionReference, shoppingsRepeat);
       }
     } else {
-      const shoppingsRepeat = institution.shoppings.filter(
-        (shopping) => shopping.repeat
-      );
-      const institutionReference = institutions[0].reference;
-      await updateInstitutionShoppings(institutionReference, shoppingsRepeat);
+      alert("Marque as compras que deseja reperir para o próximo mês!");
     }
   };
 
@@ -427,6 +435,14 @@ export const ShoppingTable = ({
             <tr>
               <td colSpan={6}>
                 <ScontentButton>
+                  <Button
+                    disabled={request}
+                    backgroundColor="#333"
+                    color="#fff"
+                    onClick={repeatInstitution}
+                  >
+                    Repetir
+                  </Button>
                   <Button
                     disabled={request}
                     backgroundColor="#FFF"

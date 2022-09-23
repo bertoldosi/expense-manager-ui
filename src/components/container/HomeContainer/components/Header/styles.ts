@@ -4,7 +4,9 @@ type LinkPropsType = {
   isSeleted: boolean;
 };
 
-export const Scontent = styled.div`
+export const Scontent = styled.div``;
+
+export const ScontentLinks = styled.div`
   width: 100%;
   overflow-x: auto;
   height: 5rem;
@@ -29,5 +31,5 @@ export const ScontentButtons = styled.div`
   display: flex;
   justify-content: end;
   gap: 1rem;
-  margin-bottom: 4rem;
+  margin: 1rem;
 `;
