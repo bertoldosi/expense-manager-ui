@@ -52,12 +52,7 @@ const Home = () => {
           monthList={months}
         />
 
-        {months.map(
-          (month, index) =>
-            month.mesNumber === nowMonth && (
-              <HomeContainer key={index} month={month} />
-            )
-        )}
+        <HomeContainer nowMonth={nowMonth} setNowMonth={setNowMonth} />
       </Smain>
     </>
   );

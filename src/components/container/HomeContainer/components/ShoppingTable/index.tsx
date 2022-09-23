@@ -32,9 +32,9 @@ import {
 type PropsType = {
   shoppingList: ShoppingType[];
   institution: InstitutionType;
-  institutionList: InstitutionType[];
-  setInstitutionList: React.Dispatch<React.SetStateAction<InstitutionType[]>>;
   month: MonthType;
+  monthList: MonthType[];
+  setMonthList: Function;
 };
 
 const initialNewShopping = {
@@ -48,9 +48,9 @@ const initialNewShopping = {
 export const ShoppingTable = ({
   shoppingList,
   institution,
-  institutionList,
-  setInstitutionList,
   month,
+  monthList,
+  setMonthList,
 }: PropsType) => {
   const [newShopping, setNewShopping] =
     React.useState<ShoppingType>(initialNewShopping);
@@ -72,26 +72,35 @@ export const ShoppingTable = ({
   ) => {
     const { id, value, name } = event.target;
 
-    setInstitutionList(
-      institutionList.map((institution) => {
-        if (institution.reference === institutionReference) {
+    setMonthList(
+      monthList.map((monthMap) => {
+        if (monthMap.id === month.id) {
           return {
-            ...institution,
-            listResponsibleValues: sumAmountResponsible(institution),
-            shoppings: institution.shoppings.map((shopping) => {
-              if (shopping.reference === id) {
+            ...monthMap,
+            institutions: monthMap.institutions.map((institutionMap) => {
+              if (institutionMap.reference === institutionReference) {
                 return {
-                  ...shopping,
-                  [name]: maskMorney(value, name),
-                  isUpdate: true,
+                  ...institutionMap,
+                  listResponsibleValues: sumAmountResponsible(institutionMap),
+                  shoppings: institutionMap.shoppings.map((shoppingMap) => {
+                    if (shoppingMap.reference === id) {
+                      return {
+                        ...shoppingMap,
+                        [name]: maskMorney(value, name),
+                        isUpdate: true,
+                      };
+                    } else {
+                      return shoppingMap;
+                    }
+                  }),
                 };
               } else {
-                return shopping;
+                return institutionMap;
               }
             }),
           };
         } else {
-          return institution;
+          return monthMap;
         }
       })
     );
@@ -103,24 +112,33 @@ export const ShoppingTable = ({
   ) => {
     const { id, checked, name } = event.target;
 
-    setInstitutionList(
-      institutionList.map((institution) => {
-        if (institution.reference === institutionReference) {
+    setMonthList(
+      monthList.map((monthMap) => {
+        if (monthMap.id === month.id) {
           return {
-            ...institution,
-            shoppings: institution.shoppings.map((shopping) => {
-              if (shopping.reference === id) {
+            ...monthMap,
+            institutions: monthMap.institutions.map((institutionMap) => {
+              if (institutionMap.reference === institutionReference) {
                 return {
-                  ...shopping,
-                  [name]: checked,
+                  ...institutionMap,
+                  shoppings: institutionMap.shoppings.map((shoppingMap) => {
+                    if (shoppingMap.reference === id) {
+                      return {
+                        ...shoppingMap,
+                        [name]: checked,
+                      };
+                    } else {
+                      return shoppingMap;
+                    }
+                  }),
                 };
               } else {
-                return shopping;
+                return institutionMap;
               }
             }),
           };
         } else {
-          return institution;
+          return monthMap;
         }
       })
     );
@@ -146,27 +164,37 @@ export const ShoppingTable = ({
           institutionReference,
           shoppingReference
         ).finally(() => {
-          setInstitutionList(
-            institutionList.map((institution) => {
-              if (institution.reference === institutionReference) {
+          setMonthList(
+            monthList.map((monthMap) => {
+              if (monthMap.id === month.id) {
                 return {
-                  ...institution,
-                  listResponsibleValues: sumAmountResponsible(institution),
-                  amount: sumAmountMoney(
-                    institution.amount,
-                    newShopping.amount
-                  ),
-                  shoppings: [
-                    ...institution.shoppings,
-                    {
-                      ...newShopping,
-                      reference: uuidv4(),
-                      responsible: responsible,
-                    },
-                  ],
+                  ...monthMap,
+                  institutions: monthMap.institutions.map((institutionMap) => {
+                    if (institutionMap.reference === institutionReference) {
+                      return {
+                        ...institutionMap,
+                        listResponsibleValues:
+                          sumAmountResponsible(institutionMap),
+                        amount: sumAmountMoney(
+                          institutionMap.amount,
+                          newShopping.amount
+                        ),
+                        shoppings: [
+                          ...institutionMap.shoppings,
+                          {
+                            ...newShopping,
+                            reference: uuidv4(),
+                            responsible: responsible,
+                          },
+                        ],
+                      };
+                    } else {
+                      return institutionMap;
+                    }
+                  }),
                 };
               } else {
-                return institution;
+                return monthMap;
               }
             })
           );
@@ -190,22 +218,32 @@ export const ShoppingTable = ({
     const shoppingReference = shopping.reference;
 
     deleteShopping(shoppingReference).finally(() => {
-      setInstitutionList(
-        institutionList.map((institution) => {
-          if (institution.reference === institutionReference) {
+      setMonthList(
+        monthList.map((monthMap) => {
+          if (monthMap.id === month.id) {
             return {
-              ...institution,
-              shoppings: removingShopping(
-                institution.shoppings,
-                shoppingReference
-              ),
-              amount: subtractingValues(institution.amount, shopping),
+              ...monthMap,
+              institutions: monthMap.institutions.map((institutionMap) => {
+                if (institutionMap.reference === institutionReference) {
+                  return {
+                    ...institutionMap,
+                    shoppings: removingShopping(
+                      institutionMap.shoppings,
+                      shoppingReference
+                    ),
+                    amount: subtractingValues(institutionMap.amount, shopping),
+                  };
+                } else {
+                  return institutionMap;
+                }
+              }),
             };
           } else {
-            return institution;
+            return monthMap;
           }
         })
       );
+
       setRequest(false);
     });
   };
@@ -218,25 +256,34 @@ export const ShoppingTable = ({
     const shoppingReference = shoppingUpdate.reference;
 
     upShopping(shoppingUpdate).finally(() => {
-      setInstitutionList(
-        institutionList.map((institution) => {
-          if (institution.reference === institutionReference) {
+      setMonthList(
+        monthList.map((monthMap) => {
+          if (monthMap.id === month.id) {
             return {
-              ...institution,
-              listResponsibleValues: sumAmountResponsible(institution),
-              shoppings: institution.shoppings.map((shopping) => {
-                if (shopping.reference === shoppingReference) {
+              ...monthMap,
+              institutions: monthMap.institutions.map((institutionMap) => {
+                if (institutionMap.reference === institutionReference) {
                   return {
-                    ...shoppingUpdate,
-                    isUpdate: false,
+                    ...institutionMap,
+                    listResponsibleValues: sumAmountResponsible(institutionMap),
+                    shoppings: institutionMap.shoppings.map((shoppingMap) => {
+                      if (shoppingMap.reference === shoppingReference) {
+                        return {
+                          ...shoppingUpdate,
+                          isUpdate: false,
+                        };
+                      } else {
+                        return shoppingMap;
+                      }
+                    }),
                   };
                 } else {
-                  return shopping;
+                  return institutionMap;
                 }
               }),
             };
           } else {
-            return institution;
+            return monthMap;
           }
         })
       );
@@ -271,6 +318,19 @@ export const ShoppingTable = ({
             ),
           };
 
+          setMonthList(
+            monthList.map((monthMap) => {
+              if (monthMap.id === month.id) {
+                return {
+                  ...monthMap,
+                  institutions: [...monthMap.institutions, institutionRepeat],
+                };
+              } else {
+                return monthMap;
+              }
+            })
+          );
+
           const { reference: institutionReference } =
             await createInstitutionShoppings(institutionRepeat);
           await updateMonthInstitution(monthId, institutionReference);
@@ -283,6 +343,32 @@ export const ShoppingTable = ({
         );
 
         const institutionReference = institutions[0].reference;
+
+        setMonthList(
+          monthList.map((monthMap) => {
+            if (monthMap.id === month.id) {
+              return {
+                ...monthMap,
+                institutions: monthMap.institutions.map((institutionMap) => {
+                  if (institutionMap.reference === institutionReference) {
+                    return {
+                      ...institutionMap,
+                      shoppings: [
+                        ...institutionMap.shoppings,
+                        [...shoppingsRepeat],
+                      ],
+                    };
+                  } else {
+                    return institutionMap;
+                  }
+                }),
+              };
+            } else {
+              return monthMap;
+            }
+          })
+        );
+
         await updateInstitutionShoppings(institutionReference, shoppingsRepeat);
       }
     } else {
@@ -291,13 +377,22 @@ export const ShoppingTable = ({
   };
 
   React.useEffect(() => {
-    setInstitutionList(
-      institutionList.map((institution) => {
-        return {
-          ...institution,
-          listResponsibleValues: sumAmountResponsible(institution),
-          amount: updateAmountShoppings(institution.shoppings),
-        };
+    setMonthList(
+      monthList.map((monthMap) => {
+        if (monthMap.id === month.id) {
+          return {
+            ...monthMap,
+            institutions: monthMap.institutions.map((institutionMap) => {
+              return {
+                ...institutionMap,
+                listResponsibleValues: sumAmountResponsible(institutionMap),
+                amount: updateAmountShoppings(institutionMap.shoppings),
+              };
+            }),
+          };
+        } else {
+          return monthMap;
+        }
       })
     );
   }, [shoppingList]);
