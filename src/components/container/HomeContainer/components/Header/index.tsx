@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "../../../../common/Button";
 import { MonthType } from "../../types";
-import { Scontent, Slink } from "./styles";
+import { Scontent, ScontentButtons, ScontentLinks, Slink } from "./styles";
 
 type PropsType = {
   monthList: MonthType[];
@@ -12,28 +12,25 @@ type PropsType = {
 function Header({ monthList, setNowMonth, nowMonth }: PropsType) {
   return (
     <Scontent>
-      {monthList.map((month) => (
-        <Slink
-          isSeleted={month.mesNumber === nowMonth}
-          type="button"
-          onClick={() => {
-            setNowMonth(month.mesNumber);
-          }}
-        >
-          {month.name}
-        </Slink>
-      ))}
+      <ScontentLinks>
+        {monthList.map((month) => (
+          <Slink
+            isSeleted={month.mesNumber === nowMonth}
+            type="button"
+            onClick={() => {
+              setNowMonth(month.mesNumber);
+            }}
+          >
+            {month.name}
+          </Slink>
+        ))}
+      </ScontentLinks>
 
-      {/* <Button
-        backgroundColor="#FFF"
-        color="#333"
-        onClick={includeNewInstitution}
-      >
-        Adicionar
-      </Button>
-      <Button backgroundColor="#333" color="#fff">
-        Importar
-      </Button> */}
+      <ScontentButtons>
+        <Button backgroundColor="#333" color="#fff">
+          Importar
+        </Button>
+      </ScontentButtons>
     </Scontent>
   );
 }

@@ -8,7 +8,7 @@ import TableTotalAmount from "../TableTotalAmount";
 import { Button } from "../../../../common/Button";
 import { maskMorney } from "../../../../../helpers/masks";
 import { sumAmountResponsible } from "../../../../../helpers/sumAmountResponsible";
-import { InstitutionType, ShoppingType } from "../../types";
+import { InstitutionType, MonthType, ShoppingType } from "../../types";
 import { removingShopping } from "../../../../../helpers/removingShopping";
 import { subtractingValues } from "../../../../../helpers/subtractingValues";
 import { updateAmountShoppings } from "../../../../../helpers/updateAmountShoppings";
@@ -16,16 +16,25 @@ import { sumAmountMoney } from "../../../../../helpers/sumAmountMoney";
 import { deleteShopping } from "../../../../../graphql/shopping";
 import { updateShopping as upShopping } from "../../../../../graphql/shopping";
 import { createShopping } from "../../../../../graphql/shopping";
-import { updateInstitutionShopping } from "../../../../../graphql/institution";
+import {
+  createInstitutionShoppings,
+  updateInstitutionShopping,
+  updateInstitutionShoppings,
+} from "../../../../../graphql/institution";
 import { focusInput } from "../../../../../helpers/focusInput";
 import { Trash } from "../../../../icons/Trash";
 import { Save } from "../../../../icons/Save";
+import {
+  getMonthNumber,
+  updateMonthInstitution,
+} from "../../../../../graphql/month";
 
 type PropsType = {
   shoppingList: ShoppingType[];
   institution: InstitutionType;
   institutionList: InstitutionType[];
   setInstitutionList: React.Dispatch<React.SetStateAction<InstitutionType[]>>;
+  month: MonthType;
 };
 
 const initialNewShopping = {
@@ -33,6 +42,7 @@ const initialNewShopping = {
   description: "",
   amount: "",
   responsible: "",
+  repeat: false,
 };
 
 export const ShoppingTable = ({
@@ -40,6 +50,7 @@ export const ShoppingTable = ({
   institution,
   institutionList,
   setInstitutionList,
+  month,
 }: PropsType) => {
   const [newShopping, setNewShopping] =
     React.useState<ShoppingType>(initialNewShopping);
@@ -57,13 +68,13 @@ export const ShoppingTable = ({
 
   const onChangeUpdateShopping = (
     event: React.ChangeEvent<HTMLInputElement>,
-    institutionId: string
+    institutionReference: string
   ) => {
     const { id, value, name } = event.target;
 
     setInstitutionList(
       institutionList.map((institution) => {
-        if (institution.reference === institutionId) {
+        if (institution.reference === institutionReference) {
           return {
             ...institution,
             listResponsibleValues: sumAmountResponsible(institution),
@@ -86,7 +97,36 @@ export const ShoppingTable = ({
     );
   };
 
-  const includeShopping = async (institutionId: string) => {
+  const onChangeUpdateRepeatShopping = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    institutionReference: string
+  ) => {
+    const { id, checked, name } = event.target;
+
+    setInstitutionList(
+      institutionList.map((institution) => {
+        if (institution.reference === institutionReference) {
+          return {
+            ...institution,
+            shoppings: institution.shoppings.map((shopping) => {
+              if (shopping.reference === id) {
+                return {
+                  ...shopping,
+                  [name]: checked,
+                };
+              } else {
+                return shopping;
+              }
+            }),
+          };
+        } else {
+          return institution;
+        }
+      })
+    );
+  };
+
+  const includeShopping = async (institutionReference: string) => {
     setRequest(true);
 
     const responsible = newShopping.responsible
@@ -102,38 +142,39 @@ export const ShoppingTable = ({
 
     if (isFilled) {
       createShopping(shopping).then(({ reference: shoppingReference }) => {
-        updateInstitutionShopping(institutionId, shoppingReference).finally(
-          () => {
-            setInstitutionList(
-              institutionList.map((institution) => {
-                if (institution.reference === institutionId) {
-                  return {
-                    ...institution,
-                    listResponsibleValues: sumAmountResponsible(institution),
-                    amount: sumAmountMoney(
-                      institution.amount,
-                      newShopping.amount
-                    ),
-                    shoppings: [
-                      ...institution.shoppings,
-                      {
-                        ...newShopping,
-                        reference: uuidv4(),
-                        responsible: responsible,
-                      },
-                    ],
-                  };
-                } else {
-                  return institution;
-                }
-              })
-            );
+        updateInstitutionShopping(
+          institutionReference,
+          shoppingReference
+        ).finally(() => {
+          setInstitutionList(
+            institutionList.map((institution) => {
+              if (institution.reference === institutionReference) {
+                return {
+                  ...institution,
+                  listResponsibleValues: sumAmountResponsible(institution),
+                  amount: sumAmountMoney(
+                    institution.amount,
+                    newShopping.amount
+                  ),
+                  shoppings: [
+                    ...institution.shoppings,
+                    {
+                      ...newShopping,
+                      reference: uuidv4(),
+                      responsible: responsible,
+                    },
+                  ],
+                };
+              } else {
+                return institution;
+              }
+            })
+          );
 
-            setNewShopping(initialNewShopping);
-            setRequest(false);
-            focusInput();
-          }
-        );
+          setNewShopping(initialNewShopping);
+          setRequest(false);
+          focusInput();
+        });
       });
     } else {
       alert("Precisa preencher descrição e valor!");
@@ -142,7 +183,7 @@ export const ShoppingTable = ({
   };
 
   const removeShopping = async (
-    institutionId: string,
+    institutionReference: string,
     shopping: ShoppingType
   ) => {
     setRequest(true);
@@ -151,7 +192,7 @@ export const ShoppingTable = ({
     deleteShopping(shoppingReference).finally(() => {
       setInstitutionList(
         institutionList.map((institution) => {
-          if (institution.reference === institutionId) {
+          if (institution.reference === institutionReference) {
             return {
               ...institution,
               shoppings: removingShopping(
@@ -170,7 +211,7 @@ export const ShoppingTable = ({
   };
 
   const updateShopping = async (
-    institutionId: string,
+    institutionReference: string,
     shoppingUpdate: ShoppingType
   ) => {
     setRequest(true);
@@ -179,7 +220,7 @@ export const ShoppingTable = ({
     upShopping(shoppingUpdate).finally(() => {
       setInstitutionList(
         institutionList.map((institution) => {
-          if (institution.reference === institutionId) {
+          if (institution.reference === institutionReference) {
             return {
               ...institution,
               listResponsibleValues: sumAmountResponsible(institution),
@@ -202,6 +243,51 @@ export const ShoppingTable = ({
 
       setRequest(false);
     });
+  };
+
+  const repeatInstitution = async () => {
+    const { id: monthId, institutions } = await getMonthNumber(
+      month.mesNumber + 1
+    );
+
+    const isInstitutionRepeat =
+      institution.shoppings.filter((shopping) => shopping.repeat).length > 0;
+
+    if (isInstitutionRepeat) {
+      const institutionsFilter = institutions.filter(
+        (institutionFilter: InstitutionType) =>
+          institutionFilter.name === institution.name
+      );
+
+      const notInstitutionCreated = institutionsFilter.length === 0;
+
+      if (notInstitutionCreated) {
+        if (monthId) {
+          const institutionRepeat = {
+            ...institution,
+            reference: uuidv4(),
+            shoppings: institution.shoppings.filter(
+              (shopping) => shopping.repeat
+            ),
+          };
+
+          const { reference: institutionReference } =
+            await createInstitutionShoppings(institutionRepeat);
+          await updateMonthInstitution(monthId, institutionReference);
+        } else {
+          alert("Mês não encontrado!");
+        }
+      } else {
+        const shoppingsRepeat = institution.shoppings.filter(
+          (shopping) => shopping.repeat
+        );
+
+        const institutionReference = institutions[0].reference;
+        await updateInstitutionShoppings(institutionReference, shoppingsRepeat);
+      }
+    } else {
+      alert("Marque as compras que deseja reperir para o próximo mês!");
+    }
   };
 
   React.useEffect(() => {
@@ -233,7 +319,21 @@ export const ShoppingTable = ({
           <tbody>
             {shoppingList.map((shopping, index) => (
               <tr key={index}>
-                <td className="center">{index + 1}</td>
+                <td className="center">
+                  <InputTable
+                    type="checkbox"
+                    disabled={request}
+                    name="repeat"
+                    id={shopping.reference}
+                    checked={shopping.repeat}
+                    onChange={(event) => {
+                      onChangeUpdateRepeatShopping(
+                        event,
+                        institution.reference
+                      );
+                    }}
+                  />
+                </td>
 
                 <td>
                   <InputTable
@@ -333,8 +433,16 @@ export const ShoppingTable = ({
             </tr>
 
             <tr>
-              <td colSpan={5}>
+              <td colSpan={6}>
                 <ScontentButton>
+                  <Button
+                    disabled={request}
+                    backgroundColor="#333"
+                    color="#fff"
+                    onClick={repeatInstitution}
+                  >
+                    Repetir
+                  </Button>
                   <Button
                     disabled={request}
                     backgroundColor="#FFF"
@@ -349,8 +457,10 @@ export const ShoppingTable = ({
               </td>
             </tr>
 
+            <button onClick={repeatInstitution}>teste</button>
+
             <tr className="no-border">
-              <td colSpan={5}>
+              <td colSpan={6}>
                 <TableTotalAmount
                   listResponsibleValues={institution.listResponsibleValues}
                 />

@@ -1,17 +1,18 @@
 import React from "react";
 import { focusInput } from "../../../../../helpers/focusInput";
-import { Sinput } from "./styles";
+import { Sinput, SinputCheckbox } from "./styles";
 
 type PropsTypes = {
   name: string;
   id: string;
-  value: string | number;
+  value?: string | number;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   onKeyUp?: any;
   disabled?: boolean;
   type?: string;
   autofocus?: boolean;
   tabIndex?: number | undefined;
+  checked?: boolean;
 };
 
 function InputTable({
@@ -24,6 +25,7 @@ function InputTable({
   type,
   autofocus,
   tabIndex,
+  checked,
 }: PropsTypes) {
   const handleOnKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const keycode = event.keyCode ? event.keyCode : event.which;
@@ -38,7 +40,17 @@ function InputTable({
 
   const placeholder = isAmount ? "R$ 0,00" : "Digite um valor";
 
-  return (
+  return type === "checkbox" ? (
+    <SinputCheckbox
+      name={name}
+      id={id}
+      value={value}
+      onChange={onChange}
+      disabled={disabled}
+      type={type}
+      checked={checked}
+    />
+  ) : (
     <Sinput
       autoComplete="off"
       tabIndex={tabIndex}
@@ -51,6 +63,7 @@ function InputTable({
       onKeyUp={onKeyUp && handleOnKeyUp}
       disabled={disabled}
       type={type}
+      checked={checked}
     />
   );
 }

@@ -23,6 +23,7 @@ const useTable = (InstitutionList: InstitutionType[]) => {
           return {
             ...shopping,
             isUpdate: false,
+            repeat: false,
           };
         }),
       };

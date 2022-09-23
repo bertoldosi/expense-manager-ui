@@ -6,6 +6,7 @@ import { MonthType } from "../components/container/HomeContainer/types";
 import Header from "../components/container/HomeContainer/components/Header";
 import React from "react";
 import styled from "styled-components";
+import useMonth from "../hooks/useMonth";
 
 export const GET_MONTHS = gql`
   query {
@@ -36,20 +37,7 @@ const Smain = styled.main`
 `;
 
 const Home = () => {
-  const [months, setMonths] = React.useState<MonthType[]>([]);
-
-  const [nowMonth, setNowMonth] = React.useState<number>(
-    () => new Date().getMonth() + 1
-  );
-
-  const getMonths = async () => {
-    const { months } = (await hygraph.request(GET_MONTHS)) || [];
-    setMonths(months);
-  };
-
-  React.useEffect(() => {
-    getMonths();
-  }, [nowMonth]);
+  const { nowMonth, months, setNowMonth } = useMonth();
 
   return (
     <>

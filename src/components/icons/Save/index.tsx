@@ -40,14 +40,14 @@ export const Save = ({
         xmlns="http://www.w3.org/2000/svg"
         width={width}
         height={height}
-        fill="#f5f5ff"
+        fill="#B4E391"
         viewBox="0 0 256 256"
       >
         <rect width="256" height="256" fill="none"></rect>
         <polyline
           points="216 72 104 184 48 128"
           fill="none"
-          stroke="#f5f5ff"
+          stroke="#B4E391"
           stroke-linecap="round"
           stroke-linejoin="round"
           stroke-width="16"
