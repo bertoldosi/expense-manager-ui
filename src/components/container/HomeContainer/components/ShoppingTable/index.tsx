@@ -457,8 +457,6 @@ export const ShoppingTable = ({
               </td>
             </tr>
 
-            <button onClick={repeatInstitution}>teste</button>
-
             <tr className="no-border">
               <td colSpan={6}>
                 <TableTotalAmount

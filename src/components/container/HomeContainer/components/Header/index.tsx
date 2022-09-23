@@ -26,11 +26,11 @@ function Header({ monthList, setNowMonth, nowMonth }: PropsType) {
         ))}
       </ScontentLinks>
 
-      <ScontentButtons>
+      {/* <ScontentButtons>
         <Button backgroundColor="#333" color="#fff">
           Importar
         </Button>
-      </ScontentButtons>
+      </ScontentButtons> */}
     </Scontent>
   );
 }
