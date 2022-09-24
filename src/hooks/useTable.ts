@@ -5,59 +5,12 @@ import { sumAmountResponsible } from "../helpers/sumAmountResponsible";
 import { sumTotalResponsible } from "../helpers/sumTotalResponsible";
 
 import {
-  InstitutionType,
   MonthType,
   ResponsibleValuesType,
 } from "../components/container/HomeContainer/types";
 
-const useTable = (InstitutionList: InstitutionType[], months: MonthType[]) => {
-  const [monthList, setMonthList] = React.useState<MonthType[]>(
-    months.map((month) => {
-      return {
-        ...month,
-        institutions: month.institutions.map((institution) => {
-          return {
-            ...institution,
-            listResponsibleValues: sumAmountResponsible(institution),
-            amount: updateAmountShoppings(institution.shoppings),
-            isShowShoppings: false,
-            shoppings: institution.shoppings.map((shopping) => {
-              return {
-                ...shopping,
-                isUpdate: false,
-                repeat: false,
-              };
-            }),
-          };
-        }),
-      };
-    })
-  );
-
-  const [institutionList, setInstitutionList] = React.useState<
-    InstitutionType[]
-  >(
-    InstitutionList.map((institution) => {
-      return {
-        ...institution,
-        listResponsibleValues: sumAmountResponsible(institution),
-        amount: updateAmountShoppings(institution.shoppings),
-        isShowShoppings: false,
-        shoppings: institution.shoppings.map((shopping) => {
-          return {
-            ...shopping,
-            isUpdate: false,
-            repeat: false,
-          };
-        }),
-      };
-    })
-  );
-
-  const [responsibleTotalAmountList, setResponsibleTotalAmountList] =
-    React.useState<ResponsibleValuesType[]>(
-      sumTotalResponsible(institutionList)
-    );
+const useTable = (months: MonthType[], nowMonth: Number) => {
+  const [monthList, setMonthList] = React.useState<MonthType[]>([]);
 
   const handlerShoppingsExpanded = (
     institutionReference: string,
@@ -86,15 +39,51 @@ const useTable = (InstitutionList: InstitutionType[], months: MonthType[]) => {
     );
   };
 
-  return {
-    institutionList,
-    setInstitutionList,
-    handlerShoppingsExpanded,
-    responsibleTotalAmountList,
-    setResponsibleTotalAmountList,
+  const [responsibleTotalAmountList, setResponsibleTotalAmountList] =
+    React.useState<ResponsibleValuesType[]>([]);
 
+  React.useEffect(() => {
+    setMonthList(
+      months.map((month) => {
+        return {
+          ...month,
+          institutions: month.institutions.map((institution) => {
+            return {
+              ...institution,
+              listResponsibleValues: sumAmountResponsible(institution),
+              amount: updateAmountShoppings(institution.shoppings),
+              isShowShoppings: false,
+              shoppings: institution.shoppings.map((shopping) => {
+                return {
+                  ...shopping,
+                  isUpdate: false,
+                  repeat: false,
+                };
+              }),
+            };
+          }),
+        };
+      })
+    );
+  }, [months]);
+
+  React.useEffect(() => {
+    monthList.map((monthMap) => {
+      if (monthMap.mesNumber === nowMonth) {
+        setResponsibleTotalAmountList(
+          sumTotalResponsible([...monthMap.institutions])
+        );
+      }
+    });
+  }, [monthList]);
+
+  return {
+    handlerShoppingsExpanded,
     monthList,
     setMonthList,
+
+    responsibleTotalAmountList,
+    setResponsibleTotalAmountList,
   };
 };
 

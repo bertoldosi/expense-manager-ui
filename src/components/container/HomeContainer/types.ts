@@ -16,7 +16,7 @@ export type InstitutionType = {
   reference: string;
   name: string;
   amount: string | number;
-  listResponsibleValues?: ResponsibleValuesType[];
+  listResponsibleValues: ResponsibleValuesType[];
   expirationDate: string;
   shoppings: ShoppingType[];
   isShowShoppings?: boolean;

@@ -5,7 +5,6 @@ import { Scontainer, Stable } from "./styles";
 
 import useTable from "../../../hooks/useTable";
 
-import Header from "./components/Header";
 import IconTable from "./components/IconTable";
 import InputTable from "./components/InputTable";
 import TableTotalAmount from "./components/TableTotalAmount";
@@ -13,13 +12,12 @@ import { ShoppingTable } from "./components/ShoppingTable";
 import { formatMorney } from "../../../helpers/formatMorney";
 import { maskDate } from "../../../helpers/masks";
 import { InstitutionType, MonthType } from "./types";
-import { sumTotalResponsible } from "../../../helpers/sumTotalResponsible";
 import { createInstitution } from "../../../graphql/institution";
 import { updateMonthInstitution } from "../../../graphql/month";
-import monthsMock from "../../../mocks/monthsMock";
 
 type PropsType = {
-  month: MonthType;
+  nowMonth: Number;
+  months: MonthType[];
 };
 
 const initialInputInstitution = {
@@ -31,16 +29,13 @@ const initialInputInstitution = {
   shoppings: [],
 };
 
-function HomeContainer({ nowMonth }) {
+function HomeContainer({ nowMonth, months }: PropsType) {
   const {
-    institutionList,
     handlerShoppingsExpanded,
-    responsibleTotalAmountList,
-    setResponsibleTotalAmountList,
-
     monthList,
     setMonthList,
-  } = useTable([], monthsMock);
+    responsibleTotalAmountList,
+  } = useTable(months, nowMonth);
 
   const [inputInstitution, setInputInstitution] =
     React.useState<InstitutionType>(initialInputInstitution);
@@ -89,10 +84,6 @@ function HomeContainer({ nowMonth }) {
       alert("Precisa preencher todos os campos");
     }
   };
-
-  React.useEffect(() => {
-    setResponsibleTotalAmountList(sumTotalResponsible(institutionList));
-  }, [institutionList]);
 
   return monthList.map((month) => {
     return (

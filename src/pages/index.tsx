@@ -52,7 +52,7 @@ const Home = () => {
           monthList={months}
         />
 
-        <HomeContainer nowMonth={nowMonth} setNowMonth={setNowMonth} />
+        <HomeContainer nowMonth={nowMonth} months={months} />
       </Smain>
     </>
   );
