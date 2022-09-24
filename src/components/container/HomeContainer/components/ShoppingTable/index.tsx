@@ -331,6 +331,29 @@ export const ShoppingTable = ({
             })
           );
 
+          setMonthList(
+            monthList.map((monthMap) => {
+              if (monthMap.id === month.id) {
+                return {
+                  ...monthMap,
+                  institutions: monthMap.institutions.map((institutionMap) => {
+                    return {
+                      ...institutionMap,
+                      shoppings: institutionMap.shoppings.map((shoppingMap) => {
+                        return {
+                          ...shoppingMap,
+                          repeat: false,
+                        };
+                      }),
+                    };
+                  }),
+                };
+              } else {
+                return monthMap;
+              }
+            })
+          );
+
           const { reference: institutionReference } =
             await createInstitutionShoppings(institutionRepeat);
           await updateMonthInstitution(monthId, institutionReference);
@@ -361,6 +384,29 @@ export const ShoppingTable = ({
                   } else {
                     return institutionMap;
                   }
+                }),
+              };
+            } else {
+              return monthMap;
+            }
+          })
+        );
+
+        setMonthList(
+          monthList.map((monthMap) => {
+            if (monthMap.id === month.id) {
+              return {
+                ...monthMap,
+                institutions: monthMap.institutions.map((institutionMap) => {
+                  return {
+                    ...institutionMap,
+                    shoppings: institutionMap.shoppings.map((shoppingMap) => {
+                      return {
+                        ...shoppingMap,
+                        repeat: false,
+                      };
+                    }),
+                  };
                 }),
               };
             } else {
