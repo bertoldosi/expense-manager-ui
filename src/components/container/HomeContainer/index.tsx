@@ -85,99 +85,107 @@ function HomeContainer({ nowMonth, months }: PropsType) {
     }
   };
 
-  return monthList.map((month) => {
-    return (
-      month.mesNumber === nowMonth && (
-        <Scontainer>
-          <Stable>
-            <thead>
-              <tr>
-                <th>Instituição</th>
-                <th>Total</th>
-                <th>Vencimento</th>
-              </tr>
-            </thead>
+  if (monthList.length === 0) {
+    return <h1>Carregadando....</h1>;
+  }
 
-            <tbody>
-              {month.institutions.map((institution, key) => {
-                return (
-                  <>
-                    <tr
-                      key={key}
-                      onClick={() => {
-                        handlerShoppingsExpanded(
-                          institution.reference,
-                          month.id
-                        );
-                      }}
-                    >
-                      <td>
-                        <IconTable item={institution} />
-                      </td>
-                      <td>{formatMorney(institution.amount)}</td>
-                      <td>{institution.expirationDate}</td>
-                    </tr>
+  return (
+    <>
+      {monthList.map((month) => {
+        return (
+          month.mesNumber === nowMonth && (
+            <Scontainer>
+              <Stable>
+                <thead>
+                  <tr>
+                    <th>Instituição</th>
+                    <th>Total</th>
+                    <th>Vencimento</th>
+                  </tr>
+                </thead>
 
-                    {institution.isShowShoppings && (
-                      <ShoppingTable
-                        shoppingList={institution.shoppings}
-                        institution={institution}
-                        month={month}
-                        monthList={monthList}
-                        setMonthList={setMonthList}
+                <tbody>
+                  {month.institutions.map((institution, key) => {
+                    return (
+                      <>
+                        <tr
+                          key={key}
+                          onClick={() => {
+                            handlerShoppingsExpanded(
+                              institution.reference,
+                              month.id
+                            );
+                          }}
+                        >
+                          <td>
+                            <IconTable item={institution} />
+                          </td>
+                          <td>{formatMorney(institution.amount)}</td>
+                          <td>{institution.expirationDate}</td>
+                        </tr>
+
+                        {institution.isShowShoppings && (
+                          <ShoppingTable
+                            shoppingList={institution.shoppings}
+                            institution={institution}
+                            month={month}
+                            monthList={monthList}
+                            setMonthList={setMonthList}
+                          />
+                        )}
+                      </>
+                    );
+                  })}
+
+                  <tr>
+                    <td>
+                      <InputTable
+                        name="name"
+                        id={inputInstitution.reference}
+                        value={inputInstitution.name}
+                        onChange={onChangeInputInstitution}
+                        onKeyUp={() => {
+                          includeNewInstitution(month.id);
+                        }}
                       />
-                    )}
-                  </>
-                );
-              })}
+                    </td>
+                    <td>
+                      <InputTable
+                        name="amount"
+                        id={inputInstitution.reference}
+                        value={inputInstitution.amount}
+                        onChange={onChangeInputInstitution}
+                        onKeyUp={() => {
+                          includeNewInstitution(month.id);
+                        }}
+                        disabled
+                      />
+                    </td>
+                    <td>
+                      <InputTable
+                        name="expirationDate"
+                        id={inputInstitution.reference}
+                        value={inputInstitution.expirationDate}
+                        onChange={onChangeInputInstitution}
+                        onKeyUp={() => {
+                          includeNewInstitution(month.id);
+                        }}
+                        type="date"
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </Stable>
 
-              <tr>
-                <td>
-                  <InputTable
-                    name="name"
-                    id={inputInstitution.reference}
-                    value={inputInstitution.name}
-                    onChange={onChangeInputInstitution}
-                    onKeyUp={() => {
-                      includeNewInstitution(month.id);
-                    }}
-                  />
-                </td>
-                <td>
-                  <InputTable
-                    name="amount"
-                    id={inputInstitution.reference}
-                    value={inputInstitution.amount}
-                    onChange={onChangeInputInstitution}
-                    onKeyUp={() => {
-                      includeNewInstitution(month.id);
-                    }}
-                    disabled
-                  />
-                </td>
-                <td>
-                  <InputTable
-                    name="expirationDate"
-                    id={inputInstitution.reference}
-                    value={inputInstitution.expirationDate}
-                    onChange={onChangeInputInstitution}
-                    onKeyUp={() => {
-                      includeNewInstitution(month.id);
-                    }}
-                    type="date"
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </Stable>
-
-          <TableTotalAmount
-            listResponsibleValues={responsibleTotalAmountList}
-          />
-        </Scontainer>
-      )
-    );
-  });
+              <TableTotalAmount
+                listResponsibleValues={responsibleTotalAmountList}
+              />
+            </Scontainer>
+          )
+        );
+      })}
+    </>
+  );
 }
 
 export default HomeContainer;
