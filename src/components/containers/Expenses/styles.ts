@@ -9,12 +9,9 @@ export const Scontent = styled.div`
 export const Sheader = styled.header`
   display: flex;
   gap: 1rem;
+  margin-bottom: 2rem;
 
-  @media (max-width: 320px) {
+  @media (max-width: 700px) {
     flex-direction: column;
   }
-`;
-
-export const Stable = styled.div`
-  margin-top: 1rem;
 `;

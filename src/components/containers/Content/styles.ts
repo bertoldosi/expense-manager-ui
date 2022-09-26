@@ -12,7 +12,7 @@ export const Ssection = styled.section`
   gap: 1rem;
   padding-top: 1rem;
 
-  @media (max-width: 320px) {
+  @media (max-width: 700px) {
     flex-direction: column-reverse;
   }
 `;
@@ -22,7 +22,7 @@ export const Saside = styled.aside`
   height: calc(100vh - 15rem);
   background-color: #fff;
 
-  @media (max-width: 320px) {
+  @media (max-width: 700px) {
     width: 100%;
     height: 100%;
     padding: 1rem;

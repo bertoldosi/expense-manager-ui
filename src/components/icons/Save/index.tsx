@@ -40,18 +40,28 @@ export const Save = ({
         xmlns="http://www.w3.org/2000/svg"
         width={width}
         height={height}
-        fill="#B4E391"
+        fill="green"
         viewBox="0 0 256 256"
       >
         <rect width="256" height="256" fill="none"></rect>
         <polyline
-          points="216 72 104 184 48 128"
+          points="172 104 113.3 160 84 132"
           fill="none"
-          stroke="#B4E391"
+          stroke="green"
           stroke-linecap="round"
           stroke-linejoin="round"
           stroke-width="16"
         ></polyline>
+        <circle
+          cx="128"
+          cy="128"
+          r="96"
+          fill="none"
+          stroke="green"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="16"
+        ></circle>
       </svg>
     </Scontent>
   );

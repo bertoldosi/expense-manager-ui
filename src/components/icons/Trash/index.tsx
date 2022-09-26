@@ -5,7 +5,7 @@ type PropsType = {
   width?: string | number;
   height?: string | number;
   disabled?: boolean;
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 };
 
 const Scontent = styled.button`

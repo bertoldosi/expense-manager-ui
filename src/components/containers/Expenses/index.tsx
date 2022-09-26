@@ -4,7 +4,7 @@ import Input from "../../common/Input";
 import { Add } from "../../icons/Add";
 import { Table } from "../../common/Table";
 
-import { Scontent, Sheader, Stable } from "./styles";
+import { Scontent, Sheader } from "./styles";
 
 export const Expenses = () => {
   return (
@@ -21,9 +21,7 @@ export const Expenses = () => {
           Novo compra
         </Button>
       </Sheader>
-      <Stable>
-        <Table />
-      </Stable>
+      <Table />
     </Scontent>
   );
 };
