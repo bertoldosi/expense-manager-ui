@@ -1,16 +1,16 @@
 import React from "react";
-import { Scontent, Sitem } from "./styles";
+import { Scontent, Sitem, Slist } from "./styles";
 
 function Header({ list }: any) {
   return (
     <Scontent>
-      <div>
+      <Slist>
         {list.map((item: any) => (
           <Sitem>
             <h1>{item}</h1>
           </Sitem>
         ))}
-      </div>
+      </Slist>
     </Scontent>
   );
 }

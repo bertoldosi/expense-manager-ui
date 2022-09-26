@@ -1,7 +1,8 @@
 import React from "react";
+import { CardMenu } from "./components/CardMenu";
 import Header from "./components/Header";
 
-import { Swrapper } from "./styles";
+import { Sarticle, Saside, Ssection, Swrapper } from "./styles";
 
 export const Content = () => {
   return (
@@ -10,10 +11,13 @@ export const Content = () => {
         <Header list={["DEBITO", "NUBANK", "INTER", "BRADESCO", "SANTANDER"]} />
       </nav>
 
-      <section>
-        <aside>menu</aside>
-        <article>table</article>
-      </section>
+      <Ssection>
+        <Saside>
+          <CardMenu />
+          <CardMenu />
+        </Saside>
+        <Sarticle>table</Sarticle>
+      </Ssection>
     </Swrapper>
   );
 };
