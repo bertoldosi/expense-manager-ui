@@ -1,0 +1,81 @@
+import { MouseEventHandler } from "react";
+import styled from "styled-components";
+
+type PropsType = {
+  width?: string | number;
+  height?: string | number;
+  disabled?: boolean;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+};
+
+const Scontent = styled.button`
+  background-color: transparent;
+  border: none;
+
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.3s;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  @media (max-width: 360px) {
+    svg {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+`;
+
+export const Exit = ({
+  width = "40",
+  height = "40",
+  onClick,
+  disabled,
+}: PropsType) => {
+  return (
+    <Scontent onClick={onClick} disabled={disabled}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={width}
+        height={height}
+        fill="#333"
+        viewBox="0 0 256 256"
+      >
+        <rect width="256" height="256" fill="none"></rect>
+        <circle
+          cx="128"
+          cy="128"
+          r="96"
+          fill="none"
+          stroke="#333"
+          stroke-miterlimit="10"
+          stroke-width="16"
+        ></circle>
+        <line
+          x1="160"
+          y1="96"
+          x2="96"
+          y2="160"
+          fill="none"
+          stroke="#333"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="16"
+        ></line>
+        <line
+          x1="160"
+          y1="160"
+          x2="96"
+          y2="96"
+          fill="none"
+          stroke="#333"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="16"
+        ></line>
+      </svg>
+    </Scontent>
+  );
+};

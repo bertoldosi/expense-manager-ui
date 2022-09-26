@@ -5,7 +5,7 @@ import { Repeat } from "../../icons/Repeat";
 
 import { Scontent, Sfooter, Sheader, Ssection } from "./styles";
 
-export const CardMenu = ({ isFooter }: any) => {
+export const CardMenu = ({ isFooter, isVisible, setIsVisible }: any) => {
   return (
     <Scontent>
       <Sheader>
@@ -51,6 +51,9 @@ export const CardMenu = ({ isFooter }: any) => {
             color="#fff"
             background="#B0C4DE"
             icon={<Add width={15} height={15} />}
+            onClick={() => {
+              setIsVisible(!isVisible);
+            }}
           >
             Novo cartão
           </Button>

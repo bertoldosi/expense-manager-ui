@@ -7,11 +7,18 @@ type PropsType = {
   icon?: any;
   color: string;
   background: string;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 };
 
-export const Button = ({ children, icon, color, background }: PropsType) => {
+export const Button = ({
+  children,
+  icon,
+  color,
+  background,
+  onClick,
+}: PropsType) => {
   return (
-    <Scontent color={color} background={background}>
+    <Scontent color={color} background={background} onClick={onClick}>
       {icon}
       <Sbutton>{children}</Sbutton>
     </Scontent>
