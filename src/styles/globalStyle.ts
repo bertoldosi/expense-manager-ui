@@ -23,30 +23,7 @@ const GlobalStyle = createGlobalStyle`
         font-family: 'Source Sans Pro', sans-serif;
         text-rendering: optimizelegibility;
         -webkit-font-smoothing: antialiased;
-        background-color:  #2A6B99;
 
-    }
-
-
-    body {
-        font-size: 1.8rem;
-        color: #ffff;
-
-        &::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-            background-color: #ffff;
-        }
-
-
-        &::-webkit-scrollbar-track-piece {
-            background: #1d2a35;
-        }
-        
-        &::-webkit-scrollbar-thumb {
-            background: #ffff;
-            border-radius: .3px;
-        }
     }
 
     button{
