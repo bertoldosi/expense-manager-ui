@@ -20,6 +20,7 @@ type PropsType = {
   monthList: MonthType[];
   month: MonthType;
   setMonthList: Function;
+  handlerShoppingsExpanded: Function;
 };
 
 const initialInputInstitution = {
@@ -31,10 +32,16 @@ const initialInputInstitution = {
   shoppings: [],
 };
 
-export const Content = ({ monthList, setMonthList, month }: PropsType) => {
-  const { months, nowMonth } = useMonth();
-
+export const Content = ({
+  monthList,
+  setMonthList,
+  month,
+  handlerShoppingsExpanded,
+}: PropsType) => {
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
+  const [institutionVisible, setInstitutionVisible] =
+    React.useState<string>("");
+
   const [inputInstitution, setInputInstitution] =
     React.useState<InstitutionType>(initialInputInstitution);
 
@@ -87,57 +94,72 @@ export const Content = ({ monthList, setMonthList, month }: PropsType) => {
     <>
       <Swrapper>
         <nav>
-          <Nav institutions={month.institutions} />
+          <Nav
+            institutions={month.institutions}
+            setInstitutionVisible={setInstitutionVisible}
+            institutionVisible={institutionVisible}
+          />
         </nav>
 
-        <Ssection>
-          <Saside>
-            <CardMenu />
-            <CardMenu
-              isFooter={true}
-              setIsVisible={setIsVisible}
-              isVisible={isVisible}
-            />
-          </Saside>
-          <Sarticle>
-            <Expenses />
-          </Sarticle>
-          <Modal
-            title="Novo cartão"
-            isVisible={isVisible}
-            handlerIsVisible={setIsVisible}
-            footer={
-              <Button
-                color="#fff"
-                background="#B0C4DE"
-                icon={<Save width={15} height={15} />}
-              >
-                Salvar
-              </Button>
-            }
-          >
-            <Input
-              name="name"
-              id={inputInstitution.reference}
-              value={inputInstitution.name}
-              onChange={onChangeInputInstitution}
-            />
-            <Input
-              name="amount"
-              id={inputInstitution.reference}
-              value={inputInstitution.amount}
-              onChange={onChangeInputInstitution}
-              disabled
-            />
-            <Input
-              name="expirationDate"
-              id={inputInstitution.reference}
-              value={inputInstitution.expirationDate}
-              onChange={onChangeInputInstitution}
-              type="date"
-            />
-          </Modal>
-        </Ssection>
+        {month.institutions.map((institutionMap) => {
+          return (
+            <>
+              {institutionMap.reference === institutionVisible && (
+                <Ssection>
+                  <Saside>
+                    <CardMenu />
+                    <CardMenu
+                      isFooter={true}
+                      setIsVisible={setIsVisible}
+                      isVisible={isVisible}
+                    />
+                  </Saside>
+                  <Sarticle>
+                    <Expenses institution={institutionMap} />
+                  </Sarticle>
+                  <Modal
+                    title="Novo cartão"
+                    isVisible={isVisible}
+                    handlerIsVisible={setIsVisible}
+                    footer={
+                      <Button
+                        color="#fff"
+                        background="#B0C4DE"
+                        icon={<Save width={15} height={15} />}
+                        onClick={() => {
+                          includeNewInstitution(month.id);
+                        }}
+                      >
+                        Salvar
+                      </Button>
+                    }
+                  >
+                    <Input
+                      name="name"
+                      id={inputInstitution.reference}
+                      value={inputInstitution.name}
+                      onChange={onChangeInputInstitution}
+                    />
+                    <Input
+                      name="amount"
+                      id={inputInstitution.reference}
+                      value={inputInstitution.amount}
+                      onChange={onChangeInputInstitution}
+                      disabled
+                    />
+                    <Input
+                      name="expirationDate"
+                      id={inputInstitution.reference}
+                      value={inputInstitution.expirationDate}
+                      onChange={onChangeInputInstitution}
+                      type="date"
+                    />
+                  </Modal>
+                </Ssection>
+              )}
+            </>
+          );
+        })}
       </Swrapper>
     </>
   );

@@ -5,8 +5,13 @@ import { Add } from "../../icons/Add";
 import { Table } from "../../common/Table";
 
 import { Scontent, Sheader } from "./styles";
+import { InstitutionType } from "../HomeContainer/types";
 
-export const Expenses = () => {
+type PropsType = {
+  institution: InstitutionType;
+};
+
+export const Expenses = ({ institution }: PropsType) => {
   return (
     <Scontent>
       <Sheader>
@@ -21,7 +26,7 @@ export const Expenses = () => {
           Novo compra
         </Button>
       </Sheader>
-      <Table />
+      <Table institution={institution} />
     </Scontent>
   );
 };

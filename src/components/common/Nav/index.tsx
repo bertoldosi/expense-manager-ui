@@ -1,12 +1,21 @@
 import React from "react";
-import { InstitutionType } from "../../containers/HomeContainer/types";
+import {
+  InstitutionType,
+  MonthType,
+} from "../../containers/HomeContainer/types";
 import { Scontent, Sitem, Slist } from "./styles";
 
 type PropsType = {
   institutions: InstitutionType[];
+  setInstitutionVisible: Function;
+  institutionVisible: string;
 };
 
-function Nav({ institutions }: PropsType) {
+function Nav({
+  institutions,
+  setInstitutionVisible,
+  institutionVisible,
+}: PropsType) {
   if (institutions.length === 0) {
     return (
       <Scontent>
@@ -18,11 +27,26 @@ function Nav({ institutions }: PropsType) {
   return (
     <Scontent>
       <Slist>
-        {institutions.map((institutionMap) => (
-          <Sitem>
-            <h1>{institutionMap.name}</h1>
-          </Sitem>
-        ))}
+        {institutions.map((institutionMap) =>
+          institutionMap.reference === institutionVisible ? (
+            <Sitem
+              className="selected"
+              onClick={() => {
+                setInstitutionVisible(institutionMap.reference);
+              }}
+            >
+              <h1>{institutionMap.name}</h1>
+            </Sitem>
+          ) : (
+            <Sitem
+              onClick={() => {
+                setInstitutionVisible(institutionMap.reference);
+              }}
+            >
+              <h1>{institutionMap.name}</h1>
+            </Sitem>
+          )
+        )}
       </Slist>
     </Scontent>
   );

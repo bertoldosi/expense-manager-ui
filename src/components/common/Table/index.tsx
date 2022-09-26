@@ -1,418 +1,86 @@
 import React from "react";
+import { InstitutionType } from "../../containers/HomeContainer/types";
 import { Save } from "../../icons/Save";
 import { Trash } from "../../icons/Trash";
 import InputTable from "../InputTable";
 
 import { Scontent } from "./styles";
 
-export const Table = () => {
+type PropsType = {
+  institution: InstitutionType;
+};
+
+export const Table = ({ institution }: PropsType) => {
   return (
     <Scontent>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Save width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
-      <span>
-        <strong>
-          <InputTable type="checkbox" name="teste" value="Amazon" id="2" />
-          <InputTable name="teste" value="Amazon" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="R$ 19,90" id="2" />
-        </strong>
-        <strong>
-          <InputTable name="teste" value="MATHEUS" id="2" />
-        </strong>
-        <strong>
-          <Trash width={20} height={20} />
-        </strong>
-      </span>
+      {institution.shoppings.map((shopping) => (
+        <span>
+          <strong>
+            <InputTable
+              type="checkbox"
+              // disabled={request}
+              name="repeat"
+              id={shopping.reference}
+              checked={shopping.repeat}
+              // onChange={(event) => {
+              //   onChangeUpdateRepeatShopping(event, institution.reference);
+              // }}
+            />
+            <InputTable
+              // disabled={request}
+              name="description"
+              id={shopping.reference}
+              value={shopping.description}
+              // onChange={(event) => {
+              //   onChangeUpdateShopping(event, institution.reference);
+              // }}
+            />
+          </strong>
+          <strong>
+            <InputTable
+              // disabled={request}
+              name="amount"
+              id={shopping.reference}
+              value={shopping.amount}
+              // onChange={(event) => {
+              //   onChangeUpdateShopping(event, institution.reference);
+              // }}
+            />
+          </strong>
+          <strong>
+            <InputTable
+              // disabled={request}
+              name="responsible"
+              id={shopping.reference}
+              value={shopping.responsible}
+              // onChange={(event) => {
+              //   onChangeUpdateShopping(event, institution.reference);
+              // }}
+            />
+          </strong>
+          <strong>
+            {shopping.isUpdate ? (
+              <Save
+                width={20}
+                height={20}
+                // disabled={request}
+                // onClick={() => {
+                //   updateShopping(institution.reference, shopping);
+                // }}
+              />
+            ) : (
+              <Trash
+                width={20}
+                height={20}
+                // disabled={request}
+                // onClick={() => {
+                //   removeShopping(institution.reference, shopping);
+                // }}
+              />
+            )}
+          </strong>
+        </span>
+      ))}
     </Scontent>
   );
 };

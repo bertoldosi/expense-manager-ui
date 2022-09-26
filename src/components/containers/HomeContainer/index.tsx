@@ -30,6 +30,7 @@ function HomeContainer() {
               setMonthList={setMonthList}
               monthList={monthList}
               month={monthMap}
+              handlerShoppingsExpanded={handlerShoppingsExpanded}
             />
           )
       )}
