@@ -1,4 +1,5 @@
 import React from "react";
+import { Expenses } from "../Expenses";
 import { CardMenu } from "./components/CardMenu";
 import Header from "./components/Header";
 
@@ -16,7 +17,9 @@ export const Content = () => {
           <CardMenu />
           <CardMenu isFooter={true} />
         </Saside>
-        <Sarticle>table</Sarticle>
+        <Sarticle>
+          <Expenses />
+        </Sarticle>
       </Ssection>
     </Swrapper>
   );

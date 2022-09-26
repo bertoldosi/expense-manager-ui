@@ -14,6 +14,7 @@ export const Scontent = styled.div<PropsType>`
   border-radius: 0.3rem;
   padding: 0.3rem 1rem;
   cursor: pointer;
+  white-space: nowrap;
 `;
 
 export const Sbutton = styled.button`
