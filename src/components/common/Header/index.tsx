@@ -1,15 +1,37 @@
 import React from "react";
+import { MonthType } from "../../containers/HomeContainer/types";
 import { Scontent, Sitem } from "./styles";
 
-function Header({ list }: any) {
+type PropsType = {
+  months: MonthType[];
+  nowMonth: number;
+  setNowMonth: Function;
+};
+
+function Header({ months, nowMonth, setNowMonth }: PropsType) {
   return (
     <Scontent>
       <div>
-        {list.map((item: any, index: any) => (
-          <Sitem>
-            <h1 key={index}>{item}</h1>
-          </Sitem>
-        ))}
+        {months.map((month, index) =>
+          nowMonth === month.mesNumber ? (
+            <Sitem
+              className="selected"
+              onClick={() => {
+                setNowMonth(month.mesNumber);
+              }}
+            >
+              <h1 key={index}>{month.name}</h1>
+            </Sitem>
+          ) : (
+            <Sitem
+              onClick={() => {
+                setNowMonth(month.mesNumber);
+              }}
+            >
+              <h1 key={index}>{month.name}</h1>
+            </Sitem>
+          )
+        )}
       </div>
     </Scontent>
   );
