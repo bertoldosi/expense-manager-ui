@@ -2,11 +2,11 @@ import styled, { css } from "styled-components";
 
 export const Scontent = styled.div`
   width: 100%;
-  height: 7rem;
+  height: 5rem;
   display: flex;
   align-items: center;
 
-  background-color: #708090;
+  background-color: #b0c4de;
 
   > div {
     width: 100%;
@@ -28,12 +28,12 @@ export const Sitem = styled.div`
   transition: background 0.5s;
 
   &.selected {
-    background-color: #b0c4de;
+    background-color: #f8f8ff;
     border-bottom: 4px solid #48d1cc;
   }
 
   &:hover {
-    background-color: #b0c4de;
+    background-color: #f8f8ff;
     border-bottom: 4px solid #48d1cc;
   }
 `;

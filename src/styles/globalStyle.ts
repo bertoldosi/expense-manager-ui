@@ -23,6 +23,7 @@ const GlobalStyle = createGlobalStyle`
         font-family: 'Source Sans Pro', sans-serif;
         text-rendering: optimizelegibility;
         -webkit-font-smoothing: antialiased;
+        color: #333;
 
     }
 
