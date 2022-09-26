@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "../../common/Button";
 import Input from "../../common/Input";
 import { Add } from "../../icons/Add";
+import { Table } from "../../common/Table";
 
 import { Scontent, Sheader, Stable } from "./styles";
 
@@ -17,10 +18,12 @@ export const Expenses = () => {
           background="#B0C4DE"
           icon={<Add width={15} height={15} />}
         >
-          Novo cartão
+          Novo compra
         </Button>
       </Sheader>
-      <Stable>Expenses</Stable>
+      <Stable>
+        <Table />
+      </Stable>
     </Scontent>
   );
 };

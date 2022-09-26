@@ -2,7 +2,7 @@ import {
   InstitutionType,
   ResponsibleValuesType,
   ShoppingType,
-} from "../components/container/HomeContainer/types";
+} from "../components/containers/HomeContainer/types";
 import { sumAmountMoney } from "./sumAmountMoney";
 
 export const sumAmountResponsible = (institution: InstitutionType) => {

@@ -24,7 +24,6 @@ const GlobalStyle = createGlobalStyle`
         text-rendering: optimizelegibility;
         -webkit-font-smoothing: antialiased;
         color: #333;
-
     }
 
     button{

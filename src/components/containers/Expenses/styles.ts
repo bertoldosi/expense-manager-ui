@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Scontent = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 1rem;
 `;
 
 export const Sheader = styled.header`
@@ -14,4 +15,6 @@ export const Sheader = styled.header`
   }
 `;
 
-export const Stable = styled.div``;
+export const Stable = styled.div`
+  margin-top: 1rem;
+`;

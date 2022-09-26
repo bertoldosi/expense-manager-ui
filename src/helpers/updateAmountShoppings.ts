@@ -1,4 +1,4 @@
-import { ShoppingType } from "../components/container/HomeContainer/types";
+import { ShoppingType } from "../components/containers/HomeContainer/types";
 import { sumAmountMoney } from "./sumAmountMoney";
 
 export const updateAmountShoppings = (shoppings: ShoppingType[]) => {

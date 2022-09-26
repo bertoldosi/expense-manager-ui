@@ -1,7 +1,7 @@
 import React from "react";
 import { Scontent, Sitem, Slist } from "./styles";
 
-function Header({ list }: any) {
+function Nav({ list }: any) {
   return (
     <Scontent>
       <Slist>
@@ -15,4 +15,4 @@ function Header({ list }: any) {
   );
 }
 
-export default Header;
+export default Nav;

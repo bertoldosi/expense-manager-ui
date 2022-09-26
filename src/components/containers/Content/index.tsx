@@ -1,7 +1,7 @@
 import React from "react";
 import { Expenses } from "../Expenses";
-import { CardMenu } from "./components/CardMenu";
-import Header from "./components/Header";
+import { CardMenu } from "../../common/CardMenu";
+import Nav from "../../common/Nav";
 
 import { Sarticle, Saside, Ssection, Swrapper } from "./styles";
 
@@ -9,7 +9,7 @@ export const Content = () => {
   return (
     <Swrapper>
       <nav>
-        <Header list={["DEBITO", "NUBANK", "INTER", "BRADESCO", "SANTANDER"]} />
+        <Nav list={["DEBITO", "NUBANK", "INTER", "BRADESCO", "SANTANDER"]} />
       </nav>
 
       <Ssection>

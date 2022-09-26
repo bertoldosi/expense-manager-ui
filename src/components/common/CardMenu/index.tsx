@@ -1,7 +1,7 @@
 import React from "react";
-import { Button } from "../../../../common/Button";
-import { Add } from "../../../../icons/Add";
-import { Repeat } from "../../../../icons/Repeat";
+import { Button } from "../Button";
+import { Add } from "../../icons/Add";
+import { Repeat } from "../../icons/Repeat";
 
 import { Scontent, Sfooter, Sheader, Ssection } from "./styles";
 

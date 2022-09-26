@@ -12,7 +12,7 @@ export const Scontent = styled.div<PropsType>`
   background-color: ${(props) => props.background};
   color: ${(props) => props.color};
   border-radius: 0.3rem;
-  padding: 0.3rem 1rem;
+  padding: 0.5rem 1rem;
   cursor: pointer;
   white-space: nowrap;
 `;
