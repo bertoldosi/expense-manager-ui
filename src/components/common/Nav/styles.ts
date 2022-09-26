@@ -7,6 +7,11 @@ export const Scontent = styled.div`
   align-items: center;
 
   background-color: #b0c4de;
+
+  > h2 {
+    width: 100%;
+    text-align: center;
+  }
 `;
 
 export const Slist = styled.div`

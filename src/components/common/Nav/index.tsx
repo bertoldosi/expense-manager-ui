@@ -1,13 +1,26 @@
 import React from "react";
+import { InstitutionType } from "../../containers/HomeContainer/types";
 import { Scontent, Sitem, Slist } from "./styles";
 
-function Nav({ list }: any) {
+type PropsType = {
+  institutions: InstitutionType[];
+};
+
+function Nav({ institutions }: PropsType) {
+  if (institutions.length === 0) {
+    return (
+      <Scontent>
+        <h2>Cadastre um cartão!</h2>
+      </Scontent>
+    );
+  }
+
   return (
     <Scontent>
       <Slist>
-        {list.map((item: any) => (
+        {institutions.map((institutionMap) => (
           <Sitem>
-            <h1>{item}</h1>
+            <h1>{institutionMap.name}</h1>
           </Sitem>
         ))}
       </Slist>
