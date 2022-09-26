@@ -5,9 +5,9 @@ function Header({ list }: any) {
   return (
     <Scontent>
       <div>
-        {list.map((item: any) => (
+        {list.map((item: any, index: any) => (
           <Sitem>
-            <h1>{item}</h1>
+            <h1 key={index}>{item}</h1>
           </Sitem>
         ))}
       </div>

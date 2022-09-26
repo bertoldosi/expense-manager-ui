@@ -19,6 +19,7 @@ export const Ssection = styled.section`
 
 export const Saside = styled.aside`
   width: 25rem;
+  height: calc(100vh - 15rem);
   background-color: #fff;
 
   @media (max-width: 320px) {

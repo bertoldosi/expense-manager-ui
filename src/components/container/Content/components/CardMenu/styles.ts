@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Scontent = styled.section`
   display: flex;
   flex-direction: column;
+  margin-bottom: 2rem;
 `;
 
 export const Sheader = styled.header`
@@ -26,6 +27,15 @@ export const Ssection = styled.section`
   span {
     display: flex;
     justify-content: space-between;
-    padding: 0.2rem 0;
+    padding: 0.5rem 0;
+    font-size: 1.2rem;
   }
+`;
+
+export const Sfooter = styled.footer`
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.5rem;
 `;

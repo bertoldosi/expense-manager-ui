@@ -14,7 +14,7 @@ export const Content = () => {
       <Ssection>
         <Saside>
           <CardMenu />
-          <CardMenu />
+          <CardMenu isFooter={true} />
         </Saside>
         <Sarticle>table</Sarticle>
       </Ssection>
