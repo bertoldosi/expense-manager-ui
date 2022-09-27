@@ -15,8 +15,12 @@ import {
 import useTable from "../../../hooks/useTable";
 import useMonth from "../../../hooks/useMonth";
 import { maskDate } from "../../../helpers/masks";
-import { createInstitution } from "../../../graphql/institution";
-import { updateMonthInstitution } from "../../../graphql/month";
+import {
+  createInstitution,
+  createInstitutionShoppings,
+  updateInstitutionShoppings,
+} from "../../../graphql/institution";
+import { getMonthNumber, updateMonthInstitution } from "../../../graphql/month";
 import { Button } from "../../common/Button";
 import { Save } from "../../icons/Save";
 import { sumAmountResponsible } from "../../../helpers/sumAmountResponsible";
@@ -98,6 +102,136 @@ export const Content = ({
     }
   };
 
+  const repeatInstitution = async (institution: InstitutionType) => {
+    const { id: monthId, institutions } = await getMonthNumber(
+      month.mesNumber + 1
+    );
+
+    const isInstitutionRepeat =
+      institution.shoppings.filter((shopping) => shopping.repeat).length > 0;
+
+    if (isInstitutionRepeat) {
+      const institutionsFilter = institutions.filter(
+        (institutionFilter: InstitutionType) =>
+          institutionFilter.name === institution.name
+      );
+
+      const notInstitutionCreated = institutionsFilter.length === 0;
+
+      if (notInstitutionCreated) {
+        if (monthId) {
+          const institutionRepeat = {
+            ...institution,
+            reference: uuidv4(),
+            shoppings: institution.shoppings.filter(
+              (shopping) => shopping.repeat
+            ),
+          };
+
+          setMonthList(
+            monthList.map((monthMap) => {
+              if (monthMap.id === month.id) {
+                return {
+                  ...monthMap,
+                  institutions: [...monthMap.institutions, institutionRepeat],
+                };
+              } else {
+                return monthMap;
+              }
+            })
+          );
+
+          setMonthList(
+            monthList.map((monthMap) => {
+              if (monthMap.id === month.id) {
+                return {
+                  ...monthMap,
+                  institutions: monthMap.institutions.map((institutionMap) => {
+                    return {
+                      ...institutionMap,
+                      shoppings: institutionMap.shoppings.map((shoppingMap) => {
+                        return {
+                          ...shoppingMap,
+                          repeat: false,
+                        };
+                      }),
+                    };
+                  }),
+                };
+              } else {
+                return monthMap;
+              }
+            })
+          );
+
+          const { reference: institutionReference } =
+            await createInstitutionShoppings(institutionRepeat);
+          await updateMonthInstitution(monthId, institutionReference);
+        } else {
+          alert("Mês não encontrado!");
+        }
+      } else {
+        const shoppingsRepeat = institution.shoppings.filter(
+          (shopping) => shopping.repeat
+        );
+
+        const institutionReference = institutionsFilter[0].reference;
+
+        setMonthList(
+          monthList.map((monthMap) => {
+            if (monthMap.id === monthId) {
+              return {
+                ...monthMap,
+                institutions: monthMap.institutions.map((institutionMap) => {
+                  if (institutionMap.reference === institutionReference) {
+                    return {
+                      ...institutionMap,
+                      shoppings: [
+                        ...institutionMap.shoppings,
+                        [...shoppingsRepeat],
+                      ],
+                    };
+                  } else {
+                    return institutionMap;
+                  }
+                }),
+              };
+            } else {
+              return monthMap;
+            }
+          })
+        );
+
+        setMonthList(
+          monthList.map((monthMap) => {
+            if (monthMap.id === month.id) {
+              return {
+                ...monthMap,
+                institutions: monthMap.institutions.map((institutionMap) => {
+                  return {
+                    ...institutionMap,
+                    shoppings: institutionMap.shoppings.map((shoppingMap) => {
+                      return {
+                        ...shoppingMap,
+                        repeat: false,
+                      };
+                    }),
+                  };
+                }),
+              };
+            } else {
+              return monthMap;
+            }
+          })
+        );
+
+        await updateInstitutionShoppings(institutionReference, shoppingsRepeat);
+      }
+    } else {
+      alert("Marque as compras que deseja reperir para o próximo mês!");
+    }
+  };
+
   return (
     <>
       <Swrapper>
@@ -115,7 +249,10 @@ export const Content = ({
               {index === institutionVisible && (
                 <Ssection>
                   <Saside>
-                    <CardMenu title="TOTAL POR CARTÃO" list={[]} />
+                    <CardMenu
+                      title="TOTAL POR CARTÃO"
+                      list={institutionMap.listResponsibleValues}
+                    />
                     <CardMenu
                       title="TOTAL GERAL"
                       list={responsibleTotalAmountList}
@@ -125,6 +262,9 @@ export const Content = ({
                             color="#fff"
                             background="#B0C4DE"
                             icon={<Repeat width={15} height={15} />}
+                            onClick={() => {
+                              repeatInstitution(institutionMap);
+                            }}
                           >
                             Repetir compra
                           </Button>
