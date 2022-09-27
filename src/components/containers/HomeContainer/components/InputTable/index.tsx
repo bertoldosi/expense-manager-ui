@@ -32,7 +32,7 @@ function InputTable({
 
     if (keycode == 13) {
       onKeyUp();
-      focusInput();
+      focusInput("description");
     }
   };
 

@@ -201,7 +201,7 @@ export const ShoppingTable = ({
 
           setNewShopping(initialNewShopping);
           setRequest(false);
-          focusInput();
+          focusInput("description");
         });
       });
     } else {
