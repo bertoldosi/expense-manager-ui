@@ -109,7 +109,7 @@ export const Expenses = ({
 
           setNewShopping(initialNewShopping);
           setRequest(false);
-          focusInput();
+          focusInput("description");
         });
       });
     } else {
@@ -163,7 +163,7 @@ export const Expenses = ({
             includeShopping(institution.reference);
           }}
         >
-          Novo compra
+          Add compra
         </Button>
       </Sheader>
       <Table

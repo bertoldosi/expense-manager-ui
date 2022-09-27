@@ -34,7 +34,7 @@ function Input({
 
     if (keycode == 13) {
       onKeyUp();
-      focusInput();
+      focusInput("description");
     }
   };
 
