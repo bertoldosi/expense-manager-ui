@@ -15,15 +15,15 @@ function HomeContainer() {
     responsibleTotalAmountList,
   } = useTable(months, nowMonth);
 
-  // React.useEffect(() => {
-  //   getMonths();
-  // }, [nowMonth]);
+  React.useEffect(() => {
+    getMonths();
+  }, [nowMonth]);
 
   return (
     <Scontainer>
       <Header months={months} nowMonth={nowMonth} setNowMonth={setNowMonth} />
 
-      {months.map(
+      {monthList.map(
         (monthMap) =>
           monthMap.mesNumber === nowMonth && (
             <Content
