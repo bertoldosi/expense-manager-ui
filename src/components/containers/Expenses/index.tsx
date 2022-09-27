@@ -1,32 +1,176 @@
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
 import { Button } from "../../common/Button";
 import Input from "../../common/Input";
 import { Add } from "../../icons/Add";
 import { Table } from "../../common/Table";
 
 import { Scontent, Sheader } from "./styles";
-import { InstitutionType } from "../HomeContainer/types";
+import {
+  InstitutionType,
+  MonthType,
+  ShoppingType,
+} from "../HomeContainer/types";
+import { createShopping } from "../../../graphql/shopping";
+import { updateInstitutionShopping } from "../../../graphql/institution";
+import { sumAmountMoney } from "../../../helpers/sumAmountMoney";
+import { sumAmountResponsible } from "../../../helpers/sumAmountResponsible";
+import { focusInput } from "../../../helpers/focusInput";
+import { maskMorney } from "../../../helpers/masks";
 
 type PropsType = {
   institution: InstitutionType;
+  monthList: MonthType[];
+  setMonthList: Function;
+  month: MonthType;
 };
 
-export const Expenses = ({ institution }: PropsType) => {
+const initialNewShopping = {
+  reference: uuidv4(),
+  description: "",
+  amount: "",
+  responsible: "",
+  repeat: false,
+};
+
+export const Expenses = ({
+  institution,
+  monthList,
+  setMonthList,
+  month,
+}: PropsType) => {
+  const [request, setRequest] = React.useState(false);
+  const [newShopping, setNewShopping] =
+    React.useState<ShoppingType>(initialNewShopping);
+
+  const onChangeAddShopping = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    setNewShopping((prevState) => ({
+      ...prevState,
+      [name]: maskMorney(value, name),
+    }));
+  };
+
+  const includeShopping = async (institutionReference: string) => {
+    setRequest(true);
+
+    const responsible = newShopping.responsible
+      ? newShopping.responsible
+      : "SEM/ATRIB";
+
+    const isFilled = newShopping.description != "" && newShopping.amount != "";
+    const shopping = {
+      ...newShopping,
+      reference: uuidv4(),
+      responsible,
+    };
+
+    if (isFilled) {
+      createShopping(shopping).then(({ reference: shoppingReference }) => {
+        updateInstitutionShopping(
+          institutionReference,
+          shoppingReference
+        ).finally(() => {
+          setMonthList(
+            monthList.map((monthMap) => {
+              if (monthMap.id === month.id) {
+                return {
+                  ...monthMap,
+                  institutions: monthMap.institutions.map((institutionMap) => {
+                    if (institutionMap.reference === institutionReference) {
+                      return {
+                        ...institutionMap,
+                        listResponsibleValues:
+                          sumAmountResponsible(institutionMap),
+                        amount: sumAmountMoney(
+                          institutionMap.amount,
+                          newShopping.amount
+                        ),
+                        shoppings: [
+                          ...institutionMap.shoppings,
+                          {
+                            ...newShopping,
+                            reference: uuidv4(),
+                            responsible: responsible,
+                          },
+                        ],
+                      };
+                    } else {
+                      return institutionMap;
+                    }
+                  }),
+                };
+              } else {
+                return monthMap;
+              }
+            })
+          );
+
+          setNewShopping(initialNewShopping);
+          setRequest(false);
+          focusInput();
+        });
+      });
+    } else {
+      alert("Precisa preencher descrição e valor!");
+      setRequest(false);
+    }
+  };
+
   return (
     <Scontent>
       <Sheader>
-        <Input name="teste" value="" id="2" />
-        <Input name="teste" value="" id="2" />
-        <Input name="teste" value="" id="2" />
+        <Input
+          autofocus
+          name="description"
+          id={newShopping.reference}
+          value={newShopping.description}
+          onChange={onChangeAddShopping}
+          onKeyUp={() => {
+            includeShopping(institution.reference);
+          }}
+        />
+        <Input
+          disabled={request}
+          name="amount"
+          id={newShopping.reference}
+          value={newShopping.amount}
+          onChange={onChangeAddShopping}
+          onKeyUp={() => {
+            includeShopping(institution.reference);
+          }}
+        />
+        <Input
+          disabled={request}
+          name="responsible"
+          id={newShopping.reference}
+          value={newShopping.responsible}
+          onChange={onChangeAddShopping}
+          onKeyUp={() => {
+            includeShopping(institution.reference);
+          }}
+        />
         <Button
+          disabled={request}
           color="#fff"
           background="#B0C4DE"
           icon={<Add width={15} height={15} />}
+          onClick={() => {
+            includeShopping(institution.reference);
+          }}
         >
           Novo compra
         </Button>
       </Sheader>
-      <Table institution={institution} />
+      <Table
+        institution={institution}
+        month={month}
+        monthList={monthList}
+        setMonthList={setMonthList}
+        request={request}
+        setRequest={setRequest}
+      />
     </Scontent>
   );
 };

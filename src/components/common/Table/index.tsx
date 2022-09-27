@@ -1,5 +1,26 @@
 import React from "react";
-import { InstitutionType } from "../../containers/HomeContainer/types";
+import { v4 as uuidv4 } from "uuid";
+import {
+  createInstitutionShoppings,
+  updateInstitutionShopping,
+  updateInstitutionShoppings,
+} from "../../../graphql/institution";
+import { getMonthNumber, updateMonthInstitution } from "../../../graphql/month";
+import { updateShopping as upShopping } from "../../../graphql/shopping";
+import { createShopping, deleteShopping } from "../../../graphql/shopping";
+import { focusInput } from "../../../helpers/focusInput";
+import { maskMorney } from "../../../helpers/masks";
+import { removingShopping } from "../../../helpers/removingShopping";
+import { subtractingValues } from "../../../helpers/subtractingValues";
+import { sumAmountMoney } from "../../../helpers/sumAmountMoney";
+import { sumAmountResponsible } from "../../../helpers/sumAmountResponsible";
+import { updateAmountShoppings } from "../../../helpers/updateAmountShoppings";
+
+import {
+  InstitutionType,
+  MonthType,
+  ShoppingType,
+} from "../../containers/HomeContainer/types";
 import { Save } from "../../icons/Save";
 import { Trash } from "../../icons/Trash";
 import InputTable from "../InputTable";
@@ -8,9 +29,332 @@ import { Scontent } from "./styles";
 
 type PropsType = {
   institution: InstitutionType;
+  month: MonthType;
+  monthList: MonthType[];
+  setMonthList: Function;
+  request: boolean;
+  setRequest: Function;
 };
 
-export const Table = ({ institution }: PropsType) => {
+export const Table = ({
+  institution,
+  month,
+  monthList,
+  setMonthList,
+  request,
+  setRequest,
+}: PropsType) => {
+  const onChangeUpdateShopping = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    institutionReference: string
+  ) => {
+    const { id, value, name } = event.target;
+
+    setMonthList(
+      monthList.map((monthMap) => {
+        if (monthMap.id === month.id) {
+          return {
+            ...monthMap,
+            institutions: monthMap.institutions.map((institutionMap) => {
+              if (institutionMap.reference === institutionReference) {
+                return {
+                  ...institutionMap,
+                  listResponsibleValues: sumAmountResponsible(institutionMap),
+                  shoppings: institutionMap.shoppings.map((shoppingMap) => {
+                    if (shoppingMap.reference === id) {
+                      return {
+                        ...shoppingMap,
+                        [name]: maskMorney(value, name),
+                        isUpdate: true,
+                      };
+                    } else {
+                      return shoppingMap;
+                    }
+                  }),
+                };
+              } else {
+                return institutionMap;
+              }
+            }),
+          };
+        } else {
+          return monthMap;
+        }
+      })
+    );
+  };
+
+  const onChangeUpdateRepeatShopping = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    institutionReference: string
+  ) => {
+    const { id, checked, name } = event.target;
+
+    setMonthList(
+      monthList.map((monthMap) => {
+        if (monthMap.id === month.id) {
+          return {
+            ...monthMap,
+            institutions: monthMap.institutions.map((institutionMap) => {
+              if (institutionMap.reference === institutionReference) {
+                return {
+                  ...institutionMap,
+                  shoppings: institutionMap.shoppings.map((shoppingMap) => {
+                    if (shoppingMap.reference === id) {
+                      return {
+                        ...shoppingMap,
+                        [name]: checked,
+                      };
+                    } else {
+                      return shoppingMap;
+                    }
+                  }),
+                };
+              } else {
+                return institutionMap;
+              }
+            }),
+          };
+        } else {
+          return monthMap;
+        }
+      })
+    );
+  };
+
+  const removeShopping = async (
+    institutionReference: string,
+    shopping: ShoppingType
+  ) => {
+    setRequest(true);
+    const shoppingReference = shopping.reference;
+
+    deleteShopping(shoppingReference).finally(() => {
+      setMonthList(
+        monthList.map((monthMap) => {
+          if (monthMap.id === month.id) {
+            return {
+              ...monthMap,
+              institutions: monthMap.institutions.map((institutionMap) => {
+                if (institutionMap.reference === institutionReference) {
+                  return {
+                    ...institutionMap,
+                    shoppings: removingShopping(
+                      institutionMap.shoppings,
+                      shoppingReference
+                    ),
+                    amount: subtractingValues(institutionMap.amount, shopping),
+                  };
+                } else {
+                  return institutionMap;
+                }
+              }),
+            };
+          } else {
+            return monthMap;
+          }
+        })
+      );
+
+      setRequest(false);
+    });
+  };
+
+  const updateShopping = async (
+    institutionReference: string,
+    shoppingUpdate: ShoppingType
+  ) => {
+    setRequest(true);
+    const shoppingReference = shoppingUpdate.reference;
+
+    upShopping(shoppingUpdate).finally(() => {
+      setMonthList(
+        monthList.map((monthMap) => {
+          if (monthMap.id === month.id) {
+            return {
+              ...monthMap,
+              institutions: monthMap.institutions.map((institutionMap) => {
+                if (institutionMap.reference === institutionReference) {
+                  return {
+                    ...institutionMap,
+                    listResponsibleValues: sumAmountResponsible(institutionMap),
+                    shoppings: institutionMap.shoppings.map((shoppingMap) => {
+                      if (shoppingMap.reference === shoppingReference) {
+                        return {
+                          ...shoppingUpdate,
+                          isUpdate: false,
+                        };
+                      } else {
+                        return shoppingMap;
+                      }
+                    }),
+                  };
+                } else {
+                  return institutionMap;
+                }
+              }),
+            };
+          } else {
+            return monthMap;
+          }
+        })
+      );
+
+      setRequest(false);
+    });
+  };
+
+  const repeatInstitution = async () => {
+    const { id: monthId, institutions } = await getMonthNumber(
+      month.mesNumber + 1
+    );
+
+    const isInstitutionRepeat =
+      institution.shoppings.filter((shopping) => shopping.repeat).length > 0;
+
+    if (isInstitutionRepeat) {
+      const institutionsFilter = institutions.filter(
+        (institutionFilter: InstitutionType) =>
+          institutionFilter.name === institution.name
+      );
+
+      const notInstitutionCreated = institutionsFilter.length === 0;
+
+      if (notInstitutionCreated) {
+        if (monthId) {
+          const institutionRepeat = {
+            ...institution,
+            reference: uuidv4(),
+            shoppings: institution.shoppings.filter(
+              (shopping) => shopping.repeat
+            ),
+          };
+
+          setMonthList(
+            monthList.map((monthMap) => {
+              if (monthMap.id === month.id) {
+                return {
+                  ...monthMap,
+                  institutions: [...monthMap.institutions, institutionRepeat],
+                };
+              } else {
+                return monthMap;
+              }
+            })
+          );
+
+          setMonthList(
+            monthList.map((monthMap) => {
+              if (monthMap.id === month.id) {
+                return {
+                  ...monthMap,
+                  institutions: monthMap.institutions.map((institutionMap) => {
+                    return {
+                      ...institutionMap,
+                      shoppings: institutionMap.shoppings.map((shoppingMap) => {
+                        return {
+                          ...shoppingMap,
+                          repeat: false,
+                        };
+                      }),
+                    };
+                  }),
+                };
+              } else {
+                return monthMap;
+              }
+            })
+          );
+
+          const { reference: institutionReference } =
+            await createInstitutionShoppings(institutionRepeat);
+          await updateMonthInstitution(monthId, institutionReference);
+        } else {
+          alert("Mês não encontrado!");
+        }
+      } else {
+        const shoppingsRepeat = institution.shoppings.filter(
+          (shopping) => shopping.repeat
+        );
+
+        const institutionReference = institutionsFilter[0].reference;
+
+        setMonthList(
+          monthList.map((monthMap) => {
+            if (monthMap.id === monthId) {
+              return {
+                ...monthMap,
+                institutions: monthMap.institutions.map((institutionMap) => {
+                  if (institutionMap.reference === institutionReference) {
+                    return {
+                      ...institutionMap,
+                      shoppings: [
+                        ...institutionMap.shoppings,
+                        [...shoppingsRepeat],
+                      ],
+                    };
+                  } else {
+                    return institutionMap;
+                  }
+                }),
+              };
+            } else {
+              return monthMap;
+            }
+          })
+        );
+
+        setMonthList(
+          monthList.map((monthMap) => {
+            if (monthMap.id === month.id) {
+              return {
+                ...monthMap,
+                institutions: monthMap.institutions.map((institutionMap) => {
+                  return {
+                    ...institutionMap,
+                    shoppings: institutionMap.shoppings.map((shoppingMap) => {
+                      return {
+                        ...shoppingMap,
+                        repeat: false,
+                      };
+                    }),
+                  };
+                }),
+              };
+            } else {
+              return monthMap;
+            }
+          })
+        );
+
+        await updateInstitutionShoppings(institutionReference, shoppingsRepeat);
+      }
+    } else {
+      alert("Marque as compras que deseja reperir para o próximo mês!");
+    }
+  };
+
+  React.useEffect(() => {
+    setMonthList(
+      monthList.map((monthMap) => {
+        if (monthMap.id === month.id) {
+          return {
+            ...monthMap,
+            institutions: monthMap.institutions.map((institutionMap) => {
+              return {
+                ...institutionMap,
+                listResponsibleValues: sumAmountResponsible(institutionMap),
+                amount: updateAmountShoppings(institutionMap.shoppings),
+              };
+            }),
+          };
+        } else {
+          return monthMap;
+        }
+      })
+    );
+  }, []);
+
   return (
     <Scontent>
       {institution.shoppings.map((shopping) => (
@@ -18,44 +362,44 @@ export const Table = ({ institution }: PropsType) => {
           <strong>
             <InputTable
               type="checkbox"
-              // disabled={request}
+              disabled={request}
               name="repeat"
               id={shopping.reference}
               checked={shopping.repeat}
-              // onChange={(event) => {
-              //   onChangeUpdateRepeatShopping(event, institution.reference);
-              // }}
+              onChange={(event) => {
+                onChangeUpdateRepeatShopping(event, institution.reference);
+              }}
             />
             <InputTable
-              // disabled={request}
+              disabled={request}
               name="description"
               id={shopping.reference}
               value={shopping.description}
-              // onChange={(event) => {
-              //   onChangeUpdateShopping(event, institution.reference);
-              // }}
+              onChange={(event) => {
+                onChangeUpdateShopping(event, institution.reference);
+              }}
             />
           </strong>
           <strong>
             <InputTable
-              // disabled={request}
+              disabled={request}
               name="amount"
               id={shopping.reference}
               value={shopping.amount}
-              // onChange={(event) => {
-              //   onChangeUpdateShopping(event, institution.reference);
-              // }}
+              onChange={(event) => {
+                onChangeUpdateShopping(event, institution.reference);
+              }}
             />
           </strong>
           <strong>
             <InputTable
-              // disabled={request}
+              disabled={request}
               name="responsible"
               id={shopping.reference}
               value={shopping.responsible}
-              // onChange={(event) => {
-              //   onChangeUpdateShopping(event, institution.reference);
-              // }}
+              onChange={(event) => {
+                onChangeUpdateShopping(event, institution.reference);
+              }}
             />
           </strong>
           <strong>
@@ -63,19 +407,19 @@ export const Table = ({ institution }: PropsType) => {
               <Save
                 width={20}
                 height={20}
-                // disabled={request}
-                // onClick={() => {
-                //   updateShopping(institution.reference, shopping);
-                // }}
+                disabled={request}
+                onClick={() => {
+                  updateShopping(institution.reference, shopping);
+                }}
               />
             ) : (
               <Trash
                 width={20}
                 height={20}
-                // disabled={request}
-                // onClick={() => {
-                //   removeShopping(institution.reference, shopping);
-                // }}
+                disabled={request}
+                onClick={() => {
+                  removeShopping(institution.reference, shopping);
+                }}
               />
             )}
           </strong>

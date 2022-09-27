@@ -32,12 +32,7 @@ const initialInputInstitution = {
   shoppings: [],
 };
 
-export const Content = ({
-  monthList,
-  setMonthList,
-  month,
-  handlerShoppingsExpanded,
-}: PropsType) => {
+export const Content = ({ monthList, setMonthList, month }: PropsType) => {
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
   const [institutionVisible, setInstitutionVisible] = React.useState<number>(0);
 
@@ -114,7 +109,12 @@ export const Content = ({
                     />
                   </Saside>
                   <Sarticle>
-                    <Expenses institution={institutionMap} />
+                    <Expenses
+                      institution={institutionMap}
+                      monthList={monthList}
+                      setMonthList={setMonthList}
+                      month={month}
+                    />
                   </Sarticle>
                   <Modal
                     title="Novo cartão"

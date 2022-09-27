@@ -7,7 +7,8 @@ type PropsType = {
   icon?: any;
   color: string;
   background: string;
-  onClick?: React.MouseEventHandler<HTMLDivElement>;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
 };
 
 export const Button = ({
@@ -15,12 +16,15 @@ export const Button = ({
   icon,
   color,
   background,
+  disabled,
   onClick,
 }: PropsType) => {
   return (
-    <Scontent color={color} background={background} onClick={onClick}>
+    <Scontent color={color} background={background}>
       {icon}
-      <Sbutton>{children}</Sbutton>
+      <Sbutton disabled={disabled} onClick={onClick}>
+        {children}
+      </Sbutton>
     </Scontent>
   );
 };

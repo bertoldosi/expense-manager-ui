@@ -6,7 +6,7 @@ type PropsTypes = {
   name: string;
   id: string;
   value?: string | number;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
   onKeyUp?: any;
   disabled?: boolean;
   type?: string;
