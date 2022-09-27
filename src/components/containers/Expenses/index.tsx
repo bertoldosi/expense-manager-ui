@@ -17,6 +17,7 @@ import { sumAmountMoney } from "../../../helpers/sumAmountMoney";
 import { sumAmountResponsible } from "../../../helpers/sumAmountResponsible";
 import { focusInput } from "../../../helpers/focusInput";
 import { maskMorney } from "../../../helpers/masks";
+import { updateAmountShoppings } from "../../../helpers/updateAmountShoppings";
 
 type PropsType = {
   institution: InstitutionType;

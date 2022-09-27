@@ -15,6 +15,8 @@ import { createInstitution } from "../../../graphql/institution";
 import { updateMonthInstitution } from "../../../graphql/month";
 import { Button } from "../../common/Button";
 import { Save } from "../../icons/Save";
+import { sumAmountResponsible } from "../../../helpers/sumAmountResponsible";
+import { updateAmountShoppings } from "../../../helpers/updateAmountShoppings";
 
 type PropsType = {
   monthList: MonthType[];
@@ -83,6 +85,27 @@ export const Content = ({ monthList, setMonthList, month }: PropsType) => {
       alert("Precisa preencher todos os campos");
     }
   };
+
+  React.useEffect(() => {
+    setMonthList(
+      monthList.map((monthMap) => {
+        if (monthMap.id === month.id) {
+          return {
+            ...monthMap,
+            institutions: monthMap.institutions.map((institutionMap) => {
+              return {
+                ...institutionMap,
+                listResponsibleValues: sumAmountResponsible(institutionMap),
+                amount: updateAmountShoppings(institutionMap.shoppings),
+              };
+            }),
+          };
+        } else {
+          return monthMap;
+        }
+      })
+    );
+  }, []);
 
   return (
     <>

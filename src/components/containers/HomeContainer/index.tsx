@@ -15,9 +15,9 @@ function HomeContainer() {
     responsibleTotalAmountList,
   } = useTable(months, nowMonth);
 
-  React.useEffect(() => {
-    getMonths();
-  }, []);
+  // React.useEffect(() => {
+  //   getMonths();
+  // }, [nowMonth]);
 
   return (
     <Scontainer>
