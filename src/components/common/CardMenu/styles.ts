@@ -30,6 +30,11 @@ export const Ssection = styled.section`
     padding: 0.5rem 0;
     font-size: 1.2rem;
   }
+
+  span:last-child {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+  }
 `;
 
 export const Sfooter = styled.footer`

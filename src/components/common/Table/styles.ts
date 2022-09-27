@@ -14,6 +14,7 @@ export const Scontent = styled.div`
     padding: 0.5rem 0.5rem;
 
     > strong {
+      width: max-content;
       display: flex;
       align-items: center;
       gap: 1rem;
