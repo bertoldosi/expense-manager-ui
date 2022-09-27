@@ -223,7 +223,7 @@ export const Table = ({
         }
       })
     );
-  }, []);
+  }, [institution.shoppings]);
 
   return (
     <Scontent>
