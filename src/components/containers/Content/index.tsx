@@ -86,27 +86,6 @@ export const Content = ({ monthList, setMonthList, month }: PropsType) => {
     }
   };
 
-  React.useEffect(() => {
-    setMonthList(
-      monthList.map((monthMap) => {
-        if (monthMap.id === month.id) {
-          return {
-            ...monthMap,
-            institutions: monthMap.institutions.map((institutionMap) => {
-              return {
-                ...institutionMap,
-                listResponsibleValues: sumAmountResponsible(institutionMap),
-                amount: updateAmountShoppings(institutionMap.shoppings),
-              };
-            }),
-          };
-        } else {
-          return monthMap;
-        }
-      })
-    );
-  }, []);
-
   return (
     <>
       <Swrapper>
