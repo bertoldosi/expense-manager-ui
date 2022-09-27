@@ -7,37 +7,10 @@ import { sumTotalResponsible } from "../helpers/sumTotalResponsible";
 import {
   MonthType,
   ResponsibleValuesType,
-} from "../components/container/HomeContainer/types";
+} from "../components/containers/HomeContainer/types";
 
 const useTable = (months: MonthType[], nowMonth: Number) => {
   const [monthList, setMonthList] = React.useState<MonthType[]>([]);
-
-  const handlerShoppingsExpanded = (
-    institutionReference: string,
-    monthId: string
-  ) => {
-    setMonthList(
-      monthList.map((monthMap) => {
-        if (monthMap.id === monthId) {
-          return {
-            ...monthMap,
-            institutions: monthMap.institutions.map((institution) => {
-              if (institutionReference === institution.reference) {
-                return {
-                  ...institution,
-                  isShowShoppings: !institution.isShowShoppings,
-                };
-              } else {
-                return institution;
-              }
-            }),
-          };
-        } else {
-          return monthMap;
-        }
-      })
-    );
-  };
 
   const [responsibleTotalAmountList, setResponsibleTotalAmountList] =
     React.useState<ResponsibleValuesType[]>([]);
@@ -78,7 +51,6 @@ const useTable = (months: MonthType[], nowMonth: Number) => {
   }, [monthList]);
 
   return {
-    handlerShoppingsExpanded,
     monthList,
     setMonthList,
 

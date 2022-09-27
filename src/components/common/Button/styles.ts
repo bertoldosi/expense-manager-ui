@@ -1,23 +1,34 @@
 import styled from "styled-components";
 
 type PropsType = {
-  backgroundColor: string;
-  color?: string;
+  color: string;
+  background: string;
 };
 
-export const Sbutton = styled.button<PropsType>`
-  padding: 1rem 2rem;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  background-color: ${(props) => props.backgroundColor};
+export const Scontent = styled.div<PropsType>`
+  width: min-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props) => props.background};
   color: ${(props) => props.color};
+  border-radius: 0.3rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  white-space: nowrap;
+`;
+
+export const Sbutton = styled.button`
+  width: 100%;
+  padding: 0.5rem;
+
+  background-color: transparent;
+  border: none;
+
+  font-size: 1rem;
   font-weight: 600;
 
-  border-radius: 0.3rem;
-
-  &:disabled {
-    opacity: 60%;
-    cursor: not-allowed;
+  svg {
+    margin-right: 0.5rem;
   }
 `;

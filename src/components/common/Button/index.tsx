@@ -1,30 +1,30 @@
 import React, { ReactNode } from "react";
 
-import { Sbutton } from "./styles";
+import { Sbutton, Scontent } from "./styles";
 
 type PropsType = {
-  children: string | ReactNode;
+  children: ReactNode;
+  icon?: any;
+  color: string;
+  background: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  backgroundColor: string;
-  color?: string;
   disabled?: boolean;
 };
 
 export const Button = ({
   children,
-  onClick,
-  backgroundColor,
-  color = "#fff",
+  icon,
+  color,
+  background,
   disabled,
+  onClick,
 }: PropsType) => {
   return (
-    <Sbutton
-      disabled={disabled}
-      backgroundColor={backgroundColor}
-      color={color}
-      onClick={onClick}
-    >
-      {children}
-    </Sbutton>
+    <Scontent color={color} background={background}>
+      {icon}
+      <Sbutton disabled={disabled} onClick={onClick}>
+        {children}
+      </Sbutton>
+    </Scontent>
   );
 };

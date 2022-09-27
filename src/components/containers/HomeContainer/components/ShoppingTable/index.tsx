@@ -365,11 +365,11 @@ export const ShoppingTable = ({
           (shopping) => shopping.repeat
         );
 
-        const institutionReference = institutions[0].reference;
+        const institutionReference = institutionsFilter[0].reference;
 
         setMonthList(
           monthList.map((monthMap) => {
-            if (monthMap.id === month.id) {
+            if (monthMap.id === monthId) {
               return {
                 ...monthMap,
                 institutions: monthMap.institutions.map((institutionMap) => {

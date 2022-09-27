@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import {
   InstitutionType,
   ShoppingType,
-} from "../components/container/HomeContainer/types";
+} from "../components/containers/HomeContainer/types";
 
 const CREATE_INSTITUTION = gql`
   mutation CreateInstitution(

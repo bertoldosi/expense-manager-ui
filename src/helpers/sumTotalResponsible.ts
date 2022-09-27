@@ -1,7 +1,7 @@
 import {
   InstitutionType,
   ShoppingType,
-} from "../components/container/HomeContainer/types";
+} from "../components/containers/HomeContainer/types";
 import { sumAmountMoney } from "./sumAmountMoney";
 
 export const sumTotalResponsible = (institutions: InstitutionType[]) => {
