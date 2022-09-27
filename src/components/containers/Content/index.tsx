@@ -245,7 +245,7 @@ export const Content = ({
                 <Ssection>
                   <Saside>
                     <CardMenu
-                      title="TOTAL POR CARTÃO"
+                      title={`TOTAL ${institutionMap.name.toUpperCase()}`}
                       list={institutionMap.listResponsibleValues}
                     />
                     <CardMenu
