@@ -8,7 +8,7 @@ import { Scontent, Sitem, Slist } from "./styles";
 type PropsType = {
   institutions: InstitutionType[];
   setInstitutionVisible: Function;
-  institutionVisible: string;
+  institutionVisible: number;
 };
 
 function Nav({
@@ -27,12 +27,12 @@ function Nav({
   return (
     <Scontent>
       <Slist>
-        {institutions.map((institutionMap) =>
-          institutionMap.reference === institutionVisible ? (
+        {institutions.map((institutionMap, index) =>
+          index === institutionVisible ? (
             <Sitem
               className="selected"
               onClick={() => {
-                setInstitutionVisible(institutionMap.reference);
+                setInstitutionVisible(index);
               }}
             >
               <h1>{institutionMap.name}</h1>
@@ -40,7 +40,7 @@ function Nav({
           ) : (
             <Sitem
               onClick={() => {
-                setInstitutionVisible(institutionMap.reference);
+                setInstitutionVisible(index);
               }}
             >
               <h1>{institutionMap.name}</h1>

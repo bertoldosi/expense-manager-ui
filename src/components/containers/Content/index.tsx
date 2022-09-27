@@ -39,8 +39,7 @@ export const Content = ({
   handlerShoppingsExpanded,
 }: PropsType) => {
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
-  const [institutionVisible, setInstitutionVisible] =
-    React.useState<string>("");
+  const [institutionVisible, setInstitutionVisible] = React.useState<number>(0);
 
   const [inputInstitution, setInputInstitution] =
     React.useState<InstitutionType>(initialInputInstitution);
@@ -101,10 +100,10 @@ export const Content = ({
           />
         </nav>
 
-        {month.institutions.map((institutionMap) => {
+        {month.institutions.map((institutionMap, index) => {
           return (
             <>
-              {institutionMap.reference === institutionVisible && (
+              {index === institutionVisible && (
                 <Ssection>
                   <Saside>
                     <CardMenu />
