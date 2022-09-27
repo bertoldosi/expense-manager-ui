@@ -169,17 +169,12 @@ export const Content = ({
                   >
                     <Input
                       name="name"
+                      placeholder="Nome da instituição"
                       id={inputInstitution.reference}
                       value={inputInstitution.name}
                       onChange={onChangeInputInstitution}
                     />
-                    <Input
-                      name="amount"
-                      id={inputInstitution.reference}
-                      value={inputInstitution.amount}
-                      onChange={onChangeInputInstitution}
-                      disabled
-                    />
+
                     <Input
                       name="expirationDate"
                       id={inputInstitution.reference}

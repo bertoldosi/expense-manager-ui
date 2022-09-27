@@ -13,6 +13,7 @@ type PropsTypes = {
   autofocus?: boolean;
   tabIndex?: number | undefined;
   checked?: boolean;
+  placeholder?: string;
 };
 
 function Input({
@@ -26,6 +27,7 @@ function Input({
   autofocus,
   tabIndex,
   checked,
+  placeholder = "Digite um valor",
 }: PropsTypes) {
   const handleOnKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const keycode = event.keyCode ? event.keyCode : event.which;
@@ -35,10 +37,6 @@ function Input({
       focusInput();
     }
   };
-
-  const isAmount = name === "amount";
-
-  const placeholder = isAmount ? "R$ 0,00" : "Digite um valor";
 
   return (
     <Sinput

@@ -124,6 +124,7 @@ export const Expenses = ({
         <Input
           autofocus
           name="description"
+          placeholder="Descrição da compra"
           id={newShopping.reference}
           value={newShopping.description}
           onChange={onChangeAddShopping}
@@ -134,6 +135,7 @@ export const Expenses = ({
         <Input
           disabled={request}
           name="amount"
+          placeholder="R$ 00,00"
           id={newShopping.reference}
           value={newShopping.amount}
           onChange={onChangeAddShopping}
@@ -144,6 +146,7 @@ export const Expenses = ({
         <Input
           disabled={request}
           name="responsible"
+          placeholder="Nome do responsavel"
           id={newShopping.reference}
           value={newShopping.responsible}
           onChange={onChangeAddShopping}
