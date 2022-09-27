@@ -247,10 +247,12 @@ export const Content = ({
                     <CardMenu
                       title={`TOTAL ${institutionMap.name.toUpperCase()}`}
                       list={institutionMap.listResponsibleValues}
+                      background="#029b99"
                     />
                     <CardMenu
                       title="TOTAL GERAL"
                       list={responsibleTotalAmountList}
+                      background="#de4f15"
                       isFooter={
                         <>
                           <Button

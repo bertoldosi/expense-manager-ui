@@ -9,11 +9,12 @@ type PropsType = {
   list: ResponsibleValuesType[];
   title: string;
   isFooter?: ReactNode;
+  background?: string;
 };
 
 const initialValue = 0;
 
-export const CardMenu = ({ list, title, isFooter }: PropsType) => {
+export const CardMenu = ({ list, title, isFooter, background }: PropsType) => {
   const [sumTotal, setSumTotal] = React.useState(initialValue);
 
   React.useEffect(() => {
@@ -30,7 +31,7 @@ export const CardMenu = ({ list, title, isFooter }: PropsType) => {
 
   return (
     <Scontent>
-      <Sheader>
+      <Sheader background={background}>
         <h1>{title}</h1>
       </Sheader>
 

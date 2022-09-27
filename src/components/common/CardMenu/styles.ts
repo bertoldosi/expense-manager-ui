@@ -1,4 +1,9 @@
 import styled from "styled-components";
+import css from "styled-jsx/css";
+
+type HeaderType = {
+  background?: string;
+};
 
 export const Scontent = styled.section`
   display: flex;
@@ -6,15 +11,20 @@ export const Scontent = styled.section`
   margin-bottom: 2rem;
 `;
 
-export const Sheader = styled.header`
+export const Sheader = styled.header<HeaderType>`
   display: flex;
   align-items: center;
   justify-content: center;
   height: 3rem;
-  background-color: #48d1cc;
+
+  ${(props: any) =>
+    props.background &&
+    css`
+      background-color: ${props.background};
+    `}
 
   h1 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 `;
 
@@ -29,6 +39,10 @@ export const Ssection = styled.section`
     justify-content: space-between;
     padding: 0.5rem 0;
     font-size: 1.2rem;
+
+    > strong {
+      font-weight: 600;
+    }
   }
 
   span:last-child {

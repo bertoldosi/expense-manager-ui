@@ -29,11 +29,11 @@ export const Sitem = styled.div`
 
   &.selected {
     background-color: #b0c4de;
-    border-bottom: 4px solid #48d1cc;
+    border-bottom: 4px solid #de4f15;
   }
 
   &:hover {
     background-color: #b0c4de;
-    border-bottom: 4px solid #48d1cc;
+    border-bottom: 4px solid #de4f15;
   }
 `;
