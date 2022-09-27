@@ -16,9 +16,16 @@ export const maskMorney = (value: string, name: string) => {
     const valueFormat = maskCurrency(digitsFloat);
 
     return valueFormat.replace("R$", "").replace(/\s/g, "");
-  } else {
-    return value;
   }
+
+  if (name === "responsible") {
+    return value
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  }
+
+  return value;
 };
 
 export const maskDate = (value: string, name: string) => {

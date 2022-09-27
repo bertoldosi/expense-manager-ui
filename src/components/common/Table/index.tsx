@@ -237,6 +237,9 @@ export const Table = ({
               name="description"
               id={shopping.reference}
               value={shopping.description}
+              onKeyUp={() => {
+                updateShopping(institution.reference, shopping);
+              }}
               onChange={(event) => {
                 onChangeUpdateShopping(event, institution.reference);
               }}
@@ -248,6 +251,9 @@ export const Table = ({
               name="amount"
               id={shopping.reference}
               value={shopping.amount}
+              onKeyUp={() => {
+                updateShopping(institution.reference, shopping);
+              }}
               onChange={(event) => {
                 onChangeUpdateShopping(event, institution.reference);
               }}
@@ -259,6 +265,9 @@ export const Table = ({
               name="responsible"
               id={shopping.reference}
               value={shopping.responsible}
+              onKeyUp={() => {
+                updateShopping(institution.reference, shopping);
+              }}
               onChange={(event) => {
                 onChangeUpdateShopping(event, institution.reference);
               }}
