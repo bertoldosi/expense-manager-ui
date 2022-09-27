@@ -31,6 +31,7 @@ function HomeContainer() {
               monthList={monthList}
               month={monthMap}
               handlerShoppingsExpanded={handlerShoppingsExpanded}
+              responsibleTotalAmountList={responsibleTotalAmountList}
             />
           )
       )}

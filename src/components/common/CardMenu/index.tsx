@@ -1,64 +1,34 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Button } from "../Button";
 import { Add } from "../../icons/Add";
 import { Repeat } from "../../icons/Repeat";
 
 import { Scontent, Sfooter, Sheader, Ssection } from "./styles";
+import { ResponsibleValuesType } from "../../containers/HomeContainer/types";
+import { formatMorney } from "../../../helpers/formatMorney";
 
-export const CardMenu = ({ isFooter, isVisible, setIsVisible }: any) => {
+type PropsType = {
+  list: ResponsibleValuesType[];
+  title: string;
+  isFooter?: ReactNode;
+};
+
+export const CardMenu = ({ list, title, isFooter }: PropsType) => {
   return (
     <Scontent>
       <Sheader>
-        <h1>TOTAL POR CARTÃO</h1>
+        <h1>{title}</h1>
       </Sheader>
 
       <Ssection>
-        <span>
-          <strong>MATHEUS</strong>
-          <strong>R$ 250,00</strong>
-        </span>
-
-        <span>
-          <strong>MATHEUS</strong>
-          <strong>R$ 250,00</strong>
-        </span>
-
-        <span>
-          <strong>MATHEUS</strong>
-          <strong>R$ 250,00</strong>
-        </span>
-
-        <span>
-          <strong>MATHEUS</strong>
-          <strong>R$ 250,00</strong>
-        </span>
-
-        <span>
-          <strong>MATHEUS</strong>
-          <strong>R$ 250,00</strong>
-        </span>
+        {list.map((item) => (
+          <span>
+            <strong>{item.responsible}</strong>
+            <strong> {formatMorney(item.amount)}</strong>
+          </span>
+        ))}
       </Ssection>
-      {isFooter && (
-        <Sfooter>
-          <Button
-            color="#fff"
-            background="#B0C4DE"
-            icon={<Repeat width={15} height={15} />}
-          >
-            Repetir compra
-          </Button>
-          <Button
-            color="#fff"
-            background="#B0C4DE"
-            icon={<Add width={15} height={15} />}
-            onClick={() => {
-              setIsVisible(!isVisible);
-            }}
-          >
-            Novo cartão
-          </Button>
-        </Sfooter>
-      )}
+      {isFooter && <Sfooter>{isFooter}</Sfooter>}
     </Scontent>
   );
 };

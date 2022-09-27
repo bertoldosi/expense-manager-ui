@@ -7,7 +7,11 @@ import Nav from "../../common/Nav";
 import { Sarticle, Saside, Ssection, Swrapper } from "./styles";
 import { Modal } from "../../common/Modal";
 import Input from "../../common/Input";
-import { InstitutionType, MonthType } from "../HomeContainer/types";
+import {
+  InstitutionType,
+  MonthType,
+  ResponsibleValuesType,
+} from "../HomeContainer/types";
 import useTable from "../../../hooks/useTable";
 import useMonth from "../../../hooks/useMonth";
 import { maskDate } from "../../../helpers/masks";
@@ -17,12 +21,15 @@ import { Button } from "../../common/Button";
 import { Save } from "../../icons/Save";
 import { sumAmountResponsible } from "../../../helpers/sumAmountResponsible";
 import { updateAmountShoppings } from "../../../helpers/updateAmountShoppings";
+import { Repeat } from "../../icons/Repeat";
+import { Add } from "../../icons/Add";
 
 type PropsType = {
   monthList: MonthType[];
   month: MonthType;
   setMonthList: Function;
   handlerShoppingsExpanded: Function;
+  responsibleTotalAmountList: ResponsibleValuesType[];
 };
 
 const initialInputInstitution = {
@@ -34,7 +41,12 @@ const initialInputInstitution = {
   shoppings: [],
 };
 
-export const Content = ({ monthList, setMonthList, month }: PropsType) => {
+export const Content = ({
+  monthList,
+  setMonthList,
+  month,
+  responsibleTotalAmountList,
+}: PropsType) => {
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
   const [institutionVisible, setInstitutionVisible] = React.useState<number>(0);
 
@@ -103,11 +115,31 @@ export const Content = ({ monthList, setMonthList, month }: PropsType) => {
               {index === institutionVisible && (
                 <Ssection>
                   <Saside>
-                    <CardMenu />
+                    <CardMenu title="TOTAL POR CARTÃO" list={[]} />
                     <CardMenu
-                      isFooter={true}
-                      setIsVisible={setIsVisible}
-                      isVisible={isVisible}
+                      title="TOTAL GERAL"
+                      list={responsibleTotalAmountList}
+                      isFooter={
+                        <>
+                          <Button
+                            color="#fff"
+                            background="#B0C4DE"
+                            icon={<Repeat width={15} height={15} />}
+                          >
+                            Repetir compra
+                          </Button>
+                          <Button
+                            color="#fff"
+                            background="#B0C4DE"
+                            icon={<Add width={15} height={15} />}
+                            onClick={() => {
+                              setIsVisible(!isVisible);
+                            }}
+                          >
+                            Novo cartão
+                          </Button>
+                        </>
+                      }
                     />
                   </Saside>
                   <Sarticle>
