@@ -5,18 +5,20 @@ import Input from "../../common/Input";
 import { Add } from "../../icons/Add";
 import { Table } from "../../common/Table";
 
-import { Scontent, Sheader } from "./styles";
-import {
-  InstitutionType,
-  MonthType,
-  ShoppingType,
-} from "../HomeContainer/types";
 import { createShopping } from "../../../graphql/shopping";
 import { updateInstitutionShopping } from "../../../graphql/institution";
 import { sumAmountMoney } from "../../../helpers/sumAmountMoney";
 import { sumAmountResponsible } from "../../../helpers/sumAmountResponsible";
 import { focusInput } from "../../../helpers/focusInput";
 import { maskMorney } from "../../../helpers/masks";
+
+import { Scontent, Sheader } from "./styles";
+
+import {
+  InstitutionType,
+  MonthType,
+  ShoppingType,
+} from "../HomeContainer/types";
 
 type PropsType = {
   institution: InstitutionType;

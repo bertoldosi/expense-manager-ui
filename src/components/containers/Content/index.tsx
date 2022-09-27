@@ -12,8 +12,6 @@ import {
   MonthType,
   ResponsibleValuesType,
 } from "../HomeContainer/types";
-import useTable from "../../../hooks/useTable";
-import useMonth from "../../../hooks/useMonth";
 import { maskDate } from "../../../helpers/masks";
 import {
   createInstitution,
@@ -23,8 +21,6 @@ import {
 import { getMonthNumber, updateMonthInstitution } from "../../../graphql/month";
 import { Button } from "../../common/Button";
 import { Save } from "../../icons/Save";
-import { sumAmountResponsible } from "../../../helpers/sumAmountResponsible";
-import { updateAmountShoppings } from "../../../helpers/updateAmountShoppings";
 import { Repeat } from "../../icons/Repeat";
 import { Add } from "../../icons/Add";
 
@@ -32,7 +28,6 @@ type PropsType = {
   monthList: MonthType[];
   month: MonthType;
   setMonthList: Function;
-  handlerShoppingsExpanded: Function;
   responsibleTotalAmountList: ResponsibleValuesType[];
 };
 

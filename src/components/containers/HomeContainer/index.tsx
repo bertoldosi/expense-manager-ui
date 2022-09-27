@@ -8,12 +8,10 @@ import { Scontainer } from "./styles";
 
 function HomeContainer() {
   const { getMonths, months, nowMonth, setNowMonth } = useMonth();
-  const {
-    handlerShoppingsExpanded,
-    monthList,
-    setMonthList,
-    responsibleTotalAmountList,
-  } = useTable(months, nowMonth);
+  const { monthList, setMonthList, responsibleTotalAmountList } = useTable(
+    months,
+    nowMonth
+  );
 
   React.useEffect(() => {
     getMonths();
@@ -30,7 +28,6 @@ function HomeContainer() {
               setMonthList={setMonthList}
               monthList={monthList}
               month={monthMap}
-              handlerShoppingsExpanded={handlerShoppingsExpanded}
               responsibleTotalAmountList={responsibleTotalAmountList}
             />
           )

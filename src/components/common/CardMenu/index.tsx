@@ -1,7 +1,4 @@
 import React, { ReactNode } from "react";
-import { Button } from "../Button";
-import { Add } from "../../icons/Add";
-import { Repeat } from "../../icons/Repeat";
 
 import { Scontent, Sfooter, Sheader, Ssection } from "./styles";
 import { ResponsibleValuesType } from "../../containers/HomeContainer/types";

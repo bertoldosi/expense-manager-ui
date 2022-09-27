@@ -1,31 +1,23 @@
 import React from "react";
-import { v4 as uuidv4 } from "uuid";
-import {
-  createInstitutionShoppings,
-  updateInstitutionShopping,
-  updateInstitutionShoppings,
-} from "../../../graphql/institution";
-import { getMonthNumber, updateMonthInstitution } from "../../../graphql/month";
 import { updateShopping as upShopping } from "../../../graphql/shopping";
-import { createShopping, deleteShopping } from "../../../graphql/shopping";
-import { focusInput } from "../../../helpers/focusInput";
+import { deleteShopping } from "../../../graphql/shopping";
 import { maskMorney } from "../../../helpers/masks";
 import { removingShopping } from "../../../helpers/removingShopping";
 import { subtractingValues } from "../../../helpers/subtractingValues";
-import { sumAmountMoney } from "../../../helpers/sumAmountMoney";
 import { sumAmountResponsible } from "../../../helpers/sumAmountResponsible";
 import { updateAmountShoppings } from "../../../helpers/updateAmountShoppings";
+
+import { Save } from "../../icons/Save";
+import { Trash } from "../../icons/Trash";
+import InputTable from "../InputTable";
+
+import { Scontent } from "./styles";
 
 import {
   InstitutionType,
   MonthType,
   ShoppingType,
 } from "../../containers/HomeContainer/types";
-import { Save } from "../../icons/Save";
-import { Trash } from "../../icons/Trash";
-import InputTable from "../InputTable";
-
-import { Scontent } from "./styles";
 
 type PropsType = {
   institution: InstitutionType;
