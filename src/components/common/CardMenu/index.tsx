@@ -9,7 +9,6 @@ type PropsType = {
   list: ResponsibleValuesType[];
   title: string;
   isFooter?: ReactNode;
-  total: string;
 };
 
 const initialValue = 0;
