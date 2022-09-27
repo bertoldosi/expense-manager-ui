@@ -28,7 +28,3 @@ export const Saside = styled.aside`
     padding: 1rem;
   }
 `;
-
-export const Sarticle = styled.article`
-  flex: 1;
-`;

@@ -219,8 +219,8 @@ export const Table = ({
 
   return (
     <Scontent>
-      {institution.shoppings.map((shopping) => (
-        <span>
+      {institution.shoppings.map((shopping, index) => (
+        <span key={index}>
           <strong>
             <InputTable
               type="checkbox"

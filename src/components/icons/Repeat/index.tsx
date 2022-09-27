@@ -27,33 +27,33 @@ export const Repeat = ({
         points="200 88 224 64 200 40"
         fill="none"
         stroke="blue"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="16"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="16"
       ></polyline>
       <path
         d="M32,128A64.1,64.1,0,0,1,96,64H224"
         fill="none"
         stroke="blue"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="16"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="16"
       ></path>
       <polyline
         points="56 168 32 192 56 216"
         fill="none"
         stroke="blue"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="16"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="16"
       ></polyline>
       <path
         d="M224,128a64.1,64.1,0,0,1-64,64H32"
         fill="none"
         stroke="blue"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="16"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="16"
       ></path>
     </svg>
   );

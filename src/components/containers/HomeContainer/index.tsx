@@ -22,9 +22,10 @@ function HomeContainer() {
       <Header months={months} nowMonth={nowMonth} setNowMonth={setNowMonth} />
 
       {monthList.map(
-        (monthMap) =>
+        (monthMap, index) =>
           monthMap.mesNumber === nowMonth && (
             <Content
+              key={index}
               setMonthList={setMonthList}
               monthList={monthList}
               month={monthMap}

@@ -18,8 +18,8 @@ export const CardMenu = ({ list, title, isFooter }: PropsType) => {
       </Sheader>
 
       <Ssection>
-        {list.map((item) => (
-          <span>
+        {list.map((item, index) => (
+          <span key={index}>
             <strong>{item.responsible}</strong>
             <strong> {formatMorney(item.amount)}</strong>
           </span>

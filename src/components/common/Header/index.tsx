@@ -15,20 +15,22 @@ function Header({ months, nowMonth, setNowMonth }: PropsType) {
         {months.map((month, index) =>
           nowMonth === month.mesNumber ? (
             <Sitem
+              key={index}
               className="selected"
               onClick={() => {
                 setNowMonth(month.mesNumber);
               }}
             >
-              <h1 key={index}>{month.name}</h1>
+              <h1>{month.name}</h1>
             </Sitem>
           ) : (
             <Sitem
+              key={index}
               onClick={() => {
                 setNowMonth(month.mesNumber);
               }}
             >
-              <h1 key={index}>{month.name}</h1>
+              <h1>{month.name}</h1>
             </Sitem>
           )
         )}

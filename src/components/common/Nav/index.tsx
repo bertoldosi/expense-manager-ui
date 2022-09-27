@@ -30,6 +30,7 @@ function Nav({
         {institutions.map((institutionMap, index) =>
           index === institutionVisible ? (
             <Sitem
+              key={index}
               className="selected"
               onClick={() => {
                 setInstitutionVisible(index);
@@ -39,6 +40,7 @@ function Nav({
             </Sitem>
           ) : (
             <Sitem
+              key={index}
               onClick={() => {
                 setInstitutionVisible(index);
               }}

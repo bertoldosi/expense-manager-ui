@@ -1,5 +1,4 @@
 import { MouseEventHandler } from "react";
-import styled from "styled-components";
 
 type PropsType = {
   width?: string | number;
@@ -30,9 +29,9 @@ export const Add = ({
         y2="64"
         fill="none"
         stroke="green"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="16"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="16"
       ></line>
       <line
         x1="40"
@@ -41,9 +40,9 @@ export const Add = ({
         y2="128"
         fill="none"
         stroke="green"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="16"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="16"
       ></line>
       <line
         x1="40"
@@ -52,9 +51,9 @@ export const Add = ({
         y2="192"
         fill="none"
         stroke="green"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="16"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="16"
       ></line>
       <line
         x1="184"
@@ -63,9 +62,9 @@ export const Add = ({
         y2="192"
         fill="none"
         stroke="green"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="16"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="16"
       ></line>
       <line
         x1="208"
@@ -74,9 +73,9 @@ export const Add = ({
         y2="216"
         fill="none"
         stroke="green"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="16"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="16"
       ></line>
     </svg>
   );

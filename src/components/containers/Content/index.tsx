@@ -4,7 +4,7 @@ import { Expenses } from "../Expenses";
 import { CardMenu } from "../../common/CardMenu";
 import Nav from "../../common/Nav";
 
-import { Sarticle, Saside, Ssection, Swrapper } from "./styles";
+import { Saside, Ssection, Swrapper } from "./styles";
 import { Modal } from "../../common/Modal";
 import Input from "../../common/Input";
 import {
@@ -240,7 +240,7 @@ export const Content = ({
 
         {month.institutions.map((institutionMap, index) => {
           return (
-            <>
+            <div key={index}>
               {index === institutionVisible && (
                 <Ssection>
                   <Saside>
@@ -277,14 +277,12 @@ export const Content = ({
                       }
                     />
                   </Saside>
-                  <Sarticle>
-                    <Expenses
-                      institution={institutionMap}
-                      monthList={monthList}
-                      setMonthList={setMonthList}
-                      month={month}
-                    />
-                  </Sarticle>
+                  <Expenses
+                    institution={institutionMap}
+                    monthList={monthList}
+                    setMonthList={setMonthList}
+                    month={month}
+                  />
                   <Modal
                     title="Novo cartão"
                     isVisible={isVisible}
@@ -320,7 +318,7 @@ export const Content = ({
                   </Modal>
                 </Ssection>
               )}
-            </>
+            </div>
           );
         })}
       </Swrapper>

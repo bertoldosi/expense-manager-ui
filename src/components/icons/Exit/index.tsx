@@ -51,7 +51,7 @@ export const Exit = ({
           fill="none"
           stroke="#333"
           stroke-miterlimit="10"
-          stroke-width="16"
+          strokeWidth="16"
         ></circle>
         <line
           x1="160"
@@ -60,9 +60,9 @@ export const Exit = ({
           y2="160"
           fill="none"
           stroke="#333"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="16"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="16"
         ></line>
         <line
           x1="160"
@@ -71,9 +71,9 @@ export const Exit = ({
           y2="96"
           fill="none"
           stroke="#333"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="16"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="16"
         ></line>
       </svg>
     </Scontent>

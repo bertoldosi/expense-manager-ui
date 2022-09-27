@@ -48,9 +48,9 @@ export const Save = ({
           points="172 104 113.3 160 84 132"
           fill="none"
           stroke="green"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="16"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="16"
         ></polyline>
         <circle
           cx="128"
@@ -58,9 +58,9 @@ export const Save = ({
           r="96"
           fill="none"
           stroke="green"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="16"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="16"
         ></circle>
       </svg>
     </Scontent>
