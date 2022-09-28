@@ -4,7 +4,7 @@ import { Button } from "../../common/Button";
 import Input from "../../common/Input";
 import { Add } from "../../icons/Add";
 import { Table } from "../../common/Table";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 import { createShopping } from "../../../graphql/shopping";
 import { updateInstitutionShopping } from "../../../graphql/institution";
@@ -63,6 +63,7 @@ export const Expenses = ({
       : "SEM/ATRIB";
 
     const isFilled = newShopping.description != "" && newShopping.amount != "";
+
     const shopping = {
       ...newShopping,
       reference: uuidv4(),
@@ -94,7 +95,7 @@ export const Expenses = ({
                           ...institutionMap.shoppings,
                           {
                             ...newShopping,
-                            reference: uuidv4(),
+                            reference: shoppingReference,
                             responsible: responsible,
                           },
                         ],
