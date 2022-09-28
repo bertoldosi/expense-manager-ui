@@ -5,7 +5,7 @@ export const Scontent = styled.div`
 
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   span {
     display: flex;

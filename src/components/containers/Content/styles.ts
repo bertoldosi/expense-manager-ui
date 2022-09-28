@@ -21,6 +21,7 @@ export const Saside = styled.aside`
   width: 25rem;
   height: calc(100vh - 15rem);
   background-color: #fff;
+  overflow-y: auto;
 
   @media (max-width: 700px) {
     width: 100%;
