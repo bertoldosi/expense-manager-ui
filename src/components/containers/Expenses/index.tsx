@@ -165,7 +165,7 @@ export const Expenses = ({
             includeShopping(institution.reference);
           }}
         >
-          Add compra
+          Adicionar
         </Button>
       </Sheader>
       <Table

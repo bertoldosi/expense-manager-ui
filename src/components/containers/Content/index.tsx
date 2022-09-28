@@ -227,6 +227,80 @@ export const Content = ({
     }
   };
 
+  if (month.institutions.length === 0) {
+    return (
+      <>
+        <Swrapper>
+          <nav>
+            <Nav
+              institutions={month.institutions}
+              setInstitutionVisible={setInstitutionVisible}
+              institutionVisible={institutionVisible}
+            />
+          </nav>
+
+          <Ssection>
+            <Saside>
+              <CardMenu
+                title="TOTAL GERAL"
+                list={responsibleTotalAmountList}
+                background="#de4f15"
+                isFooter={
+                  <>
+                    <Button
+                      color="#fff"
+                      background="#B0C4DE"
+                      icon={<Add width={15} height={15} />}
+                      onClick={() => {
+                        setIsVisible(!isVisible);
+                      }}
+                    >
+                      Novo cartão
+                    </Button>
+                  </>
+                }
+              />
+            </Saside>
+
+            <Modal
+              title="Novo cartão"
+              isVisible={isVisible}
+              handlerIsVisible={setIsVisible}
+              footer={
+                <Button
+                  color="#fff"
+                  background="#B0C4DE"
+                  icon={<Save width={15} height={15} />}
+                  onClick={() => {
+                    includeNewInstitution(month.id);
+                  }}
+                >
+                  Salvar
+                </Button>
+              }
+            >
+              <Input
+                name="name"
+                placeholder="Nome da instituição"
+                id={inputInstitution.reference}
+                value={inputInstitution.name}
+                onChange={onChangeInputInstitution}
+              />
+
+              <Input
+                name="expirationDate"
+                id={inputInstitution.reference}
+                value={inputInstitution.expirationDate}
+                onChange={onChangeInputInstitution}
+                type="date"
+              />
+            </Modal>
+          </Ssection>
+        </Swrapper>
+      </>
+    );
+  }
+
   return (
     <>
       <Swrapper>
@@ -263,7 +337,7 @@ export const Content = ({
                               repeatInstitution(institutionMap);
                             }}
                           >
-                            Repetir compra
+                            Repetir item(s)
                           </Button>
                           <Button
                             color="#fff"
