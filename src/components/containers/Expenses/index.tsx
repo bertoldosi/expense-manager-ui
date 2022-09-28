@@ -4,6 +4,7 @@ import { Button } from "../../common/Button";
 import Input from "../../common/Input";
 import { Add } from "../../icons/Add";
 import { Table } from "../../common/Table";
+import { ToastContainer, toast } from "react-toastify";
 
 import { createShopping } from "../../../graphql/shopping";
 import { updateInstitutionShopping } from "../../../graphql/institution";
@@ -115,7 +116,7 @@ export const Expenses = ({
         });
       });
     } else {
-      alert("Precisa preencher descrição e valor!");
+      toast.info(<h3>Preencha descrição e valor do item!</h3>);
       setRequest(false);
     }
   };

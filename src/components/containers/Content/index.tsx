@@ -23,6 +23,7 @@ import { Button } from "../../common/Button";
 import { Save } from "../../icons/Save";
 import { Repeat } from "../../icons/Repeat";
 import { Add } from "../../icons/Add";
+import { toast } from "react-toastify";
 
 type PropsType = {
   monthList: MonthType[];
@@ -92,7 +93,7 @@ export const Content = ({
       setInputInstitution(initialInputInstitution);
       setIsVisible(false);
     } else {
-      alert("Precisa preencher todos os campos");
+      toast.info(<h3>Preencha nome e data do cartão!</h3>);
     }
   };
 
@@ -162,7 +163,7 @@ export const Content = ({
             await createInstitutionShoppings(institutionRepeat);
           await updateMonthInstitution(monthId, institutionReference);
         } else {
-          alert("Mês não encontrado!");
+          toast.info(<h3>Mês não encontrado!</h3>);
         }
       } else {
         const shoppingsRepeat = institution.shoppings.filter(
@@ -222,7 +223,9 @@ export const Content = ({
         await updateInstitutionShoppings(institutionReference, shoppingsRepeat);
       }
     } else {
-      alert("Marque as compras que deseja reperir para o próximo mês!");
+      toast.info(
+        <h3>Marque o(s) item(s) que deseja reperir para o próximo mês!</h3>
+      );
     }
   };
 
@@ -284,6 +287,7 @@ export const Content = ({
                 id={inputInstitution.reference}
                 value={inputInstitution.name}
                 onChange={onChangeInputInstitution}
+                required
               />
 
               <Input
@@ -292,6 +296,7 @@ export const Content = ({
                 value={inputInstitution.expirationDate}
                 onChange={onChangeInputInstitution}
                 type="date"
+                required
               />
             </Modal>
           </Ssection>
