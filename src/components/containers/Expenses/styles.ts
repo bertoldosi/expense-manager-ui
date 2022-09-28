@@ -7,7 +7,7 @@ export const Scontent = styled.div`
   padding: 1rem;
 `;
 
-export const Sheader = styled.header`
+export const Sheader = styled.form`
   display: flex;
   gap: 1rem;
   margin-bottom: 2rem;

@@ -106,45 +106,43 @@ export const Expenses = ({
 
   return (
     <Scontent>
-      <form>
-        <Sheader>
-          <Input
-            autofocus
-            name="description"
-            placeholder="Descrição do item"
-            id={newShopping.reference}
-            value={newShopping.description}
-            onChange={onChangeAddShopping}
-          />
-          <Input
-            disabled={request}
-            name="amount"
-            placeholder="R$ 00,00"
-            id={newShopping.reference}
-            value={newShopping.amount}
-            onChange={onChangeAddShopping}
-          />
-          <Input
-            disabled={request}
-            name="responsible"
-            placeholder="Nome do responsavel"
-            id={newShopping.reference}
-            value={newShopping.responsible}
-            onChange={onChangeAddShopping}
-          />
-          <Button
-            disabled={request}
-            color="#fff"
-            background="#B0C4DE"
-            icon={<Add width={15} height={15} />}
-            onClick={() => {
-              includeShopping(institution.reference);
-            }}
-          >
-            Adicionar
-          </Button>
-        </Sheader>
-      </form>
+      <Sheader>
+        <Input
+          autofocus
+          name="description"
+          placeholder="Descrição do item"
+          id={newShopping.reference}
+          value={newShopping.description}
+          onChange={onChangeAddShopping}
+        />
+        <Input
+          disabled={request}
+          name="amount"
+          placeholder="R$ 00,00"
+          id={newShopping.reference}
+          value={newShopping.amount}
+          onChange={onChangeAddShopping}
+        />
+        <Input
+          disabled={request}
+          name="responsible"
+          placeholder="Nome do responsavel"
+          id={newShopping.reference}
+          value={newShopping.responsible}
+          onChange={onChangeAddShopping}
+        />
+        <Button
+          disabled={request}
+          color="#fff"
+          background="#B0C4DE"
+          icon={<Add width={15} height={15} />}
+          onClick={() => {
+            includeShopping(institution.reference);
+          }}
+        >
+          Adicionar
+        </Button>
+      </Sheader>
       <Table
         institution={institution}
         month={month}
