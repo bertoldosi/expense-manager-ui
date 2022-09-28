@@ -94,9 +94,11 @@ export const Expenses = ({
 
         toast.success(<h3>Adicionado com sucesso!</h3>);
       })
+
       .catch(() => {
         toast.error(<h3>Tente novamente!</h3>);
       })
+
       .finally(() => {
         setNewShopping(initialNewShopping);
         setRequest(false);

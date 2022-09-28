@@ -18,6 +18,7 @@ import {
   MonthType,
   ShoppingType,
 } from "../../containers/HomeContainer/types";
+import { toast } from "react-toastify";
 
 type PropsType = {
   institution: InstitutionType;
@@ -119,37 +120,50 @@ export const Table = ({
     shopping: ShoppingType
   ) => {
     setRequest(true);
+
     const shoppingReference = shopping.reference;
 
-    deleteShopping(shoppingReference).finally(() => {
-      setMonthList(
-        monthList.map((monthMap) => {
-          if (monthMap.id === month.id) {
-            return {
-              ...monthMap,
-              institutions: monthMap.institutions.map((institutionMap) => {
-                if (institutionMap.reference === institutionReference) {
-                  return {
-                    ...institutionMap,
-                    shoppings: removingShopping(
-                      institutionMap.shoppings,
-                      shoppingReference
-                    ),
-                    amount: subtractingValues(institutionMap.amount, shopping),
-                  };
-                } else {
-                  return institutionMap;
-                }
-              }),
-            };
-          } else {
-            return monthMap;
-          }
-        })
-      );
+    deleteShopping(shoppingReference)
+      .then(() => {
+        setMonthList(
+          monthList.map((monthMap) => {
+            if (monthMap.id === month.id) {
+              return {
+                ...monthMap,
+                institutions: monthMap.institutions.map((institutionMap) => {
+                  if (institutionMap.reference === institutionReference) {
+                    return {
+                      ...institutionMap,
+                      shoppings: removingShopping(
+                        institutionMap.shoppings,
+                        shoppingReference
+                      ),
+                      amount: subtractingValues(
+                        institutionMap.amount,
+                        shopping
+                      ),
+                    };
+                  } else {
+                    return institutionMap;
+                  }
+                }),
+              };
+            } else {
+              return monthMap;
+            }
+          })
+        );
 
-      setRequest(false);
-    });
+        toast.success(<h3>Deletado com sucesso!</h3>);
+      })
+
+      .catch(() => {
+        toast.error(<h3>Tente novamente!</h3>);
+      })
+
+      .finally(() => {
+        setRequest(false);
+      });
   };
 
   const updateShopping = async (
@@ -159,41 +173,51 @@ export const Table = ({
     setRequest(true);
     const shoppingReference = shoppingUpdate.reference;
 
-    upShopping(shoppingUpdate).finally(() => {
-      setMonthList(
-        monthList.map((monthMap) => {
-          if (monthMap.id === month.id) {
-            return {
-              ...monthMap,
-              institutions: monthMap.institutions.map((institutionMap) => {
-                if (institutionMap.reference === institutionReference) {
-                  return {
-                    ...institutionMap,
-                    listResponsibleValues: sumAmountResponsible(institutionMap),
-                    shoppings: institutionMap.shoppings.map((shoppingMap) => {
-                      if (shoppingMap.reference === shoppingReference) {
-                        return {
-                          ...shoppingUpdate,
-                          isUpdate: false,
-                        };
-                      } else {
-                        return shoppingMap;
-                      }
-                    }),
-                  };
-                } else {
-                  return institutionMap;
-                }
-              }),
-            };
-          } else {
-            return monthMap;
-          }
-        })
-      );
+    upShopping(shoppingUpdate)
+      .then(() => {
+        setMonthList(
+          monthList.map((monthMap) => {
+            if (monthMap.id === month.id) {
+              return {
+                ...monthMap,
+                institutions: monthMap.institutions.map((institutionMap) => {
+                  if (institutionMap.reference === institutionReference) {
+                    return {
+                      ...institutionMap,
+                      listResponsibleValues:
+                        sumAmountResponsible(institutionMap),
+                      shoppings: institutionMap.shoppings.map((shoppingMap) => {
+                        if (shoppingMap.reference === shoppingReference) {
+                          return {
+                            ...shoppingUpdate,
+                            isUpdate: false,
+                          };
+                        } else {
+                          return shoppingMap;
+                        }
+                      }),
+                    };
+                  } else {
+                    return institutionMap;
+                  }
+                }),
+              };
+            } else {
+              return monthMap;
+            }
+          })
+        );
 
-      setRequest(false);
-    });
+        toast.success(<h3>Alterado com sucesso!</h3>);
+      })
+
+      .catch(() => {
+        toast.error(<h1>Tente novamente!</h1>);
+      })
+
+      .finally(() => {
+        setRequest(false);
+      });
   };
 
   React.useEffect(() => {
