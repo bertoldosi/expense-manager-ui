@@ -6,8 +6,7 @@ import { Add } from "../../icons/Add";
 import { Table } from "../../common/Table";
 import { toast } from "react-toastify";
 
-import { createShopping } from "../../../graphql/shopping";
-import { updateInstitutionShopping } from "../../../graphql/institution";
+import { updateInstitutionShoppings } from "../../../graphql/institution";
 import { sumAmountMoney } from "../../../helpers/sumAmountMoney";
 import { sumAmountResponsible } from "../../../helpers/sumAmountResponsible";
 import { focusInput } from "../../../helpers/focusInput";
@@ -58,118 +57,94 @@ export const Expenses = ({
   const includeShopping = async (institutionReference: string) => {
     setRequest(true);
 
-    const responsible = newShopping.responsible
-      ? newShopping.responsible
-      : "SEM/ATRIB";
-
-    const isFilled = newShopping.description != "" && newShopping.amount != "";
-
     const shopping = {
       ...newShopping,
       reference: uuidv4(),
-      responsible,
     };
 
-    if (isFilled) {
-      createShopping(shopping).then(({ reference: shoppingReference }) => {
-        updateInstitutionShopping(
-          institutionReference,
-          shoppingReference
-        ).finally(() => {
-          setMonthList(
-            monthList.map((monthMap) => {
-              if (monthMap.id === month.id) {
-                return {
-                  ...monthMap,
-                  institutions: monthMap.institutions.map((institutionMap) => {
-                    if (institutionMap.reference === institutionReference) {
-                      return {
-                        ...institutionMap,
-                        listResponsibleValues:
-                          sumAmountResponsible(institutionMap),
-                        amount: sumAmountMoney(
-                          institutionMap.amount,
-                          newShopping.amount
-                        ),
-                        shoppings: [
-                          ...institutionMap.shoppings,
-                          {
-                            ...newShopping,
-                            reference: shoppingReference,
-                            responsible: responsible,
-                          },
-                        ],
-                      };
-                    } else {
-                      return institutionMap;
-                    }
-                  }),
-                };
-              } else {
-                return monthMap;
-              }
-            })
-          );
+    updateInstitutionShoppings(institutionReference, [shopping])
+      .then(() => {
+        setMonthList(
+          monthList.map((monthMap) => {
+            if (monthMap.id === month.id) {
+              return {
+                ...monthMap,
+                institutions: monthMap.institutions.map((institutionMap) => {
+                  if (institutionMap.reference === institutionReference) {
+                    return {
+                      ...institutionMap,
+                      listResponsibleValues:
+                        sumAmountResponsible(institutionMap),
+                      amount: sumAmountMoney(
+                        institutionMap.amount,
+                        shopping.amount
+                      ),
+                      shoppings: [...institutionMap.shoppings, shopping],
+                    };
+                  } else {
+                    return institutionMap;
+                  }
+                }),
+              };
+            } else {
+              return monthMap;
+            }
+          })
+        );
 
-          setNewShopping(initialNewShopping);
-          setRequest(false);
-          focusInput("description");
-        });
+        toast.success(<h3>Adicionado com sucesso!</h3>);
+      })
+      .catch(() => {
+        toast.error(<h3>Tente novamente!</h3>);
+      })
+      .finally(() => {
+        setNewShopping(initialNewShopping);
+        setRequest(false);
+        focusInput("description");
       });
-    } else {
-      toast.info(<h3>Preencha descrição e valor do item!</h3>);
-      setRequest(false);
-    }
   };
 
   return (
     <Scontent>
-      <Sheader>
-        <Input
-          autofocus
-          name="description"
-          placeholder="Descrição do item"
-          id={newShopping.reference}
-          value={newShopping.description}
-          onChange={onChangeAddShopping}
-          onKeyUp={() => {
-            includeShopping(institution.reference);
-          }}
-        />
-        <Input
-          disabled={request}
-          name="amount"
-          placeholder="R$ 00,00"
-          id={newShopping.reference}
-          value={newShopping.amount}
-          onChange={onChangeAddShopping}
-          onKeyUp={() => {
-            includeShopping(institution.reference);
-          }}
-        />
-        <Input
-          disabled={request}
-          name="responsible"
-          placeholder="Nome do responsavel"
-          id={newShopping.reference}
-          value={newShopping.responsible}
-          onChange={onChangeAddShopping}
-          onKeyUp={() => {
-            includeShopping(institution.reference);
-          }}
-        />
-        <Button
-          disabled={request}
-          color="#fff"
-          background="#B0C4DE"
-          icon={<Add width={15} height={15} />}
-          onClick={() => {
-            includeShopping(institution.reference);
-          }}
-        >
-          Adicionar
-        </Button>
-      </Sheader>
+      <form>
+        <Sheader>
+          <Input
+            autofocus
+            name="description"
+            placeholder="Descrição do item"
+            id={newShopping.reference}
+            value={newShopping.description}
+            onChange={onChangeAddShopping}
+          />
+          <Input
+            disabled={request}
+            name="amount"
+            placeholder="R$ 00,00"
+            id={newShopping.reference}
+            value={newShopping.amount}
+            onChange={onChangeAddShopping}
+          />
+          <Input
+            disabled={request}
+            name="responsible"
+            placeholder="Nome do responsavel"
+            id={newShopping.reference}
+            value={newShopping.responsible}
+            onChange={onChangeAddShopping}
+          />
+          <Button
+            disabled={request}
+            color="#fff"
+            background="#B0C4DE"
+            icon={<Add width={15} height={15} />}
+            onClick={() => {
+              includeShopping(institution.reference);
+            }}
+          >
+            Adicionar
+          </Button>
+        </Sheader>
+      </form>
       <Table
         institution={institution}
         month={month}
