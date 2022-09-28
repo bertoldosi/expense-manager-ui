@@ -65,19 +65,17 @@ export const Content = ({
 
   const includeNewInstitution = async (monthId: string) => {
     const isFilled =
-      inputInstitution.name != "" &&
-      inputInstitution.amount != "" &&
-      inputInstitution.expirationDate != "";
+      inputInstitution.name != "" && inputInstitution.expirationDate != "";
 
     const newInstitution = { ...inputInstitution, reference: uuidv4() };
 
-    const { reference: institutionReference } = await createInstitution(
-      newInstitution
-    );
-
-    await updateMonthInstitution(monthId, institutionReference);
-
     if (isFilled) {
+      const { reference: institutionReference } = await createInstitution(
+        newInstitution
+      );
+
+      await updateMonthInstitution(monthId, institutionReference);
+
       setMonthList(
         monthList.map((monthMap) => {
           if (monthMap.id === monthId) {
@@ -92,6 +90,7 @@ export const Content = ({
       );
 
       setInputInstitution(initialInputInstitution);
+      setIsVisible(false);
     } else {
       alert("Precisa preencher todos os campos");
     }

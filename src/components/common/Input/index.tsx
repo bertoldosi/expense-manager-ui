@@ -14,6 +14,7 @@ type PropsTypes = {
   tabIndex?: number | undefined;
   checked?: boolean;
   placeholder?: string;
+  required?: boolean;
 };
 
 function Input({
@@ -28,6 +29,7 @@ function Input({
   tabIndex,
   checked,
   placeholder = "Digite um valor",
+  required,
 }: PropsTypes) {
   const handleOnKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const keycode = event.keyCode ? event.keyCode : event.which;
@@ -52,6 +54,7 @@ function Input({
       disabled={disabled}
       type={type}
       checked={checked}
+      required={required}
     />
   );
 }

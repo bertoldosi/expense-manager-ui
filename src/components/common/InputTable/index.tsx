@@ -13,6 +13,7 @@ type PropsTypes = {
   autofocus?: boolean;
   tabIndex?: number | undefined;
   checked?: boolean;
+  required?: boolean;
 };
 
 function InputTable({
@@ -26,6 +27,7 @@ function InputTable({
   autofocus,
   tabIndex,
   checked,
+  required,
 }: PropsTypes) {
   const handleOnKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const keycode = event.keyCode ? event.keyCode : event.which;
@@ -49,6 +51,7 @@ function InputTable({
       disabled={disabled}
       type={type}
       checked={checked}
+      required={required}
     />
   ) : (
     <Sinput
@@ -64,6 +67,7 @@ function InputTable({
       disabled={disabled}
       type={type}
       checked={checked}
+      required={required}
     />
   );
 }
