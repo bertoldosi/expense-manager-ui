@@ -128,7 +128,7 @@ export const Expenses = ({
         <Input
           autofocus
           name="description"
-          placeholder="Descrição da compra"
+          placeholder="Descrição do item"
           id={newShopping.reference}
           value={newShopping.description}
           onChange={onChangeAddShopping}
