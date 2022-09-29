@@ -55,6 +55,11 @@ export const Expenses = ({
   };
 
   const includeShopping = async (institutionReference: string) => {
+    toast.info(<h3>Processando...</h3>, {
+      isLoading: true,
+      toastId: "process",
+    });
+
     setRequest(true);
 
     const shopping = {
@@ -92,11 +97,21 @@ export const Expenses = ({
           })
         );
 
-        toast.success(<h3>Adicionado com sucesso!</h3>);
+        toast.update("process", {
+          type: "success",
+          isLoading: false,
+          render: <h3>Adicionado com sucesso!</h3>,
+          autoClose: 2000,
+        });
       })
 
       .catch(() => {
-        toast.error(<h3>Tente novamente!</h3>);
+        toast.update("process", {
+          type: "error",
+          isLoading: false,
+          render: <h3>Tente novamente!</h3>,
+          autoClose: 2000,
+        });
       })
 
       .finally(() => {

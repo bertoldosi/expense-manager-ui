@@ -119,6 +119,11 @@ export const Table = ({
     institutionReference: string,
     shopping: ShoppingType
   ) => {
+    toast.info(<h3>Processando...</h3>, {
+      isLoading: true,
+      toastId: "process",
+    });
+
     setRequest(true);
 
     const shoppingReference = shopping.reference;
@@ -154,11 +159,21 @@ export const Table = ({
           })
         );
 
-        toast.success(<h3>Deletado com sucesso!</h3>);
+        toast.update("process", {
+          type: "success",
+          isLoading: false,
+          render: <h3>Deletado com sucesso!</h3>,
+          autoClose: 2000,
+        });
       })
 
       .catch(() => {
-        toast.error(<h3>Tente novamente!</h3>);
+        toast.update("process", {
+          type: "error",
+          isLoading: false,
+          render: <h3>Tente novamente!</h3>,
+          autoClose: 2000,
+        });
       })
 
       .finally(() => {
@@ -170,6 +185,11 @@ export const Table = ({
     institutionReference: string,
     shoppingUpdate: ShoppingType
   ) => {
+    toast.info(<h3>Processando...</h3>, {
+      isLoading: true,
+      toastId: "process",
+    });
+
     setRequest(true);
     const shoppingReference = shoppingUpdate.reference;
 
@@ -208,11 +228,21 @@ export const Table = ({
           })
         );
 
-        toast.success(<h3>Alterado com sucesso!</h3>);
+        toast.update("process", {
+          type: "success",
+          isLoading: false,
+          render: <h3>Alterado com sucesso!</h3>,
+          autoClose: 2000,
+        });
       })
 
       .catch(() => {
-        toast.error(<h1>Tente novamente!</h1>);
+        toast.update("process", {
+          type: "error",
+          isLoading: false,
+          render: <h3>Tente novamente!</h3>,
+          autoClose: 2000,
+        });
       })
 
       .finally(() => {

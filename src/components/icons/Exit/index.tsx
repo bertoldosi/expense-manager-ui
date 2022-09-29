@@ -50,7 +50,7 @@ export const Exit = ({
           r="96"
           fill="none"
           stroke="#333"
-          stroke-miterlimit="10"
+          strokeMiterlimit="10"
           strokeWidth="16"
         ></circle>
         <line
