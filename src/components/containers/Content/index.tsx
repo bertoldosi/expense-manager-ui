@@ -37,7 +37,7 @@ const initialInputInstitution = {
   name: "",
   amount: "0,00",
   listResponsibleValues: [],
-  expirationDate: "",
+  expirationDate: "2022-10-10",
   shoppings: [],
 };
 
@@ -100,7 +100,9 @@ export const Content = ({
   const repeatInstitution = async (institution: InstitutionType) => {
     const { id: monthId, institutions } = await getMonthNumber(
       month.mesNumber + 1
-    );
+    ).catch(() => {
+      toast.error(<h3>Algo de errado aconteceu ao buscar próximo mês!</h3>);
+    });
 
     const isInstitutionRepeat =
       institution.shoppings.filter((shopping) => shopping.repeat).length > 0;
@@ -118,109 +120,143 @@ export const Content = ({
           const institutionRepeat = {
             ...institution,
             reference: uuidv4(),
-            shoppings: institution.shoppings.filter(
-              (shopping) => shopping.repeat
-            ),
+            shoppings: institution.shoppings
+              .filter((shopping) => shopping.repeat)
+              .map((shopping) => ({
+                ...shopping,
+                reference: uuidv4(),
+                repeat: false,
+              })),
           };
 
-          setMonthList(
-            monthList.map((monthMap) => {
-              if (monthMap.id === month.id) {
-                return {
-                  ...monthMap,
-                  institutions: [...monthMap.institutions, institutionRepeat],
-                };
-              } else {
-                return monthMap;
-              }
-            })
-          );
-
-          setMonthList(
-            monthList.map((monthMap) => {
-              if (monthMap.id === month.id) {
-                return {
-                  ...monthMap,
-                  institutions: monthMap.institutions.map((institutionMap) => {
-                    return {
-                      ...institutionMap,
-                      shoppings: institutionMap.shoppings.map((shoppingMap) => {
+          createInstitutionShoppings(institutionRepeat)
+            .then(({ reference: institutionReference }) => {
+              updateMonthInstitution(monthId, institutionReference)
+                .then(() => {
+                  setMonthList(
+                    monthList.map((monthMap) => {
+                      if (monthMap.id === monthId) {
                         return {
-                          ...shoppingMap,
-                          repeat: false,
+                          ...monthMap,
+                          institutions: [
+                            ...monthMap.institutions,
+                            institutionRepeat,
+                          ],
                         };
-                      }),
-                    };
-                  }),
-                };
-              } else {
-                return monthMap;
-              }
-            })
-          );
+                      } else if (monthMap.id === month.id) {
+                        return {
+                          ...monthMap,
+                          institutions: monthMap.institutions.map(
+                            (institutionMap) => {
+                              return {
+                                ...institutionMap,
+                                shoppings: institutionMap.shoppings.map(
+                                  (shoppingMap) => {
+                                    return {
+                                      ...shoppingMap,
+                                      repeat: false,
+                                    };
+                                  }
+                                ),
+                              };
+                            }
+                          ),
+                        };
+                      } else {
+                        return monthMap;
+                      }
+                    })
+                  );
 
-          const { reference: institutionReference } =
-            await createInstitutionShoppings(institutionRepeat);
-          await updateMonthInstitution(monthId, institutionReference);
+                  toast.success(
+                    <h3>Item(s) foram repetidos para o próximo mês!</h3>
+                  );
+                })
+
+                .catch(() => {
+                  toast.error(
+                    <h3>
+                      Algo de errado aconteceu ao atualizar o proximo mes com a
+                      novo cartão
+                    </h3>
+                  );
+                });
+            })
+
+            .catch(() => {
+              toast.error(
+                <h3>Algo de errado aconteceu ao criar nova cartão com itens</h3>
+              );
+            });
         } else {
           toast.info(<h3>Mês não encontrado!</h3>);
         }
       } else {
-        const shoppingsRepeat = institution.shoppings.filter(
-          (shopping) => shopping.repeat
-        );
+        const shoppingsRepeat = institution.shoppings
+          .filter((shopping) => shopping.repeat)
+          .map((shoppingMap) => {
+            return {
+              ...shoppingMap,
+              reference: uuidv4(),
+            };
+          });
 
         const institutionReference = institutionsFilter[0].reference;
 
-        setMonthList(
-          monthList.map((monthMap) => {
-            if (monthMap.id === monthId) {
-              return {
-                ...monthMap,
-                institutions: monthMap.institutions.map((institutionMap) => {
-                  if (institutionMap.reference === institutionReference) {
-                    return {
-                      ...institutionMap,
-                      shoppings: [
-                        ...institutionMap.shoppings,
-                        [...shoppingsRepeat],
-                      ],
-                    };
-                  } else {
-                    return institutionMap;
-                  }
-                }),
-              };
-            } else {
-              return monthMap;
-            }
-          })
-        );
-
-        setMonthList(
-          monthList.map((monthMap) => {
-            if (monthMap.id === month.id) {
-              return {
-                ...monthMap,
-                institutions: monthMap.institutions.map((institutionMap) => {
+        updateInstitutionShoppings(institutionReference, shoppingsRepeat)
+          .then(() => {
+            setMonthList(
+              monthList.map((monthMap) => {
+                if (monthMap.id === monthId) {
                   return {
-                    ...institutionMap,
-                    shoppings: institutionMap.shoppings.map((shoppingMap) => {
-                      return {
-                        ...shoppingMap,
-                        repeat: false,
-                      };
-                    }),
+                    ...monthMap,
+                    institutions: monthMap.institutions.map(
+                      (institutionMap) => {
+                        if (institutionMap.reference === institutionReference) {
+                          return {
+                            ...institutionMap,
+                            shoppings: [
+                              ...institutionMap.shoppings,
+                              [...shoppingsRepeat],
+                            ],
+                          };
+                        } else {
+                          return institutionMap;
+                        }
+                      }
+                    ),
                   };
-                }),
-              };
-            } else {
-              return monthMap;
-            }
-          })
-        );
+                } else if (monthMap.id === month.id) {
+                  return {
+                    ...monthMap,
+                    institutions: monthMap.institutions.map(
+                      (institutionMap) => {
+                        return {
+                          ...institutionMap,
+                          shoppings: institutionMap.shoppings.map(
+                            (shoppingMap) => {
+                              return {
+                                ...shoppingMap,
+                                repeat: false,
+                              };
+                            }
+                          ),
+                        };
+                      }
+                    ),
+                  };
+                } else {
+                  return monthMap;
+                }
+              })
+            );
 
-        await updateInstitutionShoppings(institutionReference, shoppingsRepeat);
+            toast.success(<h3>Item(s) foram repetidos para o próximo mês!</h3>);
+          })
+
+          .catch(() => {
+            toast.error(<h3>Tente novamente!</h3>);
+          });
       }
     } else {
       toast.info(

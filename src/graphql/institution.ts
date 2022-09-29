@@ -93,6 +93,7 @@ export const createInstitutionShoppings = async (
     .request(CREATE_INSTITUTION_SHOPPINGS, {
       ...institution,
       shoppings: institution.shoppings.map((shopping) => ({
+        reference: shopping.reference,
         description: shopping.description,
         amount: shopping.amount,
         responsible: shopping.responsible,
