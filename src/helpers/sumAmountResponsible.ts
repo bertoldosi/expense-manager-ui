@@ -4,7 +4,7 @@ import {
   InstitutionType,
   ResponsibleValuesType,
   ShoppingType,
-} from "@containers/HomeContainer/types";
+} from "@containers/Home/types";
 
 export const sumAmountResponsible = (institution: InstitutionType) => {
   const newList = institution.shoppings.reduce(

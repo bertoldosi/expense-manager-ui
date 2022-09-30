@@ -1,4 +1,4 @@
-import { ShoppingType } from "@containers/HomeContainer/types";
+import { ShoppingType } from "@containers/Home/types";
 
 export const subtractingValues = (
   firstValue: string | number,

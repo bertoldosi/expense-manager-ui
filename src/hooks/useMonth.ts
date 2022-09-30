@@ -1,7 +1,7 @@
 import React from "react";
 
 import { hygraph, gql } from "@services/HygraphClient";
-import { MonthType } from "@containers/HomeContainer/types";
+import { MonthType } from "@containers/Home/types";
 
 export const GET_MONTHS = gql`
   query {

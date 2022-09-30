@@ -17,8 +17,8 @@
     "incremental": true,
     "paths": {
       "@commons/*": ["src/components/common/*"],
-      "@containers/*": ["src/components/containers/*"],
-      "@icons/*": ["src/components/icons/*"],
+      "@containers/*": ["src/components/container/*"],
+      "@icons/*": ["src/components/icon/*"],
       "@graphqls/*": ["src/graphql/*"],
       "@helpers/*": ["src/helpers/*"],
       "@hooks/*": ["src/hooks/*"],

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { InstitutionType } from "@containers/HomeContainer/types";
+import { InstitutionType } from "@containers/Home/types";
 
 import { Scontent, Sitem, Slist } from "./styles";
 

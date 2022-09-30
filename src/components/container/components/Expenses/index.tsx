@@ -15,11 +15,7 @@ import { maskMorney } from "@helpers/masks";
 
 import { Scontent, Sheader } from "./styles";
 
-import {
-  InstitutionType,
-  MonthType,
-  ShoppingType,
-} from "../../HomeContainer/types";
+import { InstitutionType, MonthType, ShoppingType } from "../../Home/types";
 
 type PropsType = {
   institution: InstitutionType;

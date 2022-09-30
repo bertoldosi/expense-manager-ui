@@ -13,17 +13,17 @@ import {
   InstitutionType,
   MonthType,
   ResponsibleValuesType,
-} from "../../HomeContainer/types";
+} from "../../Home/types";
 
 import Nav from "@containers/components/Nav";
 import Input from "@commons/Input";
 import { Trash } from "@icons/Trash";
-import { Add } from "../../../icons/Add";
+import { Add } from "@icons/Add";
 import { Modal } from "@commons/Modal";
-import { Save } from "../../../icons/Save";
+import { Save } from "@icons/Save";
 import { maskDate } from "@helpers/masks";
 import { Button } from "@commons/Button";
-import { Repeat } from "../../../icons/Repeat";
+import { Repeat } from "@icons/Repeat";
 import { CardMenu } from "@containers/components/CardMenu";
 import { Expenses } from "@containers/components/Expenses";
 import { Saside, Ssection, Swrapper } from "./styles";

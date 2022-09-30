@@ -1,6 +1,6 @@
 import { hygraph, gql } from "@services/HygraphClient";
 
-import { ShoppingType } from "@containers/HomeContainer/types";
+import { ShoppingType } from "@containers/Home/types";
 
 const CREATE_SHOPPING = gql`
   mutation CreateShopping(

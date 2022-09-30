@@ -1,5 +1,5 @@
 import React from "react";
-import { MonthType } from "@containers/HomeContainer/types";
+import { MonthType } from "@containers/Home/types";
 
 import { Scontent, Sitem } from "./styles";
 

@@ -16,7 +16,7 @@ import {
   InstitutionType,
   MonthType,
   ShoppingType,
-} from "@containers/HomeContainer/types";
+} from "@containers/Home/types";
 
 import { Scontent } from "./styles";
 

@@ -7,7 +7,7 @@ import { Content } from "@containers/components/Content";
 
 import { Scontainer } from "./styles";
 
-function HomeContainer() {
+function Home() {
   const { getMonths, months, nowMonth, setNowMonth } = useMonth();
   const { monthList, setMonthList, responsibleTotalAmountList } = useTable(
     months,
@@ -38,4 +38,4 @@ function HomeContainer() {
   );
 }
 
-export default HomeContainer;
+export default Home;
