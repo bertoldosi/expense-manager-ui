@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { Button } from "@commons/Button";
 import Input from "@commons/Input";
 import { Add } from "@icons/Add";
-import { Table } from "@commons/Table";
+import { Table } from "@containers/components/Table";
 
 import { updateInstitutionShoppings } from "@graphqls/institution";
 import { sumAmountResponsible } from "@helpers/sumAmountResponsible";
@@ -19,7 +19,7 @@ import {
   InstitutionType,
   MonthType,
   ShoppingType,
-} from "../HomeContainer/types";
+} from "../../HomeContainer/types";
 
 type PropsType = {
   institution: InstitutionType;

@@ -3,7 +3,7 @@ import React from "react";
 import useMonth from "@hooks/useMonth";
 import useTable from "@hooks/useTable";
 import Header from "@commons/Header";
-import { Content } from "@containers/Content";
+import { Content } from "@containers/components/Content";
 
 import { Scontainer } from "./styles";
 

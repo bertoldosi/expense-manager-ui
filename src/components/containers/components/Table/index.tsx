@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { Save } from "@icons/Save";
 import { Trash } from "@icons/Trash";
 import { maskMorney } from "@helpers/masks";
-import InputTable from "@commons/InputTable";
+import InputTable from "@containers/components/InputTable";
 import { deleteShopping } from "@graphqls/shopping";
 import { removingShopping } from "@helpers/removingShopping";
 import { subtractingValues } from "@helpers/subtractingValues";
