@@ -74,6 +74,14 @@ const UPDATE_INSTITUTION_SHOPPINGS = gql`
   }
 `;
 
+const DELETE_INSTITUTION = gql`
+  mutation DeleteInstitution($reference: String!) {
+    deleteInstitution(where: { reference: $reference }) {
+      reference
+    }
+  }
+`;
+
 export const createInstitution = async (institution: InstitutionType) => {
   const { createInstitution } = await hygraph
     .request(CREATE_INSTITUTION, institution)
@@ -150,5 +158,19 @@ export const updateInstitutionShoppings = async (
 
   return {
     ...updateInstitution,
+  };
+};
+
+export const deleteInstitution = async (reference: string) => {
+  const { deleteShopping } = await hygraph
+    .request(DELETE_INSTITUTION, {
+      reference,
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  return {
+    ...deleteShopping,
   };
 };

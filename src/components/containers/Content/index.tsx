@@ -16,6 +16,7 @@ import { maskDate } from "../../../helpers/masks";
 import {
   createInstitution,
   createInstitutionShoppings,
+  deleteInstitution,
   updateInstitutionShoppings,
 } from "../../../graphql/institution";
 import { getMonthNumber, updateMonthInstitution } from "../../../graphql/month";
@@ -24,6 +25,8 @@ import { Save } from "../../icons/Save";
 import { Repeat } from "../../icons/Repeat";
 import { Add } from "../../icons/Add";
 import { toast } from "react-toastify";
+import { Trash } from "../../icons/Trash";
+import { removingInstitution } from "../../../helpers/removingInstitution";
 
 type PropsType = {
   monthList: MonthType[];
@@ -265,6 +268,61 @@ export const Content = ({
     }
   };
 
+  const removeInstitution = (institution: InstitutionType) => {
+    toast.info(<h3>Processando...</h3>, {
+      isLoading: true,
+      toastId: "process",
+    });
+
+    const isShoppings = institution.shoppings.length > 0;
+
+    if (isShoppings) {
+      toast.update("process", {
+        type: "error",
+        isLoading: false,
+        render: <h3>Remova o(s) item(s) antes de excluir o cartão!</h3>,
+        autoClose: 1000,
+      });
+
+      return;
+    }
+
+    deleteInstitution(institution.reference)
+      .then(() => {
+        setMonthList(
+          monthList.map((monthMap) => {
+            if (monthMap.id === month.id) {
+              return {
+                ...monthMap,
+                institutions: removingInstitution(
+                  monthMap.institutions,
+                  institution.reference
+                ),
+              };
+            } else {
+              return monthMap;
+            }
+          })
+        );
+
+        toast.update("process", {
+          type: "success",
+          isLoading: false,
+          render: <h3>{`${institution.name} removido com sucesso!`}</h3>,
+          autoClose: 2000,
+        });
+      })
+
+      .catch(() => {
+        toast.update("process", {
+          type: "error",
+          isLoading: false,
+          render: <h3>Tente novamente!</h3>,
+          autoClose: 2000,
+        });
+      });
+  };
+
   if (month.institutions.length === 0) {
     return (
       <>
@@ -388,6 +446,16 @@ export const Content = ({
                             }}
                           >
                             Novo cartão
+                          </Button>
+                          <Button
+                            color="#fff"
+                            background="#B0C4DE"
+                            icon={<Trash width={15} height={15} />}
+                            onClick={() => {
+                              removeInstitution(institutionMap);
+                            }}
+                          >
+                            Excluir instituição
                           </Button>
                         </>
                       }

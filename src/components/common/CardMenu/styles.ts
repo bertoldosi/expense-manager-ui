@@ -53,6 +53,7 @@ export const Ssection = styled.section`
 
 export const Sfooter = styled.footer`
   display: flex;
+  flex-wrap: wrap;
   align-content: center;
   justify-content: center;
   gap: 1rem;
