@@ -7,12 +7,7 @@ type PropsType = {
   onClick?: MouseEventHandler<HTMLButtonElement>;
 };
 
-export const Add = ({
-  width = "40",
-  height = "40",
-  onClick,
-  disabled,
-}: PropsType) => {
+export const Add = ({ width = "40", height = "40" }: PropsType) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

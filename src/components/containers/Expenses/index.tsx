@@ -1,16 +1,17 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import { Button } from "../../common/Button";
-import Input from "../../common/Input";
-import { Add } from "../../icons/Add";
-import { Table } from "../../common/Table";
 import { toast } from "react-toastify";
 
-import { updateInstitutionShoppings } from "../../../graphql/institution";
-import { sumAmountMoney } from "../../../helpers/sumAmountMoney";
-import { sumAmountResponsible } from "../../../helpers/sumAmountResponsible";
-import { focusInput } from "../../../helpers/focusInput";
-import { maskMorney } from "../../../helpers/masks";
+import { Button } from "@commons/Button";
+import Input from "@commons/Input";
+import { Add } from "@icons/Add";
+import { Table } from "@commons/Table";
+
+import { updateInstitutionShoppings } from "@graphqls/institution";
+import { sumAmountResponsible } from "@helpers/sumAmountResponsible";
+import { sumAmountMoney } from "@helpers/sumAmountMoney";
+import { focusInput } from "@helpers/focusInput";
+import { maskMorney } from "@helpers/masks";
 
 import { Scontent, Sheader } from "./styles";
 

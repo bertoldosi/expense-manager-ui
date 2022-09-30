@@ -1,5 +1,6 @@
 import React from "react";
-import { MonthType } from "../../containers/HomeContainer/types";
+import { MonthType } from "@containers/HomeContainer/types";
+
 import { Scontent, Sitem } from "./styles";
 
 type PropsType = {

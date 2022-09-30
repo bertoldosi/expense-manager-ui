@@ -1,7 +1,7 @@
 import Head from "next/head";
 import * as React from "react";
 
-import HomeContainer from "../components/containers/HomeContainer";
+import HomeContainer from "@containers/HomeContainer";
 
 const Home = () => {
   return (

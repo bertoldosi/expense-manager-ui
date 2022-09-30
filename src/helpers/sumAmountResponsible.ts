@@ -1,9 +1,10 @@
+import { sumAmountMoney } from "@helpers/sumAmountMoney";
+
 import {
   InstitutionType,
   ResponsibleValuesType,
   ShoppingType,
-} from "../components/containers/HomeContainer/types";
-import { sumAmountMoney } from "./sumAmountMoney";
+} from "@containers/HomeContainer/types";
 
 export const sumAmountResponsible = (institution: InstitutionType) => {
   const newList = institution.shoppings.reduce(

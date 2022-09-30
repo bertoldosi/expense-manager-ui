@@ -1,5 +1,6 @@
 import React from "react";
-import { focusInput } from "../../../helpers/focusInput";
+import { focusInput } from "@helpers/focusInput";
+
 import { Sinput, SinputCheckbox } from "./styles";
 
 type PropsTypes = {

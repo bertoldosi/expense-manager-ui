@@ -1,5 +1,4 @@
 import { MouseEventHandler } from "react";
-import styled from "styled-components";
 
 type PropsType = {
   width?: string | number;
@@ -8,12 +7,7 @@ type PropsType = {
   onClick?: MouseEventHandler<HTMLButtonElement>;
 };
 
-export const Repeat = ({
-  width = "40",
-  height = "40",
-  onClick,
-  disabled,
-}: PropsType) => {
+export const Repeat = ({ width = "40", height = "40" }: PropsType) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -1,4 +1,4 @@
-import { ShoppingType } from "../components/containers/HomeContainer/types";
+import { ShoppingType } from "@containers/HomeContainer/types";
 
 export const removingShopping = (
   shoppings: ShoppingType[],

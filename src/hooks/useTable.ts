@@ -1,13 +1,13 @@
 import React from "react";
 
-import { updateAmountShoppings } from "../helpers/updateAmountShoppings";
-import { sumAmountResponsible } from "../helpers/sumAmountResponsible";
-import { sumTotalResponsible } from "../helpers/sumTotalResponsible";
+import { updateAmountShoppings } from "@helpers/updateAmountShoppings";
+import { sumAmountResponsible } from "@helpers/sumAmountResponsible";
+import { sumTotalResponsible } from "@helpers/sumTotalResponsible";
 
 import {
   MonthType,
   ResponsibleValuesType,
-} from "../components/containers/HomeContainer/types";
+} from "@containers/HomeContainer/types";
 
 const useTable = (months: MonthType[], nowMonth: Number) => {
   const [monthList, setMonthList] = React.useState<MonthType[]>([]);

@@ -1,8 +1,5 @@
-import {
-  InstitutionType,
-  ShoppingType,
-} from "../components/containers/HomeContainer/types";
-import { sumAmountMoney } from "./sumAmountMoney";
+import { sumAmountMoney } from "@helpers/sumAmountMoney";
+import { InstitutionType, ShoppingType } from "@containers/HomeContainer/types";
 
 export const sumTotalResponsible = (institutions: InstitutionType[]) => {
   const responsibleAmountList = Array();

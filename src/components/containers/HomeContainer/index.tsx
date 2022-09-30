@@ -1,8 +1,9 @@
 import React from "react";
-import useMonth from "../../../hooks/useMonth";
-import useTable from "../../../hooks/useTable";
-import Header from "../../common/Header";
-import { Content } from "../Content";
+
+import useMonth from "@hooks/useMonth";
+import useTable from "@hooks/useTable";
+import Header from "@commons/Header";
+import { Content } from "@containers/Content";
 
 import { Scontainer } from "./styles";
 

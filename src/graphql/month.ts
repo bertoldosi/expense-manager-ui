@@ -1,4 +1,4 @@
-import { hygraph, gql } from "../services/HygraphClient";
+import { hygraph, gql } from "@services/HygraphClient";
 
 const UPDATE_MONTH = gql`
   mutation UpdateMonth($institutionReference: String!, $monthId: ID!) {

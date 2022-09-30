@@ -1,32 +1,34 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import { Expenses } from "../Expenses";
-import { CardMenu } from "../../common/CardMenu";
-import Nav from "../../common/Nav";
+import { toast } from "react-toastify";
 
-import { Saside, Ssection, Swrapper } from "./styles";
-import { Modal } from "../../common/Modal";
-import Input from "../../common/Input";
-import {
-  InstitutionType,
-  MonthType,
-  ResponsibleValuesType,
-} from "../HomeContainer/types";
-import { maskDate } from "../../../helpers/masks";
 import {
   createInstitution,
   createInstitutionShoppings,
   deleteInstitution,
   updateInstitutionShoppings,
-} from "../../../graphql/institution";
-import { getMonthNumber, updateMonthInstitution } from "../../../graphql/month";
-import { Button } from "../../common/Button";
-import { Save } from "../../icons/Save";
-import { Repeat } from "../../icons/Repeat";
+} from "@graphqls/institution";
+
+import {
+  InstitutionType,
+  MonthType,
+  ResponsibleValuesType,
+} from "../HomeContainer/types";
+
+import Nav from "@commons/Nav";
+import Input from "@commons/Input";
+import { Trash } from "@icons/Trash";
 import { Add } from "../../icons/Add";
-import { toast } from "react-toastify";
-import { Trash } from "../../icons/Trash";
-import { removingInstitution } from "../../../helpers/removingInstitution";
+import { Modal } from "@commons/Modal";
+import { Save } from "../../icons/Save";
+import { maskDate } from "@helpers/masks";
+import { Button } from "@commons/Button";
+import { Repeat } from "../../icons/Repeat";
+import { CardMenu } from "@commons/CardMenu";
+import { Expenses } from "@containers/Expenses";
+import { Saside, Ssection, Swrapper } from "./styles";
+import { removingInstitution } from "@helpers/removingInstitution";
+import { getMonthNumber, updateMonthInstitution } from "@graphqls/month";
 
 type PropsType = {
   monthList: MonthType[];

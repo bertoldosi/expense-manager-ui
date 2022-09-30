@@ -1,24 +1,24 @@
 import React from "react";
-import { updateShopping as upShopping } from "../../../graphql/shopping";
-import { deleteShopping } from "../../../graphql/shopping";
-import { maskMorney } from "../../../helpers/masks";
-import { removingShopping } from "../../../helpers/removingShopping";
-import { subtractingValues } from "../../../helpers/subtractingValues";
-import { sumAmountResponsible } from "../../../helpers/sumAmountResponsible";
-import { updateAmountShoppings } from "../../../helpers/updateAmountShoppings";
+import { toast } from "react-toastify";
 
-import { Save } from "../../icons/Save";
-import { Trash } from "../../icons/Trash";
-import InputTable from "../InputTable";
-
-import { Scontent } from "./styles";
+import { Save } from "@icons/Save";
+import { Trash } from "@icons/Trash";
+import { maskMorney } from "@helpers/masks";
+import InputTable from "@commons/InputTable";
+import { deleteShopping } from "@graphqls/shopping";
+import { removingShopping } from "@helpers/removingShopping";
+import { subtractingValues } from "@helpers/subtractingValues";
+import { updateShopping as upShopping } from "@graphqls/shopping";
+import { sumAmountResponsible } from "@helpers/sumAmountResponsible";
+import { updateAmountShoppings } from "@helpers/updateAmountShoppings";
 
 import {
   InstitutionType,
   MonthType,
   ShoppingType,
-} from "../../containers/HomeContainer/types";
-import { toast } from "react-toastify";
+} from "@containers/HomeContainer/types";
+
+import { Scontent } from "./styles";
 
 type PropsType = {
   institution: InstitutionType;

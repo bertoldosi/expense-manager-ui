@@ -1,5 +1,6 @@
 import React, { Dispatch, ReactNode, SetStateAction } from "react";
-import { Exit } from "../../icons/Exit";
+
+import { Exit } from "@icons/Exit";
 
 import { Scontent, Sfooter, Sheader, Ssection, Swrapper } from "./styles";
 

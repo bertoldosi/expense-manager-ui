@@ -1,6 +1,6 @@
 import getConfig from "next/config";
-import { GraphQLClient } from "graphql-request";
 export { gql } from "graphql-request";
+import { GraphQLClient } from "graphql-request";
 
 const { publicRuntimeConfig = {} } = getConfig() || {};
 
