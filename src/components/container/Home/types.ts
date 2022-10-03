@@ -12,6 +12,11 @@ export type ResponsibleValuesType = {
   amount: string | number;
 };
 
+export type SelectValuType = {
+  responsible?: string;
+  name?: string;
+};
+
 export type InstitutionType = {
   reference: string;
   name: string;

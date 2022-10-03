@@ -4,9 +4,10 @@ import { toast } from "react-toastify";
 import { Save } from "@icons/Save";
 import { Search } from "../Search";
 import { Trash } from "@icons/Trash";
+import { Select } from "@commons/Select";
 import { maskMorney } from "@helpers/masks";
-import InputTable from "@containers/components/InputTable";
 import { deleteShopping } from "@graphqls/shopping";
+import InputTable from "@containers/components/InputTable";
 import { removingShopping } from "@helpers/removingShopping";
 import { subtractingValues } from "@helpers/subtractingValues";
 import { updateShopping as upShopping } from "@graphqls/shopping";
@@ -358,6 +359,11 @@ export const Table = ({
                 />
               </strong>
               <strong>
+                <Select
+                  handlerValue={setValueFilter}
+                  options={[{ name: "pago" }, { name: "aberto" }]}
+                />
+
                 {shopping.isUpdate ? (
                   <Save
                     width={20}

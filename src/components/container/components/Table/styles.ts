@@ -19,6 +19,7 @@ export const Scontent = styled.div`
       display: flex;
       align-items: center;
       gap: 1rem;
+      padding: 0 1rem;
     }
 
     &:hover {

@@ -1,10 +1,10 @@
-import { ResponsibleValuesType } from "@containers/Home/types";
+import { SelectValuType } from "@containers/Home/types";
 import React from "react";
 
 import { Scontent } from "./styles";
 
 type PropsType = {
-  options: ResponsibleValuesType[];
+  options: SelectValuType[];
   handlerValue: Function;
 };
 
@@ -18,9 +18,10 @@ export const Select = ({ options, handlerValue }: PropsType) => {
   return (
     <Scontent>
       <select onChange={onChange}>
-        <option value="todos">todos</option>
         {options.map((option) => (
-          <option value={option.responsible}>{option.responsible}</option>
+          <option value={option.responsible || option.name}>
+            {option.responsible || option.name}
+          </option>
         ))}
       </select>
     </Scontent>
