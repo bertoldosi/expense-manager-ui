@@ -68,8 +68,6 @@ export const createShopping = async (shopping: ShoppingType) => {
 };
 
 export const updateShopping = async (shopping: ShoppingType) => {
-  console.log(shopping);
-
   const { updateShopping } = await hygraph
     .request(UPDATE_SHOPPING, {
       ...shopping,
