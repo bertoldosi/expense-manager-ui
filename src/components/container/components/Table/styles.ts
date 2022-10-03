@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Scontent = styled.div`
-  height: calc(100vh - 23rem);
+  height: calc(100vh - 27rem);
 
   display: flex;
   flex-direction: column;
@@ -27,5 +27,17 @@ export const Scontent = styled.div`
 
   @media (max-width: 700px) {
     height: min-content;
+  }
+`;
+
+export const NoResult = styled.div`
+  height: 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border-radius: 0.3rem;
+  span {
+    font-size: 2rem;
   }
 `;

@@ -2,6 +2,7 @@ import React from "react";
 import { toast } from "react-toastify";
 
 import { Save } from "@icons/Save";
+import { Search } from "../Search";
 import { Trash } from "@icons/Trash";
 import { maskMorney } from "@helpers/masks";
 import InputTable from "@containers/components/InputTable";
@@ -18,7 +19,7 @@ import {
   ShoppingType,
 } from "@containers/Home/types";
 
-import { Scontent } from "./styles";
+import { NoResult, Scontent } from "./styles";
 
 type PropsType = {
   institution: InstitutionType;
@@ -37,6 +38,9 @@ export const Table = ({
   request,
   setRequest,
 }: PropsType) => {
+  const [valueFilter, setValueFilter] = React.useState("todos");
+  const [shoppings, setShoppings] = React.useState(institution.shoppings);
+
   const onChangeUpdateShopping = (
     event: React.ChangeEvent<HTMLInputElement>,
     institutionReference: string
@@ -269,87 +273,115 @@ export const Table = ({
         }
       })
     );
+
+    setShoppings(institution.shoppings);
   }, [institution.shoppings]);
 
+  const filter = () => {
+    setShoppings(
+      institution.shoppings.filter((shopping) => {
+        if (shopping.responsible === valueFilter) {
+          return shopping;
+        } else if (valueFilter === "todos") {
+          return shopping;
+        }
+      })
+    );
+  };
+
+  React.useEffect(() => {
+    filter();
+  }, [valueFilter]);
+
   return (
-    <Scontent>
-      {institution.shoppings.map((shopping, index) => (
-        <span key={index}>
-          <strong>
-            <InputTable
-              type="checkbox"
-              disabled={request}
-              name="repeat"
-              id={shopping.reference}
-              checked={shopping.repeat}
-              onChange={(event) => {
-                onChangeUpdateRepeatShopping(event, institution.reference);
-              }}
-            />
-            <InputTable
-              disabled={request}
-              name="description"
-              id={shopping.reference}
-              value={shopping.description}
-              onKeyUp={() => {
-                updateShopping(institution.reference, shopping);
-              }}
-              onChange={(event) => {
-                onChangeUpdateShopping(event, institution.reference);
-              }}
-            />
-          </strong>
-          <strong>
-            <InputTable
-              disabled={request}
-              name="amount"
-              id={shopping.reference}
-              value={shopping.amount}
-              onKeyUp={() => {
-                updateShopping(institution.reference, shopping);
-              }}
-              onChange={(event) => {
-                onChangeUpdateShopping(event, institution.reference);
-              }}
-            />
-          </strong>
-          <strong>
-            <InputTable
-              disabled={request}
-              name="responsible"
-              id={shopping.reference}
-              value={shopping.responsible}
-              onKeyUp={() => {
-                updateShopping(institution.reference, shopping);
-              }}
-              onChange={(event) => {
-                onChangeUpdateShopping(event, institution.reference);
-              }}
-            />
-          </strong>
-          <strong>
-            {shopping.isUpdate ? (
-              <Save
-                width={20}
-                height={20}
-                disabled={request}
-                onClick={() => {
-                  updateShopping(institution.reference, shopping);
-                }}
-              />
-            ) : (
-              <Trash
-                width={20}
-                height={20}
-                disabled={request}
-                onClick={() => {
-                  removeShopping(institution.reference, shopping);
-                }}
-              />
-            )}
-          </strong>
-        </span>
-      ))}
-    </Scontent>
+    <>
+      <Search setValueFilter={setValueFilter} />
+
+      <Scontent>
+        {shoppings.length > 0 ? (
+          shoppings.map((shopping, index) => (
+            <span key={index}>
+              <strong>
+                <InputTable
+                  type="checkbox"
+                  disabled={request}
+                  name="repeat"
+                  id={shopping.reference}
+                  checked={shopping.repeat}
+                  onChange={(event) => {
+                    onChangeUpdateRepeatShopping(event, institution.reference);
+                  }}
+                />
+                <InputTable
+                  disabled={request}
+                  name="description"
+                  id={shopping.reference}
+                  value={shopping.description}
+                  onKeyUp={() => {
+                    updateShopping(institution.reference, shopping);
+                  }}
+                  onChange={(event) => {
+                    onChangeUpdateShopping(event, institution.reference);
+                  }}
+                />
+              </strong>
+              <strong>
+                <InputTable
+                  disabled={request}
+                  name="amount"
+                  id={shopping.reference}
+                  value={shopping.amount}
+                  onKeyUp={() => {
+                    updateShopping(institution.reference, shopping);
+                  }}
+                  onChange={(event) => {
+                    onChangeUpdateShopping(event, institution.reference);
+                  }}
+                />
+              </strong>
+              <strong>
+                <InputTable
+                  disabled={request}
+                  name="responsible"
+                  id={shopping.reference}
+                  value={shopping.responsible}
+                  onKeyUp={() => {
+                    updateShopping(institution.reference, shopping);
+                  }}
+                  onChange={(event) => {
+                    onChangeUpdateShopping(event, institution.reference);
+                  }}
+                />
+              </strong>
+              <strong>
+                {shopping.isUpdate ? (
+                  <Save
+                    width={20}
+                    height={20}
+                    disabled={request}
+                    onClick={() => {
+                      updateShopping(institution.reference, shopping);
+                    }}
+                  />
+                ) : (
+                  <Trash
+                    width={20}
+                    height={20}
+                    disabled={request}
+                    onClick={() => {
+                      removeShopping(institution.reference, shopping);
+                    }}
+                  />
+                )}
+              </strong>
+            </span>
+          ))
+        ) : (
+          <NoResult>
+            <span>Nenhum resultado encontrado!</span>
+          </NoResult>
+        )}
+      </Scontent>
+    </>
   );
 };
