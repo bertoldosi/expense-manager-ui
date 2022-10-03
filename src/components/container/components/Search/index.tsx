@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Select } from "@commons/Select";
+import { SelectFilter } from "@commons/SelectFilter";
 
 import { Scontent } from "./styles";
 import { ResponsibleValuesType } from "@containers/Home/types";
@@ -14,7 +14,7 @@ export const Search = ({ setValueFilter, options }: PropsType) => {
   return (
     <Scontent>
       <h2>Filtrar por:</h2>
-      <Select handlerValue={setValueFilter} options={options} />
+      <SelectFilter handlerValue={setValueFilter} options={options} />
     </Scontent>
   );
 };

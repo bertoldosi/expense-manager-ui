@@ -8,7 +8,7 @@ type PropsType = {
   handlerValue: Function;
 };
 
-export const Select = ({ options, handlerValue }: PropsType) => {
+export const SelectFilter = ({ options, handlerValue }: PropsType) => {
   const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = event.target;
 
