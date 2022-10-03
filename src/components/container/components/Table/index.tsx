@@ -345,7 +345,7 @@ export const Table = ({
               </strong>
               <strong>
                 <InputTable
-                  disabled={request}
+                  disabled={request || valueFilter != "todos"}
                   name="responsible"
                   id={shopping.reference}
                   value={shopping.responsible}
