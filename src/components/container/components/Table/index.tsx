@@ -360,6 +360,8 @@ export const Table = ({
               </strong>
               <strong>
                 <SelectStatus
+                  selectClassName={shopping.status_paid}
+                  optionClassName={shopping.status_paid}
                   name="status_paid"
                   id={shopping.reference}
                   value={shopping.status_paid}

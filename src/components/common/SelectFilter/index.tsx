@@ -18,6 +18,7 @@ export const SelectFilter = ({ options, handlerValue }: PropsType) => {
   return (
     <Scontent>
       <select onChange={onChange}>
+        <option value="todos">todos</option>
         {options.map((option, index) => (
           <option key={index} value={option.responsible || option.name}>
             {option.responsible || option.name}

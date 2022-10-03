@@ -8,6 +8,8 @@ type PropsType = {
   name: string;
   value: string;
   id: string;
+  optionClassName?: string;
+  selectClassName?: string;
   onChange: React.ChangeEventHandler<HTMLSelectElement>;
 };
 
@@ -17,12 +19,22 @@ export const SelectStatus = ({
   value,
   id,
   onChange,
+  optionClassName,
+  selectClassName,
 }: PropsType) => {
   return (
     <Scontent>
-      <select onChange={onChange} name={name} value={value} id={id}>
+      <select
+        className={selectClassName}
+        onChange={onChange}
+        name={name}
+        value={value}
+        id={id}
+      >
         {options.map((option, index) => (
-          <option key={index}>{option.name}</option>
+          <option className={optionClassName} key={index}>
+            {option.name}
+          </option>
         ))}
       </select>
     </Scontent>
