@@ -120,6 +120,30 @@ export const Table = ({
     );
   };
 
+  const onChangeSelectAll = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked } = event.target;
+
+    if (checked) {
+      setShoppings(
+        shoppings.map((shopping) => {
+          return {
+            ...shopping,
+            repeat: true,
+          };
+        })
+      );
+    } else {
+      setShoppings(
+        shoppings.map((shopping) => {
+          return {
+            ...shopping,
+            repeat: false,
+          };
+        })
+      );
+    }
+  };
+
   const removeShopping = async (
     institutionReference: string,
     shopping: ShoppingType
@@ -300,6 +324,7 @@ export const Table = ({
       <Search
         setValueFilter={setValueFilter}
         options={institution.listResponsibleValues}
+        onChange={onChangeSelectAll}
       />
 
       <Scontent>
