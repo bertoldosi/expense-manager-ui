@@ -432,22 +432,22 @@ export const Content = ({
                           <Button
                             color="#fff"
                             background="#B0C4DE"
-                            icon={<Repeat width={15} height={15} />}
-                            onClick={() => {
-                              repeatInstitution(institutionMap);
-                            }}
-                          >
-                            Repetir item(s)
-                          </Button>
-                          <Button
-                            color="#fff"
-                            background="#B0C4DE"
                             icon={<Add width={15} height={15} />}
                             onClick={() => {
                               setIsVisible(!isVisible);
                             }}
                           >
                             Novo cartão
+                          </Button>
+                          <Button
+                            color="#fff"
+                            background="#B0C4DE"
+                            icon={<Repeat width={15} height={15} />}
+                            onClick={() => {
+                              repeatInstitution(institutionMap);
+                            }}
+                          >
+                            Repetir item(s)
                           </Button>
                           <Button
                             color="#fff"
