@@ -254,6 +254,18 @@ export const Table = ({
       });
   };
 
+  const filter = () => {
+    setShoppings(
+      institution.shoppings.filter((shopping) => {
+        if (shopping.responsible === valueFilter) {
+          return shopping;
+        } else if (valueFilter === "todos") {
+          return shopping;
+        }
+      })
+    );
+  };
+
   React.useEffect(() => {
     setMonthList(
       monthList.map((monthMap) => {
@@ -275,19 +287,8 @@ export const Table = ({
     );
 
     setShoppings(institution.shoppings);
+    filter();
   }, [institution.shoppings]);
-
-  const filter = () => {
-    setShoppings(
-      institution.shoppings.filter((shopping) => {
-        if (shopping.responsible === valueFilter) {
-          return shopping;
-        } else if (valueFilter === "todos") {
-          return shopping;
-        }
-      })
-    );
-  };
 
   React.useEffect(() => {
     filter();
@@ -295,7 +296,10 @@ export const Table = ({
 
   return (
     <>
-      <Search setValueFilter={setValueFilter} />
+      <Search
+        setValueFilter={setValueFilter}
+        options={institution.listResponsibleValues}
+      />
 
       <Scontent>
         {shoppings.length > 0 ? (

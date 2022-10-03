@@ -19,8 +19,9 @@ export const Select = ({ options, handlerValue }: PropsType) => {
     <Scontent>
       <select onChange={onChange}>
         <option value="todos">todos</option>
-        <option value="matheus">matheus</option>
-        <option value="fran">fran</option>
+        {options.map((option) => (
+          <option value={option.responsible}>{option.responsible}</option>
+        ))}
       </select>
     </Scontent>
   );
