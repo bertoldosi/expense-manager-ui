@@ -363,7 +363,7 @@ export const Table = ({
                   name="status_paid"
                   id={shopping.reference}
                   value={shopping.status_paid}
-                  options={[{ name: "pago" }, { name: "aberto" }]}
+                  options={[{ name: "aberto" }, { name: "pago" }]}
                   onChange={(event: any) => {
                     onChangeUpdateShopping(event, institution.reference);
                   }}
