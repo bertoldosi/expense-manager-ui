@@ -6,7 +6,7 @@ type PropsType = {
 };
 
 export const Scontent = styled.div<PropsType>`
-  width: min-content;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,6 +16,10 @@ export const Scontent = styled.div<PropsType>`
   padding: 0.5rem 1rem;
   cursor: pointer;
   white-space: nowrap;
+
+  button {
+    width: min-content;
+  }
 `;
 
 export const Sbutton = styled.button`

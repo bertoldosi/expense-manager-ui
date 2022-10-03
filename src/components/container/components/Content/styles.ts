@@ -14,11 +14,12 @@ export const Ssection = styled.section`
 
   @media (max-width: 700px) {
     flex-direction: column-reverse;
+    padding: 1rem;
   }
 `;
 
 export const Saside = styled.aside`
-  width: 25rem;
+  width: 22rem;
   height: calc(100vh - 15rem);
   background-color: #fff;
   overflow-y: auto;
@@ -26,6 +27,6 @@ export const Saside = styled.aside`
   @media (max-width: 700px) {
     width: 100%;
     height: 100%;
-    padding: 1rem;
+    margin-top: 2rem;
   }
 `;
