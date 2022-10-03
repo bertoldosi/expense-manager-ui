@@ -18,8 +18,8 @@ export const Select = ({ options, handlerValue }: PropsType) => {
   return (
     <Scontent>
       <select onChange={onChange}>
-        {options.map((option) => (
-          <option value={option.responsible || option.name}>
+        {options.map((option, index) => (
+          <option key={index} value={option.responsible || option.name}>
             {option.responsible || option.name}
           </option>
         ))}

@@ -28,6 +28,7 @@ const UPDATE_SHOPPING = gql`
     $description: String!
     $amount: String!
     $responsible: String!
+    $status_paid: String!
   ) {
     updateShopping(
       data: {
@@ -35,6 +36,7 @@ const UPDATE_SHOPPING = gql`
         description: $description
         amount: $amount
         responsible: $responsible
+        status_paid: $status_paid
       }
       where: { reference: $reference }
     ) {
@@ -66,6 +68,8 @@ export const createShopping = async (shopping: ShoppingType) => {
 };
 
 export const updateShopping = async (shopping: ShoppingType) => {
+  console.log(shopping);
+
   const { updateShopping } = await hygraph
     .request(UPDATE_SHOPPING, {
       ...shopping,

@@ -4,9 +4,9 @@ import { toast } from "react-toastify";
 import { Save } from "@icons/Save";
 import { Search } from "../Search";
 import { Trash } from "@icons/Trash";
-import { Select } from "@commons/Select";
 import { maskMorney } from "@helpers/masks";
 import { deleteShopping } from "@graphqls/shopping";
+import { SelectStatus } from "@commons/SelectStatus";
 import InputTable from "@containers/components/InputTable";
 import { removingShopping } from "@helpers/removingShopping";
 import { subtractingValues } from "@helpers/subtractingValues";
@@ -359,9 +359,14 @@ export const Table = ({
                 />
               </strong>
               <strong>
-                <Select
-                  handlerValue={setValueFilter}
+                <SelectStatus
+                  name="status_paid"
+                  id={shopping.reference}
+                  value={shopping.status_paid}
                   options={[{ name: "pago" }, { name: "aberto" }]}
+                  onChange={(event: any) => {
+                    onChangeUpdateShopping(event, institution.reference);
+                  }}
                 />
 
                 {shopping.isUpdate ? (

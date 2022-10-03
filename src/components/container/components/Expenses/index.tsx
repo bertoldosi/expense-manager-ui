@@ -30,6 +30,7 @@ const initialNewShopping = {
   amount: "",
   responsible: "",
   repeat: false,
+  status_paid: "aberto",
 };
 
 export const Expenses = ({
