@@ -128,7 +128,7 @@ export const Table = ({
         shoppings.map((shopping) => {
           return {
             ...shopping,
-            repeat: true,
+            select: true,
           };
         })
       );
@@ -137,7 +137,7 @@ export const Table = ({
         shoppings.map((shopping) => {
           return {
             ...shopping,
-            repeat: false,
+            select: false,
           };
         })
       );
@@ -335,9 +335,9 @@ export const Table = ({
                 <InputTable
                   type="checkbox"
                   disabled={request}
-                  name="repeat"
+                  name="select"
                   id={shopping.reference}
-                  checked={shopping.repeat}
+                  checked={shopping.select}
                   onChange={(event) => {
                     onChangeUpdateRepeatShopping(event, institution.reference);
                   }}

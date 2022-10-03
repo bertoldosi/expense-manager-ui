@@ -110,7 +110,7 @@ export const Content = ({
     });
 
     const isInstitutionRepeat =
-      institution.shoppings.filter((shopping) => shopping.repeat).length > 0;
+      institution.shoppings.filter((shopping) => shopping.select).length > 0;
 
     if (isInstitutionRepeat) {
       const institutionsFilter = institutions.filter(
@@ -126,11 +126,11 @@ export const Content = ({
             ...institution,
             reference: uuidv4(),
             shoppings: institution.shoppings
-              .filter((shopping) => shopping.repeat)
+              .filter((shopping) => shopping.select)
               .map((shopping) => ({
                 ...shopping,
                 reference: uuidv4(),
-                repeat: false,
+                select: false,
               })),
           };
 
@@ -159,7 +159,7 @@ export const Content = ({
                                   (shoppingMap) => {
                                     return {
                                       ...shoppingMap,
-                                      repeat: false,
+                                      select: false,
                                     };
                                   }
                                 ),
@@ -198,7 +198,7 @@ export const Content = ({
         }
       } else {
         const shoppingsRepeat = institution.shoppings
-          .filter((shopping) => shopping.repeat)
+          .filter((shopping) => shopping.select)
           .map((shoppingMap) => {
             return {
               ...shoppingMap,
@@ -242,7 +242,7 @@ export const Content = ({
                             (shoppingMap) => {
                               return {
                                 ...shoppingMap,
-                                repeat: false,
+                                select: false,
                               };
                             }
                           ),

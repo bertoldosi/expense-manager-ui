@@ -29,7 +29,7 @@ const initialNewShopping = {
   description: "",
   amount: "",
   responsible: "",
-  repeat: false,
+  select: false,
   status_paid: "aberto",
 };
 

@@ -4,7 +4,7 @@ export type ShoppingType = {
   amount: string | number;
   responsible: string;
   isUpdate?: boolean;
-  repeat?: boolean;
+  select?: boolean;
   status_paid: string;
 };
 

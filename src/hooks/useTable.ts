@@ -27,7 +27,7 @@ const useTable = (months: MonthType[], nowMonth: Number) => {
                 return {
                   ...shopping,
                   isUpdate: false,
-                  repeat: false,
+                  select: false,
                 };
               }),
             };
