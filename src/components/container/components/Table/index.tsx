@@ -1,4 +1,5 @@
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
 
 import { Save } from "@icons/Save";
@@ -21,6 +22,11 @@ import {
 } from "@containers/Home/types";
 
 import { NoResult, Scontent } from "./styles";
+import {
+  createInstitutionShoppings,
+  updateInstitutionShoppings,
+} from "@graphqls/institution";
+import { getMonthNumber, updateMonthInstitution } from "@graphqls/month";
 
 type PropsType = {
   institution: InstitutionType;
@@ -82,39 +88,21 @@ export const Table = ({
     );
   };
 
-  const onChangeUpdateRepeatShopping = (
+  const onChangeSelectOnly = (
     event: React.ChangeEvent<HTMLInputElement>,
-    institutionReference: string
+    shopping: ShoppingType
   ) => {
-    const { id, checked, name } = event.target;
+    const { checked } = event.target;
 
-    setMonthList(
-      monthList.map((monthMap) => {
-        if (monthMap.id === month.id) {
+    setShoppings(
+      shoppings.map((shoppingMap) => {
+        if (shoppingMap.reference === shopping.reference) {
           return {
-            ...monthMap,
-            institutions: monthMap.institutions.map((institutionMap) => {
-              if (institutionMap.reference === institutionReference) {
-                return {
-                  ...institutionMap,
-                  shoppings: institutionMap.shoppings.map((shoppingMap) => {
-                    if (shoppingMap.reference === id) {
-                      return {
-                        ...shoppingMap,
-                        [name]: checked,
-                      };
-                    } else {
-                      return shoppingMap;
-                    }
-                  }),
-                };
-              } else {
-                return institutionMap;
-              }
-            }),
+            ...shoppingMap,
+            select: checked,
           };
         } else {
-          return monthMap;
+          return shoppingMap;
         }
       })
     );
@@ -140,6 +128,174 @@ export const Table = ({
             select: false,
           };
         })
+      );
+    }
+  };
+
+  const repeatInstitution = async (institution: InstitutionType) => {
+    const { id: monthId, institutions } = await getMonthNumber(
+      month.mesNumber + 1
+    ).catch(() => {
+      toast.error(<h3>Algo de errado aconteceu ao buscar próximo mês!</h3>);
+    });
+
+    const isInstitutionRepeat =
+      institution.shoppings.filter((shopping) => shopping.select).length > 0;
+
+    if (isInstitutionRepeat) {
+      const institutionsFilter = institutions.filter(
+        (institutionFilter: InstitutionType) =>
+          institutionFilter.name === institution.name
+      );
+
+      const notInstitutionCreated = institutionsFilter.length === 0;
+
+      if (notInstitutionCreated) {
+        if (monthId) {
+          const institutionRepeat = {
+            ...institution,
+            reference: uuidv4(),
+            shoppings: institution.shoppings
+              .filter((shopping) => shopping.select)
+              .map((shopping) => ({
+                ...shopping,
+                reference: uuidv4(),
+                select: false,
+              })),
+          };
+
+          createInstitutionShoppings(institutionRepeat)
+            .then(({ reference: institutionReference }) => {
+              updateMonthInstitution(monthId, institutionReference)
+                .then(() => {
+                  setMonthList(
+                    monthList.map((monthMap) => {
+                      if (monthMap.id === monthId) {
+                        return {
+                          ...monthMap,
+                          institutions: [
+                            ...monthMap.institutions,
+                            institutionRepeat,
+                          ],
+                        };
+                      } else if (monthMap.id === month.id) {
+                        return {
+                          ...monthMap,
+                          institutions: monthMap.institutions.map(
+                            (institutionMap) => {
+                              return {
+                                ...institutionMap,
+                                shoppings: institutionMap.shoppings.map(
+                                  (shoppingMap) => {
+                                    return {
+                                      ...shoppingMap,
+                                      select: false,
+                                    };
+                                  }
+                                ),
+                              };
+                            }
+                          ),
+                        };
+                      } else {
+                        return monthMap;
+                      }
+                    })
+                  );
+
+                  toast.success(
+                    <h3>Item(s) foram repetidos para o próximo mês!</h3>
+                  );
+                })
+
+                .catch(() => {
+                  toast.error(
+                    <h3>
+                      Algo de errado aconteceu ao atualizar o proximo mes com a
+                      novo cartão
+                    </h3>
+                  );
+                });
+            })
+
+            .catch(() => {
+              toast.error(
+                <h3>Algo de errado aconteceu ao criar nova cartão com itens</h3>
+              );
+            });
+        } else {
+          toast.info(<h3>Mês não encontrado!</h3>);
+        }
+      } else {
+        const shoppingsRepeat = institution.shoppings
+          .filter((shopping) => shopping.select)
+          .map((shoppingMap) => {
+            return {
+              ...shoppingMap,
+              reference: uuidv4(),
+            };
+          });
+
+        const institutionReference = institutionsFilter[0].reference;
+
+        updateInstitutionShoppings(institutionReference, shoppingsRepeat)
+          .then(() => {
+            setMonthList(
+              monthList.map((monthMap) => {
+                if (monthMap.id === monthId) {
+                  return {
+                    ...monthMap,
+                    institutions: monthMap.institutions.map(
+                      (institutionMap) => {
+                        if (institutionMap.reference === institutionReference) {
+                          return {
+                            ...institutionMap,
+                            shoppings: [
+                              ...institutionMap.shoppings,
+                              [...shoppingsRepeat],
+                            ],
+                          };
+                        } else {
+                          return institutionMap;
+                        }
+                      }
+                    ),
+                  };
+                } else if (monthMap.id === month.id) {
+                  return {
+                    ...monthMap,
+                    institutions: monthMap.institutions.map(
+                      (institutionMap) => {
+                        return {
+                          ...institutionMap,
+                          shoppings: institutionMap.shoppings.map(
+                            (shoppingMap) => {
+                              return {
+                                ...shoppingMap,
+                                select: false,
+                              };
+                            }
+                          ),
+                        };
+                      }
+                    ),
+                  };
+                } else {
+                  return monthMap;
+                }
+              })
+            );
+
+            toast.success(<h3>Item(s) foram repetidos para o próximo mês!</h3>);
+          })
+
+          .catch(() => {
+            toast.error(<h3>Tente novamente!</h3>);
+          });
+      }
+    } else {
+      toast.info(
+        <h3>Marque o(s) item(s) que deseja reperir para o próximo mês!</h3>
       );
     }
   };
@@ -339,7 +495,7 @@ export const Table = ({
                   id={shopping.reference}
                   checked={shopping.select}
                   onChange={(event) => {
-                    onChangeUpdateRepeatShopping(event, institution.reference);
+                    onChangeSelectOnly(event, shopping);
                   }}
                 />
                 <InputTable
