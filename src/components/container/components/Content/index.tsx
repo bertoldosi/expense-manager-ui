@@ -279,7 +279,7 @@ export const Content = ({
                               removeInstitution(institutionMap);
                             }}
                           >
-                            Excluir instituição
+                            Excluir {institutionMap.name}
                           </Button>
                         </>
                       }
