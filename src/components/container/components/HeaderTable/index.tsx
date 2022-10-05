@@ -14,6 +14,8 @@ type PropsType = {
   options: ResponsibleValuesType[];
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   isItensSelect: boolean;
+  handlerRepeat: React.MouseEventHandler<HTMLDivElement>;
+  isRequest: boolean;
 };
 
 export const HeaderTable = ({
@@ -21,6 +23,8 @@ export const HeaderTable = ({
   options,
   onChange,
   isItensSelect,
+  handlerRepeat,
+  isRequest,
 }: PropsType) => {
   return (
     <Scontent>
@@ -33,14 +37,16 @@ export const HeaderTable = ({
         {isItensSelect && (
           <>
             <Button
+              disabled={isRequest}
               color="#fff"
               background="#B0C4DE"
               icon={<Repeat width={15} height={15} />}
-              onClick={() => {}}
+              onClick={handlerRepeat}
             >
               Repetir
             </Button>
             {/* <Button
+              disabled={isRequest}
               color="#fff"
               background="#B0C4DE"
               icon={<Trash width={15} height={15} />}
