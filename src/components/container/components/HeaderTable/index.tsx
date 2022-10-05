@@ -13,12 +13,14 @@ type PropsType = {
   setValueFilter: Function;
   options: ResponsibleValuesType[];
   onChange: React.ChangeEventHandler<HTMLInputElement>;
+  isItensSelect: boolean;
 };
 
 export const HeaderTable = ({
   setValueFilter,
   options,
   onChange,
+  isItensSelect,
 }: PropsType) => {
   return (
     <Scontent>
@@ -28,22 +30,27 @@ export const HeaderTable = ({
       </div>
 
       <GroupLeft>
-        <Button
-          color="#fff"
-          background="#B0C4DE"
-          icon={<Repeat width={15} height={15} />}
-          onClick={() => {}}
-        >
-          Repetir
-        </Button>
-        <Button
-          color="#fff"
-          background="#B0C4DE"
-          icon={<Trash width={15} height={15} />}
-          onClick={() => {}}
-        >
-          Incluir
-        </Button>
+        {isItensSelect && (
+          <>
+            <Button
+              color="#fff"
+              background="#B0C4DE"
+              icon={<Repeat width={15} height={15} />}
+              onClick={() => {}}
+            >
+              Repetir
+            </Button>
+            {/* <Button
+              color="#fff"
+              background="#B0C4DE"
+              icon={<Trash width={15} height={15} />}
+              onClick={() => {}}
+            >
+              Incluir
+            </Button> */}
+          </>
+        )}
+
         <SelectFilter handlerValue={setValueFilter} options={options} />
       </GroupLeft>
     </Scontent>

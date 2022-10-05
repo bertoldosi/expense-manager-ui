@@ -47,6 +47,7 @@ export const Table = ({
 }: PropsType) => {
   const [valueFilter, setValueFilter] = React.useState("todos");
   const [shoppings, setShoppings] = React.useState(institution.shoppings);
+  const [isItensSelect, setIsItensSelect] = React.useState(false);
 
   const onChangeUpdateShopping = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -131,6 +132,8 @@ export const Table = ({
       );
     }
   };
+
+  const repeat = async () => {};
 
   const repeatInstitution = async (institution: InstitutionType) => {
     const { id: monthId, institutions } = await getMonthNumber(
@@ -475,12 +478,19 @@ export const Table = ({
     filter();
   }, [valueFilter]);
 
+  React.useEffect(() => {
+    const resultFilter = shoppings.filter((shopping) => shopping.select);
+
+    setIsItensSelect(resultFilter.length > 0);
+  }, [shoppings]);
+
   return (
     <>
       <HeaderTable
         setValueFilter={setValueFilter}
         options={institution.listResponsibleValues}
         onChange={onChangeSelectAll}
+        isItensSelect={isItensSelect}
       />
 
       <Scontent>
