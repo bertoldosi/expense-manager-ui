@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
 
 import { Save } from "@icons/Save";
-import { Search } from "../Search";
+import { HeaderTable } from "../HeaderTable";
 import { Trash } from "@icons/Trash";
 import { maskMorney } from "@helpers/masks";
 import { deleteShopping } from "@graphqls/shopping";
@@ -477,7 +477,7 @@ export const Table = ({
 
   return (
     <>
-      <Search
+      <HeaderTable
         setValueFilter={setValueFilter}
         options={institution.listResponsibleValues}
         onChange={onChangeSelectAll}

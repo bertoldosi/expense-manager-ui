@@ -13,3 +13,8 @@ export const Scontent = styled.div`
     align-items: center;
   }
 `;
+
+export const GroupLeft = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
