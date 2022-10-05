@@ -300,70 +300,71 @@ export const Table = ({
     }
   };
 
-  const removeShopping = async (
-    institutionReference: string,
-    shopping: ShoppingType
-  ) => {
+  const removeShopping = async () => {
+    setRequest(true);
     toast.info(<h3>Processando...</h3>, {
       isLoading: true,
       toastId: "process",
     });
 
-    setRequest(true);
+    shoppings.map(async (shoppingMap) => {
+      if (shoppingMap.select) {
+        const shoppingReference = shoppingMap.reference;
 
-    const shoppingReference = shopping.reference;
+        await deleteShopping(shoppingReference)
+          .then(async () => {
+            await setMonthList(
+              monthList.map((monthMap) => {
+                if (monthMap.id === month.id) {
+                  return {
+                    ...monthMap,
+                    institutions: monthMap.institutions.map(
+                      (institutionMap) => {
+                        if (
+                          institutionMap.reference === institution.reference
+                        ) {
+                          return {
+                            ...institutionMap,
+                            shoppings: shoppings.filter(
+                              (shoppingFilter) => !shoppingFilter.select
+                            ),
+                            amount: subtractingValues(
+                              institutionMap.amount,
+                              shoppingMap
+                            ),
+                          };
+                        } else {
+                          return institutionMap;
+                        }
+                      }
+                    ),
+                  };
+                } else {
+                  return monthMap;
+                }
+              })
+            );
 
-    deleteShopping(shoppingReference)
-      .then(() => {
-        setMonthList(
-          monthList.map((monthMap) => {
-            if (monthMap.id === month.id) {
-              return {
-                ...monthMap,
-                institutions: monthMap.institutions.map((institutionMap) => {
-                  if (institutionMap.reference === institutionReference) {
-                    return {
-                      ...institutionMap,
-                      shoppings: removingShopping(
-                        institutionMap.shoppings,
-                        shoppingReference
-                      ),
-                      amount: subtractingValues(
-                        institutionMap.amount,
-                        shopping
-                      ),
-                    };
-                  } else {
-                    return institutionMap;
-                  }
-                }),
-              };
-            } else {
-              return monthMap;
-            }
+            toast.update("process", {
+              type: "success",
+              isLoading: false,
+              render: <h3>Deletado com sucesso!</h3>,
+              autoClose: 2000,
+            });
           })
-        );
 
-        toast.update("process", {
-          type: "success",
-          isLoading: false,
-          render: <h3>Deletado com sucesso!</h3>,
-          autoClose: 2000,
-        });
-      })
+          .catch(() => {
+            toast.update("process", {
+              type: "error",
+              isLoading: false,
+              render: <h3>Tente novamente!</h3>,
+              autoClose: 2000,
+            });
+          });
+      }
+    });
 
-      .catch(() => {
-        toast.update("process", {
-          type: "error",
-          isLoading: false,
-          render: <h3>Tente novamente!</h3>,
-          autoClose: 2000,
-        });
-      })
-
-      .finally(() => {
-        setRequest(false);
-      });
+    setRequest(false);
   };
 
   const updateShopping = async (
@@ -490,6 +491,7 @@ export const Table = ({
         isItensSelect={isItensSelect}
         handlerRepeat={repeat}
         isRequest={isRequest}
+        removeShoppings={removeShopping}
       />
 
       <Scontent>
@@ -561,22 +563,13 @@ export const Table = ({
                   }}
                 />
 
-                {shopping.isUpdate ? (
+                {shopping.isUpdate && (
                   <Save
                     width={20}
                     height={20}
                     disabled={request}
                     onClick={() => {
                       updateShopping(institution.reference, shopping);
-                    }}
-                  />
-                ) : (
-                  <Trash
-                    width={20}
-                    height={20}
-                    disabled={request}
-                    onClick={() => {
-                      removeShopping(institution.reference, shopping);
                     }}
                   />
                 )}

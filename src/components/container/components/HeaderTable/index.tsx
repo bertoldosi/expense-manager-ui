@@ -16,6 +16,7 @@ type PropsType = {
   isItensSelect: boolean;
   handlerRepeat: React.MouseEventHandler<HTMLDivElement>;
   isRequest: boolean;
+  removeShoppings: React.MouseEventHandler<HTMLDivElement>;
 };
 
 export const HeaderTable = ({
@@ -25,6 +26,7 @@ export const HeaderTable = ({
   isItensSelect,
   handlerRepeat,
   isRequest,
+  removeShoppings,
 }: PropsType) => {
   return (
     <Scontent>
@@ -45,15 +47,15 @@ export const HeaderTable = ({
             >
               Repetir
             </Button>
-            {/* <Button
+            <Button
               disabled={isRequest}
               color="#fff"
               background="#B0C4DE"
               icon={<Trash width={15} height={15} />}
-              onClick={() => {}}
+              onClick={removeShoppings}
             >
               Incluir
-            </Button> */}
+            </Button>
           </>
         )}
 
