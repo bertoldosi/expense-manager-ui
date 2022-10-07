@@ -476,6 +476,7 @@ export const Table = ({
 
     setIsRequest(true);
     setIsVisible(false);
+    setNewShopping(initialNewShopping);
   };
 
   const filter = () => {
@@ -516,6 +517,8 @@ export const Table = ({
 
   React.useEffect(() => {
     filter();
+    getMonths();
+    setIsRequest(false);
   }, [valueFilter]);
 
   React.useEffect(() => {
