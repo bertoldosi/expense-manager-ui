@@ -447,10 +447,34 @@ export const Table = ({
           select: false,
         };
 
-        await updateShopping(institution.reference, newShoppingUpdate);
+        await upShopping(newShoppingUpdate);
       }
     });
 
+    setShoppings(
+      shoppings.map((shoppingMap) => {
+        const newShoppingUpdate = {
+          ...shoppingMap,
+          responsible:
+            newShopping.responsible === ""
+              ? shoppingMap.responsible
+              : newShopping.responsible,
+          status_paid:
+            newShopping.status_paid === ""
+              ? shoppingMap.status_paid
+              : newShopping.status_paid,
+          select: false,
+        };
+
+        if (shoppingMap.select) {
+          return newShoppingUpdate;
+        } else {
+          return shoppingMap;
+        }
+      })
+    );
+
+    setIsRequest(true);
     setIsVisible(false);
   };
 
