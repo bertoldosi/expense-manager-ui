@@ -317,6 +317,8 @@ export const Table = ({
               shoppings.filter((shoppingFilter) => !shoppingFilter.select)
             );
 
+            getMonths();
+
             toast.update("process", {
               type: "success",
               isLoading: false,
@@ -446,7 +448,6 @@ export const Table = ({
 
   React.useEffect(() => {
     filter();
-    getMonths();
   }, [valueFilter]);
 
   React.useEffect(() => {
