@@ -31,7 +31,13 @@ export const HeaderTable = ({
   return (
     <Scontent>
       <div>
-        <InputTable type="checkbox" name="all" id="all" onChange={onChange} />
+        <InputTable
+          type="checkbox"
+          name="all"
+          checked={isItensSelect}
+          id="all"
+          onChange={onChange}
+        />
         <h3>Todos</h3>
       </div>
 

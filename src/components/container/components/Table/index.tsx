@@ -4,16 +4,14 @@ import { toast } from "react-toastify";
 
 import { Save } from "@icons/Save";
 import { HeaderTable } from "../HeaderTable";
-import { Trash } from "@icons/Trash";
 import { maskMorney } from "@helpers/masks";
 import { deleteShopping } from "@graphqls/shopping";
 import { SelectStatus } from "@commons/SelectStatus";
 import InputTable from "@containers/components/InputTable";
-import { removingShopping } from "@helpers/removingShopping";
-import { subtractingValues } from "@helpers/subtractingValues";
 import { updateShopping as upShopping } from "@graphqls/shopping";
 import { sumAmountResponsible } from "@helpers/sumAmountResponsible";
 import { updateAmountShoppings } from "@helpers/updateAmountShoppings";
+import { getMonthNumber, updateMonthInstitution } from "@graphqls/month";
 
 import {
   InstitutionType,
@@ -21,12 +19,12 @@ import {
   ShoppingType,
 } from "@containers/Home/types";
 
-import { NoResult, Scontent } from "./styles";
 import {
   createInstitutionShoppings,
   updateInstitutionShoppings,
 } from "@graphqls/institution";
-import { getMonthNumber, updateMonthInstitution } from "@graphqls/month";
+
+import { NoResult, Scontent } from "./styles";
 
 type PropsType = {
   institution: InstitutionType;
@@ -35,6 +33,7 @@ type PropsType = {
   setMonthList: Function;
   request: boolean;
   setRequest: Function;
+  getMonths: Function;
 };
 
 export const Table = ({
@@ -44,6 +43,7 @@ export const Table = ({
   setMonthList,
   request,
   setRequest,
+  getMonths,
 }: PropsType) => {
   const [valueFilter, setValueFilter] = React.useState("todos");
   const [shoppings, setShoppings] = React.useState(institution.shoppings);
@@ -307,42 +307,14 @@ export const Table = ({
       toastId: "process",
     });
 
-    shoppings.map(async (shoppingMap) => {
+    shoppings.map((shoppingMap) => {
       if (shoppingMap.select) {
         const shoppingReference = shoppingMap.reference;
 
-        await deleteShopping(shoppingReference)
-          .then(async () => {
-            await setMonthList(
-              monthList.map((monthMap) => {
-                if (monthMap.id === month.id) {
-                  return {
-                    ...monthMap,
-                    institutions: monthMap.institutions.map(
-                      (institutionMap) => {
-                        if (
-                          institutionMap.reference === institution.reference
-                        ) {
-                          return {
-                            ...institutionMap,
-                            shoppings: shoppings.filter(
-                              (shoppingFilter) => !shoppingFilter.select
-                            ),
-                            amount: subtractingValues(
-                              institutionMap.amount,
-                              shoppingMap
-                            ),
-                          };
-                        } else {
-                          return institutionMap;
-                        }
-                      }
-                    ),
-                  };
-                } else {
-                  return monthMap;
-                }
-              })
+        deleteShopping(shoppingReference)
+          .then(() => {
+            setShoppings(
+              shoppings.filter((shoppingFilter) => !shoppingFilter.select)
             );
 
             toast.update("process", {
@@ -474,6 +446,7 @@ export const Table = ({
 
   React.useEffect(() => {
     filter();
+    getMonths();
   }, [valueFilter]);
 
   React.useEffect(() => {

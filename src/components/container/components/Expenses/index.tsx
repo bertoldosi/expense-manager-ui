@@ -22,6 +22,7 @@ type PropsType = {
   monthList: MonthType[];
   setMonthList: Function;
   month: MonthType;
+  getMonths: Function;
 };
 
 const initialNewShopping = {
@@ -38,6 +39,7 @@ export const Expenses = ({
   monthList,
   setMonthList,
   month,
+  getMonths,
 }: PropsType) => {
   const [request, setRequest] = React.useState(false);
   const [newShopping, setNewShopping] =
@@ -165,6 +167,7 @@ export const Expenses = ({
         setMonthList={setMonthList}
         request={request}
         setRequest={setRequest}
+        getMonths={getMonths}
       />
     </Scontent>
   );

@@ -31,6 +31,7 @@ function Home() {
               monthList={monthList}
               month={monthMap}
               responsibleTotalAmountList={responsibleTotalAmountList}
+              getMonths={getMonths}
             />
           )
       )}

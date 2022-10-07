@@ -35,6 +35,7 @@ type PropsType = {
   month: MonthType;
   setMonthList: Function;
   responsibleTotalAmountList: ResponsibleValuesType[];
+  getMonths: Function;
 };
 
 const initialInputInstitution = {
@@ -51,6 +52,7 @@ export const Content = ({
   setMonthList,
   month,
   responsibleTotalAmountList,
+  getMonths,
 }: PropsType) => {
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
   const [institutionVisible, setInstitutionVisible] = React.useState<number>(0);
@@ -290,6 +292,7 @@ export const Content = ({
                     monthList={monthList}
                     setMonthList={setMonthList}
                     month={month}
+                    getMonths={getMonths}
                   />
                   <Modal
                     title="Novo cartão"
