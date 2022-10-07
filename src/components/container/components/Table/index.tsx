@@ -27,6 +27,7 @@ import {
 import { NoResult, Scontent } from "./styles";
 import { Modal } from "@commons/Modal";
 import { Button } from "@commons/Button";
+import Input from "@commons/Input";
 
 type PropsType = {
   institution: InstitutionType;
@@ -39,12 +40,9 @@ type PropsType = {
 };
 
 const initialNewShopping = {
-  reference: uuidv4(),
-  description: "",
-  amount: "",
   responsible: "",
-  select: false,
   status_paid: "aberto",
+  select: false,
 };
 
 export const Table = ({
@@ -61,6 +59,7 @@ export const Table = ({
   const [isItensSelect, setIsItensSelect] = React.useState(false);
   const [isRequest, setIsRequest] = React.useState(false);
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
+  const [newShopping, setNewShopping] = React.useState(initialNewShopping);
 
   const onChangeUpdateShopping = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -100,6 +99,15 @@ export const Table = ({
         }
       })
     );
+  };
+
+  const onChangeAddShopping = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    setNewShopping((prevState) => ({
+      ...prevState,
+      [name]: maskMorney(value, name),
+    }));
   };
 
   const onChangeSelectOnly = (
@@ -422,6 +430,30 @@ export const Table = ({
       });
   };
 
+  const updateAllShopping = async () => {
+    setIsRequest(true);
+    shoppings.map(async (shoppingMap) => {
+      if (shoppingMap.select) {
+        const newShoppingUpdate = {
+          ...shoppingMap,
+          responsible:
+            newShopping.responsible === ""
+              ? shoppingMap.responsible
+              : newShopping.responsible,
+          status_paid:
+            newShopping.status_paid === ""
+              ? shoppingMap.status_paid
+              : newShopping.status_paid,
+          select: false,
+        };
+
+        await updateShopping(institution.reference, newShoppingUpdate);
+      }
+    });
+
+    setIsVisible(false);
+  };
+
   const filter = () => {
     setShoppings(
       institution.shoppings.filter((shopping) => {
@@ -487,16 +519,35 @@ export const Table = ({
         handlerIsVisible={setIsVisible}
         footer={
           <Button
+            disabled={request}
             color="#fff"
             background="#B0C4DE"
             icon={<Save width={15} height={15} />}
-            onClick={() => {}}
+            onClick={updateAllShopping}
           >
             Salvar
           </Button>
         }
       >
-        teste
+        <Input
+          autofocus
+          disabled={request}
+          name="responsible"
+          placeholder="Nome do responsavel"
+          id="responsible"
+          value={newShopping.responsible}
+          onChange={onChangeAddShopping}
+        />
+
+        <SelectStatus
+          selectClassName={newShopping.status_paid}
+          optionClassName={newShopping.status_paid}
+          name="status_paid"
+          id="status_paid"
+          value={newShopping.status_paid}
+          options={[{ name: "aberto" }, { name: "pago" }]}
+          onChange={onChangeAddShopping}
+        />
       </Modal>
 
       <Scontent>

@@ -10,7 +10,7 @@ type PropsType = {
   id: string;
   optionClassName?: string;
   selectClassName?: string;
-  onChange: React.ChangeEventHandler<HTMLSelectElement>;
+  onChange: any;
 };
 
 export const SelectStatus = ({
