@@ -18,6 +18,7 @@ type PropsType = {
   handlerRepeat: React.MouseEventHandler<HTMLDivElement>;
   isRequest: boolean;
   removeShoppings: React.MouseEventHandler<HTMLDivElement>;
+  setIsVisible: Function;
 };
 
 export const HeaderTable = ({
@@ -28,6 +29,7 @@ export const HeaderTable = ({
   handlerRepeat,
   isRequest,
   removeShoppings,
+  setIsVisible,
 }: PropsType) => {
   return (
     <Scontent>
@@ -49,8 +51,10 @@ export const HeaderTable = ({
               disabled={isRequest}
               color="#fff"
               background="#B0C4DE"
-              icon={<Repeat width={15} height={15} />}
-              onClick={handlerRepeat}
+              icon={<Edit width={15} height={15} />}
+              onClick={() => {
+                setIsVisible(true);
+              }}
             >
               Editar
             </Button>
@@ -58,7 +62,7 @@ export const HeaderTable = ({
               disabled={isRequest}
               color="#fff"
               background="#B0C4DE"
-              icon={<Edit width={15} height={15} />}
+              icon={<Repeat width={15} height={15} />}
               onClick={handlerRepeat}
             >
               Repetir

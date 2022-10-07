@@ -25,6 +25,8 @@ import {
 } from "@graphqls/institution";
 
 import { NoResult, Scontent } from "./styles";
+import { Modal } from "@commons/Modal";
+import { Button } from "@commons/Button";
 
 type PropsType = {
   institution: InstitutionType;
@@ -34,6 +36,15 @@ type PropsType = {
   request: boolean;
   setRequest: Function;
   getMonths: Function;
+};
+
+const initialNewShopping = {
+  reference: uuidv4(),
+  description: "",
+  amount: "",
+  responsible: "",
+  select: false,
+  status_paid: "aberto",
 };
 
 export const Table = ({
@@ -49,6 +60,7 @@ export const Table = ({
   const [shoppings, setShoppings] = React.useState(institution.shoppings);
   const [isItensSelect, setIsItensSelect] = React.useState(false);
   const [isRequest, setIsRequest] = React.useState(false);
+  const [isVisible, setIsVisible] = React.useState<boolean>(false);
 
   const onChangeUpdateShopping = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -466,7 +478,26 @@ export const Table = ({
         handlerRepeat={repeat}
         isRequest={isRequest}
         removeShoppings={removeShopping}
+        setIsVisible={setIsVisible}
       />
+
+      <Modal
+        title="Editando item(s)"
+        isVisible={isVisible}
+        handlerIsVisible={setIsVisible}
+        footer={
+          <Button
+            color="#fff"
+            background="#B0C4DE"
+            icon={<Save width={15} height={15} />}
+            onClick={() => {}}
+          >
+            Salvar
+          </Button>
+        }
+      >
+        teste
+      </Modal>
 
       <Scontent>
         {shoppings.length > 0 ? (
