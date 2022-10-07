@@ -8,6 +8,7 @@ import InputTable from "../InputTable";
 import { Button } from "@commons/Button";
 import { Repeat } from "@icons/Repeat";
 import { Trash } from "@icons/Trash";
+import { Edit } from "@icons/Edit";
 
 type PropsType = {
   setValueFilter: Function;
@@ -49,6 +50,15 @@ export const HeaderTable = ({
               color="#fff"
               background="#B0C4DE"
               icon={<Repeat width={15} height={15} />}
+              onClick={handlerRepeat}
+            >
+              Editar
+            </Button>
+            <Button
+              disabled={isRequest}
+              color="#fff"
+              background="#B0C4DE"
+              icon={<Edit width={15} height={15} />}
               onClick={handlerRepeat}
             >
               Repetir
