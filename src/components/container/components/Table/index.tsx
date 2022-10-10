@@ -432,6 +432,7 @@ export const Table = ({
 
   const updateAllShopping = async () => {
     setIsRequest(true);
+
     shoppings.map(async (shoppingMap) => {
       if (shoppingMap.select) {
         const newShoppingUpdate = {
@@ -451,29 +452,28 @@ export const Table = ({
       }
     });
 
-    setShoppings(
-      shoppings.map((shoppingMap) => {
-        const newShoppingUpdate = {
-          ...shoppingMap,
-          responsible:
-            newShopping.responsible === ""
-              ? shoppingMap.responsible
-              : newShopping.responsible,
-          status_paid:
-            newShopping.status_paid === ""
-              ? shoppingMap.status_paid
-              : newShopping.status_paid,
-          select: false,
-        };
+    const newShoppings = shoppings.map((shoppingMap) => {
+      const newShoppingUpdate = {
+        ...shoppingMap,
+        responsible:
+          newShopping.responsible === ""
+            ? shoppingMap.responsible
+            : newShopping.responsible,
+        status_paid:
+          newShopping.status_paid === ""
+            ? shoppingMap.status_paid
+            : newShopping.status_paid,
+        select: false,
+      };
 
-        if (shoppingMap.select) {
-          return newShoppingUpdate;
-        } else {
-          return shoppingMap;
-        }
-      })
-    );
+      if (shoppingMap.select) {
+        return newShoppingUpdate;
+      } else {
+        return shoppingMap;
+      }
+    });
 
+    setShoppings(newShoppings);
     setIsRequest(true);
     setIsVisible(false);
     setNewShopping(initialNewShopping);
@@ -515,13 +515,13 @@ export const Table = ({
     filter();
   }, [institution.shoppings]);
 
-  React.useEffect(() => {
+  React.useMemo(() => {
     filter();
     getMonths();
     setIsRequest(false);
   }, [valueFilter]);
 
-  React.useEffect(() => {
+  React.useMemo(() => {
     const resultFilter = shoppings.filter((shopping) => shopping.select);
 
     setIsItensSelect(resultFilter.length > 0);
