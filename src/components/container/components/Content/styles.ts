@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+export const ScontainerModal = styled.form`
+  & .container-button {
+    margin-top: 2rem;
+  }
+`;
+
 export const Swrapper = styled.div`
   width: 100%;
   max-width: 1020px;

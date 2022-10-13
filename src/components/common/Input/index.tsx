@@ -16,6 +16,7 @@ type PropsTypes = {
   checked?: boolean;
   placeholder?: string;
   required?: boolean;
+  error?: Object;
 };
 
 function Input({
@@ -31,6 +32,7 @@ function Input({
   checked,
   placeholder = "Digite um valor",
   required,
+  error,
 }: PropsTypes) {
   const handleOnKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const keycode = event.keyCode ? event.keyCode : event.which;
@@ -42,21 +44,24 @@ function Input({
   };
 
   return (
-    <Sinput
-      autoComplete="off"
-      tabIndex={tabIndex}
-      autoFocus={autofocus}
-      name={name}
-      id={id}
-      value={value}
-      placeholder={placeholder}
-      onChange={onChange}
-      onKeyUp={onKeyUp && handleOnKeyUp}
-      disabled={disabled}
-      type={type}
-      checked={checked}
-      required={required}
-    />
+    <>
+      <Sinput
+        autoComplete="off"
+        tabIndex={tabIndex}
+        autoFocus={autofocus}
+        name={name}
+        id={id}
+        value={value}
+        placeholder={placeholder}
+        onChange={onChange}
+        onKeyUp={onKeyUp && handleOnKeyUp}
+        disabled={disabled}
+        type={type}
+        checked={checked}
+        required={required}
+      />
+      {error}
+    </>
   );
 }
 

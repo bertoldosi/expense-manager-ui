@@ -1,13 +1,10 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
+import { useFormik } from "formik";
 
-import {
-  createInstitution,
-  createInstitutionShoppings,
-  deleteInstitution,
-  updateInstitutionShoppings,
-} from "@graphqls/institution";
+import { updateMonthInstitution } from "@graphqls/month";
+import { createInstitution, deleteInstitution } from "@graphqls/institution";
 
 import {
   InstitutionType,
@@ -21,14 +18,13 @@ import { Trash } from "@icons/Trash";
 import { Add } from "@icons/Add";
 import { Modal } from "@commons/Modal";
 import { Save } from "@icons/Save";
-import { maskDate } from "@helpers/masks";
 import { Button } from "@commons/Button";
-import { Repeat } from "@icons/Repeat";
 import { CardMenu } from "@containers/components/CardMenu";
 import { Expenses } from "@containers/components/Expenses";
-import { Saside, Ssection, Swrapper } from "./styles";
-import { removingInstitution } from "@helpers/removingInstitution";
-import { getMonthNumber, updateMonthInstitution } from "@graphqls/month";
+import { Saside, ScontainerModal, Ssection, Swrapper } from "./styles";
+import { customToast } from "@helpers/customToast";
+import validationSchema from "./validations";
+import { Error } from "@commons/Error";
 
 type PropsType = {
   monthList: MonthType[];
@@ -38,12 +34,12 @@ type PropsType = {
   getMonths: Function;
 };
 
-const initialInputInstitution = {
+const initialValues = {
   reference: uuidv4(),
   name: "",
   amount: "0,00",
   listResponsibleValues: [],
-  expirationDate: "2022-10-10",
+  expirationDate: "",
   shoppings: [],
 };
 
@@ -55,54 +51,36 @@ export const Content = ({
   getMonths,
 }: PropsType) => {
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
+  const [isRequest, setIsRequest] = React.useState<boolean>(false);
   const [institutionVisible, setInstitutionVisible] = React.useState<number>(0);
 
-  const [inputInstitution, setInputInstitution] =
-    React.useState<InstitutionType>(initialInputInstitution);
+  const formik = useFormik({
+    initialValues,
+    onSubmit: async (values) => {
+      const payload = {
+        ...values,
+        reference: uuidv4(),
+      };
 
-  const onChangeInputInstitution = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const { name, value } = event.target;
+      const { reference, name } = await createInstitution(payload);
 
-    setInputInstitution((prevState) => ({
-      ...prevState,
-      [name]: maskDate(value, name),
-    }));
-  };
-
-  const includeNewInstitution = async (monthId: string) => {
-    const isFilled =
-      inputInstitution.name != "" && inputInstitution.expirationDate != "";
-
-    const newInstitution = { ...inputInstitution, reference: uuidv4() };
-
-    if (isFilled) {
-      const { reference: institutionReference } = await createInstitution(
-        newInstitution
-      );
-
-      await updateMonthInstitution(monthId, institutionReference);
-
-      setMonthList(
-        monthList.map((monthMap) => {
-          if (monthMap.id === monthId) {
-            return {
-              ...monthMap,
-              institutions: [...monthMap.institutions, newInstitution],
-            };
-          } else {
-            return monthMap;
-          }
+      await updateMonthInstitution(month.id, reference)
+        .then(() => {
+          getMonths();
+          customToast("success", `${name} incluído com sucesso!`);
         })
-      );
+        .catch(() => {
+          customToast("error", "Tente novamente!");
+        })
+        .finally(() => {
+          setIsVisible(false);
+          setIsRequest(false);
+          formik.resetForm();
+        });
+    },
 
-      setInputInstitution(initialInputInstitution);
-      setIsVisible(false);
-    } else {
-      toast.info(<h3>Preencha nome e data do cartão!</h3>);
-    }
-  };
+    validationSchema,
+  });
 
   const removeInstitution = (institution: InstitutionType) => {
     toast.info(<h3>Processando...</h3>, {
@@ -125,21 +103,7 @@ export const Content = ({
 
     deleteInstitution(institution.reference)
       .then(() => {
-        setMonthList(
-          monthList.map((monthMap) => {
-            if (monthMap.id === month.id) {
-              return {
-                ...monthMap,
-                institutions: removingInstitution(
-                  monthMap.institutions,
-                  institution.reference
-                ),
-              };
-            } else {
-              return monthMap;
-            }
-          })
-        );
+        getMonths();
 
         toast.update("process", {
           type: "success",
@@ -159,9 +123,9 @@ export const Content = ({
       });
   };
 
-  if (month.institutions.length === 0) {
-    return (
-      <>
+  return (
+    <>
+      {month.institutions.length === 0 ? (
         <Swrapper>
           <nav>
             <Nav
@@ -193,146 +157,115 @@ export const Content = ({
                 }
               />
             </Saside>
-
-            <Modal
-              title="Novo cartão"
-              isVisible={isVisible}
-              handlerIsVisible={setIsVisible}
-              footer={
-                <Button
-                  color="#fff"
-                  background="#B0C4DE"
-                  icon={<Save width={15} height={15} />}
-                  onClick={() => {
-                    includeNewInstitution(month.id);
-                  }}
-                >
-                  Salvar
-                </Button>
-              }
-            >
-              <Input
-                name="name"
-                placeholder="Nome da instituição"
-                id={inputInstitution.reference}
-                value={inputInstitution.name}
-                onChange={onChangeInputInstitution}
-                required
-              />
-
-              <Input
-                name="expirationDate"
-                id={inputInstitution.reference}
-                value={inputInstitution.expirationDate}
-                onChange={onChangeInputInstitution}
-                type="date"
-                required
-              />
-            </Modal>
           </Ssection>
         </Swrapper>
-      </>
-    );
-  }
+      ) : (
+        <Swrapper>
+          <nav>
+            <Nav
+              institutions={month.institutions}
+              setInstitutionVisible={setInstitutionVisible}
+              institutionVisible={institutionVisible}
+            />
+          </nav>
 
-  return (
-    <>
-      <Swrapper>
-        <nav>
-          <Nav
-            institutions={month.institutions}
-            setInstitutionVisible={setInstitutionVisible}
-            institutionVisible={institutionVisible}
+          {month.institutions.map((institutionMap, index) => {
+            return (
+              <div key={index}>
+                {index === institutionVisible && (
+                  <Ssection>
+                    <Saside>
+                      <CardMenu
+                        title={`TOTAL ${institutionMap.name.toUpperCase()}`}
+                        list={institutionMap.listResponsibleValues}
+                        background="#029b99"
+                      />
+                      <CardMenu
+                        title="TOTAL GERAL"
+                        list={responsibleTotalAmountList}
+                        background="#de4f15"
+                        isFooter={
+                          <>
+                            <Button
+                              color="#fff"
+                              background="#B0C4DE"
+                              icon={<Add width={15} height={15} />}
+                              onClick={() => {
+                                setIsVisible(!isVisible);
+                              }}
+                            >
+                              Novo cartão
+                            </Button>
+                            <Button
+                              color="#fff"
+                              background="#B0C4DE"
+                              icon={<Trash width={15} height={15} />}
+                              onClick={() => {
+                                removeInstitution(institutionMap);
+                              }}
+                            >
+                              Excluir {institutionMap.name}
+                            </Button>
+                          </>
+                        }
+                      />
+                    </Saside>
+                    <Expenses
+                      institution={institutionMap}
+                      monthList={monthList}
+                      setMonthList={setMonthList}
+                      month={month}
+                      getMonths={getMonths}
+                    />
+                  </Ssection>
+                )}
+              </div>
+            );
+          })}
+        </Swrapper>
+      )}
+
+      <Modal
+        title="Novo cartão"
+        isVisible={isVisible}
+        handlerIsVisible={setIsVisible}
+      >
+        <ScontainerModal onSubmit={formik.handleSubmit}>
+          <Input
+            autofocus
+            name="name"
+            placeholder="Nome da instituição"
+            id={formik.values.reference}
+            value={formik.values.name}
+            onChange={formik.handleChange}
+            error={formik.touched.name && <Error>{formik.errors.name}</Error>}
           />
-        </nav>
 
-        {month.institutions.map((institutionMap, index) => {
-          return (
-            <div key={index}>
-              {index === institutionVisible && (
-                <Ssection>
-                  <Saside>
-                    <CardMenu
-                      title={`TOTAL ${institutionMap.name.toUpperCase()}`}
-                      list={institutionMap.listResponsibleValues}
-                      background="#029b99"
-                    />
-                    <CardMenu
-                      title="TOTAL GERAL"
-                      list={responsibleTotalAmountList}
-                      background="#de4f15"
-                      isFooter={
-                        <>
-                          <Button
-                            color="#fff"
-                            background="#B0C4DE"
-                            icon={<Add width={15} height={15} />}
-                            onClick={() => {
-                              setIsVisible(!isVisible);
-                            }}
-                          >
-                            Novo cartão
-                          </Button>
-                          <Button
-                            color="#fff"
-                            background="#B0C4DE"
-                            icon={<Trash width={15} height={15} />}
-                            onClick={() => {
-                              removeInstitution(institutionMap);
-                            }}
-                          >
-                            Excluir {institutionMap.name}
-                          </Button>
-                        </>
-                      }
-                    />
-                  </Saside>
-                  <Expenses
-                    institution={institutionMap}
-                    monthList={monthList}
-                    setMonthList={setMonthList}
-                    month={month}
-                    getMonths={getMonths}
-                  />
-                  <Modal
-                    title="Novo cartão"
-                    isVisible={isVisible}
-                    handlerIsVisible={setIsVisible}
-                    footer={
-                      <Button
-                        color="#fff"
-                        background="#B0C4DE"
-                        icon={<Save width={15} height={15} />}
-                        onClick={() => {
-                          includeNewInstitution(month.id);
-                        }}
-                      >
-                        Salvar
-                      </Button>
-                    }
-                  >
-                    <Input
-                      name="name"
-                      placeholder="Nome da instituição"
-                      id={inputInstitution.reference}
-                      value={inputInstitution.name}
-                      onChange={onChangeInputInstitution}
-                    />
+          <Input
+            name="expirationDate"
+            id={formik.values.reference}
+            value={formik.values.expirationDate}
+            onChange={formik.handleChange}
+            type="date"
+            error={
+              formik.touched.expirationDate && (
+                <Error>{formik.errors.expirationDate}</Error>
+              )
+            }
+          />
 
-                    <Input
-                      name="expirationDate"
-                      id={inputInstitution.reference}
-                      value={inputInstitution.expirationDate}
-                      onChange={onChangeInputInstitution}
-                      type="date"
-                    />
-                  </Modal>
-                </Ssection>
-              )}
-            </div>
-          );
-        })}
-      </Swrapper>
+          <Button
+            ContainerInputClassName="container-button"
+            disabled={isRequest}
+            color="#fff"
+            background="#B0C4DE"
+            icon={<Save width={15} height={15} />}
+            type="submit"
+          >
+            Salvar
+          </Button>
+        </ScontainerModal>
+      </Modal>
     </>
   );
 };

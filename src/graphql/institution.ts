@@ -16,6 +16,7 @@ const CREATE_INSTITUTION = gql`
       }
     ) {
       reference
+      name
     }
   }
 `;

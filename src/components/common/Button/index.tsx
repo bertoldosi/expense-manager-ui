@@ -9,6 +9,8 @@ type PropsType = {
   background: string;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
   disabled?: boolean;
+  ContainerInputClassName?: string;
+  type?: "button" | "submit" | "reset";
 };
 
 export const Button = ({
@@ -18,11 +20,20 @@ export const Button = ({
   background,
   disabled,
   onClick,
+  ContainerInputClassName,
+  type,
 }: PropsType) => {
   return (
-    <Scontent color={color} background={background} onClick={onClick}>
+    <Scontent
+      className={ContainerInputClassName}
+      color={color}
+      background={background}
+      onClick={onClick}
+    >
       {icon}
-      <Sbutton disabled={disabled}>{children}</Sbutton>
+      <Sbutton type={type} disabled={disabled}>
+        {children}
+      </Sbutton>
     </Scontent>
   );
 };

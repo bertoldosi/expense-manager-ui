@@ -9,7 +9,7 @@ type PropsType = {
   title: string;
   isVisible: boolean;
   handlerIsVisible: Dispatch<SetStateAction<boolean>>;
-  footer: ReactNode;
+  footer?: ReactNode;
 };
 
 export const Modal = ({
