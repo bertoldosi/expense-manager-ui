@@ -37,7 +37,7 @@ type PropsType = {
 const initialValues = {
   reference: uuidv4(),
   name: "",
-  amount: "0,00",
+  amount: "0",
   listResponsibleValues: [],
   expirationDate: "",
   shoppings: [],
@@ -83,58 +83,35 @@ export const Content = ({
   });
 
   const removeInstitution = (institution: InstitutionType) => {
-    toast.info(<h3>Processando...</h3>, {
-      isLoading: true,
-      toastId: "process",
-    });
-
     const isShoppings = institution.shoppings.length > 0;
 
     if (isShoppings) {
-      toast.update("process", {
-        type: "error",
-        isLoading: false,
-        render: <h3>Remova o(s) item(s) antes de excluir o cartão!</h3>,
-        autoClose: 1000,
-      });
-
+      customToast("info", "Remova o(s) item(s) antes de excluir o cartão!");
       return;
     }
 
     deleteInstitution(institution.reference)
       .then(() => {
         getMonths();
-
-        toast.update("process", {
-          type: "success",
-          isLoading: false,
-          render: <h3>{`${institution.name} removido com sucesso!`}</h3>,
-          autoClose: 2000,
-        });
+        customToast("success", `${institution.name} removido com sucesso!`);
       })
-
       .catch(() => {
-        toast.update("process", {
-          type: "error",
-          isLoading: false,
-          render: <h3>Tente novamente!</h3>,
-          autoClose: 2000,
-        });
+        customToast("error", "Tente novamente!");
       });
   };
 
   return (
     <>
-      {month.institutions.length === 0 ? (
-        <Swrapper>
-          <nav>
-            <Nav
-              institutions={month.institutions}
-              setInstitutionVisible={setInstitutionVisible}
-              institutionVisible={institutionVisible}
-            />
-          </nav>
+      <Swrapper>
+        <nav>
+          <Nav
+            institutions={month.institutions}
+            setInstitutionVisible={setInstitutionVisible}
+            institutionVisible={institutionVisible}
+          />
+        </nav>
 
+        {month.institutions.length === 0 ? (
           <Ssection>
             <Saside>
               <CardMenu
@@ -158,18 +135,8 @@ export const Content = ({
               />
             </Saside>
           </Ssection>
-        </Swrapper>
-      ) : (
-        <Swrapper>
-          <nav>
-            <Nav
-              institutions={month.institutions}
-              setInstitutionVisible={setInstitutionVisible}
-              institutionVisible={institutionVisible}
-            />
-          </nav>
-
-          {month.institutions.map((institutionMap, index) => {
+        ) : (
+          month.institutions.map((institutionMap, index) => {
             return (
               <div key={index}>
                 {index === institutionVisible && (
@@ -221,9 +188,9 @@ export const Content = ({
                 )}
               </div>
             );
-          })}
-        </Swrapper>
-      )}
+          })
+        )}
+      </Swrapper>
 
       <Modal
         title="Novo cartão"
