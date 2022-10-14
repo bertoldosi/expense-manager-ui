@@ -7,6 +7,7 @@ type PropsType = {
 
 export const Scontent = styled.div<PropsType>`
   width: 100%;
+  height: 3.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
