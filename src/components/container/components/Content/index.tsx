@@ -198,7 +198,7 @@ export const Content = ({
       >
         <ScontainerModal onSubmit={formik.handleSubmit}>
           <Input
-            autofocus
+            autoFocus
             name="name"
             placeholder="Nome da instituição"
             id={formik.values.reference}

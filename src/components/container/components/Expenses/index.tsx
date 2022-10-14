@@ -16,6 +16,7 @@ import { maskMorney } from "@helpers/masks";
 import { Scontent, Sheader } from "./styles";
 
 import { InstitutionType, MonthType, ShoppingType } from "../../Home/types";
+import { customToast } from "@helpers/customToast";
 
 type PropsType = {
   institution: InstitutionType;
@@ -55,11 +56,6 @@ export const Expenses = ({
   };
 
   const includeShopping = async (institutionReference: string) => {
-    toast.info(<h3>Processando...</h3>, {
-      isLoading: true,
-      toastId: "process",
-    });
-
     setRequest(true);
 
     const shopping = {
@@ -69,49 +65,12 @@ export const Expenses = ({
 
     updateInstitutionShoppings(institutionReference, [shopping])
       .then(() => {
-        setMonthList(
-          monthList.map((monthMap) => {
-            if (monthMap.id === month.id) {
-              return {
-                ...monthMap,
-                institutions: monthMap.institutions.map((institutionMap) => {
-                  if (institutionMap.reference === institutionReference) {
-                    return {
-                      ...institutionMap,
-                      listResponsibleValues:
-                        sumAmountResponsible(institutionMap),
-                      amount: sumAmountMoney(
-                        institutionMap.amount,
-                        shopping.amount
-                      ),
-                      shoppings: [...institutionMap.shoppings, shopping],
-                    };
-                  } else {
-                    return institutionMap;
-                  }
-                }),
-              };
-            } else {
-              return monthMap;
-            }
-          })
-        );
-
-        toast.update("process", {
-          type: "success",
-          isLoading: false,
-          render: <h3>Adicionado com sucesso!</h3>,
-          autoClose: 2000,
-        });
+        getMonths();
+        customToast("success", "Adicionado com sucesso!");
       })
 
       .catch(() => {
-        toast.update("process", {
-          type: "error",
-          isLoading: false,
-          render: <h3>Tente novamente!</h3>,
-          autoClose: 2000,
-        });
+        customToast("error", "Tente novamente!");
       })
 
       .finally(() => {
@@ -125,7 +84,7 @@ export const Expenses = ({
     <Scontent>
       <Sheader>
         <Input
-          autofocus
+          autoFocus
           name="description"
           placeholder="Descrição do item"
           id={newShopping.reference}

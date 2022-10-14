@@ -557,7 +557,7 @@ export const Table = ({
         }
       >
         <Input
-          autofocus
+          autoFocus
           disabled={request}
           name="responsible"
           placeholder="Nome do responsavel"
