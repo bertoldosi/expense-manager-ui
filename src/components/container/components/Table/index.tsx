@@ -28,6 +28,7 @@ import { NoResult, Scontent } from "./styles";
 import { Modal } from "@commons/Modal";
 import { Button } from "@commons/Button";
 import Input from "@commons/Input";
+import { customToast } from "@helpers/customToast";
 
 type PropsType = {
   institution: InstitutionType;
@@ -55,47 +56,27 @@ export const Table = ({
   getMonths,
 }: PropsType) => {
   const [valueFilter, setValueFilter] = React.useState("todos");
-  const [shoppings, setShoppings] = React.useState(institution.shoppings);
+  const [shoppings, setShoppings] = React.useState<ShoppingType[]>([]);
   const [isItensSelect, setIsItensSelect] = React.useState(false);
   const [isRequest, setIsRequest] = React.useState(false);
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
   const [newShopping, setNewShopping] = React.useState(initialNewShopping);
 
   const onChangeUpdateShopping = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    institutionReference: string
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const { id, value, name } = event.target;
 
-    setMonthList(
-      monthList.map((monthMap) => {
-        if (monthMap.id === month.id) {
+    setShoppings(
+      shoppings.map((shoppingMap) => {
+        if (shoppingMap.reference === id) {
           return {
-            ...monthMap,
-            institutions: monthMap.institutions.map((institutionMap) => {
-              if (institutionMap.reference === institutionReference) {
-                return {
-                  ...institutionMap,
-                  listResponsibleValues: sumAmountResponsible(institutionMap),
-                  shoppings: institutionMap.shoppings.map((shoppingMap) => {
-                    if (shoppingMap.reference === id) {
-                      return {
-                        ...shoppingMap,
-                        [name]: maskMorney(value, name),
-                        isUpdate: true,
-                      };
-                    } else {
-                      return shoppingMap;
-                    }
-                  }),
-                };
-              } else {
-                return institutionMap;
-              }
-            }),
+            ...shoppingMap,
+            [name]: maskMorney(value, name),
+            isUpdate: true,
           };
         } else {
-          return monthMap;
+          return shoppingMap;
         }
       })
     );
@@ -157,7 +138,7 @@ export const Table = ({
   const getNextMonth = async () => {
     const { id: monthIdNextMonth, institutions: institutionsNextMonth } =
       await getMonthNumber(month.mesNumber + 1).catch(() => {
-        toast.error(<h3>Algo de errado aconteceu ao buscar próximo mês!</h3>);
+        customToast("error", "Algo de errado aconteceu ao buscar próximo mês!");
       });
 
     return {
@@ -166,7 +147,7 @@ export const Table = ({
     };
   };
 
-  const repeat = async () => {
+  const repeatShopping = async () => {
     setIsRequest(true);
     const { monthIdNextMonth, institutionsNextMonth } = await getNextMonth();
 
@@ -199,51 +180,12 @@ export const Table = ({
 
       updateInstitutionShoppings(institutionReference, shoppingsRepeat)
         .then(() => {
-          setMonthList(
-            monthList.map((monthMap) => {
-              if (monthMap.id === monthIdNextMonth) {
-                return {
-                  ...monthMap,
-                  institutions: monthMap.institutions.map((institutionMap) => {
-                    if (institutionMap.reference === institutionReference) {
-                      return {
-                        ...institutionMap,
-                        shoppings: [
-                          ...institutionMap.shoppings,
-                          [...shoppingsRepeat],
-                        ],
-                      };
-                    } else {
-                      return institutionMap;
-                    }
-                  }),
-                };
-              } else if (monthMap.id === month.id) {
-                return {
-                  ...monthMap,
-                  institutions: monthMap.institutions.map((institutionMap) => {
-                    return {
-                      ...institutionMap,
-                      shoppings: institutionMap.shoppings.map((shoppingMap) => {
-                        return {
-                          ...shoppingMap,
-                          select: false,
-                        };
-                      }),
-                    };
-                  }),
-                };
-              } else {
-                return monthMap;
-              }
-            })
-          );
-
-          toast.success(<h3>Item(s) foram repetidos para o próximo mês!</h3>);
+          getMonths();
+          customToast("success", "Item(s) foram repetidos para o próximo mês!");
         })
 
         .catch(() => {
-          toast.error(<h3>Tente novamente!</h3>);
+          customToast("error", "Tente novamente!");
         })
 
         .finally(() => {
@@ -255,59 +197,25 @@ export const Table = ({
           .then(({ reference: institutionReference }) => {
             updateMonthInstitution(monthIdNextMonth, institutionReference)
               .then(() => {
-                setMonthList(
-                  monthList.map((monthMap) => {
-                    if (monthMap.id === monthIdNextMonth) {
-                      return {
-                        ...monthMap,
-                        institutions: [
-                          ...monthMap.institutions,
-                          institutionRepeat,
-                        ],
-                      };
-                    } else if (monthMap.id === month.id) {
-                      return {
-                        ...monthMap,
-                        institutions: monthMap.institutions.map(
-                          (institutionMap) => {
-                            return {
-                              ...institutionMap,
-                              shoppings: institutionMap.shoppings.map(
-                                (shoppingMap) => {
-                                  return {
-                                    ...shoppingMap,
-                                    select: false,
-                                  };
-                                }
-                              ),
-                            };
-                          }
-                        ),
-                      };
-                    } else {
-                      return monthMap;
-                    }
-                  })
-                );
-
-                toast.success(
-                  <h3>Item(s) foram repetidos para o próximo mês!</h3>
+                getMonths();
+                customToast(
+                  "success",
+                  "Item(s) foram repetidos para o próximo mês!"
                 );
               })
 
               .catch(() => {
-                toast.error(
-                  <h3>
-                    Algo de errado aconteceu ao atualizar o proximo mes com a
-                    novo cartão
-                  </h3>
+                customToast(
+                  "error",
+                  "Algo de errado aconteceu ao atualizar o proximo mês com a novo cartão"
                 );
               });
           })
 
           .catch(() => {
-            toast.error(
-              <h3>Algo de errado aconteceu ao criar nova cartão com itens</h3>
+            customToast(
+              "error",
+              "Algo de errado aconteceu ao criar nova cartão com itens"
             );
           })
 
@@ -315,17 +223,13 @@ export const Table = ({
             setIsRequest(false);
           });
       } else {
-        toast.info(<h3>Mês não encontrado!</h3>);
+        customToast("info", "Mês não encontrado!");
       }
     }
   };
 
   const removeShopping = async () => {
     setRequest(true);
-    toast.info(<h3>Processando...</h3>, {
-      isLoading: true,
-      toastId: "process",
-    });
 
     shoppings.map((shoppingMap) => {
       if (shoppingMap.select) {
@@ -333,27 +237,11 @@ export const Table = ({
 
         deleteShopping(shoppingReference)
           .then(() => {
-            setShoppings(
-              shoppings.filter((shoppingFilter) => !shoppingFilter.select)
-            );
-
             getMonths();
-
-            toast.update("process", {
-              type: "success",
-              isLoading: false,
-              render: <h3>Deletado com sucesso!</h3>,
-              autoClose: 2000,
-            });
+            customToast("success", "Deletado com sucesso!");
           })
-
           .catch(() => {
-            toast.update("process", {
-              type: "error",
-              isLoading: false,
-              render: <h3>Tente novamente!</h3>,
-              autoClose: 2000,
-            });
+            customToast("error", "Tente novamente!");
           });
       }
     });
@@ -361,68 +249,17 @@ export const Table = ({
     setRequest(false);
   };
 
-  const updateShopping = async (
-    institutionReference: string,
-    shoppingUpdate: ShoppingType
-  ) => {
-    toast.info(<h3>Processando...</h3>, {
-      isLoading: true,
-      toastId: "process",
-    });
-
+  const updateShopping = async (shoppingUpdate: ShoppingType) => {
     setRequest(true);
-    const shoppingReference = shoppingUpdate.reference;
 
     upShopping(shoppingUpdate)
       .then(() => {
-        setMonthList(
-          monthList.map((monthMap) => {
-            if (monthMap.id === month.id) {
-              return {
-                ...monthMap,
-                institutions: monthMap.institutions.map((institutionMap) => {
-                  if (institutionMap.reference === institutionReference) {
-                    return {
-                      ...institutionMap,
-                      listResponsibleValues:
-                        sumAmountResponsible(institutionMap),
-                      shoppings: institutionMap.shoppings.map((shoppingMap) => {
-                        if (shoppingMap.reference === shoppingReference) {
-                          return {
-                            ...shoppingUpdate,
-                            isUpdate: false,
-                          };
-                        } else {
-                          return shoppingMap;
-                        }
-                      }),
-                    };
-                  } else {
-                    return institutionMap;
-                  }
-                }),
-              };
-            } else {
-              return monthMap;
-            }
-          })
-        );
-
-        toast.update("process", {
-          type: "success",
-          isLoading: false,
-          render: <h3>Alterado com sucesso!</h3>,
-          autoClose: 2000,
-        });
+        getMonths();
+        customToast("success", "Alterado com sucesso!");
       })
 
       .catch(() => {
-        toast.update("process", {
-          type: "error",
-          isLoading: false,
-          render: <h3>Tente novamente!</h3>,
-          autoClose: 2000,
-        });
+        customToast("error", "Tente novamente!");
       })
 
       .finally(() => {
@@ -491,30 +328,6 @@ export const Table = ({
     );
   };
 
-  React.useEffect(() => {
-    setMonthList(
-      monthList.map((monthMap) => {
-        if (monthMap.id === month.id) {
-          return {
-            ...monthMap,
-            institutions: monthMap.institutions.map((institutionMap) => {
-              return {
-                ...institutionMap,
-                listResponsibleValues: sumAmountResponsible(institutionMap),
-                amount: updateAmountShoppings(institutionMap.shoppings),
-              };
-            }),
-          };
-        } else {
-          return monthMap;
-        }
-      })
-    );
-
-    setShoppings(institution.shoppings);
-    filter();
-  }, [institution.shoppings]);
-
   React.useMemo(() => {
     filter();
     getMonths();
@@ -523,7 +336,6 @@ export const Table = ({
 
   React.useMemo(() => {
     const resultFilter = shoppings.filter((shopping) => shopping.select);
-
     setIsItensSelect(resultFilter.length > 0);
   }, [shoppings]);
 
@@ -534,7 +346,7 @@ export const Table = ({
         options={institution.listResponsibleValues}
         onChange={onChangeSelectAll}
         isItensSelect={isItensSelect}
-        handlerRepeat={repeat}
+        handlerRepeat={repeatShopping}
         isRequest={isRequest}
         removeShoppings={removeShopping}
         setIsVisible={setIsVisible}
@@ -598,11 +410,9 @@ export const Table = ({
                   id={shopping.reference}
                   value={shopping.description}
                   onKeyUp={() => {
-                    updateShopping(institution.reference, shopping);
+                    updateShopping(shopping);
                   }}
-                  onChange={(event) => {
-                    onChangeUpdateShopping(event, institution.reference);
-                  }}
+                  onChange={onChangeUpdateShopping}
                 />
               </strong>
               <strong>
@@ -612,11 +422,9 @@ export const Table = ({
                   id={shopping.reference}
                   value={shopping.amount}
                   onKeyUp={() => {
-                    updateShopping(institution.reference, shopping);
+                    updateShopping(shopping);
                   }}
-                  onChange={(event) => {
-                    onChangeUpdateShopping(event, institution.reference);
-                  }}
+                  onChange={onChangeUpdateShopping}
                 />
               </strong>
               <strong>
@@ -626,11 +434,9 @@ export const Table = ({
                   id={shopping.reference}
                   value={shopping.responsible}
                   onKeyUp={() => {
-                    updateShopping(institution.reference, shopping);
+                    updateShopping(shopping);
                   }}
-                  onChange={(event) => {
-                    onChangeUpdateShopping(event, institution.reference);
-                  }}
+                  onChange={onChangeUpdateShopping}
                 />
               </strong>
               <strong>
@@ -641,9 +447,7 @@ export const Table = ({
                   id={shopping.reference}
                   value={shopping.status_paid}
                   options={[{ name: "aberto" }, { name: "pago" }]}
-                  onChange={(event: any) => {
-                    onChangeUpdateShopping(event, institution.reference);
-                  }}
+                  onChange={onChangeUpdateShopping}
                 />
 
                 {shopping.isUpdate && (
@@ -652,7 +456,7 @@ export const Table = ({
                     height={20}
                     disabled={request}
                     onClick={() => {
-                      updateShopping(institution.reference, shopping);
+                      updateShopping(shopping);
                     }}
                   />
                 )}
