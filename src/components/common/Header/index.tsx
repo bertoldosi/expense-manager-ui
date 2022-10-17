@@ -1,15 +1,13 @@
 import React from "react";
-import { MonthType } from "@containers/Home/types";
 
 import { Scontent, Sitem } from "./styles";
+import { UserContext, UserContextType } from "src/context/userContext";
 
-type PropsType = {
-  months: MonthType[];
-  nowMonth: number;
-  setNowMonth: Function;
-};
+function Header() {
+  const { months, nowMonth, setNowMonth } = React.useContext(
+    UserContext
+  ) as UserContextType;
 
-function Header({ months, nowMonth, setNowMonth }: PropsType) {
   return (
     <Scontent>
       <div>

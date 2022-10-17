@@ -6,7 +6,7 @@ import { Scontent, Sfooter, Sheader, Ssection } from "./styles";
 import { ResponsibleValuesType } from "@containers/Home/types";
 
 type PropsType = {
-  list: ResponsibleValuesType[];
+  list: ResponsibleValuesType[] | undefined;
   title: string;
   isFooter?: ReactNode;
   background?: string;
@@ -14,7 +14,12 @@ type PropsType = {
 
 const initialValue = 0;
 
-export const CardMenu = ({ list, title, isFooter, background }: PropsType) => {
+export const CardMenu = ({
+  list = [],
+  title,
+  isFooter,
+  background,
+}: PropsType) => {
   const [sumTotal, setSumTotal] = React.useState(initialValue);
 
   React.useEffect(() => {

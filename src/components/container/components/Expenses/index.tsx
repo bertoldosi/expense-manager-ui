@@ -17,13 +17,11 @@ import { Scontent, Sheader } from "./styles";
 import { InstitutionType, MonthType } from "../../Home/types";
 import { customToast } from "@helpers/customToast";
 import { useFormik } from "formik";
+import { UserContext, UserContextType } from "src/context/userContext";
 
 type PropsType = {
   institution: InstitutionType;
-  monthList: MonthType[];
-  setMonthList: Function;
   month: MonthType;
-  getMonths: Function;
 };
 
 const initialValues = {
@@ -35,13 +33,9 @@ const initialValues = {
   status_paid: "aberto",
 };
 
-export const Expenses = ({
-  institution,
-  monthList,
-  setMonthList,
-  month,
-  getMonths,
-}: PropsType) => {
+export const Expenses = ({ institution, month }: PropsType) => {
+  const { getMonths } = React.useContext(UserContext) as UserContextType;
+
   const [request, setRequest] = React.useState(false);
 
   const formik = useFormik({
@@ -131,11 +125,8 @@ export const Expenses = ({
       <Table
         institution={institution}
         month={month}
-        monthList={monthList}
-        setMonthList={setMonthList}
         request={request}
         setRequest={setRequest}
-        getMonths={getMonths}
       />
     </Scontent>
   );

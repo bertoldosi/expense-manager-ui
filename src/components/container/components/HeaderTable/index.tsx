@@ -12,7 +12,7 @@ import { Edit } from "@icons/Edit";
 
 type PropsType = {
   setValueFilter: Function;
-  options: ResponsibleValuesType[];
+  options: ResponsibleValuesType[] | undefined;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   isItensSelect: boolean;
   handlerRepeat: React.MouseEventHandler<HTMLDivElement>;
@@ -23,7 +23,7 @@ type PropsType = {
 
 export const HeaderTable = ({
   setValueFilter,
-  options,
+  options = [],
   onChange,
   isItensSelect,
   handlerRepeat,

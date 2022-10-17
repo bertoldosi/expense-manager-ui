@@ -5,11 +5,7 @@ import { useFormik } from "formik";
 import { updateMonthInstitution } from "@graphqls/month";
 import { createInstitution, deleteInstitution } from "@graphqls/institution";
 
-import {
-  InstitutionType,
-  MonthType,
-  ResponsibleValuesType,
-} from "../../Home/types";
+import { InstitutionType, MonthType } from "../../Home/types";
 
 import Nav from "@containers/components/Nav";
 import Input from "@commons/Input";
@@ -24,13 +20,10 @@ import { Saside, ScontainerModal, Ssection, Swrapper } from "./styles";
 import { customToast } from "@helpers/customToast";
 import validationSchema from "./validations";
 import { Error } from "@commons/Error";
+import { UserContext, UserContextType } from "src/context/userContext";
 
 type PropsType = {
-  monthList: MonthType[];
   month: MonthType;
-  setMonthList: Function;
-  responsibleTotalAmountList: ResponsibleValuesType[];
-  getMonths: Function;
 };
 
 const initialValues = {
@@ -42,13 +35,11 @@ const initialValues = {
   shoppings: [],
 };
 
-export const Content = ({
-  monthList,
-  setMonthList,
-  month,
-  responsibleTotalAmountList,
-  getMonths,
-}: PropsType) => {
+export const Content = ({ month }: PropsType) => {
+  const { getMonths, responsibleTotalAmountList } = React.useContext(
+    UserContext
+  ) as UserContextType;
+
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
   const [isRequest, setIsRequest] = React.useState<boolean>(false);
   const [institutionVisible, setInstitutionVisible] = React.useState<number>(0);
@@ -176,13 +167,7 @@ export const Content = ({
                         }
                       />
                     </Saside>
-                    <Expenses
-                      institution={institutionMap}
-                      monthList={monthList}
-                      setMonthList={setMonthList}
-                      month={month}
-                      getMonths={getMonths}
-                    />
+                    <Expenses institution={institutionMap} month={month} />
                   </Ssection>
                 )}
               </div>

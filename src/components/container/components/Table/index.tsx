@@ -9,8 +9,6 @@ import { deleteShopping } from "@graphqls/shopping";
 import { SelectStatus } from "@commons/SelectStatus";
 import InputTable from "@containers/components/InputTable";
 import { updateShopping as upShopping } from "@graphqls/shopping";
-import { sumAmountResponsible } from "@helpers/sumAmountResponsible";
-import { updateAmountShoppings } from "@helpers/updateAmountShoppings";
 import { getMonthNumber, updateMonthInstitution } from "@graphqls/month";
 
 import {
@@ -29,15 +27,13 @@ import { Modal } from "@commons/Modal";
 import { Button } from "@commons/Button";
 import Input from "@commons/Input";
 import { customToast } from "@helpers/customToast";
+import { UserContext, UserContextType } from "src/context/userContext";
 
 type PropsType = {
   institution: InstitutionType;
   month: MonthType;
-  monthList: MonthType[];
-  setMonthList: Function;
   request: boolean;
   setRequest: Function;
-  getMonths: Function;
 };
 
 const initialNewShopping = {
@@ -49,12 +45,11 @@ const initialNewShopping = {
 export const Table = ({
   institution,
   month,
-  monthList,
-  setMonthList,
   request,
   setRequest,
-  getMonths,
 }: PropsType) => {
+  const { getMonths } = React.useContext(UserContext) as UserContextType;
+
   const [valueFilter, setValueFilter] = React.useState("todos");
   const [shoppings, setShoppings] = React.useState<ShoppingType[]>([]);
   const [isItensSelect, setIsItensSelect] = React.useState(false);
