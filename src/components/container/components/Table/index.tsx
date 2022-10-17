@@ -306,7 +306,7 @@ export const Table = ({
     });
 
     setShoppings(newShoppings);
-    setIsRequest(true);
+    setIsRequest(false);
     setIsVisible(false);
     setNewShopping(initialNewShopping);
   };
