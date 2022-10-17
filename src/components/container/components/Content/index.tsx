@@ -36,13 +36,12 @@ const initialValues = {
 };
 
 export const Content = ({ month }: PropsType) => {
-  const { getMonths, responsibleTotalAmountList } = React.useContext(
+  const { getMonths, responsibleTotalAmountList, nowCard } = React.useContext(
     UserContext
   ) as UserContextType;
 
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
   const [isRequest, setIsRequest] = React.useState<boolean>(false);
-  const [institutionVisible, setInstitutionVisible] = React.useState<number>(0);
 
   const formik = useFormik({
     initialValues,
@@ -94,11 +93,7 @@ export const Content = ({ month }: PropsType) => {
     <>
       <Swrapper>
         <nav>
-          <Nav
-            institutions={month.institutions}
-            setInstitutionVisible={setInstitutionVisible}
-            institutionVisible={institutionVisible}
-          />
+          <Nav institutions={month.institutions} />
         </nav>
 
         {month.institutions.length === 0 ? (
@@ -129,7 +124,7 @@ export const Content = ({ month }: PropsType) => {
           month.institutions.map((institutionMap, index) => {
             return (
               <div key={index}>
-                {index === institutionVisible && (
+                {index === nowCard && (
                   <Ssection>
                     <Saside>
                       <CardMenu

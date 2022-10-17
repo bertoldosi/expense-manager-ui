@@ -4,7 +4,7 @@ import { Scontent, Sitem } from "./styles";
 import { UserContext, UserContextType } from "src/context/userContext";
 
 function Header() {
-  const { months, nowMonth, setNowMonth } = React.useContext(
+  const { months, nowMonth, handlerNumberMonth } = React.useContext(
     UserContext
   ) as UserContextType;
 
@@ -17,7 +17,7 @@ function Header() {
               key={index}
               className="selected"
               onClick={() => {
-                setNowMonth(month.mesNumber);
+                handlerNumberMonth(month.mesNumber);
               }}
             >
               <h1>{month.name}</h1>
@@ -26,7 +26,7 @@ function Header() {
             <Sitem
               key={index}
               onClick={() => {
-                setNowMonth(month.mesNumber);
+                handlerNumberMonth(month.mesNumber);
               }}
             >
               <h1>{month.name}</h1>

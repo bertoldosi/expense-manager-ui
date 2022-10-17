@@ -7,13 +7,16 @@ import { updateAmountShoppings } from "@helpers/updateAmountShoppings";
 import { sumTotalResponsible } from "@helpers/sumTotalResponsible";
 
 export type UserContextType = {
-  nowMonth: number;
+  nowMonth: number | undefined;
+  nowCard: number | undefined;
   months: MonthType[];
   setMonths: Function;
   setNowMonth: Function;
   getMonths: Function;
   responsibleTotalAmountList: ResponsibleValuesType[];
   setResponsibleTotalAmountList: Function;
+  handlerNumberMonth: Function;
+  handlerNumberCard: Function;
 };
 
 type PropsType = {
@@ -24,9 +27,8 @@ export const UserContext = React.createContext<UserContextType | null>(null);
 
 const UserContextProvider = ({ children }: PropsType) => {
   const [months, setMonths] = React.useState<MonthType[]>([]);
-  const [nowMonth, setNowMonth] = React.useState<number>(
-    () => new Date().getMonth() + 1
-  );
+  const [nowMonth, setNowMonth] = React.useState<number | undefined>();
+  const [nowCard, setNowCard] = React.useState<number | undefined>();
   const [responsibleTotalAmountList, setResponsibleTotalAmountList] =
     React.useState<ResponsibleValuesType[]>([]);
 
@@ -58,6 +60,34 @@ const UserContextProvider = ({ children }: PropsType) => {
     );
   };
 
+  const handlerNumberMonth = (value: number) => {
+    setNowMonth(value);
+    localStorage.setItem("@numberMonth", String(value));
+  };
+
+  const handlerNumberCard = (value: number) => {
+    setNowCard(value);
+    localStorage.setItem("@numberCard", String(value));
+  };
+
+  React.useEffect(() => {
+    const numberMonth = new Date().getMonth() + 1;
+    const numberMonthStorage = localStorage.getItem("@numberMonth");
+    const numberCardStorage = localStorage.getItem("@numberCard");
+
+    if (numberMonthStorage) {
+      setNowMonth(Number(numberMonthStorage));
+    } else {
+      setNowMonth(numberMonth);
+    }
+
+    if (numberCardStorage) {
+      setNowCard(Number(numberCardStorage));
+    } else {
+      setNowCard(0);
+    }
+  }, []);
+
   React.useEffect(() => {
     months.map((monthMap) => {
       if (monthMap.mesNumber === nowMonth) {
@@ -82,6 +112,9 @@ const UserContextProvider = ({ children }: PropsType) => {
         getMonths,
         responsibleTotalAmountList,
         setResponsibleTotalAmountList,
+        handlerNumberMonth,
+        handlerNumberCard,
+        nowCard,
       }}
     >
       {children}

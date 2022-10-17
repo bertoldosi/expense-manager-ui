@@ -3,18 +3,17 @@ import React from "react";
 import { InstitutionType } from "@containers/Home/types";
 
 import { Scontent, Sitem, Slist } from "./styles";
+import { UserContext, UserContextType } from "src/context/userContext";
 
 type PropsType = {
   institutions: InstitutionType[];
-  setInstitutionVisible: Function;
-  institutionVisible: number;
 };
 
-function Nav({
-  institutions,
-  setInstitutionVisible,
-  institutionVisible,
-}: PropsType) {
+function Nav({ institutions }: PropsType) {
+  const { nowCard, handlerNumberCard } = React.useContext(
+    UserContext
+  ) as UserContextType;
+
   if (institutions.length === 0) {
     return (
       <Scontent>
@@ -27,12 +26,12 @@ function Nav({
     <Scontent>
       <Slist>
         {institutions.map((institutionMap, index) =>
-          index === institutionVisible ? (
+          index === nowCard ? (
             <Sitem
               key={index}
               className="selected"
               onClick={() => {
-                setInstitutionVisible(index);
+                handlerNumberCard(index);
               }}
             >
               <h1>{institutionMap.name}</h1>
@@ -41,7 +40,7 @@ function Nav({
             <Sitem
               key={index}
               onClick={() => {
-                setInstitutionVisible(index);
+                handlerNumberCard(index);
               }}
             >
               <h1>{institutionMap.name}</h1>
