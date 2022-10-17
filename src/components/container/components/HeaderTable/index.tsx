@@ -19,6 +19,7 @@ type PropsType = {
   isRequest: boolean;
   removeShoppings: React.MouseEventHandler<HTMLDivElement>;
   setIsVisible: Function;
+  valueFilter: string;
 };
 
 export const HeaderTable = ({
@@ -30,6 +31,7 @@ export const HeaderTable = ({
   isRequest,
   removeShoppings,
   setIsVisible,
+  valueFilter,
 }: PropsType) => {
   return (
     <Scontent>
@@ -79,7 +81,11 @@ export const HeaderTable = ({
           </>
         )}
 
-        <SelectFilter handlerValue={setValueFilter} options={options} />
+        <SelectFilter
+          handlerValue={setValueFilter}
+          options={options}
+          valueFilter={valueFilter}
+        />
       </GroupLeft>
     </Scontent>
   );

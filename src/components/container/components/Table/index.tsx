@@ -1,6 +1,5 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import { toast } from "react-toastify";
 
 import { Save } from "@icons/Save";
 import { HeaderTable } from "../HeaderTable";
@@ -233,6 +232,7 @@ export const Table = ({
         deleteShopping(shoppingReference)
           .then(() => {
             getMonths();
+            setValueFilter("todos");
             customToast("success", "Deletado com sucesso!");
           })
           .catch(() => {
@@ -325,7 +325,6 @@ export const Table = ({
 
   React.useMemo(() => {
     filter();
-    getMonths();
     setIsRequest(false);
   }, [valueFilter]);
 
@@ -333,6 +332,10 @@ export const Table = ({
     const resultFilter = shoppings.filter((shopping) => shopping.select);
     setIsItensSelect(resultFilter.length > 0);
   }, [shoppings]);
+
+  React.useMemo(() => {
+    setShoppings(institution.shoppings);
+  }, [institution.shoppings]);
 
   return (
     <>
@@ -345,6 +348,7 @@ export const Table = ({
         isRequest={isRequest}
         removeShoppings={removeShopping}
         setIsVisible={setIsVisible}
+        valueFilter={valueFilter}
       />
 
       <Modal
