@@ -265,47 +265,29 @@ export const Table = ({
   const updateAllShopping = async () => {
     setIsRequest(true);
 
-    shoppings.map(async (shoppingMap) => {
-      if (shoppingMap.select) {
-        const newShoppingUpdate = {
-          ...shoppingMap,
-          responsible:
-            newShopping.responsible === ""
-              ? shoppingMap.responsible
-              : newShopping.responsible,
-          status_paid:
-            newShopping.status_paid === ""
-              ? shoppingMap.status_paid
-              : newShopping.status_paid,
-          select: false,
-        };
+    Promise.all(
+      shoppings.map(async (shoppingMap) => {
+        if (shoppingMap.select) {
+          const newShoppingUpdate = {
+            ...shoppingMap,
+            responsible:
+              newShopping.responsible === ""
+                ? shoppingMap.responsible
+                : newShopping.responsible,
+            status_paid:
+              newShopping.status_paid === ""
+                ? shoppingMap.status_paid
+                : newShopping.status_paid,
+            select: false,
+          };
 
-        await upShopping(newShoppingUpdate);
-      }
+          await upShopping(newShoppingUpdate);
+        }
+      })
+    ).then(() => {
+      getMonths();
     });
 
-    const newShoppings = shoppings.map((shoppingMap) => {
-      const newShoppingUpdate = {
-        ...shoppingMap,
-        responsible:
-          newShopping.responsible === ""
-            ? shoppingMap.responsible
-            : newShopping.responsible,
-        status_paid:
-          newShopping.status_paid === ""
-            ? shoppingMap.status_paid
-            : newShopping.status_paid,
-        select: false,
-      };
-
-      if (shoppingMap.select) {
-        return newShoppingUpdate;
-      } else {
-        return shoppingMap;
-      }
-    });
-
-    setShoppings(newShoppings);
     setIsRequest(false);
     setIsVisible(false);
     setNewShopping(initialNewShopping);
