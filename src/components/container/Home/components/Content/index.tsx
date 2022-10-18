@@ -5,17 +5,17 @@ import { useFormik } from "formik";
 import { updateMonthInstitution } from "@graphqls/month";
 import { createInstitution, deleteInstitution } from "@graphqls/institution";
 
-import { InstitutionType, MonthType } from "../../Home/types";
+import { InstitutionType, MonthType } from "../../types";
 
-import Nav from "@containers/components/Nav";
+import Nav from "@containers/Home/components/Nav";
 import Input from "@commons/Input";
 import { Trash } from "@icons/Trash";
 import { Add } from "@icons/Add";
 import { Modal } from "@commons/Modal";
 import { Save } from "@icons/Save";
 import { Button } from "@commons/Button";
-import { CardMenu } from "@containers/components/CardMenu";
-import { Expenses } from "@containers/components/Expenses";
+import { CardMenu } from "@containers/Home/components/CardMenu";
+import { Expenses } from "@containers/Home/components/Expenses";
 import { Saside, ScontainerModal, Ssection, Swrapper } from "./styles";
 import { customToast } from "@helpers/customToast";
 import validationSchema from "./validations";

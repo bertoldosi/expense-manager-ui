@@ -6,7 +6,7 @@ import { HeaderTable } from "../HeaderTable";
 import { maskMorney } from "@helpers/masks";
 import { deleteShopping } from "@graphqls/shopping";
 import { SelectStatus } from "@commons/SelectStatus";
-import InputTable from "@containers/components/InputTable";
+import InputTable from "@containers/Home/components/InputTable";
 import { updateShopping as upShopping } from "@graphqls/shopping";
 import { getMonthNumber, updateMonthInstitution } from "@graphqls/month";
 

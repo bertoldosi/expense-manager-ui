@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Button } from "@commons/Button";
 import Input from "@commons/Input";
 import { Add } from "@icons/Add";
-import { Table } from "@containers/components/Table";
+import { Table } from "@containers/Home/components/Table";
 
 import { updateInstitutionShoppings } from "@graphqls/institution";
 import { focusInput } from "@helpers/focusInput";
@@ -14,7 +14,7 @@ import { Error } from "@commons/Error";
 
 import { Scontent, Sheader } from "./styles";
 
-import { InstitutionType, MonthType } from "../../Home/types";
+import { InstitutionType, MonthType } from "../../types";
 import { customToast } from "@helpers/customToast";
 import { useFormik } from "formik";
 import { UserContext, UserContextType } from "src/context/userContext";

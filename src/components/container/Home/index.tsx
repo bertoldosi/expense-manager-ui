@@ -1,7 +1,7 @@
 import React from "react";
 
 import Header from "@commons/Header";
-import { Content } from "@containers/components/Content";
+import { Content } from "@containers/Home/components/Content";
 
 import { Scontainer } from "./styles";
 import { UserContext, UserContextType } from "src/context/userContext";
