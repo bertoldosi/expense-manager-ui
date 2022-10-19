@@ -46,6 +46,7 @@ export const Content = ({ month }: PropsType) => {
   const formik = useFormik({
     initialValues,
     onSubmit: async (values) => {
+      setIsRequest(true);
       const payload = {
         ...values,
         reference: uuidv4(),
@@ -72,6 +73,7 @@ export const Content = ({ month }: PropsType) => {
   });
 
   const removeInstitution = (institution: InstitutionType) => {
+    setIsRequest(true);
     const isShoppings = institution.shoppings.length > 0;
 
     if (isShoppings) {
@@ -86,6 +88,9 @@ export const Content = ({ month }: PropsType) => {
       })
       .catch(() => {
         customToast("error", "Tente novamente!");
+      })
+      .finally(() => {
+        setIsRequest(false);
       });
   };
 
@@ -106,6 +111,7 @@ export const Content = ({ month }: PropsType) => {
                 isFooter={
                   <>
                     <Button
+                      disabled={isRequest}
                       color="#fff"
                       background="#B0C4DE"
                       icon={<Add width={15} height={15} />}
@@ -139,6 +145,7 @@ export const Content = ({ month }: PropsType) => {
                         isFooter={
                           <>
                             <Button
+                              disabled={isRequest}
                               color="#fff"
                               background="#B0C4DE"
                               icon={<Add width={15} height={15} />}
@@ -149,6 +156,7 @@ export const Content = ({ month }: PropsType) => {
                               Novo cartão
                             </Button>
                             <Button
+                              disabled={isRequest}
                               color="#fff"
                               background="#B0C4DE"
                               icon={<Trash width={15} height={15} />}

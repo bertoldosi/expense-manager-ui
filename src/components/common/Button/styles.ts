@@ -5,7 +5,7 @@ type PropsType = {
   background: string;
 };
 
-export const Scontent = styled.div<PropsType>`
+export const Scontent = styled.label<PropsType>`
   width: 100%;
   height: 3rem;
   display: flex;

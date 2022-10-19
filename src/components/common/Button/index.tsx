@@ -7,7 +7,7 @@ type PropsType = {
   icon?: any;
   color: string;
   background: string;
-  onClick?: React.MouseEventHandler<HTMLDivElement>;
+  onClick?: any;
   disabled?: boolean;
   ContainerInputClassName?: string;
   type?: "button" | "submit" | "reset";
@@ -24,16 +24,30 @@ export const Button = ({
   type,
 }: PropsType) => {
   return (
-    <Scontent
-      className={ContainerInputClassName}
-      color={color}
-      background={background}
-      onClick={onClick}
-    >
-      {icon}
-      <Sbutton type={type} disabled={disabled}>
-        {children}
-      </Sbutton>
-    </Scontent>
+    <>
+      {disabled ? (
+        <Scontent
+          className={ContainerInputClassName}
+          color={color}
+          background={background}
+          aria-disabled={disabled}
+        >
+          Processando...
+        </Scontent>
+      ) : (
+        <Scontent
+          className={ContainerInputClassName}
+          color={color}
+          background={background}
+          aria-disabled={disabled}
+          onClick={onClick}
+        >
+          {icon}
+          <Sbutton onClick={onClick} type={type} disabled={disabled}>
+            {children}
+          </Sbutton>
+        </Scontent>
+      )}
+    </>
   );
 };
