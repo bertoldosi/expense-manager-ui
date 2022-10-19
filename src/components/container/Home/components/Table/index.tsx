@@ -288,6 +288,7 @@ export const Table = ({
       getMonths();
     });
 
+    setValueFilter("todos");
     setIsRequest(false);
     setIsVisible(false);
     setNewShopping(initialNewShopping);
