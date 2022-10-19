@@ -7,13 +7,7 @@ import { Scontainer } from "./styles";
 import { UserContext, UserContextType } from "src/context/userContext";
 
 function Home() {
-  const { getMonths, months, nowMonth } = React.useContext(
-    UserContext
-  ) as UserContextType;
-
-  React.useEffect(() => {
-    getMonths();
-  }, [nowMonth]);
+  const { months, nowMonth } = React.useContext(UserContext) as UserContextType;
 
   return (
     <Scontainer>
