@@ -25,7 +25,8 @@
       "@mocks/*": ["src/mocks/*"],
       "@pages/*": ["src/pages/*"],
       "@services/*": ["src/services/*"]
-    }
+    },
+    "types": []
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.js"],
   "exclude": ["node_modules"]
