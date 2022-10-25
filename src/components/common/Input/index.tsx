@@ -1,17 +1,17 @@
 import React from "react";
 
-import { Scontainer, Sinput } from "./styles";
+import { Scontainer } from "./styles";
 
 interface PropsTypes extends React.HTMLProps<HTMLInputElement> {
   error?: Object;
   props?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-function Input({ error, props }: PropsTypes) {
+function Input({ error, ...props }: PropsTypes) {
   return (
     <Scontainer>
       <>
-        <Sinput {...props} />
+        <input {...props} />
         {error}
       </>
     </Scontainer>
