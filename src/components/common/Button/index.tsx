@@ -43,7 +43,7 @@ export const Button = ({
           onClick={onClick}
         >
           {icon}
-          <Sbutton onClick={onClick} type={type} disabled={disabled}>
+          <Sbutton type={type} disabled={disabled}>
             {children}
           </Sbutton>
         </Scontent>
