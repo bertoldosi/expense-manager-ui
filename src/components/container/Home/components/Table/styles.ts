@@ -43,3 +43,9 @@ export const NoResult = styled.div`
     font-size: 2rem;
   }
 `;
+
+export const ScontentModal = styled.div`
+  display: flex;
+  align-items: baseline;
+  gap: 3rem;
+`;

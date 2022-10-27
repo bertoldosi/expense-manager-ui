@@ -21,7 +21,7 @@ import {
   updateInstitutionShoppings,
 } from "@graphqls/institution";
 
-import { NoResult, Scontent } from "./styles";
+import { NoResult, Scontent, ScontentModal } from "./styles";
 import { Modal } from "@commons/Modal";
 import { Button } from "@commons/Button";
 import Input from "@commons/Input";
@@ -325,43 +325,6 @@ export const Table = ({ institution, month }: PropsType) => {
         valueFilter={valueFilter}
       />
 
-      <Modal
-        title="Editando item(s)"
-        isVisible={isVisible}
-        handlerIsVisible={setIsVisible}
-        footer={
-          <Button
-            disabled={isRequest}
-            color="#fff"
-            background="#B0C4DE"
-            icon={<Save width={15} height={15} />}
-            onClick={updateAllShopping}
-          >
-            Salvar
-          </Button>
-        }
-      >
-        <Input
-          autoFocus
-          disabled={isRequest}
-          name="responsible"
-          placeholder="Nome do responsavel"
-          id="responsible"
-          value={newAllShopping.responsible}
-          onChange={onChangeUpdateAllShopping}
-        />
-
-        <SelectStatus
-          selectClassName={newAllShopping.status_paid}
-          optionClassName={newAllShopping.status_paid}
-          name="status_paid"
-          id="status_paid"
-          value={newAllShopping.status_paid}
-          options={[{ name: "aberto" }, { name: "pago" }]}
-          onChange={onChangeUpdateAllShopping}
-        />
-      </Modal>
-
       <Scontent>
         {shoppings.length > 0 ? (
           shoppings.map((shopping, index) => (
@@ -442,6 +405,45 @@ export const Table = ({ institution, month }: PropsType) => {
           </NoResult>
         )}
       </Scontent>
+
+      <Modal
+        title="Editando item(s)"
+        isVisible={isVisible}
+        handlerIsVisible={setIsVisible}
+        footer={
+          <Button
+            disabled={isRequest}
+            color="#fff"
+            background="#B0C4DE"
+            icon={<Save width={15} height={15} />}
+            onClick={updateAllShopping}
+          >
+            Salvar
+          </Button>
+        }
+      >
+        <ScontentModal>
+          <Input
+            autoFocus
+            disabled={isRequest}
+            name="responsible"
+            placeholder="Nome do responsavel"
+            id="responsible"
+            value={newAllShopping.responsible}
+            onChange={onChangeUpdateAllShopping}
+          />
+
+          <SelectStatus
+            selectClassName={newAllShopping.status_paid}
+            optionClassName={newAllShopping.status_paid}
+            name="status_paid"
+            id="status_paid"
+            value={newAllShopping.status_paid}
+            options={[{ name: "aberto" }, { name: "pago" }]}
+            onChange={onChangeUpdateAllShopping}
+          />
+        </ScontentModal>
+      </Modal>
     </>
   );
 };
