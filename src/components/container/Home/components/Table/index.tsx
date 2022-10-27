@@ -31,22 +31,15 @@ import { UserContext, UserContextType } from "src/context/userContext";
 type PropsType = {
   institution: InstitutionType;
   month: MonthType;
-  request: boolean;
-  setRequest: Function;
 };
 
-const initialNewShopping = {
+const initialNewAllShopping = {
   responsible: "",
   status_paid: "aberto",
   select: false,
 };
 
-export const Table = ({
-  institution,
-  month,
-  request,
-  setRequest,
-}: PropsType) => {
+export const Table = ({ institution, month }: PropsType) => {
   const { getMonths } = React.useContext(UserContext) as UserContextType;
 
   const [valueFilter, setValueFilter] = React.useState("todos");
@@ -54,7 +47,9 @@ export const Table = ({
   const [isItensSelect, setIsItensSelect] = React.useState(false);
   const [isRequest, setIsRequest] = React.useState(false);
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
-  const [newShopping, setNewShopping] = React.useState(initialNewShopping);
+  const [newAllShopping, setNewAllShopping] = React.useState(
+    initialNewAllShopping
+  );
 
   const onChangeUpdateShopping = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -76,12 +71,14 @@ export const Table = ({
     );
   };
 
-  const onChangeAddShopping = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeUpdateAllShopping = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = event.target;
 
-    setNewShopping((prevState) => ({
+    setNewAllShopping((prevState) => ({
       ...prevState,
-      [name]: maskMorney(value, name),
+      [name]: value,
     }));
   };
 
@@ -222,30 +219,25 @@ export const Table = ({
     }
   };
 
-  const removeShopping = async () => {
-    setRequest(true);
+  const removeShopping = () => {
+    setIsRequest(true);
 
-    shoppings.map((shoppingMap) => {
-      if (shoppingMap.select) {
-        const shoppingReference = shoppingMap.reference;
-
-        deleteShopping(shoppingReference)
-          .then(() => {
-            getMonths();
-            setValueFilter("todos");
-            customToast("success", "Deletado com sucesso!");
-          })
-          .catch(() => {
-            customToast("error", "Tente novamente!");
-          });
-      }
+    Promise.all(
+      shoppings.map(async (shoppingMap) => {
+        if (shoppingMap.select) {
+          const shoppingReference = shoppingMap.reference;
+          await deleteShopping(shoppingReference);
+        }
+      })
+    ).then(() => {
+      getMonths();
+      setValueFilter("todos");
+      setIsRequest(false);
     });
-
-    setRequest(false);
   };
 
   const updateShopping = async (shoppingUpdate: ShoppingType) => {
-    setRequest(true);
+    setIsRequest(true);
 
     upShopping(shoppingUpdate)
       .then(() => {
@@ -258,11 +250,11 @@ export const Table = ({
       })
 
       .finally(() => {
-        setRequest(false);
+        setIsRequest(false);
       });
   };
 
-  const updateAllShopping = async () => {
+  const updateAllShopping = () => {
     setIsRequest(true);
 
     Promise.all(
@@ -271,13 +263,13 @@ export const Table = ({
           const newShoppingUpdate = {
             ...shoppingMap,
             responsible:
-              newShopping.responsible === ""
+              newAllShopping.responsible === ""
                 ? shoppingMap.responsible
-                : newShopping.responsible,
+                : newAllShopping.responsible,
             status_paid:
-              newShopping.status_paid === ""
+              newAllShopping.status_paid === ""
                 ? shoppingMap.status_paid
-                : newShopping.status_paid,
+                : newAllShopping.status_paid,
             select: false,
           };
 
@@ -286,12 +278,11 @@ export const Table = ({
       })
     ).then(() => {
       getMonths();
+      setValueFilter("todos");
+      setIsRequest(false);
+      setIsVisible(false);
+      setNewAllShopping(initialNewAllShopping);
     });
-
-    setValueFilter("todos");
-    setIsRequest(false);
-    setIsVisible(false);
-    setNewShopping(initialNewShopping);
   };
 
   const filter = () => {
@@ -340,7 +331,7 @@ export const Table = ({
         handlerIsVisible={setIsVisible}
         footer={
           <Button
-            disabled={request}
+            disabled={isRequest}
             color="#fff"
             background="#B0C4DE"
             icon={<Save width={15} height={15} />}
@@ -352,22 +343,22 @@ export const Table = ({
       >
         <Input
           autoFocus
-          disabled={request}
+          disabled={isRequest}
           name="responsible"
           placeholder="Nome do responsavel"
           id="responsible"
-          value={newShopping.responsible}
-          onChange={onChangeAddShopping}
+          value={newAllShopping.responsible}
+          onChange={onChangeUpdateAllShopping}
         />
 
         <SelectStatus
-          selectClassName={newShopping.status_paid}
-          optionClassName={newShopping.status_paid}
+          selectClassName={newAllShopping.status_paid}
+          optionClassName={newAllShopping.status_paid}
           name="status_paid"
           id="status_paid"
-          value={newShopping.status_paid}
+          value={newAllShopping.status_paid}
           options={[{ name: "aberto" }, { name: "pago" }]}
-          onChange={onChangeAddShopping}
+          onChange={onChangeUpdateAllShopping}
         />
       </Modal>
 
@@ -378,7 +369,7 @@ export const Table = ({
               <strong>
                 <InputTable
                   type="checkbox"
-                  disabled={request}
+                  disabled={isRequest}
                   name="select"
                   id={shopping.reference}
                   checked={shopping.select}
@@ -387,7 +378,7 @@ export const Table = ({
                   }}
                 />
                 <InputTable
-                  disabled={request}
+                  disabled={isRequest}
                   name="description"
                   id={shopping.reference}
                   value={shopping.description}
@@ -399,7 +390,7 @@ export const Table = ({
               </strong>
               <strong>
                 <InputTable
-                  disabled={request}
+                  disabled={isRequest}
                   name="amount"
                   id={shopping.reference}
                   value={shopping.amount}
@@ -411,7 +402,7 @@ export const Table = ({
               </strong>
               <strong>
                 <InputTable
-                  disabled={request || valueFilter != "todos"}
+                  disabled={isRequest || valueFilter != "todos"}
                   name="responsible"
                   id={shopping.reference}
                   value={shopping.responsible}
@@ -436,7 +427,7 @@ export const Table = ({
                   <Save
                     width={20}
                     height={20}
-                    disabled={request}
+                    disabled={isRequest}
                     onClick={() => {
                       updateShopping(shopping);
                     }}

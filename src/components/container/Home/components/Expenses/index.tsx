@@ -35,12 +35,13 @@ const initialValues = {
 
 export const Expenses = ({ institution, month }: PropsType) => {
   const { getMonths } = React.useContext(UserContext) as UserContextType;
-
-  const [request, setRequest] = React.useState(false);
+  const [isRequest, setIsRequest] = React.useState(false);
 
   const formik = useFormik({
     initialValues,
     onSubmit: async (values) => {
+      setIsRequest(true);
+
       const payload = {
         ...values,
         reference: uuidv4(),
@@ -58,7 +59,7 @@ export const Expenses = ({ institution, month }: PropsType) => {
 
         .finally(() => {
           formik.resetForm();
-          setRequest(false);
+          setIsRequest(false);
           focusInput("description");
         });
     },
@@ -66,12 +67,20 @@ export const Expenses = ({ institution, month }: PropsType) => {
     validationSchema,
   });
 
-  const handleAmountChange = ({
+  const onChangeAmount = ({
     target: { name, value },
   }: React.ChangeEvent<HTMLInputElement>) => {
     const amount = maskMorney(value, name);
 
     formik.setFieldValue("amount", amount);
+  };
+
+  const onChangeResponsible = ({
+    target: { name, value },
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    const responsible = maskMorney(value, name);
+
+    formik.setFieldValue("responsible", responsible);
   };
 
   return (
@@ -91,21 +100,19 @@ export const Expenses = ({ institution, month }: PropsType) => {
           }
         />
         <Input
-          disabled={request}
           name="amount"
           placeholder="R$ 00,00"
           id={formik.values.reference}
           value={formik.values.amount}
-          onChange={handleAmountChange}
+          onChange={onChangeAmount}
           error={formik.touched.amount && <Error>{formik.errors.amount}</Error>}
         />
         <Input
-          disabled={request}
           name="responsible"
           placeholder="Nome do responsavel"
           id={formik.values.reference}
           value={formik.values.responsible}
-          onChange={formik.handleChange}
+          onChange={onChangeResponsible}
           error={
             formik.touched.responsible && (
               <Error>{formik.errors.responsible}</Error>
@@ -113,7 +120,7 @@ export const Expenses = ({ institution, month }: PropsType) => {
           }
         />
         <Button
-          disabled={request}
+          disabled={isRequest}
           color="#fff"
           background="#B0C4DE"
           icon={<Add width={15} height={15} />}
@@ -122,12 +129,7 @@ export const Expenses = ({ institution, month }: PropsType) => {
           Adicionar
         </Button>
       </Sheader>
-      <Table
-        institution={institution}
-        month={month}
-        request={request}
-        setRequest={setRequest}
-      />
+      <Table institution={institution} month={month} />
     </Scontent>
   );
 };

@@ -88,7 +88,7 @@ const UserContextProvider = ({ children }: PropsType) => {
     }
   }, []);
 
-  React.useEffect(() => {
+  React.useMemo(() => {
     months.map((monthMap) => {
       if (monthMap.mesNumber === nowMonth) {
         setResponsibleTotalAmountList(
@@ -98,9 +98,9 @@ const UserContextProvider = ({ children }: PropsType) => {
     });
   }, [months]);
 
-  React.useEffect(() => {
+  React.useMemo(() => {
     getMonths();
-  }, [nowMonth]);
+  }, [nowMonth, nowCard]);
 
   return (
     <UserContext.Provider
