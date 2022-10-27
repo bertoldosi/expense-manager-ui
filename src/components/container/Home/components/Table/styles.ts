@@ -46,6 +46,6 @@ export const NoResult = styled.div`
 
 export const ScontentModal = styled.div`
   display: flex;
-  align-items: baseline;
-  gap: 3rem;
+  flex-direction: column;
+  gap: 1rem;
 `;
