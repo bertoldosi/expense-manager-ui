@@ -128,9 +128,9 @@ export const Content = ({ month }: PropsType) => {
           </Ssection>
         ) : (
           month.institutions.map((institutionMap, index) => {
-            return (
-              <div key={index}>
-                {index === nowCard && (
+            if (index === nowCard) {
+              return (
+                <div key={index}>
                   <Ssection>
                     <Saside>
                       <CardMenu
@@ -172,9 +172,9 @@ export const Content = ({ month }: PropsType) => {
                     </Saside>
                     <Expenses institution={institutionMap} month={month} />
                   </Ssection>
-                )}
-              </div>
-            );
+                </div>
+              );
+            }
           })
         )}
       </Swrapper>
