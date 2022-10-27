@@ -2,11 +2,11 @@ import React from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import { Save } from "@icons/Save";
-import { HeaderTable } from "../HeaderTable";
+import { HeaderTable } from "../../components/HeaderTable";
 import { maskMorney } from "@helpers/masks";
 import { deleteShopping } from "@graphqls/shopping";
 import { SelectStatus } from "@commons/SelectStatus";
-import InputTable from "@containers/Home/components/InputTable";
+import InputTable from "@containers/Home/components/Shopping/components/InputTable";
 import { updateShopping as upShopping } from "@graphqls/shopping";
 import { getMonthNumber, updateMonthInstitution } from "@graphqls/month";
 

@@ -1,7 +1,7 @@
 import React from "react";
 
 import Header from "@commons/Header";
-import { Content } from "@containers/Home/components/Content";
+import { Institution } from "@containers/Home/components/Institution";
 
 import { Scontainer } from "./styles";
 import { UserContext, UserContextType } from "src/context/userContext";
@@ -16,7 +16,7 @@ function Home() {
       {months.map(
         (monthMap, index) =>
           monthMap.mesNumber === nowMonth && (
-            <Content key={index} month={monthMap} />
+            <Institution key={index} month={monthMap} />
           )
       )}
     </Scontainer>

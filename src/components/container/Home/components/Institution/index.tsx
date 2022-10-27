@@ -7,15 +7,15 @@ import { createInstitution, deleteInstitution } from "@graphqls/institution";
 
 import { InstitutionType, MonthType } from "../../types";
 
-import Nav from "@containers/Home/components/Nav";
+import Nav from "@containers/Home/components/Institution/components/Nav";
 import Input from "@commons/Input";
 import { Trash } from "@icons/Trash";
 import { Add } from "@icons/Add";
 import { Modal } from "@commons/Modal";
 import { Save } from "@icons/Save";
 import { Button } from "@commons/Button";
-import { CardMenu } from "@containers/Home/components/CardMenu";
-import { Expenses } from "@containers/Home/components/Expenses";
+import { CardMenu } from "@containers/Home/components/Institution/components/CardMenu";
+import { Shopping } from "@containers/Home/components/Shopping";
 import { Saside, ScontainerModal, Ssection, Swrapper } from "./styles";
 import { customToast } from "@helpers/customToast";
 import validationSchema from "./validations";
@@ -35,7 +35,7 @@ const initialValues = {
   shoppings: [],
 };
 
-export const Content = ({ month }: PropsType) => {
+export const Institution = ({ month }: PropsType) => {
   const { getMonths, responsibleTotalAmountList, nowCard } = React.useContext(
     UserContext
   ) as UserContextType;
@@ -170,7 +170,7 @@ export const Content = ({ month }: PropsType) => {
                         }
                       />
                     </Saside>
-                    <Expenses institution={institutionMap} month={month} />
+                    <Shopping institution={institutionMap} month={month} />
                   </Ssection>
                 </div>
               );

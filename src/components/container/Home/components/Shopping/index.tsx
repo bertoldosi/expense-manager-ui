@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Button } from "@commons/Button";
 import Input from "@commons/Input";
 import { Add } from "@icons/Add";
-import { Table } from "@containers/Home/components/Table";
+import { Table } from "@containers/Home/components/Shopping/components/Table";
 
 import { updateInstitutionShoppings } from "@graphqls/institution";
 import { focusInput } from "@helpers/focusInput";
@@ -33,7 +33,7 @@ const initialValues = {
   status_paid: "aberto",
 };
 
-export const Expenses = ({ institution, month }: PropsType) => {
+export const Shopping = ({ institution, month }: PropsType) => {
   const { getMonths } = React.useContext(UserContext) as UserContextType;
   const [isRequest, setIsRequest] = React.useState(false);
 
