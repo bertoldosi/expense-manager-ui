@@ -24,35 +24,40 @@ export const lightTheme = {
   backgroundNavEmphasis: "#f8f8ff",
   backgroundLineFooterEmphasis: "#029b99",
 
+  backgroundCard: "#fff",
   backgroundCardPrimary: "#029b99",
   backgroundCardSecondary: "#de4f15",
 
+  colorButton: "#333",
   backgroundButton: "#B0C4DE",
 };
 
 export const darkTheme = {
   ...common,
-  backgroundBory:
-    "linear-gradient(180deg, #0E398B 0%, rgba(24, 114, 165, 0.672688) 99.53%, rgba(19, 103, 151, 0.855911) 103.83%, rgba(28, 121, 173, 0.572576) 103.84%, rgba(33, 131, 187, 0.401042) 103.85%, rgba(45, 156, 219, 0) 103.86%, rgba(43, 152, 214, 0.0605227) 103.86%) no-repeat;",
-  color: "#333",
+  backgroundBory: "#1B1B1D",
+  color: "#fff",
 
-  backgroundHeade: "",
-  backgroundHeadeEmphasis: "",
-  backgroundHeadeLineFooterEmphasis: "",
+  backgroundHeade: "#272729",
+  backgroundHeadeEmphasis: "#333",
+  backgroundHeadeLineFooterEmphasis: "#de4f15",
 
-  backgroundTableHeade: "",
+  backgroundTableHeade: "#333",
+  backgroundTableNoResult: "#333",
+  backgroundTableItemEmphasis: "#3333",
 
-  backgroundNav: "",
-  backgroundNavEmphasis: "",
-  backgroundLineFooterEmphasis: "",
+  backgroundNav: "#272729",
+  backgroundNavEmphasis: "#333",
+  backgroundLineFooterEmphasis: "#029b99",
 
-  backgroundCardPrimary: "",
-  backgroundCardSecondary: "",
+  backgroundCard: "#333",
+  backgroundCardPrimary: "#029b99",
+  backgroundCardSecondary: "#de4f15",
 
-  backgroundButton: "",
+  colorButton: "#333",
+  backgroundButton: "#fff",
 };
 
-export const theme = lightTheme;
+export const theme = darkTheme;
 
 const Theme = ({ children }: ThemeTypes) => (
   <ThemeProvider theme={theme}>{children}</ThemeProvider>

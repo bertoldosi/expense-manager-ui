@@ -11,6 +11,11 @@ export const Scontainer = styled.div`
     border: none;
     background: transparent;
     outline: none;
-    border-bottom: 1px solid #3333;
+    color: ${(props) => props.theme.color};
+    border-bottom: 1px solid ${(props) => props.theme.color};
+
+    &::placeholder {
+      color: ${(props) => props.theme.color};
+    }
   }
 `;

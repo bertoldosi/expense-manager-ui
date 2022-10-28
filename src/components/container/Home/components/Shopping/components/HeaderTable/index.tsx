@@ -9,6 +9,7 @@ import { Button } from "@commons/Button";
 import { Repeat } from "@icons/Repeat";
 import { Trash } from "@icons/Trash";
 import { Edit } from "@icons/Edit";
+import { theme } from "src/styles/theme";
 
 type PropsType = {
   setValueFilter: Function;
@@ -52,7 +53,7 @@ export const HeaderTable = ({
             <Button
               disabled={isRequest}
               color="#fff"
-              background="#B0C4DE"
+              background={theme.backgroundButton}
               icon={<Edit width={15} height={15} />}
               onClick={() => {
                 setIsVisible(true);
@@ -63,7 +64,7 @@ export const HeaderTable = ({
             <Button
               disabled={isRequest}
               color="#fff"
-              background="#B0C4DE"
+              background={theme.backgroundButton}
               icon={<Repeat width={15} height={15} />}
               onClick={handlerRepeat}
             >
@@ -72,7 +73,7 @@ export const HeaderTable = ({
             <Button
               disabled={isRequest}
               color="#fff"
-              background="#B0C4DE"
+              background={theme.backgroundButton}
               icon={<Trash width={15} height={15} />}
               onClick={removeShoppings}
             >

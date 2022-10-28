@@ -18,6 +18,10 @@ export const Scontent = styled.label<PropsType>`
   cursor: pointer;
   white-space: nowrap;
 
+  span {
+    color: ${(props) => props.theme.colorButton};
+  }
+
   button {
     width: min-content;
   }

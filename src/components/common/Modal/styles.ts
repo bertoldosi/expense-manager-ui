@@ -6,7 +6,7 @@ export const Swrapper = styled.div`
   left: 0;
   top: 7rem;
   position: absolute;
-  background-color: #3333;
+  background: rgba(0, 0, 0, 0.9);
 
   padding: 3rem 1rem;
 
@@ -22,7 +22,7 @@ export const Scontent = styled.div`
   width: 100%;
   max-width: 50rem;
   height: min-content;
-  background-color: #fff;
+  background-color: ${(props) => props.theme.backgroundCard};
   border-radius: 0.3rem;
   overflow: hidden;
 `;

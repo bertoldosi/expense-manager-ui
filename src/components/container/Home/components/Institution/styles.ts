@@ -27,7 +27,7 @@ export const Ssection = styled.section`
 export const Saside = styled.aside`
   width: 22rem;
   height: calc(100vh - 15rem);
-  background-color: #fff;
+  background-color: ${(props) => props.theme.backgroundCard};
   overflow-y: auto;
 
   @media (max-width: 700px) {

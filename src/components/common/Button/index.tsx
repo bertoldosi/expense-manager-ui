@@ -32,7 +32,7 @@ export const Button = ({
           background={background}
           aria-disabled={disabled}
         >
-          Processando...
+          <span>Processando...</span>
         </Scontent>
       ) : (
         <Scontent

@@ -17,9 +17,11 @@ declare module "styled-components" {
     backgroundNavEmphasis: string;
     backgroundLineFooterEmphasis: string;
 
+    backgroundCard: string;
     backgroundCardPrimary: string;
     backgroundCardSecondary: string;
 
+    colorButton: string;
     backgroundButton: string;
   }
 }

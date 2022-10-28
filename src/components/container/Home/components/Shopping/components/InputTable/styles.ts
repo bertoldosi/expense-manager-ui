@@ -7,6 +7,7 @@ export const Sinput = styled.input`
   background: transparent;
   outline: none;
   font-size: 1.2rem;
+  color: ${(props) => props.theme.color};
 `;
 
 export const SinputCheckbox = styled.input`

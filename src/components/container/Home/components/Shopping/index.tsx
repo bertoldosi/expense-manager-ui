@@ -18,6 +18,7 @@ import { InstitutionType, MonthType } from "../../types";
 import { customToast } from "@helpers/customToast";
 import { useFormik } from "formik";
 import { UserContext, UserContextType } from "src/context/userContext";
+import { theme } from "src/styles/theme";
 
 type PropsType = {
   institution: InstitutionType;
@@ -122,7 +123,7 @@ export const Shopping = ({ institution, month }: PropsType) => {
         <Button
           disabled={isRequest}
           color="#fff"
-          background="#B0C4DE"
+          background={theme.backgroundButton}
           icon={<Add width={15} height={15} />}
           type="submit"
         >

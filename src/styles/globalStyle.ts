@@ -23,7 +23,12 @@ const GlobalStyle = createGlobalStyle`
         font-family: 'Source Sans Pro', sans-serif;
         text-rendering: optimizelegibility;
         -webkit-font-smoothing: antialiased;
-        color: ${(props) => props.theme.color}
+        
+    }
+
+    body{
+        color: ${(props) => props.theme.color};
+        background: ${(props) => props.theme.backgroundBory}
     }
 
     button{
