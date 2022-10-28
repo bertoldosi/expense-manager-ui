@@ -7,6 +7,17 @@ export const Scontent = styled.div`
   flex-direction: column;
   overflow-y: auto;
 
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar {
+    width: 6px;
+    background: ${(props) => props.theme.backgroundBory};
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${(props) => props.theme.backgroundHeade};
+  }
+
   span {
     display: flex;
     align-items: center;

@@ -30,6 +30,17 @@ export const Saside = styled.aside`
   background-color: ${(props) => props.theme.backgroundCard};
   overflow-y: auto;
 
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar {
+    width: 6px;
+    background: ${(props) => props.theme.backgroundBory};
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${(props) => props.theme.backgroundHeade};
+  }
+
   @media (max-width: 700px) {
     width: 100%;
     height: 100%;

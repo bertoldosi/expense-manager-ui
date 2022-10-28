@@ -28,7 +28,7 @@ const GlobalStyle = createGlobalStyle`
 
     body{
         color: ${(props) => props.theme.color};
-        background: ${(props) => props.theme.backgroundBory}
+        background: ${(props) => props.theme.backgroundBory};
     }
 
     button{
