@@ -6,6 +6,10 @@ export const Container = styled.div`
   display: flex;
   justify-content: end;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 2rem;
   background-color: ${(props) => props.theme.backgroundBory};
+
+  @media (max-width: 700px) {
+    padding: 2rem 3rem;
+  }
 `;
