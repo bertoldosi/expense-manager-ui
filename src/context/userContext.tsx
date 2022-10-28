@@ -82,7 +82,7 @@ const UserContextProvider = ({ children }: PropsType) => {
 
   const toggleTheme = () => {
     setIsThemeDark((prevIsThemeDark) => !prevIsThemeDark);
-    localStorage.setItem("@expManTheme", String(isThemeDark));
+    localStorage.setItem("@expManTheme", String(!isThemeDark));
   };
 
   React.useEffect(() => {
@@ -104,10 +104,14 @@ const UserContextProvider = ({ children }: PropsType) => {
   }, []);
 
   React.useEffect(() => {
-    const isDarkThemeStorage = localStorage.getItem("@expManTheme");
+    const isDarkThemeStorageStrig = localStorage.getItem("@expManTheme");
 
-    if (isDarkThemeStorage) {
-      setIsThemeDark(Boolean(isDarkThemeStorage));
+    const isDarkThemeStorageBoolean = isDarkThemeStorageStrig === "true";
+
+    if (isDarkThemeStorageStrig) {
+      setIsThemeDark(isDarkThemeStorageBoolean);
+
+      console.log(isDarkThemeStorageBoolean);
     } else {
       setIsThemeDark(true);
     }
