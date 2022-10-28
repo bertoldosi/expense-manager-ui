@@ -9,7 +9,7 @@ import { Button } from "@commons/Button";
 import { Repeat } from "@icons/Repeat";
 import { Trash } from "@icons/Trash";
 import { Edit } from "@icons/Edit";
-import { theme } from "src/styles/theme";
+import { UserContext, UserContextType } from "src/context/userContext";
 
 type PropsType = {
   setValueFilter: Function;
@@ -34,6 +34,8 @@ export const HeaderTable = ({
   setIsVisible,
   valueFilter,
 }: PropsType) => {
+  const { theme } = React.useContext(UserContext) as UserContextType;
+
   return (
     <Scontent>
       <div>
