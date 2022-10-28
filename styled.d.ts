@@ -9,7 +9,9 @@ declare module "styled-components" {
     backgroundHeadeEmphasis: string;
     backgroundHeadeLineFooterEmphasis: string;
 
-    backgroundHeadeTable: string;
+    backgroundTableHeade: string;
+    backgroundTableNoResult: string;
+    backgroundTableItemEmphasis: string;
 
     backgroundNav: string;
     backgroundNavEmphasis: string;

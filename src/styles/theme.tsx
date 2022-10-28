@@ -9,23 +9,25 @@ const common = {};
 
 export const lightTheme = {
   ...common,
-  backgroundBory: "",
-  color: "",
+  backgroundBory: "#f0f8ff",
+  color: "#333",
 
   backgroundHeade: "#708090",
   backgroundHeadeEmphasis: "#b0c4de",
   backgroundHeadeLineFooterEmphasis: "#de4f15",
 
-  backgroundHeadeTable: "#fff",
+  backgroundTableHeade: "#fff",
+  backgroundTableNoResult: "#fff",
+  backgroundTableItemEmphasis: "#3333",
 
-  backgroundNav: "",
-  backgroundNavEmphasis: "",
-  backgroundLineFooterEmphasis: "",
+  backgroundNav: " #b0c4de",
+  backgroundNavEmphasis: "#f8f8ff",
+  backgroundLineFooterEmphasis: "#029b99",
 
-  backgroundCardPrimary: "",
-  backgroundCardSecondary: "",
+  backgroundCardPrimary: "#029b99",
+  backgroundCardSecondary: "#de4f15",
 
-  backgroundButton: "",
+  backgroundButton: "#B0C4DE",
 };
 
 export const darkTheme = {
@@ -38,7 +40,7 @@ export const darkTheme = {
   backgroundHeadeEmphasis: "",
   backgroundHeadeLineFooterEmphasis: "",
 
-  backgroundHeadeTable: "",
+  backgroundTableHeade: "",
 
   backgroundNav: "",
   backgroundNavEmphasis: "",
@@ -50,7 +52,7 @@ export const darkTheme = {
   backgroundButton: "",
 };
 
-const theme = lightTheme;
+export const theme = lightTheme;
 
 const Theme = ({ children }: ThemeTypes) => (
   <ThemeProvider theme={theme}>{children}</ThemeProvider>

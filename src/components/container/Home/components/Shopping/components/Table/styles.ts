@@ -23,7 +23,7 @@ export const Scontent = styled.div`
     }
 
     &:hover {
-      background-color: #3333;
+      background-color: ${(props) => props.theme.backgroundTableItemEmphasis};
     }
   }
 
@@ -37,7 +37,7 @@ export const NoResult = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fff;
+  background-color: ${(props) => props.theme.backgroundTableNoResult};
   border-radius: 0.3rem;
   span {
     font-size: 2rem;

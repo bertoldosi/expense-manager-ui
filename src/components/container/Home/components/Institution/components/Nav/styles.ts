@@ -6,7 +6,7 @@ export const Scontent = styled.div`
   display: flex;
   align-items: center;
 
-  background-color: #b0c4de;
+  background-color: ${(props) => props.theme.backgroundNav};
 
   > h2 {
     width: 100%;
@@ -34,12 +34,14 @@ export const Sitem = styled.div`
   transition: background 0.5s;
 
   &.selected {
-    background-color: #f8f8ff;
-    border-bottom: 4px solid #029b99;
+    background-color: ${(props) => props.theme.backgroundNavEmphasis};
+    border-bottom: 4px solid
+      ${(props) => props.theme.backgroundLineFooterEmphasis};
   }
 
   &:hover {
-    background-color: #f8f8ff;
-    border-bottom: 4px solid #029b99;
+    background-color: ${(props) => props.theme.backgroundNavEmphasis};
+    border-bottom: 4px solid
+      ${(props) => props.theme.backgroundLineFooterEmphasis};
   }
 `;

@@ -21,6 +21,7 @@ import { customToast } from "@helpers/customToast";
 import validationSchema from "./validations";
 import { Error } from "@commons/Error";
 import { UserContext, UserContextType } from "src/context/userContext";
+import { theme } from "src/styles/theme";
 
 type PropsType = {
   month: MonthType;
@@ -107,13 +108,13 @@ export const Institution = ({ month }: PropsType) => {
               <CardMenu
                 title="TOTAL GERAL"
                 list={responsibleTotalAmountList}
-                background="#de4f15"
+                background={theme.backgroundCardPrimary}
                 isFooter={
                   <>
                     <Button
                       disabled={isRequest}
                       color="#fff"
-                      background="#B0C4DE"
+                      background={theme.backgroundButton}
                       icon={<Add width={15} height={15} />}
                       onClick={() => {
                         setIsVisible(!isVisible);
@@ -136,18 +137,18 @@ export const Institution = ({ month }: PropsType) => {
                       <CardMenu
                         title={`TOTAL ${institutionMap.name.toUpperCase()}`}
                         list={institutionMap.listResponsibleValues}
-                        background="#029b99"
+                        background={theme.backgroundCardPrimary}
                       />
                       <CardMenu
                         title="TOTAL GERAL"
                         list={responsibleTotalAmountList}
-                        background="#de4f15"
+                        background={theme.backgroundCardSecondary}
                         isFooter={
                           <>
                             <Button
                               disabled={isRequest}
                               color="#fff"
-                              background="#B0C4DE"
+                              background={theme.backgroundButton}
                               icon={<Add width={15} height={15} />}
                               onClick={() => {
                                 setIsVisible(!isVisible);
@@ -158,7 +159,7 @@ export const Institution = ({ month }: PropsType) => {
                             <Button
                               disabled={isRequest}
                               color="#fff"
-                              background="#B0C4DE"
+                              background={theme.backgroundButton}
                               icon={<Trash width={15} height={15} />}
                               onClick={() => {
                                 removeInstitution(institutionMap);
@@ -212,7 +213,7 @@ export const Institution = ({ month }: PropsType) => {
             ContainerInputClassName="container-button"
             disabled={isRequest}
             color="#fff"
-            background="#B0C4DE"
+            background={theme.backgroundButton}
             icon={<Save width={15} height={15} />}
             type="submit"
           >
