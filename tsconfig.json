@@ -28,6 +28,12 @@
     },
     "types": []
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.js"],
+  "include": [
+    "next-env.d.ts",
+    "styled.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "next.config.js"
+  ],
   "exclude": ["node_modules"]
 }

@@ -6,7 +6,7 @@ export const Scontent = styled.div`
   display: flex;
   align-items: center;
 
-  background-color: #708090;
+  background-color: ${(props) => props.theme.backgroundHeade};
 
   > div {
     width: 100%;
@@ -28,12 +28,14 @@ export const Sitem = styled.div`
   transition: background 0.5s;
 
   &.selected {
-    background-color: #b0c4de;
-    border-bottom: 4px solid #de4f15;
+    background-color: ${(props) => props.theme.backgroundHeadeEmphasis};
+    border-bottom: 4px solid
+      ${(props) => props.theme.backgroundHeadeLineFooterEmphasis};
   }
 
   &:hover {
-    background-color: #b0c4de;
-    border-bottom: 4px solid #de4f15;
+    background-color: ${(props) => props.theme.backgroundHeadeEmphasis};
+    border-bottom: 4px solid
+      ${(props) => props.theme.backgroundHeadeLineFooterEmphasis};
   }
 `;

@@ -3,10 +3,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 
 import GlobalStyle from "../styles/globalStyle";
+import Theme from "src/styles/theme";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <Theme>
       <ToastContainer
         position="top-right"
         autoClose={2000}
@@ -21,7 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       />
       <GlobalStyle />
       <Component {...pageProps} />
-    </>
+    </Theme>
   );
 }
 
