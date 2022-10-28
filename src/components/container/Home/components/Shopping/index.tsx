@@ -18,7 +18,6 @@ import { InstitutionType, MonthType } from "../../types";
 import { customToast } from "@helpers/customToast";
 import { useFormik } from "formik";
 import { UserContext, UserContextType } from "src/context/userContext";
-import { theme } from "src/styles/theme";
 
 type PropsType = {
   institution: InstitutionType;
@@ -35,7 +34,7 @@ const initialValues = {
 };
 
 export const Shopping = ({ institution, month }: PropsType) => {
-  const { getMonths } = React.useContext(UserContext) as UserContextType;
+  const { getMonths, theme } = React.useContext(UserContext) as UserContextType;
   const [isRequest, setIsRequest] = React.useState(false);
 
   const formik = useFormik({

@@ -21,7 +21,6 @@ import { customToast } from "@helpers/customToast";
 import validationSchema from "./validations";
 import { Error } from "@commons/Error";
 import { UserContext, UserContextType } from "src/context/userContext";
-import { theme } from "src/styles/theme";
 
 type PropsType = {
   month: MonthType;
@@ -37,9 +36,8 @@ const initialValues = {
 };
 
 export const Institution = ({ month }: PropsType) => {
-  const { getMonths, responsibleTotalAmountList, nowCard } = React.useContext(
-    UserContext
-  ) as UserContextType;
+  const { getMonths, responsibleTotalAmountList, nowCard, theme } =
+    React.useContext(UserContext) as UserContextType;
 
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
   const [isRequest, setIsRequest] = React.useState<boolean>(false);

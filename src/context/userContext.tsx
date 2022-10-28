@@ -5,6 +5,8 @@ import { hygraph } from "@services/HygraphClient";
 import { sumAmountResponsible } from "@helpers/sumAmountResponsible";
 import { updateAmountShoppings } from "@helpers/updateAmountShoppings";
 import { sumTotalResponsible } from "@helpers/sumTotalResponsible";
+import { darkTheme, lightTheme } from "src/styles/theme";
+import { DefaultTheme } from "styled-components";
 
 export type UserContextType = {
   nowMonth: number | undefined;
@@ -17,6 +19,9 @@ export type UserContextType = {
   setResponsibleTotalAmountList: Function;
   handlerNumberMonth: Function;
   handlerNumberCard: Function;
+  theme: DefaultTheme;
+  toggleTheme: Function;
+  isThemeDark: boolean;
 };
 
 type PropsType = {
@@ -29,8 +34,13 @@ const UserContextProvider = ({ children }: PropsType) => {
   const [months, setMonths] = React.useState<MonthType[]>([]);
   const [nowMonth, setNowMonth] = React.useState<number | undefined>();
   const [nowCard, setNowCard] = React.useState<number | undefined>();
+  const [isThemeDark, setIsThemeDark] = React.useState<boolean>(false);
   const [responsibleTotalAmountList, setResponsibleTotalAmountList] =
     React.useState<ResponsibleValuesType[]>([]);
+
+  const [theme, setTheme] = React.useState(() =>
+    isThemeDark ? darkTheme : lightTheme
+  );
 
   const getMonths = async () => {
     const { months: monthsResponse } =
@@ -70,6 +80,11 @@ const UserContextProvider = ({ children }: PropsType) => {
     localStorage.setItem("@numberCard", String(value));
   };
 
+  const toggleTheme = () => {
+    setIsThemeDark((prevIsThemeDark) => !prevIsThemeDark);
+    localStorage.setItem("@expManTheme", String(isThemeDark));
+  };
+
   React.useEffect(() => {
     const numberMonth = new Date().getMonth() + 1;
     const numberMonthStorage = localStorage.getItem("@numberMonth");
@@ -87,6 +102,22 @@ const UserContextProvider = ({ children }: PropsType) => {
       setNowCard(0);
     }
   }, []);
+
+  React.useEffect(() => {
+    const isDarkThemeStorage = localStorage.getItem("@expManTheme");
+
+    if (isDarkThemeStorage) {
+      setIsThemeDark(Boolean(isDarkThemeStorage));
+    } else {
+      setIsThemeDark(true);
+    }
+  }, []);
+
+  React.useMemo(() => {
+    const theme = isThemeDark ? darkTheme : lightTheme;
+
+    setTheme(theme);
+  }, [isThemeDark]);
 
   React.useMemo(() => {
     months.map((monthMap) => {
@@ -115,6 +146,9 @@ const UserContextProvider = ({ children }: PropsType) => {
         handlerNumberMonth,
         handlerNumberCard,
         nowCard,
+        theme,
+        toggleTheme,
+        isThemeDark,
       }}
     >
       {children}

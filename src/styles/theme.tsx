@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react";
+import { UserContext, UserContextType } from "src/context/userContext";
 import { ThemeProvider } from "styled-components";
 
 type ThemeTypes = {
@@ -57,10 +58,10 @@ export const darkTheme = {
   backgroundButton: "#fff",
 };
 
-export const theme = darkTheme;
+const Theme = ({ children }: ThemeTypes) => {
+  const { theme } = React.useContext(UserContext) as UserContextType;
 
-const Theme = ({ children }: ThemeTypes) => (
-  <ThemeProvider theme={theme}>{children}</ThemeProvider>
-);
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+};
 
 export default Theme;
