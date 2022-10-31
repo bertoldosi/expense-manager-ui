@@ -226,11 +226,16 @@ export const Table = ({ institution, month }: PropsType) => {
           await deleteShopping(shoppingReference);
         }
       })
-    ).then(() => {
-      getMonths();
-      setValueFilter("todos");
-      setIsRequest(false);
-    });
+    )
+      .then(() => {
+        getMonths();
+        setValueFilter("todos");
+        setIsRequest(false);
+        customToast("success", "Removido com sucesso!");
+      })
+      .catch(() => {
+        customToast("error", "Tente novamente!");
+      });
   };
 
   const updateShopping = async (shoppingUpdate: ShoppingType) => {
@@ -273,13 +278,18 @@ export const Table = ({ institution, month }: PropsType) => {
           await upShopping(newShoppingUpdate);
         }
       })
-    ).then(() => {
-      getMonths();
-      setValueFilter("todos");
-      setIsRequest(false);
-      setIsVisible(false);
-      setNewAllShopping(initialNewAllShopping);
-    });
+    )
+      .then(() => {
+        getMonths();
+        setValueFilter("todos");
+        setIsRequest(false);
+        setIsVisible(false);
+        setNewAllShopping(initialNewAllShopping);
+        customToast("success", "Alterado com sucesso!");
+      })
+      .catch(() => {
+        customToast("error", "Tente novamente!");
+      });
   };
 
   const filter = () => {
