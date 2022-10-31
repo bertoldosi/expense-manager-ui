@@ -87,6 +87,7 @@ export const Shopping = ({ institution, month }: PropsType) => {
     <Scontent>
       <Sheader onSubmit={formik.handleSubmit}>
         <Input
+          autoComplete="off"
           autoFocus
           name="description"
           placeholder="Descrição do item"
@@ -100,6 +101,7 @@ export const Shopping = ({ institution, month }: PropsType) => {
           }
         />
         <Input
+          autoComplete="off"
           name="amount"
           placeholder="R$ 00,00"
           id={formik.values.reference}
@@ -108,6 +110,7 @@ export const Shopping = ({ institution, month }: PropsType) => {
           error={formik.touched.amount && <Error>{formik.errors.amount}</Error>}
         />
         <Input
+          autoComplete="off"
           name="responsible"
           placeholder="Nome do responsavel"
           id={formik.values.reference}
