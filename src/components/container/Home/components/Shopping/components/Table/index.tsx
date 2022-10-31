@@ -82,10 +82,7 @@ export const Table = ({ institution, month }: PropsType) => {
     }));
   };
 
-  const onChangeSelectOnly = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    shopping: ShoppingType
-  ) => {
+  const onChangeSelectOnly = (event: any, shopping: ShoppingType) => {
     const { checked } = event.target;
 
     setShoppings(
@@ -345,7 +342,7 @@ export const Table = ({ institution, month }: PropsType) => {
                   name="description"
                   id={shopping.reference}
                   value={shopping.description}
-                  onKeyUp={() => {
+                  handleEnter={() => {
                     updateShopping(shopping);
                   }}
                   onChange={onChangeUpdateShopping}
@@ -357,7 +354,7 @@ export const Table = ({ institution, month }: PropsType) => {
                   name="amount"
                   id={shopping.reference}
                   value={shopping.amount}
-                  onKeyUp={() => {
+                  handleEnter={() => {
                     updateShopping(shopping);
                   }}
                   onChange={onChangeUpdateShopping}
@@ -369,7 +366,7 @@ export const Table = ({ institution, month }: PropsType) => {
                   name="responsible"
                   id={shopping.reference}
                   value={shopping.responsible}
-                  onKeyUp={() => {
+                  handleEnter={() => {
                     updateShopping(shopping);
                   }}
                   onChange={onChangeUpdateShopping}

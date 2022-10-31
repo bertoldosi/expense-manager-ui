@@ -110,8 +110,6 @@ const UserContextProvider = ({ children }: PropsType) => {
 
     if (isDarkThemeStorageStrig) {
       setIsThemeDark(isDarkThemeStorageBoolean);
-
-      console.log(isDarkThemeStorageBoolean);
     } else {
       setIsThemeDark(true);
     }

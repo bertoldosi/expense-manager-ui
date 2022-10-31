@@ -1,41 +1,20 @@
 import React from "react";
-import { focusInput } from "@helpers/focusInput";
 
-import { Sinput, SinputCheckbox } from "./styles";
+import { ScontainerInput, ScontainerInputCheckbox } from "./styles";
 
-type PropsTypes = {
-  name: string;
-  id: string;
-  value?: string | number;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
-  onKeyUp?: any;
-  disabled?: boolean;
-  type?: string;
-  autofocus?: boolean;
-  tabIndex?: number | undefined;
-  checked?: boolean;
-  required?: boolean;
-};
+interface PropsTypes extends React.HTMLProps<HTMLInputElement> {
+  handleEnter?: any;
+  props?: React.ChangeEventHandler<HTMLInputElement>;
+}
 
-function InputTable({
-  name,
-  id,
-  value,
-  onChange,
-  disabled,
-  onKeyUp,
-  type,
-  autofocus,
-  tabIndex,
-  checked,
-  required,
-}: PropsTypes) {
+function InputTable({ handleEnter, ...props }: PropsTypes) {
+  const { name, type } = props;
+
   const handleOnKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const keycode = event.keyCode ? event.keyCode : event.which;
 
     if (keycode == 13) {
-      onKeyUp();
-      focusInput("description");
+      handleEnter();
     }
   };
 
@@ -44,32 +23,17 @@ function InputTable({
   const placeholder = isAmount ? "R$ 0,00" : "Digite um valor";
 
   return type === "checkbox" ? (
-    <SinputCheckbox
-      name={name}
-      id={id}
-      value={value}
-      onChange={onChange}
-      disabled={disabled}
-      type={type}
-      checked={checked}
-      required={required}
-    />
+    <ScontainerInputCheckbox>
+      <input {...props} />
+    </ScontainerInputCheckbox>
   ) : (
-    <Sinput
-      autoComplete="off"
-      tabIndex={tabIndex}
-      autoFocus={autofocus}
-      name={name}
-      id={id}
-      value={value}
-      placeholder={placeholder}
-      onChange={onChange}
-      onKeyUp={onKeyUp && handleOnKeyUp}
-      disabled={disabled}
-      type={type}
-      checked={checked}
-      required={required}
-    />
+    <ScontainerInput>
+      <input
+        placeholder={placeholder}
+        onKeyUp={handleEnter && handleOnKeyUp}
+        {...props}
+      />
+    </ScontainerInput>
   );
 }
 
