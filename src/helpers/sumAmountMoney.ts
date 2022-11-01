@@ -11,7 +11,7 @@ export const sumAmountMoney = (
   secondNumber = String(secondNumber).replace(".", "");
   secondNumber = String(secondNumber).replace(",", "");
 
-  if (newCurrentValue?.status_paid === "desconto") {
+  if (newCurrentValue?.status_paid === "desconta") {
     const result = -Number(secondNumber) + Number(firstNumber);
 
     return result;
