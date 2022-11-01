@@ -11,7 +11,8 @@ export const sumAmountResponsible = (institution: InstitutionType) => {
     (previousValue: ShoppingType[], currentValue) => {
       let newCurrentValue = {
         ...currentValue,
-        amount: currentValue.amount,
+        amount:
+          currentValue.status_paid === "desconta" ? 0 : currentValue.amount,
       };
 
       let responsible = newCurrentValue.responsible;
@@ -23,8 +24,7 @@ export const sumAmountResponsible = (institution: InstitutionType) => {
       if (repeated) {
         repeated.amount = sumAmountMoney(
           repeated.amount,
-          newCurrentValue.amount,
-          newCurrentValue
+          newCurrentValue.amount
         );
       } else {
         previousValue.push(newCurrentValue);

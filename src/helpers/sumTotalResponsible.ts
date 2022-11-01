@@ -22,8 +22,7 @@ export const sumTotalResponsible = (institutions: InstitutionType[]) => {
       if (repeated) {
         repeated.amount = sumAmountMoney(
           repeated.amount,
-          newCurrentValue.amount,
-          newCurrentValue
+          newCurrentValue.amount
         );
       } else {
         previousValue.push(newCurrentValue);
