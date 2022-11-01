@@ -34,12 +34,12 @@ export const Scontent = styled.div`
       padding: 0 1rem;
 
       input {
-        &.soma {
+        &.aberto {
           color: ${(props) => props.theme.color};
         }
 
-        &.desconta {
-          color: orange;
+        &.pago {
+          color: green;
         }
       }
     }

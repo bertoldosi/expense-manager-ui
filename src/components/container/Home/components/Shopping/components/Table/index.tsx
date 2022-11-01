@@ -35,7 +35,7 @@ type PropsType = {
 
 const initialNewAllShopping = {
   responsible: "",
-  status_paid: "soma",
+  status_paid: "aberto",
   select: false,
 };
 
@@ -152,7 +152,7 @@ export const Table = ({ institution, month }: PropsType) => {
         return {
           ...shopping,
           reference: uuidv4(),
-          status_paid: "soma",
+          status_paid: "aberto",
           select: false,
         };
       });
@@ -393,7 +393,7 @@ export const Table = ({ institution, month }: PropsType) => {
                   name="status_paid"
                   id={shopping.reference}
                   value={shopping.status_paid}
-                  options={[{ name: "soma" }, { name: "desconta" }]}
+                  options={[{ name: "aberto" }, { name: "pago" }]}
                   onChange={onChangeUpdateShopping}
                 />
 
@@ -450,7 +450,7 @@ export const Table = ({ institution, month }: PropsType) => {
             name="status_paid"
             id="status_paid"
             value={newAllShopping.status_paid}
-            options={[{ name: "soma" }, { name: "desconta" }]}
+            options={[{ name: "aberto" }, { name: "pago" }]}
             onChange={onChangeUpdateAllShopping}
           />
         </ScontentModal>

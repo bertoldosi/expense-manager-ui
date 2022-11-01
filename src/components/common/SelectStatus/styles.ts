@@ -11,12 +11,12 @@ export const Scontent = styled.div`
     font-weight: 600;
     cursor: pointer;
 
-    &.soma {
+    &.aberto {
       color: ${(props) => props.theme.color};
     }
 
-    &.desconta {
-      color: orange;
+    &.pago {
+      color: green;
     }
 
     option {
