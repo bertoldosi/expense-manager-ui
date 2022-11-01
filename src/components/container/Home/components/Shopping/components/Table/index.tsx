@@ -338,6 +338,7 @@ export const Table = ({ institution, month }: PropsType) => {
             <span key={index}>
               <strong>
                 <InputTable
+                  className={shopping.status_paid}
                   type="checkbox"
                   disabled={isRequest}
                   name="select"
@@ -348,6 +349,7 @@ export const Table = ({ institution, month }: PropsType) => {
                   }}
                 />
                 <InputTable
+                  className={shopping.status_paid}
                   disabled={isRequest}
                   name="description"
                   id={shopping.reference}
@@ -360,6 +362,7 @@ export const Table = ({ institution, month }: PropsType) => {
               </strong>
               <strong>
                 <InputTable
+                  className={shopping.status_paid}
                   disabled={isRequest}
                   name="amount"
                   id={shopping.reference}
@@ -372,6 +375,7 @@ export const Table = ({ institution, month }: PropsType) => {
               </strong>
               <strong>
                 <InputTable
+                  className={shopping.status_paid}
                   disabled={isRequest || valueFilter != "todos"}
                   name="responsible"
                   id={shopping.reference}
@@ -389,7 +393,11 @@ export const Table = ({ institution, month }: PropsType) => {
                   name="status_paid"
                   id={shopping.reference}
                   value={shopping.status_paid}
-                  options={[{ name: "aberto" }, { name: "pago" }]}
+                  options={[
+                    { name: "aberto" },
+                    { name: "pago" },
+                    { name: "desconto" },
+                  ]}
                   onChange={onChangeUpdateShopping}
                 />
 
@@ -446,7 +454,11 @@ export const Table = ({ institution, month }: PropsType) => {
             name="status_paid"
             id="status_paid"
             value={newAllShopping.status_paid}
-            options={[{ name: "aberto" }, { name: "pago" }]}
+            options={[
+              { name: "aberto" },
+              { name: "pago" },
+              { name: "desconto" },
+            ]}
             onChange={onChangeUpdateAllShopping}
           />
         </ScontentModal>

@@ -1,11 +1,23 @@
-export const sumAmountMoney = (firstNumber: any, secondNumber: any) => {
+import { ShoppingType } from "@containers/Home/types";
+
+export const sumAmountMoney = (
+  firstNumber: any,
+  secondNumber: any,
+  newCurrentValue: ShoppingType
+) => {
   firstNumber = String(firstNumber).replace(".", "");
   firstNumber = String(firstNumber).replace(",", "");
 
   secondNumber = String(secondNumber).replace(".", "");
   secondNumber = String(secondNumber).replace(",", "");
 
-  const result = Number(secondNumber) + Number(firstNumber);
+  if (newCurrentValue?.status_paid === "desconto") {
+    const result = -Number(secondNumber) + Number(firstNumber);
 
-  return result;
+    return result;
+  } else {
+    const result = Number(secondNumber) + Number(firstNumber);
+
+    return result;
+  }
 };

@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Scontent = styled.div`
   height: calc(100vh - 32.8rem);
-
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -10,10 +9,12 @@ export const Scontent = styled.div`
   &::-webkit-scrollbar-track {
     background-color: transparent;
   }
+
   &::-webkit-scrollbar {
     width: 6px;
     background: ${(props) => props.theme.backgroundBory};
   }
+
   &::-webkit-scrollbar-thumb {
     background: ${(props) => props.theme.backgroundHeade};
   }
@@ -31,6 +32,20 @@ export const Scontent = styled.div`
       align-items: center;
       gap: 1rem;
       padding: 0 1rem;
+
+      input {
+        &.aberto {
+          color: ${(props) => props.theme.color};
+        }
+
+        &.pago {
+          color: green;
+        }
+
+        &.desconto {
+          color: orange;
+        }
+      }
     }
 
     &:hover {
