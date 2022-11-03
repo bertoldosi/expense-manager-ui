@@ -5,7 +5,7 @@ export type ShoppingType = {
   responsible: string;
   isUpdate?: boolean;
   select?: boolean;
-  status_paid: string;
+  payment_status: string;
 };
 
 export type ResponsibleValuesType = {

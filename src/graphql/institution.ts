@@ -102,7 +102,7 @@ export const createInstitutionShoppings = async (
         description: shopping.description,
         amount: shopping.amount,
         responsible: shopping.responsible,
-        status_paid: shopping.status_paid,
+        payment_status: shopping.payment_status,
       })),
     })
     .catch((error) => {
@@ -142,7 +142,7 @@ export const updateInstitutionShoppings = async (
       description: shopping.description,
       amount: shopping.amount,
       responsible: shopping.responsible,
-      status_paid: shopping.status_paid,
+      payment_status: shopping.payment_status,
     };
   });
 

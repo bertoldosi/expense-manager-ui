@@ -30,7 +30,7 @@ const initialValues = {
   amount: "",
   responsible: "",
   select: false,
-  status_paid: "aberto",
+  payment_status: "aberto",
 };
 
 export const Shopping = ({ institution, month }: PropsType) => {

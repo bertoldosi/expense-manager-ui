@@ -35,7 +35,7 @@ type PropsType = {
 
 const initialNewAllShopping = {
   responsible: "",
-  status_paid: "aberto",
+  payment_status: "aberto",
   select: false,
 };
 
@@ -152,7 +152,7 @@ export const Table = ({ institution, month }: PropsType) => {
         return {
           ...shopping,
           reference: uuidv4(),
-          status_paid: "aberto",
+          payment_status: "aberto",
           select: false,
         };
       });
@@ -268,10 +268,10 @@ export const Table = ({ institution, month }: PropsType) => {
               newAllShopping.responsible === ""
                 ? shoppingMap.responsible
                 : newAllShopping.responsible,
-            status_paid:
-              newAllShopping.status_paid === ""
-                ? shoppingMap.status_paid
-                : newAllShopping.status_paid,
+            payment_status:
+              newAllShopping.payment_status === ""
+                ? shoppingMap.payment_status
+                : newAllShopping.payment_status,
             select: false,
           };
 
@@ -338,7 +338,7 @@ export const Table = ({ institution, month }: PropsType) => {
             <span key={index}>
               <strong>
                 <InputTable
-                  className={shopping.status_paid}
+                  className={shopping.payment_status}
                   type="checkbox"
                   disabled={isRequest}
                   name="select"
@@ -349,7 +349,7 @@ export const Table = ({ institution, month }: PropsType) => {
                   }}
                 />
                 <InputTable
-                  className={shopping.status_paid}
+                  className={shopping.payment_status}
                   disabled={isRequest}
                   name="description"
                   id={shopping.reference}
@@ -362,7 +362,7 @@ export const Table = ({ institution, month }: PropsType) => {
               </strong>
               <strong>
                 <InputTable
-                  className={shopping.status_paid}
+                  className={shopping.payment_status}
                   disabled={isRequest}
                   name="amount"
                   id={shopping.reference}
@@ -375,7 +375,7 @@ export const Table = ({ institution, month }: PropsType) => {
               </strong>
               <strong>
                 <InputTable
-                  className={shopping.status_paid}
+                  className={shopping.payment_status}
                   disabled={isRequest || valueFilter != "todos"}
                   name="responsible"
                   id={shopping.reference}
@@ -388,11 +388,11 @@ export const Table = ({ institution, month }: PropsType) => {
               </strong>
               <strong>
                 <SelectStatus
-                  selectClassName={shopping.status_paid}
-                  optionClassName={shopping.status_paid}
-                  name="status_paid"
+                  selectClassName={shopping.payment_status}
+                  optionClassName={shopping.payment_status}
+                  name="payment_status"
                   id={shopping.reference}
-                  value={shopping.status_paid}
+                  value={shopping.payment_status}
                   options={[{ name: "aberto" }, { name: "pago" }]}
                   onChange={onChangeUpdateShopping}
                 />
@@ -445,11 +445,11 @@ export const Table = ({ institution, month }: PropsType) => {
           />
 
           <SelectStatus
-            selectClassName={newAllShopping.status_paid}
-            optionClassName={newAllShopping.status_paid}
-            name="status_paid"
-            id="status_paid"
-            value={newAllShopping.status_paid}
+            selectClassName={newAllShopping.payment_status}
+            optionClassName={newAllShopping.payment_status}
+            name="payment_status"
+            id="payment_status"
+            value={newAllShopping.payment_status}
             options={[{ name: "aberto" }, { name: "pago" }]}
             onChange={onChangeUpdateAllShopping}
           />

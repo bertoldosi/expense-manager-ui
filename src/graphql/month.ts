@@ -31,7 +31,7 @@ export const GET_MONTHS = gql`
           description
           amount
           responsible
-          status_paid
+          payment_status
         }
       }
     }

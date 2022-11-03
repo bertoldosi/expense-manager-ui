@@ -17,14 +17,6 @@ export const DropdownUser = () => {
       setIsVisible={setIsVisible}
     >
       <Scontainer>
-        <Sitem className="no-emphasis">
-          <h2>Matheus Bertoldo</h2>
-        </Sitem>
-
-        <Sitem>
-          <h2>Sair</h2>
-        </Sitem>
-
         <ScontentFooter>
           <ToggleButtonTheme />
         </ScontentFooter>
