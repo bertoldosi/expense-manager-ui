@@ -5,7 +5,6 @@ import { Institution } from "@containers/Home/components/Institution";
 
 import { Scontainer } from "./styles";
 import { UserContext, UserContextType } from "src/context/userContext";
-import { HeadeToggleTheme } from "./components/HeadeToggleTheme/components/ToggleThemeButton";
 
 function Home() {
   const { months, nowMonth, toggleTheme } = React.useContext(
@@ -14,7 +13,6 @@ function Home() {
 
   return (
     <Scontainer>
-      <HeadeToggleTheme />
       <Header />
       {months.map(
         (monthMap, index) =>

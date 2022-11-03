@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  margin: 0 1rem;
+
   input {
     opacity: 0;
     position: absolute;

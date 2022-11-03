@@ -6,7 +6,7 @@ import { Container } from "./styles";
 
 type Props = {};
 
-export const ToggleThemeButton: React.FC = ({}: Props) => {
+export const ToggleButtonTheme: React.FC = ({}: Props) => {
   const { toggleTheme, isThemeDark } = React.useContext(
     UserContext
   ) as UserContextType;
