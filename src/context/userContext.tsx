@@ -46,28 +46,28 @@ const UserContextProvider = ({ children }: PropsType) => {
     const { months: monthsResponse } =
       (await hygraph.request(GET_MONTHS)) || [];
 
-    // setMonths(
-    //   monthsResponse.map((month: MonthType) => {
-    //     return {
-    //       ...month,
-    //       institutions: month.institutions.map((institution) => {
-    //         return {
-    //           ...institution,
-    //           listResponsibleValues: sumAmountResponsible(institution),
-    //           amount: updateAmountShoppings(institution.shoppings),
-    //           isShowShoppings: false,
-    //           shoppings: institution.shoppings.map((shopping) => {
-    //             return {
-    //               ...shopping,
-    //               isUpdate: false,
-    //               select: false,
-    //             };
-    //           }),
-    //         };
-    //       }),
-    //     };
-    //   })
-    // );
+    setMonths(
+      monthsResponse.map((month: MonthType) => {
+        return {
+          ...month,
+          institutions: month.institutions.map((institution) => {
+            return {
+              ...institution,
+              listResponsibleValues: sumAmountResponsible(institution),
+              amount: updateAmountShoppings(institution.shoppings),
+              isShowShoppings: false,
+              shoppings: institution.shoppings.map((shopping) => {
+                return {
+                  ...shopping,
+                  isUpdate: false,
+                  select: false,
+                };
+              }),
+            };
+          }),
+        };
+      })
+    );
   };
 
   const handlerNumberMonth = (value: number) => {
