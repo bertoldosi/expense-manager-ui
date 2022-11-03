@@ -31,7 +31,6 @@ export const Sitem = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.5s;
 
   &.selected {
     background-color: ${(props) => props.theme.backgroundNavEmphasis};

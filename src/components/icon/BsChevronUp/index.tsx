@@ -10,8 +10,8 @@ type PropsType = {
 export const BsChevronUp: React.FC<PropsType> = ({
   width = "40",
   height = "40",
-  fill = "#f5f5ff",
-  stroke = "#f5f5ff",
+  fill = "#fff",
+  stroke = "#fff",
 }) => {
   return (
     <svg

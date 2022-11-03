@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import { BsChevronUp } from "@icons/BsChevronUp";
 import { BsChevronDown } from "@icons/BsChevronDown";
 import { Scontainer, Scontent, Sheader } from "./styles";
+import { useTheme } from "styled-components";
 
 type PropsType = {
   label?: string;
@@ -23,11 +24,23 @@ function Dropdown({
   isVisible = false,
   setIsVisible,
 }: PropsType) {
+  const theme = useTheme();
+
   const RenderIcon = ({ isVisible = false }) =>
     isVisible ? (
-      <BsChevronUp width={25} height={25} />
+      <BsChevronUp
+        width={25}
+        height={25}
+        fill={theme.color}
+        stroke={theme.color}
+      />
     ) : (
-      <BsChevronDown width={25} height={25} />
+      <BsChevronDown
+        width={25}
+        height={25}
+        fill={theme.color}
+        stroke={theme.color}
+      />
     );
 
   return (

@@ -4,9 +4,11 @@ import { UserContext, UserContextType } from "src/context/userContext";
 
 import { Container } from "./styles";
 
-type Props = {};
+type Props = {
+  setIsVisible: Function;
+};
 
-export const ToggleButtonTheme: React.FC = ({}: Props) => {
+export const ToggleButtonTheme = ({ setIsVisible }: Props) => {
   const { toggleTheme, isThemeDark } = React.useContext(
     UserContext
   ) as UserContextType;
@@ -19,6 +21,7 @@ export const ToggleButtonTheme: React.FC = ({}: Props) => {
         checked={isThemeDark}
         onChange={() => {
           toggleTheme();
+          setIsVisible((prevState: boolean) => !prevState);
         }}
       />
       <label htmlFor="checkbox">
