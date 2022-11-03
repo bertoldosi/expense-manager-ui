@@ -8,8 +8,10 @@ export const Container = styled.div`
     position: absolute;
   }
   label {
-    width: 40px;
-    height: 15px;
+    border: 1px solid ${(props) => props.theme.color};
+
+    width: 42px;
+    height: 20px;
     background-color: #333;
     display: flex;
     border-radius: 50px;
@@ -20,8 +22,8 @@ export const Container = styled.div`
     cursor: pointer;
     transform: scale(1.5);
     > div {
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       background-color: white;
       position: absolute;
       top: -1px;
