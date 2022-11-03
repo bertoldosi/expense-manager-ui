@@ -1,8 +1,8 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const Scontainer = styled.div`
   width: 100%;
-  height: 5rem;
+  padding: 0 1rem;
   background-color: ${(props) => props.theme.backgroundHeade};
 `;
 
@@ -14,4 +14,13 @@ export const Scontent = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  svg {
+    fill: ${(props) => props.theme.color};
+  }
+`;
+
+export const Sconfig = styled.div`
+  display: flex;
+  align-items: center;
 `;

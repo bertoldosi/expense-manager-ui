@@ -1,8 +1,9 @@
 import React from "react";
 
-import { Scontainer, Scontent } from "./styles";
+import { Sconfig, Scontainer, Scontent } from "./styles";
 import { UserContext, UserContextType } from "src/context/userContext";
-import { ToggleButtonTheme } from "@commons/ToggleButtonTheme";
+import { DropdownMonth } from "./components/DropdownMonth";
+import { DropdownUser } from "./components/DropdownUser";
 
 function Header() {
   const { months, nowMonth, handlerNumberMonth } = React.useContext(
@@ -12,8 +13,10 @@ function Header() {
   return (
     <Scontainer>
       <Scontent>
-        <h1>Header</h1>
-        <ToggleButtonTheme />
+        <DropdownMonth />
+        <Sconfig>
+          <DropdownUser />
+        </Sconfig>
       </Scontent>
     </Scontainer>
 
