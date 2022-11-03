@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 
 import { BsChevronUp } from "@icons/BsChevronUp";
 import { BsChevronDown } from "@icons/BsChevronDown";
@@ -10,6 +10,8 @@ type PropsType = {
   children: ReactNode;
   hideChevronIcon?: boolean;
   position: "left" | "right";
+  isVisible: boolean;
+  setIsVisible: Function;
 };
 
 function Dropdown({
@@ -18,9 +20,9 @@ function Dropdown({
   children,
   hideChevronIcon,
   position,
+  isVisible = false,
+  setIsVisible,
 }: PropsType) {
-  const [isVisible, setIsVisible] = useState(false);
-
   const RenderIcon = ({ isVisible = false }) =>
     isVisible ? (
       <BsChevronUp width={25} height={25} />

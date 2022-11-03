@@ -26,7 +26,7 @@ export const Ssection = styled.section`
 
 export const Saside = styled.aside`
   width: 22rem;
-  height: calc(100vh - 20.5rem);
+  height: calc(100vh - 15.5rem);
   background-color: ${(props) => props.theme.backgroundCard};
   overflow-y: auto;
 

@@ -1,32 +1,53 @@
 import Dropdown from "@commons/Dropdown";
+import { MonthType } from "@containers/Home/types";
 import React from "react";
+import { UserContext, UserContextType } from "src/context/userContext";
 
 import { Scontainer, Sitem } from "./styles";
 
-const months = [
-  "Janeiro",
-  "Fevereiro",
-  "Março",
-  "Abril",
-  "Maio",
-  "Junho",
-  "Julho",
-  "Agosto",
-  "Setembro",
-  "Outubro",
-  "Novembro",
-  "Dezembro",
-];
-
 export const DropdownMonth = () => {
+  const { months, nowMonth, handlerNumberMonth } = React.useContext(
+    UserContext
+  ) as UserContextType;
+  const [month, setMonth] = React.useState<MonthType>();
+  const [isVisible, setIsVisible] = React.useState(false);
+
+  React.useMemo(() => {
+    setMonth(months.find((monthFilter) => monthFilter.mesNumber === nowMonth));
+  }, [months]);
+
   return (
-    <Dropdown label="Dezembro" position="left">
+    <Dropdown
+      label={month?.name}
+      position="left"
+      isVisible={isVisible}
+      setIsVisible={setIsVisible}
+    >
       <Scontainer>
-        {months.map((item) => (
-          <Sitem>
-            <span>{item}</span>
-          </Sitem>
-        ))}
+        {months.map((month, index) =>
+          nowMonth === month.mesNumber ? (
+            <Sitem
+              key={index}
+              className="selected"
+              onClick={() => {
+                handlerNumberMonth(month.mesNumber);
+                setIsVisible((prevState) => !prevState);
+              }}
+            >
+              <span>{month.name}</span>
+            </Sitem>
+          ) : (
+            <Sitem
+              key={index}
+              onClick={() => {
+                handlerNumberMonth(month.mesNumber);
+                setIsVisible((prevState) => !prevState);
+              }}
+            >
+              <span>{month.name}</span>
+            </Sitem>
+          )
+        )}
       </Scontainer>
     </Dropdown>
   );
