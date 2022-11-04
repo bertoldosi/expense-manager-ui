@@ -8,6 +8,7 @@ const Home = () => {
     <>
       <Head>
         <title>Expense Manager</title>
+        <link rel="shortcut icon" href="/public/favicon.ico" />
       </Head>
       <HomeContainer />
     </>
