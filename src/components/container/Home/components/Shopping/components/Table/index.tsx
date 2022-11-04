@@ -22,6 +22,7 @@ import Input from "@commons/Input";
 import { customToast } from "@commons/CustomToast";
 import { UserContext, UserContextType } from "src/context/userContext";
 import { InstitutionType, MonthType, ShoppingType } from "@interfaces/*";
+import { chunk } from "@helpers/chunk";
 
 type PropsType = {
   institution: InstitutionType;
@@ -254,37 +255,83 @@ export const Table = ({ institution, month }: PropsType) => {
   const updateAllShopping = () => {
     setIsRequest(true);
 
-    Promise.all(
-      shoppings.map(async (shoppingMap) => {
-        if (shoppingMap.select) {
-          const newShoppingUpdate = {
-            ...shoppingMap,
-            responsible:
-              newAllShopping.responsible === ""
-                ? shoppingMap.responsible
-                : newAllShopping.responsible,
-            payment_status:
-              newAllShopping.payment_status === ""
-                ? shoppingMap.payment_status
-                : newAllShopping.payment_status,
-            select: false,
-          };
+    const shoppingSelecteds = shoppings.filter(
+      (shoppingFilter) => shoppingFilter.select
+    );
 
-          await upShopping(newShoppingUpdate);
-        }
-      })
-    )
-      .then(() => {
-        getMonths();
-        setValueFilter("todos");
-        setIsRequest(false);
-        setIsVisible(false);
-        setNewAllShopping(initialNewAllShopping);
-        customToast("success", "Alterado com sucesso!");
-      })
-      .catch(() => {
-        customToast("error", "Tente novamente!");
-      });
+    const newShoppings = shoppingSelecteds.map((shoppingMap) => {
+      const newShoppingUpdate = {
+        ...shoppingMap,
+        responsible:
+          newAllShopping.responsible === ""
+            ? shoppingMap.responsible
+            : newAllShopping.responsible,
+        payment_status:
+          newAllShopping.payment_status === ""
+            ? shoppingMap.payment_status
+            : newAllShopping.payment_status,
+        select: false,
+      };
+
+      return newShoppingUpdate;
+    });
+
+    const newShoppingChunks = chunk(10, newShoppings);
+
+    newShoppingChunks.map(async (shoppingsChunk: ShoppingType[]) => {
+      console.log(shoppingsChunk);
+    });
+
+    // Promise.all(
+    //   newShoppingChunks.map((shoppingsChunk: ShoppingType[]) => {
+    //     shoppingsChunk.map(async (shoppingMap) => {
+    //       await upShopping(shoppingMap);
+    //     });
+    //   })
+    // )
+    //   .then(() => {
+    //     getMonths();
+    //     setValueFilter("todos");
+    //     setIsRequest(false);
+    //     setIsVisible(false);
+    //     setNewAllShopping(initialNewAllShopping);
+    //     customToast("success", "Alterado com sucesso!");
+    //   })
+    //   .catch(() => {
+    //     customToast("error", "Tente novamente!");
+    //   });
+
+    // Promise.all(
+    //   shoppings.map(async (shoppingMap) => {
+    //     if (shoppingMap.select) {
+    //       const newShoppingUpdate = {
+    //         ...shoppingMap,
+    //         responsible:
+    //           newAllShopping.responsible === ""
+    //             ? shoppingMap.responsible
+    //             : newAllShopping.responsible,
+    //         payment_status:
+    //           newAllShopping.payment_status === ""
+    //             ? shoppingMap.payment_status
+    //             : newAllShopping.payment_status,
+    //         select: false,
+    //       };
+
+    //       await upShopping(newShoppingUpdate);
+    //     }
+    //   })
+    // )
+    //   .then(() => {
+    //     getMonths();
+    //     setValueFilter("todos");
+    //     setIsRequest(false);
+    //     setIsVisible(false);
+    //     setNewAllShopping(initialNewAllShopping);
+    //     customToast("success", "Alterado com sucesso!");
+    //   })
+    //   .catch(() => {
+    //     customToast("error", "Tente novamente!");
+    //   });
   };
 
   const filter = () => {
