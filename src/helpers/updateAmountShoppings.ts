@@ -1,5 +1,5 @@
 import { sumAmountMoney } from "@helpers/sumAmountMoney";
-import { ShoppingType } from "@containers/Home/types";
+import { ShoppingType } from "src/types/types";
 
 export const updateAmountShoppings = (shoppings: ShoppingType[]) => {
   if (shoppings.length > 0) {

@@ -1,4 +1,4 @@
-import { InstitutionType } from "@containers/Home/types";
+import { InstitutionType } from "src/types/types";
 
 export const removingInstitution = (
   institutions: InstitutionType[],

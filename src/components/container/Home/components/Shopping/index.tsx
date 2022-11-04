@@ -14,8 +14,8 @@ import { Error } from "@commons/Error";
 
 import { Scontent, Sheader } from "./styles";
 
-import { InstitutionType, MonthType } from "../../types";
-import { customToast } from "@helpers/customToast";
+import { InstitutionType, MonthType } from "@interfaces/";
+import { customToast } from "@commons/CustomToast";
 import { useFormik } from "formik";
 import { UserContext, UserContextType } from "src/context/userContext";
 

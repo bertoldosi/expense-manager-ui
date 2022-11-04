@@ -1,5 +1,5 @@
-import * as React from "react";
-import { MonthType, ResponsibleValuesType } from "@containers/Home/types";
+import React from "react";
+import { MonthType, ResponsibleValuesType } from "src/types/types";
 import { GET_MONTHS } from "@graphqls/month";
 import { hygraph } from "@services/HygraphClient";
 import { sumAmountResponsible } from "@helpers/sumAmountResponsible";

@@ -1,9 +1,8 @@
 import React from "react";
 
-import { InstitutionType } from "@containers/Home/types";
-
 import { Scontent, Sitem, Slist } from "./styles";
 import { UserContext, UserContextType } from "src/context/userContext";
+import { InstitutionType } from "@interfaces/*";
 
 type PropsType = {
   institutions: InstitutionType[];

@@ -1,6 +1,7 @@
-import { ShoppingType } from "@containers/Home/types";
-
-export const sumAmountMoney = (firstNumber: any, secondNumber: any) => {
+export const sumAmountMoney = (
+  firstNumber: number | string,
+  secondNumber: number | string
+) => {
   firstNumber = String(firstNumber).replace(".", "");
   firstNumber = String(firstNumber).replace(",", "");
 

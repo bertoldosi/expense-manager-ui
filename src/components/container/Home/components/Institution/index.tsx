@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import { updateMonthInstitution } from "@graphqls/month";
 import { createInstitution, deleteInstitution } from "@graphqls/institution";
 
-import { InstitutionType, MonthType } from "../../types";
+import { InstitutionType, MonthType } from "@interfaces/";
 
 import Nav from "@containers/Home/components/Institution/components/Nav";
 import Input from "@commons/Input";
@@ -17,7 +17,7 @@ import { Button } from "@commons/Button";
 import { CardMenu } from "@containers/Home/components/Institution/components/CardMenu";
 import { Shopping } from "@containers/Home/components/Shopping";
 import { Saside, ScontainerModal, Ssection, Swrapper } from "./styles";
-import { customToast } from "@helpers/customToast";
+import { customToast } from "@commons/CustomToast";
 import validationSchema from "./validations";
 import { Error } from "@commons/Error";
 import { UserContext, UserContextType } from "src/context/userContext";

@@ -1,5 +1,5 @@
 import Dropdown from "@commons/Dropdown";
-import { MonthType } from "@containers/Home/types";
+import { MonthType } from "@interfaces/*";
 import React from "react";
 import { UserContext, UserContextType } from "src/context/userContext";
 

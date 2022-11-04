@@ -11,12 +11,6 @@ import { updateShopping as upShopping } from "@graphqls/shopping";
 import { getMonthNumber, updateMonthInstitution } from "@graphqls/month";
 
 import {
-  InstitutionType,
-  MonthType,
-  ShoppingType,
-} from "@containers/Home/types";
-
-import {
   createInstitutionShoppings,
   updateInstitutionShoppings,
 } from "@graphqls/institution";
@@ -25,8 +19,9 @@ import { NoResult, Scontent, ScontentModal } from "./styles";
 import { Modal } from "@commons/Modal";
 import { Button } from "@commons/Button";
 import Input from "@commons/Input";
-import { customToast } from "@helpers/customToast";
+import { customToast } from "@commons/CustomToast";
 import { UserContext, UserContextType } from "src/context/userContext";
+import { InstitutionType, MonthType, ShoppingType } from "@interfaces/*";
 
 type PropsType = {
   institution: InstitutionType;

@@ -1,4 +1,4 @@
-import { SelectValuType } from "@containers/Home/types";
+import { SelectValuType } from "@interfaces/*";
 import React from "react";
 
 import { Scontent } from "./styles";

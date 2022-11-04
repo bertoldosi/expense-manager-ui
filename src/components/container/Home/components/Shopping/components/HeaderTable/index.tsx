@@ -1,7 +1,6 @@
 import React from "react";
 
 import { SelectFilter } from "@commons/SelectFilter";
-import { ResponsibleValuesType } from "@containers/Home/types";
 
 import { GroupLeft, Scontent } from "./styles";
 import InputTable from "../InputTable";
@@ -10,6 +9,7 @@ import { Repeat } from "@icons/Repeat";
 import { Trash } from "@icons/Trash";
 import { Edit } from "@icons/Edit";
 import { UserContext, UserContextType } from "src/context/userContext";
+import { ResponsibleValuesType } from "@interfaces/*";
 
 type PropsType = {
   setValueFilter: Function;

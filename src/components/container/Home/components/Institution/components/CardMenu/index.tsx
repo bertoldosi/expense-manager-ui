@@ -3,7 +3,7 @@ import React, { ReactNode } from "react";
 import { formatMorney } from "@helpers/formatMorney";
 import { sumAmountMoney } from "@helpers/sumAmountMoney";
 import { Scontent, Sfooter, Sheader, Ssection } from "./styles";
-import { ResponsibleValuesType } from "@containers/Home/types";
+import { ResponsibleValuesType } from "@interfaces/";
 
 type PropsType = {
   list: ResponsibleValuesType[] | undefined;
