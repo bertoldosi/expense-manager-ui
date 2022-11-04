@@ -26,14 +26,7 @@ export const DropdownMonth = () => {
       <Scontainer>
         {months.map((month, index) =>
           nowMonth === month.mesNumber ? (
-            <Sitem
-              key={index}
-              className="selected"
-              onClick={() => {
-                handlerNumberMonth(month.mesNumber);
-                setIsVisible((prevState) => !prevState);
-              }}
-            >
+            <Sitem key={index} className="selected">
               <span>{month.name}</span>
             </Sitem>
           ) : (

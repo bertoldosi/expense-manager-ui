@@ -14,6 +14,12 @@ export const Sitem = styled.div`
     font-weight: 600;
   }
 
+  &.selected {
+    background-color: ${(props) => props.theme.backgroundBory};
+    font-weight: 600;
+    cursor: not-allowed;
+  }
+
   span {
     color: ${(props) => props.theme.color};
     font-size: 1.5rem;
