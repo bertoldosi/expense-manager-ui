@@ -1,4 +1,4 @@
-import { InstitutionType } from "src/types/types";
+import { InstitutionType } from "@interfaces/*";
 
 export const removingInstitution = (
   institutions: InstitutionType[],

@@ -4,7 +4,7 @@ import {
   InstitutionType,
   ResponsibleValuesType,
   ShoppingType,
-} from "src/types/types";
+} from "@interfaces/*";
 
 export const sumAmountResponsible = (institution: InstitutionType) => {
   const newList = institution.shoppings.reduce(

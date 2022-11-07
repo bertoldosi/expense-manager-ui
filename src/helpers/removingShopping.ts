@@ -1,4 +1,4 @@
-import { ShoppingType } from "src/types/types";
+import { ShoppingType } from "@interfaces/*";
 
 export const removingShopping = (
   shoppings: ShoppingType[],

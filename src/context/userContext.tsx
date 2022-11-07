@@ -1,5 +1,4 @@
 import React from "react";
-import { MonthType, ResponsibleValuesType } from "src/types/types";
 import { GET_MONTHS } from "@graphqls/month";
 import { hygraph } from "@services/HygraphClient";
 import { sumAmountResponsible } from "@helpers/sumAmountResponsible";
@@ -7,6 +6,7 @@ import { updateAmountShoppings } from "@helpers/updateAmountShoppings";
 import { sumTotalResponsible } from "@helpers/sumTotalResponsible";
 import { darkTheme, lightTheme } from "src/styles/theme";
 import { DefaultTheme } from "styled-components";
+import { MonthType, ResponsibleValuesType } from "@interfaces/*";
 
 export type UserContextType = {
   nowMonth: number | undefined;
