@@ -212,26 +212,30 @@ export const Table = ({ institution, month }: PropsType) => {
     }
   };
 
-  const removeShopping = () => {
+  const removeShopping = async () => {
     setIsRequest(true);
 
-    Promise.all(
-      shoppings.map(async (shoppingMap) => {
-        if (shoppingMap.select) {
-          const shoppingReference = shoppingMap.reference;
-          await deleteShopping(shoppingReference);
-        }
-      })
-    )
-      .then(() => {
-        getMonths();
-        setValueFilter("todos");
-        setIsRequest(false);
-        customToast("success", "Removido com sucesso!");
-      })
-      .catch(() => {
-        customToast("error", "Tente novamente!");
-      });
+    const shoppingSelecteds = shoppings.filter(
+      (shoppingFilter) => shoppingFilter.select
+    );
+
+    let position = 0;
+    while (shoppingSelecteds[position]) {
+      const shoppingReference = shoppingSelecteds[position].reference;
+      await deleteShopping(shoppingReference)
+        .then(() => {
+          customToast("success", "Deletado com sucesso!");
+        })
+        .catch(() => {
+          customToast("error", "Tente novamente!");
+        });
+
+      position++;
+    }
+
+    getMonths();
+    setValueFilter("todos");
+    setIsRequest(false);
   };
 
   const updateShopping = async (shoppingUpdate: ShoppingType) => {
@@ -252,7 +256,7 @@ export const Table = ({ institution, month }: PropsType) => {
       });
   };
 
-  const updateAllShopping = () => {
+  const updateAllShopping = async () => {
     setIsRequest(true);
 
     const shoppingSelecteds = shoppings.filter(
@@ -276,62 +280,24 @@ export const Table = ({ institution, month }: PropsType) => {
       return newShoppingUpdate;
     });
 
-    const newShoppingChunks = chunk(10, newShoppings);
+    let position = 0;
+    while (newShoppings[position]) {
+      await upShopping(newShoppings[position])
+        .then(() => {
+          customToast("success", "Alterado com sucesso!");
+        })
+        .catch(() => {
+          customToast("error", "Tente novamente!");
+        });
 
-    newShoppingChunks.map(async (shoppingsChunk: ShoppingType[]) => {
-      console.log(shoppingsChunk);
-    });
+      position++;
+    }
 
-    // Promise.all(
-    //   newShoppingChunks.map((shoppingsChunk: ShoppingType[]) => {
-    //     shoppingsChunk.map(async (shoppingMap) => {
-    //       await upShopping(shoppingMap);
-    //     });
-    //   })
-    // )
-    //   .then(() => {
-    //     getMonths();
-    //     setValueFilter("todos");
-    //     setIsRequest(false);
-    //     setIsVisible(false);
-    //     setNewAllShopping(initialNewAllShopping);
-    //     customToast("success", "Alterado com sucesso!");
-    //   })
-    //   .catch(() => {
-    //     customToast("error", "Tente novamente!");
-    //   });
-
-    // Promise.all(
-    //   shoppings.map(async (shoppingMap) => {
-    //     if (shoppingMap.select) {
-    //       const newShoppingUpdate = {
-    //         ...shoppingMap,
-    //         responsible:
-    //           newAllShopping.responsible === ""
-    //             ? shoppingMap.responsible
-    //             : newAllShopping.responsible,
-    //         payment_status:
-    //           newAllShopping.payment_status === ""
-    //             ? shoppingMap.payment_status
-    //             : newAllShopping.payment_status,
-    //         select: false,
-    //       };
-
-    //       await upShopping(newShoppingUpdate);
-    //     }
-    //   })
-    // )
-    //   .then(() => {
-    //     getMonths();
-    //     setValueFilter("todos");
-    //     setIsRequest(false);
-    //     setIsVisible(false);
-    //     setNewAllShopping(initialNewAllShopping);
-    //     customToast("success", "Alterado com sucesso!");
-    //   })
-    //   .catch(() => {
-    //     customToast("error", "Tente novamente!");
-    //   });
+    getMonths();
+    setValueFilter("todos");
+    setIsRequest(false);
+    setIsVisible(false);
+    setNewAllShopping(initialNewAllShopping);
   };
 
   const filter = () => {
