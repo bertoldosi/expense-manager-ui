@@ -185,6 +185,7 @@ export const Institution = ({ month }: PropsType) => {
       >
         <ScontainerModal onSubmit={formik.handleSubmit}>
           <Input
+            autoComplete="off"
             autoFocus
             name="name"
             placeholder="Nome da instituição"
@@ -195,6 +196,7 @@ export const Institution = ({ month }: PropsType) => {
           />
 
           <Input
+            autoComplete="off"
             name="expirationDate"
             id={formik.values.reference}
             value={formik.values.expirationDate}
