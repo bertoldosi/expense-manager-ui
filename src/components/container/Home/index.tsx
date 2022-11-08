@@ -21,7 +21,7 @@ function Home() {
 
       {months.map(
         (monthMap, index) =>
-          monthMap.mesNumber === nowMonth && (
+          monthMap.monthNumber === nowMonth && (
             <Institution key={index} month={monthMap} />
           )
       )}

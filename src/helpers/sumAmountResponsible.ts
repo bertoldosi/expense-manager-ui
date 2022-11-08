@@ -11,8 +11,7 @@ export const sumAmountResponsible = (institution: InstitutionType) => {
     (previousValue: ShoppingType[], currentValue) => {
       let newCurrentValue = {
         ...currentValue,
-        amount:
-          currentValue.payment_status === "pago" ? 0 : currentValue.amount,
+        amount: currentValue.paymentStatus === "pago" ? 0 : currentValue.amount,
       };
 
       let responsible = newCurrentValue.responsible;

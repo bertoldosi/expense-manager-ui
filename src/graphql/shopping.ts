@@ -27,7 +27,7 @@ const UPDATE_SHOPPING = gql`
     $description: String!
     $amount: String!
     $responsible: String!
-    $payment_status: String!
+    $paymentStatus: String!
   ) {
     updateShopping(
       data: {
@@ -35,7 +35,7 @@ const UPDATE_SHOPPING = gql`
         description: $description
         amount: $amount
         responsible: $responsible
-        payment_status: $payment_status
+        paymentStatus: $paymentStatus
       }
       where: { reference: $reference }
     ) {

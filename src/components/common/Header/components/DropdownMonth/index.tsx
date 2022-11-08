@@ -13,7 +13,9 @@ export const DropdownMonth = () => {
   const [isVisible, setIsVisible] = React.useState(false);
 
   React.useMemo(() => {
-    setMonth(months.find((monthFilter) => monthFilter.mesNumber === nowMonth));
+    setMonth(
+      months.find((monthFilter) => monthFilter.monthNumber === nowMonth)
+    );
   }, [months]);
 
   return (
@@ -25,7 +27,7 @@ export const DropdownMonth = () => {
     >
       <Scontainer>
         {months.map((month, index) =>
-          nowMonth === month.mesNumber ? (
+          nowMonth === month.monthNumber ? (
             <Sitem key={index} className="selected">
               <span>{month.name}</span>
             </Sitem>
@@ -33,7 +35,7 @@ export const DropdownMonth = () => {
             <Sitem
               key={index}
               onClick={() => {
-                handlerNumberMonth(month.mesNumber);
+                handlerNumberMonth(month.monthNumber);
                 setIsVisible((prevState) => !prevState);
               }}
             >

@@ -5,7 +5,7 @@ export type ShoppingType = {
   responsible: string;
   isUpdate?: boolean;
   select?: boolean;
-  payment_status: string;
+  paymentStatus: string;
 };
 
 export type ResponsibleValuesType = {
@@ -31,6 +31,6 @@ export type InstitutionType = {
 export type MonthType = {
   id: string;
   name: string;
-  mesNumber: number;
+  monthNumber: number;
   institutions: InstitutionType[];
 };

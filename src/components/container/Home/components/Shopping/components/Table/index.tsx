@@ -31,7 +31,7 @@ type PropsType = {
 
 const initialNewAllShopping = {
   responsible: "",
-  payment_status: "aberto",
+  paymentStatus: "aberto",
   select: false,
 };
 
@@ -121,7 +121,7 @@ export const Table = ({ institution, month }: PropsType) => {
 
   const getNextMonth = async () => {
     const { id: monthIdNextMonth, institutions: institutionsNextMonth } =
-      await getMonthNumber(month.mesNumber + 1).catch(() => {
+      await getMonthNumber(month.monthNumber + 1).catch(() => {
         customToast("error", "Algo de errado aconteceu ao buscar próximo mês!");
       });
 
@@ -148,7 +148,7 @@ export const Table = ({ institution, month }: PropsType) => {
         return {
           ...shopping,
           reference: uuidv4(),
-          payment_status: "aberto",
+          paymentStatus: "aberto",
           select: false,
         };
       });
@@ -270,10 +270,10 @@ export const Table = ({ institution, month }: PropsType) => {
           newAllShopping.responsible === ""
             ? shoppingMap.responsible
             : newAllShopping.responsible,
-        payment_status:
-          newAllShopping.payment_status === ""
-            ? shoppingMap.payment_status
-            : newAllShopping.payment_status,
+        paymentStatus:
+          newAllShopping.paymentStatus === ""
+            ? shoppingMap.paymentStatus
+            : newAllShopping.paymentStatus,
         select: false,
       };
 
@@ -346,7 +346,7 @@ export const Table = ({ institution, month }: PropsType) => {
             <span key={index}>
               <strong>
                 <InputTable
-                  className={shopping.payment_status}
+                  className={shopping.paymentStatus}
                   type="checkbox"
                   disabled={isRequest}
                   name="select"
@@ -357,7 +357,7 @@ export const Table = ({ institution, month }: PropsType) => {
                   }}
                 />
                 <InputTable
-                  className={shopping.payment_status}
+                  className={shopping.paymentStatus}
                   disabled={isRequest}
                   name="description"
                   id={shopping.reference}
@@ -370,7 +370,7 @@ export const Table = ({ institution, month }: PropsType) => {
               </strong>
               <strong>
                 <InputTable
-                  className={shopping.payment_status}
+                  className={shopping.paymentStatus}
                   disabled={isRequest}
                   name="amount"
                   id={shopping.reference}
@@ -383,7 +383,7 @@ export const Table = ({ institution, month }: PropsType) => {
               </strong>
               <strong>
                 <InputTable
-                  className={shopping.payment_status}
+                  className={shopping.paymentStatus}
                   disabled={isRequest || valueFilter != "todos"}
                   name="responsible"
                   id={shopping.reference}
@@ -396,11 +396,11 @@ export const Table = ({ institution, month }: PropsType) => {
               </strong>
               <strong>
                 <SelectStatus
-                  selectClassName={shopping.payment_status}
-                  optionClassName={shopping.payment_status}
-                  name="payment_status"
+                  selectClassName={shopping.paymentStatus}
+                  optionClassName={shopping.paymentStatus}
+                  name="paymentStatus"
                   id={shopping.reference}
-                  value={shopping.payment_status}
+                  value={shopping.paymentStatus}
                   options={[{ name: "aberto" }, { name: "pago" }]}
                   onChange={onChangeUpdateShopping}
                 />
@@ -453,11 +453,11 @@ export const Table = ({ institution, month }: PropsType) => {
           />
 
           <SelectStatus
-            selectClassName={newAllShopping.payment_status}
-            optionClassName={newAllShopping.payment_status}
-            name="payment_status"
-            id="payment_status"
-            value={newAllShopping.payment_status}
+            selectClassName={newAllShopping.paymentStatus}
+            optionClassName={newAllShopping.paymentStatus}
+            name="paymentStatus"
+            id="paymentStatus"
+            value={newAllShopping.paymentStatus}
             options={[{ name: "aberto" }, { name: "pago" }]}
             onChange={onChangeUpdateAllShopping}
           />

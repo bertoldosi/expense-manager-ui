@@ -123,7 +123,7 @@ const UserContextProvider = ({ children }: PropsType) => {
 
   React.useMemo(() => {
     months.map((monthMap) => {
-      if (monthMap.mesNumber === nowMonth) {
+      if (monthMap.monthNumber === nowMonth) {
         setResponsibleTotalAmountList(
           sumTotalResponsible([...monthMap.institutions])
         );

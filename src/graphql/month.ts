@@ -17,10 +17,10 @@ const UPDATE_MONTH = gql`
 
 export const GET_MONTHS = gql`
   query {
-    months(orderBy: mesNumber_ASC, first: 12) {
+    months(orderBy: monthNumber_ASC, first: 12) {
       id
       name
-      mesNumber
+      monthNumber
       institutions {
         reference
         name
@@ -31,7 +31,7 @@ export const GET_MONTHS = gql`
           description
           amount
           responsible
-          payment_status
+          paymentStatus
         }
       }
     }
@@ -39,8 +39,8 @@ export const GET_MONTHS = gql`
 `;
 
 const GET_MONTH_NUMBER = gql`
-  query GetMonthNumber($mesNumber: Int!) {
-    month(where: { mesNumber: $mesNumber }) {
+  query GetMonthNumber($monthNumber: Int!) {
+    month(where: { monthNumber: $monthNumber }) {
       id
       institutions {
         reference
@@ -78,10 +78,10 @@ export const getMonths = async () => {
   };
 };
 
-export const getMonthNumber = async (mesNumber: Number) => {
+export const getMonthNumber = async (monthNumber: Number) => {
   const { month } = await hygraph
     .request(GET_MONTH_NUMBER, {
-      mesNumber,
+      monthNumber,
     })
     .catch((error) => {
       console.log(error);
