@@ -45,7 +45,7 @@ Uma aplicação desenvolvida em framework Nextjs, no qual é possível gerenciar
 
 ---
 
-## 🚀 Configurando CMS
+## ⚙️ Configurando CMS
 
 Conta:
 
