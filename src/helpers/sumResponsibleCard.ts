@@ -9,27 +9,29 @@ import {
 export const sumResponsibleCard = (institution: InstitutionType) => {
   const newList = institution.shoppings.reduce(
     (previousValue: ShoppingType[], currentValue) => {
-      let newCurrentValue = {
-        ...currentValue,
-        amount: currentValue.paymentStatus === "pago" ? 0 : currentValue.amount,
-      };
+      if (currentValue.paymentStatus !== "pago") {
+        let newCurrentValue = {
+          ...currentValue,
+        };
 
-      let responsible = newCurrentValue.responsible;
-
-      let repeated = previousValue.find(
-        (elem: ResponsibleValuesType) => elem.responsible === responsible
-      );
-
-      if (repeated) {
-        repeated.amount = sumAmountMoney(
-          repeated.amount,
-          newCurrentValue.amount
+        let responsible = newCurrentValue.responsible;
+        let repeated = previousValue.find(
+          (elem: ResponsibleValuesType) => elem.responsible === responsible
         );
-      } else {
-        previousValue.push(newCurrentValue);
-      }
 
-      return previousValue;
+        if (repeated) {
+          repeated.amount = sumAmountMoney(
+            repeated.amount,
+            newCurrentValue.amount
+          );
+        } else {
+          previousValue.push(newCurrentValue);
+        }
+
+        return previousValue;
+      } else {
+        return previousValue;
+      }
     },
     []
   );

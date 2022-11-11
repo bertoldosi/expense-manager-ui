@@ -7,6 +7,7 @@ import { sumResponsibleMonth } from "@helpers/sumResponsibleMonth";
 import { darkTheme, lightTheme } from "src/styles/theme";
 import { DefaultTheme } from "styled-components";
 import { MonthType, ResponsibleValuesType } from "@interfaces/*";
+import { sumResponsibleYear } from "@helpers/sumResponsibleYear";
 
 export type UserContextType = {
   nowMonth: number | undefined;
@@ -16,7 +17,8 @@ export type UserContextType = {
   setNowMonth: Function;
   getMonths: Function;
   listResponsibleTotalMonth: ResponsibleValuesType[];
-  setlistResponsibleTotalMonth: Function;
+  listResponsibleTotalYear: ResponsibleValuesType[];
+  setListResponsibleTotalMonth: Function;
   handlerNumberMonth: Function;
   handlerNameCard: Function;
   theme: DefaultTheme;
@@ -35,7 +37,9 @@ const UserContextProvider = ({ children }: PropsType) => {
   const [nowMonth, setNowMonth] = React.useState<number | undefined>();
   const [nowCard, setNowCard] = React.useState<string | undefined>();
   const [isThemeDark, setIsThemeDark] = React.useState<boolean>(false);
-  const [listResponsibleTotalMonth, setlistResponsibleTotalMonth] =
+  const [listResponsibleTotalMonth, setListResponsibleTotalMonth] =
+    React.useState<ResponsibleValuesType[]>([]);
+  const [listResponsibleTotalYear, setListResponsibleTotalYear] =
     React.useState<ResponsibleValuesType[]>([]);
 
   const [theme, setTheme] = React.useState(() =>
@@ -54,6 +58,7 @@ const UserContextProvider = ({ children }: PropsType) => {
             return {
               ...institution,
               listResponsibleValues: sumResponsibleCard(institution),
+              listResponsibleValuesInitial: sumResponsibleCard(institution),
               amount: updateAmountShoppings(institution.shoppings),
               isShowShoppings: false,
               shoppings: institution.shoppings.map((shopping) => {
@@ -124,11 +129,13 @@ const UserContextProvider = ({ children }: PropsType) => {
   React.useMemo(() => {
     months.map((monthMap) => {
       if (monthMap.monthNumber === nowMonth) {
-        setlistResponsibleTotalMonth(
+        setListResponsibleTotalMonth(
           sumResponsibleMonth([...monthMap.institutions])
         );
       }
     });
+
+    setListResponsibleTotalYear(sumResponsibleYear(months));
   }, [months]);
 
   React.useMemo(() => {
@@ -144,7 +151,8 @@ const UserContextProvider = ({ children }: PropsType) => {
         setMonths,
         getMonths,
         listResponsibleTotalMonth,
-        setlistResponsibleTotalMonth,
+        setListResponsibleTotalMonth,
+        listResponsibleTotalYear,
         handlerNumberMonth,
         handlerNameCard,
         nowCard,

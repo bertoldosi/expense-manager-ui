@@ -39,6 +39,7 @@ export const Institution = ({ month }: PropsType) => {
   const {
     getMonths,
     listResponsibleTotalMonth,
+    listResponsibleTotalYear,
     nowCard,
     theme,
     handlerNameCard,
@@ -176,7 +177,7 @@ export const Institution = ({ month }: PropsType) => {
                       />
                       <CardMenu
                         title="TOTAL ANUAL"
-                        list={listResponsibleTotalMonth}
+                        list={listResponsibleTotalYear}
                         background={theme.backgroundCardTertiary}
                       />
                     </Saside>
