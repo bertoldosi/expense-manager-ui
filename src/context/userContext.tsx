@@ -1,9 +1,9 @@
 import React from "react";
 import { GET_MONTHS } from "@graphqls/month";
 import { hygraph } from "@services/HygraphClient";
-import { sumAmountResponsible } from "@helpers/sumAmountResponsible";
+import { sumResponsibleCard } from "@helpers/sumResponsibleCard";
 import { updateAmountShoppings } from "@helpers/updateAmountShoppings";
-import { sumTotalResponsible } from "@helpers/sumTotalResponsible";
+import { sumResponsibleMonth } from "@helpers/sumResponsibleMonth";
 import { darkTheme, lightTheme } from "src/styles/theme";
 import { DefaultTheme } from "styled-components";
 import { MonthType, ResponsibleValuesType } from "@interfaces/*";
@@ -53,7 +53,7 @@ const UserContextProvider = ({ children }: PropsType) => {
           institutions: month.institutions.map((institution) => {
             return {
               ...institution,
-              listResponsibleValues: sumAmountResponsible(institution),
+              listResponsibleValues: sumResponsibleCard(institution),
               amount: updateAmountShoppings(institution.shoppings),
               isShowShoppings: false,
               shoppings: institution.shoppings.map((shopping) => {
@@ -125,7 +125,7 @@ const UserContextProvider = ({ children }: PropsType) => {
     months.map((monthMap) => {
       if (monthMap.monthNumber === nowMonth) {
         setlistResponsibleTotalMonth(
-          sumTotalResponsible([...monthMap.institutions])
+          sumResponsibleMonth([...monthMap.institutions])
         );
       }
     });

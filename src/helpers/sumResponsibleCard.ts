@@ -6,7 +6,7 @@ import {
   ShoppingType,
 } from "@interfaces/*";
 
-export const sumAmountResponsible = (institution: InstitutionType) => {
+export const sumResponsibleCard = (institution: InstitutionType) => {
   const newList = institution.shoppings.reduce(
     (previousValue: ShoppingType[], currentValue) => {
       let newCurrentValue = {
