@@ -15,8 +15,8 @@ export type UserContextType = {
   setMonths: Function;
   setNowMonth: Function;
   getMonths: Function;
-  responsibleTotalAmountList: ResponsibleValuesType[];
-  setResponsibleTotalAmountList: Function;
+  listResponsibleTotalMonth: ResponsibleValuesType[];
+  setlistResponsibleTotalMonth: Function;
   handlerNumberMonth: Function;
   handlerNameCard: Function;
   theme: DefaultTheme;
@@ -35,7 +35,7 @@ const UserContextProvider = ({ children }: PropsType) => {
   const [nowMonth, setNowMonth] = React.useState<number | undefined>();
   const [nowCard, setNowCard] = React.useState<string | undefined>();
   const [isThemeDark, setIsThemeDark] = React.useState<boolean>(false);
-  const [responsibleTotalAmountList, setResponsibleTotalAmountList] =
+  const [listResponsibleTotalMonth, setlistResponsibleTotalMonth] =
     React.useState<ResponsibleValuesType[]>([]);
 
   const [theme, setTheme] = React.useState(() =>
@@ -124,7 +124,7 @@ const UserContextProvider = ({ children }: PropsType) => {
   React.useMemo(() => {
     months.map((monthMap) => {
       if (monthMap.monthNumber === nowMonth) {
-        setResponsibleTotalAmountList(
+        setlistResponsibleTotalMonth(
           sumTotalResponsible([...monthMap.institutions])
         );
       }
@@ -143,8 +143,8 @@ const UserContextProvider = ({ children }: PropsType) => {
         months,
         setMonths,
         getMonths,
-        responsibleTotalAmountList,
-        setResponsibleTotalAmountList,
+        listResponsibleTotalMonth,
+        setlistResponsibleTotalMonth,
         handlerNumberMonth,
         handlerNameCard,
         nowCard,
