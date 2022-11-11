@@ -9,7 +9,7 @@ type PropsType = {
 };
 
 function Nav({ institutions }: PropsType) {
-  const { nowCard, handlerNumberCard } = React.useContext(
+  const { nowCard, handlerNameCard } = React.useContext(
     UserContext
   ) as UserContextType;
 
@@ -25,12 +25,12 @@ function Nav({ institutions }: PropsType) {
     <Scontent>
       <Slist>
         {institutions.map((institutionMap, index) =>
-          index === nowCard ? (
+          institutionMap.name === nowCard ? (
             <Sitem
               key={index}
               className="selected"
               onClick={() => {
-                handlerNumberCard(index);
+                handlerNameCard(institutionMap.name);
               }}
             >
               <h1>{institutionMap.name}</h1>
@@ -39,7 +39,7 @@ function Nav({ institutions }: PropsType) {
             <Sitem
               key={index}
               onClick={() => {
-                handlerNumberCard(index);
+                handlerNameCard(institutionMap.name);
               }}
             >
               <h1>{institutionMap.name}</h1>

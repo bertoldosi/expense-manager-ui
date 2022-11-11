@@ -36,8 +36,13 @@ const initialValues = {
 };
 
 export const Institution = ({ month }: PropsType) => {
-  const { getMonths, responsibleTotalAmountList, nowCard, theme } =
-    React.useContext(UserContext) as UserContextType;
+  const {
+    getMonths,
+    responsibleTotalAmountList,
+    nowCard,
+    theme,
+    handlerNameCard,
+  } = React.useContext(UserContext) as UserContextType;
 
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
   const [isRequest, setIsRequest] = React.useState<boolean>(false);
@@ -57,6 +62,7 @@ export const Institution = ({ month }: PropsType) => {
         .then(() => {
           getMonths();
           customToast("success", `${name} incluído com sucesso!`);
+          handlerNameCard(name);
         })
         .catch(() => {
           customToast("error", "Tente novamente!");
@@ -127,7 +133,7 @@ export const Institution = ({ month }: PropsType) => {
           </Ssection>
         ) : (
           month.institutions.map((institutionMap, index) => {
-            if (index === nowCard) {
+            if (institutionMap.name === nowCard) {
               return (
                 <div key={index}>
                   <Ssection>

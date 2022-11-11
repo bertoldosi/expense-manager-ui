@@ -10,7 +10,7 @@ import { MonthType, ResponsibleValuesType } from "@interfaces/*";
 
 export type UserContextType = {
   nowMonth: number | undefined;
-  nowCard: number | undefined;
+  nowCard: string | undefined;
   months: MonthType[];
   setMonths: Function;
   setNowMonth: Function;
@@ -18,7 +18,7 @@ export type UserContextType = {
   responsibleTotalAmountList: ResponsibleValuesType[];
   setResponsibleTotalAmountList: Function;
   handlerNumberMonth: Function;
-  handlerNumberCard: Function;
+  handlerNameCard: Function;
   theme: DefaultTheme;
   toggleTheme: Function;
   isThemeDark: boolean;
@@ -33,7 +33,7 @@ export const UserContext = React.createContext<UserContextType | null>(null);
 const UserContextProvider = ({ children }: PropsType) => {
   const [months, setMonths] = React.useState<MonthType[]>([]);
   const [nowMonth, setNowMonth] = React.useState<number | undefined>();
-  const [nowCard, setNowCard] = React.useState<number | undefined>();
+  const [nowCard, setNowCard] = React.useState<string | undefined>();
   const [isThemeDark, setIsThemeDark] = React.useState<boolean>(false);
   const [responsibleTotalAmountList, setResponsibleTotalAmountList] =
     React.useState<ResponsibleValuesType[]>([]);
@@ -75,9 +75,9 @@ const UserContextProvider = ({ children }: PropsType) => {
     localStorage.setItem("@numberMonth", String(value));
   };
 
-  const handlerNumberCard = (value: number) => {
+  const handlerNameCard = (value: string) => {
     setNowCard(value);
-    localStorage.setItem("@numberCard", String(value));
+    localStorage.setItem("@nameCard", value);
   };
 
   const toggleTheme = () => {
@@ -88,7 +88,7 @@ const UserContextProvider = ({ children }: PropsType) => {
   React.useEffect(() => {
     const numberMonth = new Date().getMonth() + 1;
     const numberMonthStorage = localStorage.getItem("@numberMonth");
-    const numberCardStorage = localStorage.getItem("@numberCard");
+    const numberCardStorage = localStorage.getItem("@nameCard");
 
     if (numberMonthStorage) {
       setNowMonth(Number(numberMonthStorage));
@@ -97,9 +97,9 @@ const UserContextProvider = ({ children }: PropsType) => {
     }
 
     if (numberCardStorage) {
-      setNowCard(Number(numberCardStorage));
+      setNowCard(numberCardStorage);
     } else {
-      setNowCard(0);
+      setNowCard("sem card");
     }
   }, []);
 
@@ -146,7 +146,7 @@ const UserContextProvider = ({ children }: PropsType) => {
         responsibleTotalAmountList,
         setResponsibleTotalAmountList,
         handlerNumberMonth,
-        handlerNumberCard,
+        handlerNameCard,
         nowCard,
         theme,
         toggleTheme,
