@@ -7,8 +7,8 @@ type ThemeTypes = {
 };
 
 const common = {
-  backgroundCardPrimary: "#029b99",
-  backgroundCardSecondary: "#49c6e5",
+  backgroundCardPrimary: "#01949A",
+  backgroundCardSecondary: "#0074B7",
   backgroundCardTertiary: "#de4f15",
 };
 
