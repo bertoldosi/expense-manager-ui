@@ -6,7 +6,11 @@ type ThemeTypes = {
   children: ReactNode;
 };
 
-const common = {};
+const common = {
+  backgroundCardPrimary: "#029b99",
+  backgroundCardSecondary: "#49c6e5",
+  backgroundCardTertiary: "#de4f15",
+};
 
 export const lightTheme = {
   ...common,
@@ -26,8 +30,6 @@ export const lightTheme = {
   backgroundLineFooterEmphasis: "#029b99",
 
   backgroundCard: "#fff",
-  backgroundCardPrimary: "#029b99",
-  backgroundCardSecondary: "#de4f15",
 
   colorButton: "#333",
   backgroundButton: "#B0C4DE",
@@ -51,8 +53,6 @@ export const darkTheme = {
   backgroundLineFooterEmphasis: "#029b99",
 
   backgroundCard: "#333",
-  backgroundCardPrimary: "#029b99",
-  backgroundCardSecondary: "#de4f15",
 
   colorButton: "#333",
   backgroundButton: "#fff",

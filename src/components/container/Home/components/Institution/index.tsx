@@ -110,7 +110,7 @@ export const Institution = ({ month }: PropsType) => {
           <Ssection>
             <Saside>
               <CardMenu
-                title="TOTAL GERAL"
+                title="SEM CARTÃO"
                 list={responsibleTotalAmountList}
                 background={theme.backgroundCardPrimary}
                 isFooter={
@@ -142,11 +142,6 @@ export const Institution = ({ month }: PropsType) => {
                         title={`TOTAL ${institutionMap.name.toUpperCase()}`}
                         list={institutionMap.listResponsibleValues}
                         background={theme.backgroundCardPrimary}
-                      />
-                      <CardMenu
-                        title="TOTAL GERAL"
-                        list={responsibleTotalAmountList}
-                        background={theme.backgroundCardSecondary}
                         isFooter={
                           <>
                             <Button
@@ -173,6 +168,16 @@ export const Institution = ({ month }: PropsType) => {
                             </Button>
                           </>
                         }
+                      />
+                      <CardMenu
+                        title="TOTAL MENSAL"
+                        list={responsibleTotalAmountList}
+                        background={theme.backgroundCardSecondary}
+                      />
+                      <CardMenu
+                        title="TOTAL ANUAL"
+                        list={responsibleTotalAmountList}
+                        background={theme.backgroundCardTertiary}
                       />
                     </Saside>
                     <Shopping institution={institutionMap} month={month} />

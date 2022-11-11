@@ -20,6 +20,7 @@ declare module "styled-components" {
     backgroundCard: string;
     backgroundCardPrimary: string;
     backgroundCardSecondary: string;
+    backgroundCardTertiary: string;
 
     colorButton: string;
     backgroundButton: string;
