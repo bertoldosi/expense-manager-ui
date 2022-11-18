@@ -25,6 +25,7 @@
       "@mocks/*": ["src/mocks/*"],
       "@pages/*": ["src/pages/*"],
       "@services/*": ["src/services/*"],
+      "@api/*": ["src/api/*"],
       "@interfaces/*": ["src/types"]
     },
     "types": []

@@ -8,6 +8,7 @@ import { darkTheme, lightTheme } from "src/styles/theme";
 import { DefaultTheme } from "styled-components";
 import { MonthType, ResponsibleValuesType } from "@interfaces/*";
 import { sumResponsibleYear } from "@helpers/sumResponsibleYear";
+import { getMoths } from "@api/months";
 
 export type UserContextType = {
   nowMonth: number | undefined;
@@ -47,11 +48,10 @@ const UserContextProvider = ({ children }: PropsType) => {
   );
 
   const getMonths = async () => {
-    const { months: monthsResponse } =
-      (await hygraph.request(GET_MONTHS)) || [];
+    const { months } = await getMoths();
 
     setMonths(
-      monthsResponse.map((month: MonthType) => {
+      months.map((month: MonthType) => {
         return {
           ...month,
           institutions: month.institutions.map((institution) => {
