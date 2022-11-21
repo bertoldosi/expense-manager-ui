@@ -5,8 +5,16 @@ import { ToastContainer } from "react-toastify";
 import GlobalStyle from "../styles/globalStyle";
 import Theme from "src/styles/theme";
 import UserContextProvider from "src/context/userContext";
+import Layout from "@commons/Layout";
+import { Page } from "page";
 
-function MyApp({ Component, pageProps }: AppProps) {
+type Props = AppProps & {
+  Component: Page;
+};
+
+function MyApp({ Component, pageProps }: Props) {
+  const AppLayout = Component.layout || Layout;
+
   return (
     <UserContextProvider>
       <Theme>
@@ -23,7 +31,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           theme="colored"
         />
         <GlobalStyle />
-        <Component {...pageProps} />
+        <AppLayout>
+          <Component {...pageProps} />
+        </AppLayout>
       </Theme>
     </UserContextProvider>
   );

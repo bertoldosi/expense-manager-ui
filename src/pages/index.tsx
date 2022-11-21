@@ -1,7 +1,8 @@
 import React from "react";
 import Head from "next/head";
 
-import { Login } from "@containers/Login";
+import Login from "@containers/Login";
+import { LayoutAccess } from "@commons/LayoutAccess";
 
 const Home = () => {
   return (
@@ -14,5 +15,7 @@ const Home = () => {
     </>
   );
 };
+
+Home.layout = LayoutAccess;
 
 export default Home;
