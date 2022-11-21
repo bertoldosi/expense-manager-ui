@@ -5,19 +5,21 @@ import Input from "@commons/Input";
 import { Button } from "@commons/Button";
 import { LayoutAccess } from "@commons/LayoutAccess";
 
-export const Login = () => {
+export const Register = () => {
   return (
     <LayoutAccess
       footer={
         <Button background="#fff" color="#333">
-          Entrar
+          Cadastrar
         </Button>
       }
     >
-      <Input placeholder="Nome" />
+      <Input placeholder="Nome do usuário" />
+      <Input placeholder="Email" />
       <Input placeholder="Senha" />
+      <Input placeholder="Confirmar senha" />
       <Slink>
-        Novo em nossa plataforma ? <a href="/cadastro">Crie sua conta aqui</a>
+        Já tem cadastro ? <a href="/">Faça o login aqui</a>
       </Slink>
     </LayoutAccess>
   );
