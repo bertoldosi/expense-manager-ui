@@ -26,6 +26,7 @@
       "@pages/*": ["src/pages/*"],
       "@services/*": ["src/services/*"],
       "@api/*": ["src/api/*"],
+      "@assets/*": ["src/assets/*"],
       "@interfaces/*": ["src/types"]
     },
     "types": []

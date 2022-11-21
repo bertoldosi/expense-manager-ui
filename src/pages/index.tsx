@@ -1,7 +1,7 @@
 import React from "react";
 import Head from "next/head";
 
-import HomeContainer from "@containers/Home";
+import { Login } from "@containers/Login";
 
 const Home = () => {
   return (
@@ -10,7 +10,7 @@ const Home = () => {
         <title>Expense Manager</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <HomeContainer />
+      <Login />
     </>
   );
 };
