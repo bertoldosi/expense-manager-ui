@@ -1,8 +1,6 @@
 import React from "react";
 import Head from "next/head";
-
-import Login from "@containers/Login";
-import { LayoutAccess } from "@commons/LayoutAccess";
+import HomeContainer from "@containers/Home";
 
 const Home = () => {
   return (
@@ -11,11 +9,9 @@ const Home = () => {
         <title>Expense Manager</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Login />
+      <HomeContainer />
     </>
   );
 };
-
-Home.layout = LayoutAccess;
 
 export default Home;

@@ -1,3 +1,4 @@
+import Header from "@commons/Header";
 import React, { ReactNode } from "react";
 
 import { Scontainer } from "./styles";
@@ -9,7 +10,7 @@ type PropsType = {
 const Layout = ({ children }: PropsType) => {
   return (
     <Scontainer>
-      <h1>Header</h1>
+      <Header />
       {children}
     </Scontainer>
   );

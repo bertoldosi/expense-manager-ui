@@ -22,7 +22,7 @@ export const Scontainer = styled.div<PropsTypeContainer>`
 `;
 
 export const Sheader = styled.div`
-  height: 7rem;
+  height: 5rem;
   display: flex;
   align-items: center;
   font-size: 2rem;
@@ -41,7 +41,7 @@ export const Scontent = styled.div<PropsTypeContent>`
   position: absolute;
   top: 7rem;
   border-radius: 0 0 0.5rem 0.5rem;
-  background-color: ${(props) => props.theme.backgroundHeadeEmphasis};
+  background-color: ${(props) => props.theme.color};
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 
   ${(props) =>

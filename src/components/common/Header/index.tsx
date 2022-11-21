@@ -1,17 +1,15 @@
 import React from "react";
 
-import { Sconfig, Scontainer, Scontent } from "./styles";
-import { DropdownMonth } from "./components/DropdownMonth";
-import { DropdownUser } from "./components/DropdownUser";
+import { Scontainer, Scontent } from "./styles";
+import { Logo } from "./components/Logo";
+import { User } from "./components/User";
 
 function Header() {
   return (
     <Scontainer>
       <Scontent>
-        <DropdownMonth />
-        <Sconfig>
-          <DropdownUser />
-        </Sconfig>
+        <Logo />
+        <User />
       </Scontent>
     </Scontainer>
   );

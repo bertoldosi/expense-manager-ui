@@ -1,5 +1,4 @@
 import Dropdown from "@commons/Dropdown";
-import { ToggleButtonTheme } from "@commons/ToggleButtonTheme";
 import { User } from "@icons/User";
 import React from "react";
 import { useTheme } from "styled-components";
@@ -19,9 +18,10 @@ export const DropdownUser = () => {
       setIsVisible={setIsVisible}
     >
       <Scontainer>
-        <ScontentFooter>
-          <ToggleButtonTheme setIsVisible={setIsVisible} />
-        </ScontentFooter>
+        <Sitem>
+          <a href="/teste">teste</a>
+        </Sitem>
+        <ScontentFooter>Footer</ScontentFooter>
       </Scontainer>
     </Dropdown>
   );

@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Scontainer = styled.div`
   width: 100%;
   min-width: 20rem;
+  background-color: ${(props) => props.theme.backgroundPrimary}; ;
 `;
 
 export const ScontentFooter = styled.div`
@@ -25,6 +26,13 @@ export const Sitem = styled.div`
     background-color: initial;
     font-weight: initial;
     cursor: default;
+  }
+
+  a {
+    width: 100%;
+    display: block;
+    text-decoration: none;
+    color: ${(props) => props.theme.color};
   }
 
   span {
