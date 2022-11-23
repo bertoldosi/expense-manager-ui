@@ -35,8 +35,10 @@ export const darkTheme = {
   ...common,
   backgroundBory: "#1B1B1D",
   backgroundPrimary: "#333",
+  backgroundSecondary: "#fff",
 
   color: "#fff",
+  colorSecondary: "#333",
 };
 
 const Theme = ({ children }: ThemeTypes) => {

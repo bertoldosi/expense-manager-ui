@@ -3,12 +3,18 @@ import { Card } from "@commons/Card";
 
 import { Scontainer, Sbuttons } from "./styles";
 import { Button } from "@commons/Button";
+import { Checkbox } from "@commons/Checkbox";
 
 export const ChangeExpense = () => {
   return (
     <Card title="Escolha um gasto para gerenciar:">
       <Scontainer>
-        <h1>ChangeExpense</h1>
+        <Checkbox value="pessoal" name="expense" checked>
+          Pessoal
+        </Checkbox>
+        <Checkbox value="familia" name="expense">
+          Familia
+        </Checkbox>
       </Scontainer>
 
       <Sbuttons>
