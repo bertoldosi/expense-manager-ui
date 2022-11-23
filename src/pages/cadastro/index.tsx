@@ -1,6 +1,6 @@
+import React from "react";
 import { LayoutAccess } from "@commons/LayoutAccess";
 import { Register } from "@containers/Register";
-import React from "react";
 
 const cadastro = () => {
   return <Register />;
