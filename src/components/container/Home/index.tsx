@@ -1,7 +1,12 @@
 import React from "react";
+import { Card } from "@commons/Card";
 
 const Home = () => {
-  return <h1>Home</h1>;
+  return (
+    <Card title="Escolha um gasto para genrenciar:">
+      <h1>Teste</h1>
+    </Card>
+  );
 };
 
 export default Home;

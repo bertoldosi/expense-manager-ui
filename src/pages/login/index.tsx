@@ -2,10 +2,10 @@ import { LayoutAccess } from "@commons/LayoutAccess";
 import LoginContainer from "@containers/Login";
 import React from "react";
 
-const login = () => {
+const Login = () => {
   return <LoginContainer />;
 };
 
-login.layout = LayoutAccess;
+Login.layout = LayoutAccess;
 
-export default login;
+export default Login;

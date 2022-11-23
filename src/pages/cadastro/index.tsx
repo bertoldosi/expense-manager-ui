@@ -2,10 +2,10 @@ import React from "react";
 import { LayoutAccess } from "@commons/LayoutAccess";
 import RegisterContainer from "@containers/Register";
 
-const cadastro = () => {
+const Cadastro = () => {
   return <RegisterContainer />;
 };
 
-cadastro.layout = LayoutAccess;
+Cadastro.layout = LayoutAccess;
 
-export default cadastro;
+export default Cadastro;
