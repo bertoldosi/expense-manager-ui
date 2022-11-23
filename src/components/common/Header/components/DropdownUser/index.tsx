@@ -19,9 +19,12 @@ export const DropdownUser = () => {
     >
       <Scontainer>
         <Sitem>
-          <a href="/teste">teste</a>
+          <a href="/expense-manager">Alterar gasto</a>
         </Sitem>
-        <ScontentFooter>Footer</ScontentFooter>
+        <Sitem>
+          <a href="/teste">Gerenciar gasto</a>
+        </Sitem>
+        <ScontentFooter>Matheus Bertoldo</ScontentFooter>
       </Scontainer>
     </Dropdown>
   );

@@ -12,17 +12,12 @@ export const Swrapper = styled.div`
 
   display: flex;
   justify-content: center;
-
-  @media (max-width: 700px) {
-    height: max-content;
-  }
 `;
 
 export const Scontent = styled.div`
   width: 100%;
   max-width: 50rem;
   height: min-content;
-  background-color: ${(props) => props.theme.backgroundCard};
   border-radius: 0.3rem;
   overflow: hidden;
 `;

@@ -11,6 +11,8 @@ export const ScontentFooter = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  border-top: 1px solid ${(props) => props.theme.color};
+  font-size: 1.2rem;
 `;
 
 export const Sitem = styled.div`
@@ -33,6 +35,7 @@ export const Sitem = styled.div`
     display: block;
     text-decoration: none;
     color: ${(props) => props.theme.color};
+    font-size: 1.2rem;
   }
 
   span {

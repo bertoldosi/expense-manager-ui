@@ -55,5 +55,6 @@ export const Scontent = styled.div<PropsTypeContent>`
 
   @media (max-width: 300px) {
     width: 100%;
+    margin-top: 1.5rem;
   }
 `;
