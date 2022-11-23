@@ -7,6 +7,7 @@ import Theme from "src/styles/theme";
 import UserContextProvider from "src/context/userContext";
 import Layout from "@commons/Layout";
 import { Page } from "page";
+import { Wrapped } from "@commons/Wrapped";
 
 type Props = AppProps & {
   Component: Page;
@@ -32,7 +33,9 @@ function MyApp({ Component, pageProps }: Props) {
         />
         <GlobalStyle />
         <AppLayout>
-          <Component {...pageProps} />
+          <Wrapped>
+            <Component {...pageProps} />
+          </Wrapped>
         </AppLayout>
       </Theme>
     </UserContextProvider>
