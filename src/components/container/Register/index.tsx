@@ -4,7 +4,7 @@ import { Sfooter, Slink } from "./styles";
 import Input from "@commons/Input";
 import { Button } from "@commons/Button";
 
-export const Register = () => {
+const Register = () => {
   return (
     <>
       <Input placeholder="Nome do usuário" />
@@ -23,3 +23,5 @@ export const Register = () => {
     </>
   );
 };
+
+export default Register;

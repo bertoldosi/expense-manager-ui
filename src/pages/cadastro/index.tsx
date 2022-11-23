@@ -1,9 +1,9 @@
 import React from "react";
 import { LayoutAccess } from "@commons/LayoutAccess";
-import { Register } from "@containers/Register";
+import RegisterContainer from "@containers/Register";
 
 const cadastro = () => {
-  return <Register />;
+  return <RegisterContainer />;
 };
 
 cadastro.layout = LayoutAccess;
