@@ -1,12 +1,29 @@
 import React from "react";
-import { Card } from "@commons/Card";
 
-const Home = () => {
+import { Institution } from "@containers/Home/components/Institution";
+
+import { Scontainer, ScontentNull } from "./styles";
+import { UserContext, UserContextType } from "src/context/userContext";
+
+function Home() {
+  const { months, nowMonth } = React.useContext(UserContext) as UserContextType;
+
   return (
-    <Card title="Escolha um gasto para genrenciar:">
-      <h1>Teste</h1>
-    </Card>
+    <Scontainer>
+      {months.length === 0 && (
+        <ScontentNull>
+          <h2>Acesse o https://hygraph.com e cadastre os meses!</h2>
+        </ScontentNull>
+      )}
+
+      {months.map(
+        (monthMap, index) =>
+          monthMap.monthNumber === nowMonth && (
+            <Institution key={index} month={monthMap} />
+          )
+      )}
+    </Scontainer>
   );
-};
+}
 
 export default Home;

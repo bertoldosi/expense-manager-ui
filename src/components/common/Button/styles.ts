@@ -3,12 +3,14 @@ import styled from "styled-components";
 type PropsType = {
   color?: string;
   background?: string;
+  width?: string;
+  height?: string;
 };
 
 export const Scontent = styled.label<PropsType>`
   width: 100%;
-  max-width: 12rem;
-  height: 3rem;
+  max-width: ${(props) => props.width};
+  height: ${(props) => props.height};
   display: flex;
   align-items: center;
   justify-content: center;
