@@ -1,14 +1,16 @@
 import React from "react";
 
-import { Sfooter, Slink } from "./styles";
+import { Sfooter, Sinputs, Slink } from "./styles";
 import Input from "@commons/Input";
 import { Button } from "@commons/Button";
 
 const Login = () => {
   return (
     <>
-      <Input placeholder="Nome" />
-      <Input placeholder="Senha" />
+      <Sinputs>
+        <Input placeholder="Nome" />
+        <Input placeholder="Senha" />
+      </Sinputs>
       <Slink>
         Novo em nossa plataforma ? <a href="/cadastro">Crie sua conta aqui</a>
       </Slink>

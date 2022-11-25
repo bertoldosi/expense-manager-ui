@@ -5,7 +5,11 @@ export const Scontainer = styled.div`
   padding: 1rem;
   border-radius: 0.3rem;
 
-  h2 {
+  & + & {
+    margin: 2rem 0;
+  }
+
+  > h2 {
     margin-bottom: 2rem;
   }
 `;

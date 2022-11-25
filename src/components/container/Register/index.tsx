@@ -1,18 +1,21 @@
 import React from "react";
 
-import { Sfooter, Slink } from "./styles";
+import { Sfooter, Sinputs, Slink } from "./styles";
 import Input from "@commons/Input";
 import { Button } from "@commons/Button";
 
 const Register = () => {
   return (
     <>
-      <Input placeholder="Nome do usuário" />
-      <Input placeholder="Email" />
-      <Input placeholder="Senha" />
-      <Input placeholder="Confirmar senha" />
+      <Sinputs>
+        <Input placeholder="Nome do usuário" />
+        <Input placeholder="Email" />
+        <Input placeholder="Senha" />
+        <Input placeholder="Confirmar senha" />
+      </Sinputs>
+
       <Slink>
-        Já tem cadastro ? <a href="/">Faça o login aqui</a>
+        Já tem cadastro ? <a href="/login">Faça o login aqui</a>
       </Slink>
 
       <Sfooter>

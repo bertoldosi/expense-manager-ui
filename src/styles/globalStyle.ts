@@ -27,6 +27,7 @@ const GlobalStyle = createGlobalStyle`
     body{
         color: ${(props) => props.theme.color};
         background: ${(props) => props.theme.backgroundBory};
+        user-select: none;
     }
 
     button{

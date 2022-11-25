@@ -21,7 +21,7 @@ export const ChangeExpense = () => {
         <Button background="#fff" color="#333">
           Continuar
         </Button>
-        <a href="/manager-expense">Cadastrar</a>
+        <a href="/gerenciar-gasto">Cadastrar</a>
       </Sbuttons>
     </Card>
   );

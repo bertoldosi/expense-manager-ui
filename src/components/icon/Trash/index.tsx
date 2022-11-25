@@ -11,6 +11,7 @@ type PropsType = {
 const Scontent = styled.button`
   background-color: transparent;
   border: none;
+  display: flex;
 
   cursor: pointer;
   border-radius: 50%;

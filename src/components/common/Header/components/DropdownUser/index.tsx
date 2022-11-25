@@ -22,7 +22,7 @@ export const DropdownUser = () => {
           <a href="/alterar-gasto">Alterar gasto</a>
         </Sitem>
         <Sitem>
-          <a href="/teste">Gerenciar gasto</a>
+          <a href="/gerenciar-gasto">Gerenciar gasto</a>
         </Sitem>
         <ScontentFooter>Matheus Bertoldo</ScontentFooter>
       </Scontainer>
