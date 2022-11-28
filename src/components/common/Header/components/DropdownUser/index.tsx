@@ -1,5 +1,6 @@
 import Dropdown from "@commons/Dropdown";
 import { User } from "@icons/User";
+import Link from "next/link";
 import React from "react";
 import { useTheme } from "styled-components";
 
@@ -19,10 +20,10 @@ export const DropdownUser = () => {
     >
       <Scontainer>
         <Sitem>
-          <a href="/alterar-gasto">Alterar gasto</a>
+          <Link href="/alterar-gasto">Alterar gasto</Link>
         </Sitem>
         <Sitem>
-          <a href="/gerenciar-gasto">Gerenciar gasto</a>
+          <Link href="/gerenciar-gasto">Gerenciar gasto</Link>
         </Sitem>
         <ScontentFooter>Matheus Bertoldo</ScontentFooter>
       </Scontainer>
