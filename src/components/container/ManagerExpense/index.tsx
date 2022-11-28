@@ -1,42 +1,19 @@
 import React from "react";
 import { Card } from "@commons/Card";
 
-import { Scontainer, Sbuttons, Sresume, Slist, Sexpenses } from "./styles";
-import { Button } from "@commons/Button";
-import { InputWithSelectItems } from "@commons/InputWithSelectItems";
-import Input from "@commons/Input";
+import { Slist, Sexpenses } from "./styles";
 import { Trash } from "@icons/Trash";
 import { Edit } from "@icons/Edit";
+import { ExpenseData } from "./components/ExpenseData";
+import { Modal } from "@commons/Modal";
 
 export const ManagerExpense = () => {
+  const [isVisible, setIsVisible] = React.useState<boolean>(false);
+
   return (
     <>
       <Card title="Novo gasto:">
-        <Scontainer>
-          <Input placeholder="Nome" />
-          <InputWithSelectItems />
-        </Scontainer>
-
-        <Sresume>
-          <Slist>
-            <h3>Compartilhado com:</h3>
-            <div>
-              <span>matheus@gmail.com</span>
-              <Trash width={15} height={15} />
-            </div>
-
-            <div>
-              <span>matheus@gmail.com</span>
-              <Trash width={15} height={15} />
-            </div>
-          </Slist>
-        </Sresume>
-
-        <Sbuttons>
-          <Button background="#fff" color="#333">
-            Cadastrar
-          </Button>
-        </Sbuttons>
+        <ExpenseData />
       </Card>
 
       <Card title="Gerenciar gastos:">
@@ -45,29 +22,40 @@ export const ManagerExpense = () => {
             <div>
               <span>matheus@gmail.com</span>
               <div>
-                <Edit width={15} height={15} />
+                <Edit
+                  width={15}
+                  height={15}
+                  onClick={() => {
+                    setIsVisible((prevState) => !prevState);
+                  }}
+                />
                 <Trash width={15} height={15} />
               </div>
             </div>
-
             <div>
               <span>matheus@gmail.com</span>
               <div>
-                <Edit width={15} height={15} />
-                <Trash width={15} height={15} />
-              </div>
-            </div>
-
-            <div>
-              <span>matheus@gmail.com</span>
-              <div>
-                <Edit width={15} height={15} />
+                <Edit
+                  width={15}
+                  height={15}
+                  onClick={() => {
+                    setIsVisible((prevState) => !prevState);
+                  }}
+                />
                 <Trash width={15} height={15} />
               </div>
             </div>
           </Slist>
         </Sexpenses>
       </Card>
+
+      <Modal
+        isVisible={isVisible}
+        handlerIsVisible={setIsVisible}
+        title="Editando gasto"
+      >
+        <ExpenseData />
+      </Modal>
     </>
   );
 };

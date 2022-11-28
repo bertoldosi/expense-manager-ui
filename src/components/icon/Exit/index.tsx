@@ -40,7 +40,7 @@ export const Exit = ({
         xmlns="http://www.w3.org/2000/svg"
         width={width}
         height={height}
-        fill="#333"
+        fill="#fff"
         viewBox="0 0 256 256"
       >
         <rect width="256" height="256" fill="none"></rect>
@@ -49,7 +49,7 @@ export const Exit = ({
           cy="128"
           r="96"
           fill="none"
-          stroke="#333"
+          stroke="#fff"
           strokeMiterlimit="10"
           strokeWidth="16"
         ></circle>
@@ -59,7 +59,7 @@ export const Exit = ({
           x2="96"
           y2="160"
           fill="none"
-          stroke="#333"
+          stroke="#fff"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="16"
@@ -70,7 +70,7 @@ export const Exit = ({
           x2="96"
           y2="96"
           fill="none"
-          stroke="#333"
+          stroke="#fff"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="16"
