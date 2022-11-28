@@ -21,16 +21,7 @@ export const Sresume = styled.div`
   margin-top: 2rem;
   font-size: 1.2rem;
 `;
-export const Sname = styled.div`
-  display: flex;
-  align-items: center;
 
-  span {
-    padding: 0 0.5rem;
-  }
-
-  margin-bottom: 2rem;
-`;
 export const Slist = styled.div`
   font-size: 1.2rem;
 

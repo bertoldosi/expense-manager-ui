@@ -1,14 +1,7 @@
 import React from "react";
 import { Card } from "@commons/Card";
 
-import {
-  Scontainer,
-  Sbuttons,
-  Sresume,
-  Sname,
-  Slist,
-  Sexpenses,
-} from "./styles";
+import { Scontainer, Sbuttons, Sresume, Slist, Sexpenses } from "./styles";
 import { Button } from "@commons/Button";
 import { InputWithSelectItems } from "@commons/InputWithSelectItems";
 import Input from "@commons/Input";
@@ -25,13 +18,8 @@ export const ManagerExpense = () => {
         </Scontainer>
 
         <Sresume>
-          <Sname>
-            <h3>Nome:</h3>
-            <span>Outro gasto</span>
-          </Sname>
           <Slist>
             <h3>Compartilhado com:</h3>
-
             <div>
               <span>matheus@gmail.com</span>
               <Trash width={15} height={15} />
@@ -54,6 +42,22 @@ export const ManagerExpense = () => {
       <Card title="Gerenciar gastos:">
         <Sexpenses>
           <Slist>
+            <div>
+              <span>matheus@gmail.com</span>
+              <div>
+                <Edit width={15} height={15} />
+                <Trash width={15} height={15} />
+              </div>
+            </div>
+
+            <div>
+              <span>matheus@gmail.com</span>
+              <div>
+                <Edit width={15} height={15} />
+                <Trash width={15} height={15} />
+              </div>
+            </div>
+
             <div>
               <span>matheus@gmail.com</span>
               <div>
