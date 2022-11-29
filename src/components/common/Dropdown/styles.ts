@@ -6,7 +6,8 @@ type PropsTypeContainer = {
 
 type PropsTypeContent = {
   isVisible: boolean;
-  position: "left" | "right";
+  position: "left" | "right" | "center";
+  top?: string;
 };
 
 export const Scontainer = styled.div<PropsTypeContainer>`
@@ -39,19 +40,24 @@ export const Sheader = styled.div`
 export const Scontent = styled.div<PropsTypeContent>`
   display: ${(props) => (props.isVisible ? "initial" : "none")};
   position: absolute;
-  top: 7rem;
+  top: ${(props) => props.top};
   border-radius: 0 0 0.5rem 0.5rem;
   background-color: ${(props) => props.theme.color};
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 
   ${(props) =>
-    props.position === "left"
-      ? css`
-          left: 0;
-        `
-      : css`
-          right: 0;
-        `}
+    props.position === "left" &&
+    css`
+      right: 0;
+    `}
+
+  ${(props) =>
+    props.position === "right" &&
+    css`
+      left: 0;
+    `}
+
+    ${(props) => props.position === "center" && css``}
 
   @media (max-width: 300px) {
     width: 100%;

@@ -10,7 +10,8 @@ type PropsType = {
   icon?: ReactNode;
   children: ReactNode;
   hideChevronIcon?: boolean;
-  position: "left" | "right";
+  position: "left" | "right" | "center";
+  top?: string;
   isVisible: boolean;
   setIsVisible: Function;
 };
@@ -21,6 +22,7 @@ function Dropdown({
   children,
   hideChevronIcon,
   position,
+  top = "7rem",
   isVisible = false,
   setIsVisible,
 }: PropsType) {
@@ -52,7 +54,7 @@ function Dropdown({
         {!hideChevronIcon && <RenderIcon isVisible={isVisible} />}
       </Sheader>
 
-      <Scontent isVisible={isVisible} position={position}>
+      <Scontent isVisible={isVisible} position={position} top={top}>
         {children}
       </Scontent>
     </Scontainer>
