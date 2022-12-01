@@ -175,11 +175,11 @@ export const Institution = ({ month }: PropsType) => {
                         list={listResponsibleTotalMonth}
                         background={theme.backgroundCardSecondary}
                       />
-                      <CardMenu
+                      {/* <CardMenu
                         title="TOTAL ANUAL"
                         list={listResponsibleTotalYear}
                         background={theme.backgroundCardTertiary}
-                      />
+                      /> */}
                     </Saside>
                     <Shopping institution={institutionMap} month={month} />
                   </Ssection>
