@@ -44,6 +44,7 @@ export const Shopping = ({ institution, month }: PropsType) => {
 
       const payload = {
         ...values,
+        responsible: values.responsible ? values.responsible : "sem",
         reference: uuidv4(),
       };
 
