@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const Scontainer = styled.div`
-  width: 100%;
   padding: 0 1rem;
   background-color: ${(props) => props.theme.backgroundPrimary};
 `;

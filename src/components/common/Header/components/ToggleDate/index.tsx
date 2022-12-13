@@ -1,5 +1,6 @@
 import Dropdown from "@commons/Dropdown";
 import React from "react";
+import { Calendar } from "../Calendar";
 
 import { Scontainer, Scontent } from "./styles";
 
@@ -16,7 +17,7 @@ export const ToggleDate = () => {
         top="4rem"
       >
         <Scontent>
-          <h1>teste</h1>
+          <Calendar />
         </Scontent>
       </Dropdown>
     </Scontainer>
