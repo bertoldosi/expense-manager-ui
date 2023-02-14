@@ -8,37 +8,44 @@ import UserContextProvider from "src/context/userContext";
 import Layout from "@commons/Layout";
 import { Page } from "page";
 import { Wrapped } from "@commons/Wrapped";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import getConfig from "next/config";
+const { publicRuntimeConfig = {} } = getConfig() || {};
 
 type Props = AppProps & {
   Component: Page;
 };
 
+const CLIENT_ID = publicRuntimeConfig.CLIENT_ID;
+
 function MyApp({ Component, pageProps }: Props) {
   const AppLayout = Component.layout || Layout;
 
   return (
-    <UserContextProvider>
-      <Theme>
-        <ToastContainer
-          position="top-right"
-          autoClose={2000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="colored"
-        />
-        <GlobalStyle />
-        <AppLayout>
-          <Wrapped>
-            <Component {...pageProps} />
-          </Wrapped>
-        </AppLayout>
-      </Theme>
-    </UserContextProvider>
+    <GoogleOAuthProvider clientId={CLIENT_ID}>
+      <UserContextProvider>
+        <Theme>
+          <ToastContainer
+            position="top-right"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+          />
+          <GlobalStyle />
+          <AppLayout>
+            <Wrapped>
+              <Component {...pageProps} />
+            </Wrapped>
+          </AppLayout>
+        </Theme>
+      </UserContextProvider>
+    </GoogleOAuthProvider>
   );
 }
 

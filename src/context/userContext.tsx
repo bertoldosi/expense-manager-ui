@@ -1,6 +1,4 @@
 import React from "react";
-import { GET_MONTHS } from "@graphqls/month";
-import { hygraph } from "@services/HygraphClient";
 import { sumResponsibleCard } from "@helpers/sumResponsibleCard";
 import { updateAmountShoppings } from "@helpers/updateAmountShoppings";
 import { sumResponsibleMonth } from "@helpers/sumResponsibleMonth";
@@ -22,7 +20,7 @@ export type UserContextType = {
   setListResponsibleTotalMonth: Function;
   handlerNumberMonth: Function;
   handlerNameCard: Function;
-  theme: DefaultTheme;
+  theme: DefaultTheme | any;
   toggleTheme: Function;
   isThemeDark: boolean;
 };

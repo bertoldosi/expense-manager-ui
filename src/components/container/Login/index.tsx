@@ -1,13 +1,14 @@
 import React from "react";
 
-import { Sfooter, Sinputs, Slink } from "./styles";
-import Input from "@commons/Input";
-import { Button } from "@commons/Button";
+// import { Sfooter, Sinputs, Slink } from "./styles";
+// import Input from "@commons/Input";
+// import { Button } from "@commons/Button";
+import { GoogleLogin } from "@react-oauth/google";
 
 const Login = () => {
   return (
     <>
-      <Sinputs>
+      {/* <Sinputs>
         <Input placeholder="Nome" />
         <Input placeholder="Senha" />
       </Sinputs>
@@ -19,7 +20,16 @@ const Login = () => {
         <Button background="#fff" color="#333">
           Entrar
         </Button>
-      </Sfooter>
+      </Sfooter> */}
+
+      <GoogleLogin
+        onSuccess={(credentialResponse) => {
+          console.log(credentialResponse);
+        }}
+        onError={() => {
+          console.log("Login Failed");
+        }}
+      />
     </>
   );
 };
