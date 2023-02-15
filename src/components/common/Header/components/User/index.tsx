@@ -1,5 +1,5 @@
 import React from "react";
-import { DropdownUser } from "../DropdownUser";
+import DropdownUser from "../DropdownUser";
 
 import { Scontainer } from "./styles";
 

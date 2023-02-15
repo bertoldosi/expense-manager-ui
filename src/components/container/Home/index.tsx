@@ -6,7 +6,11 @@ import { Scontainer, ScontentNull } from "./styles";
 import { UserContext, UserContextType } from "src/context/userContext";
 
 function Home() {
-  const { months, nowMonth } = React.useContext(UserContext) as UserContextType;
+  const { months, nowMonth, user } = React.useContext(
+    UserContext
+  ) as UserContextType;
+
+  console.log(user);
 
   return (
     <Scontainer>

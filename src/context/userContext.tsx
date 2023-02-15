@@ -1,10 +1,10 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { sumResponsibleCard } from "@helpers/sumResponsibleCard";
 import { updateAmountShoppings } from "@helpers/updateAmountShoppings";
 import { sumResponsibleMonth } from "@helpers/sumResponsibleMonth";
 import { darkTheme, lightTheme } from "src/styles/theme";
 import { DefaultTheme } from "styled-components";
-import { MonthType, ResponsibleValuesType } from "@interfaces/*";
+import { MonthType, ResponsibleValuesType, UserType } from "@interfaces/*";
 import { sumResponsibleYear } from "@helpers/sumResponsibleYear";
 import { getMoths } from "@api/months";
 
@@ -23,6 +23,8 @@ export type UserContextType = {
   theme: DefaultTheme | any;
   toggleTheme: Function;
   isThemeDark: boolean;
+  user: UserType | undefined;
+  setUser: Dispatch<SetStateAction<UserType | undefined>>;
 };
 
 type PropsType = {
@@ -44,6 +46,7 @@ const UserContextProvider = ({ children }: PropsType) => {
   const [theme, setTheme] = React.useState(() =>
     isThemeDark ? darkTheme : lightTheme
   );
+  const [user, setUser] = React.useState<UserType>();
 
   const getMonths = async () => {
     const { months } = await getMoths();
@@ -157,6 +160,8 @@ const UserContextProvider = ({ children }: PropsType) => {
         theme,
         toggleTheme,
         isThemeDark,
+        user,
+        setUser,
       }}
     >
       {children}
