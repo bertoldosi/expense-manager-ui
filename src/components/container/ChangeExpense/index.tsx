@@ -4,27 +4,35 @@ import { Card } from "@commons/Card";
 import { Scontainer, Sbuttons } from "./styles";
 import { Button } from "@commons/Button";
 import { Checkbox } from "@commons/Checkbox";
-import { UserContextType } from "src/context/userContext";
 import Link from "next/link";
-import { UserAppContext } from "src/context/userAppContext";
+import { UserAppContext, UserAppContextType } from "src/context/userAppContext";
 
 export const ChangeExpense = () => {
-  const { person } = React.useContext(UserAppContext) as UserContextType;
+  const { person } = React.useContext(UserAppContext) as UserAppContextType;
 
   return (
     <Card title="Escolha um gasto para gerenciar:">
-      <Scontainer>
-        {person?.expenses.map((expense) => (
-          <Checkbox value="pessoal" name="expense" checked>
-            {expense.name}
-          </Checkbox>
-        ))}
-      </Scontainer>
+      {person?.expenses.length > 0 ? (
+        <Scontainer>
+          {person?.expenses.map((expense) => (
+            <Checkbox value="pessoal" name="expense" checked>
+              {expense.name}
+            </Checkbox>
+          ))}
+        </Scontainer>
+      ) : (
+        <Scontainer>
+          <span>Não existe nenhum gasto vinculado ao seu email.</span>
+        </Scontainer>
+      )}
 
       <Sbuttons>
-        <Button background="#fff" color="#333">
-          Continuar
-        </Button>
+        {person?.expenses.length > 0 && (
+          <Button background="#fff" color="#333">
+            Continuar
+          </Button>
+        )}
+
         <Link href="/gerenciar-gasto">Cadastrar</Link>
       </Sbuttons>
     </Card>

@@ -4,6 +4,10 @@ export const Scontainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.1rem;
+
+  > span {
+    font-size: 2rem;
+  }
 `;
 
 export const Sbuttons = styled.div`

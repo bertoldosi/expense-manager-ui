@@ -16,7 +16,6 @@ export const Scontent = styled.label<PropsType>`
   justify-content: center;
   background-color: ${(props) => props.background};
   border-radius: 0.3rem;
-  cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
 
