@@ -4,10 +4,12 @@ import { Card } from "@commons/Card";
 import { Scontainer, Sbuttons } from "./styles";
 import { Button } from "@commons/Button";
 import { Checkbox } from "@commons/Checkbox";
-import { UserContext, UserContextType } from "src/context/userContext";
+import { UserContextType } from "src/context/userContext";
+import Link from "next/link";
+import { UserAppContext } from "src/context/userAppContext";
 
 export const ChangeExpense = () => {
-  const { person } = React.useContext(UserContext) as UserContextType;
+  const { person } = React.useContext(UserAppContext) as UserContextType;
 
   return (
     <Card title="Escolha um gasto para gerenciar:">
@@ -23,7 +25,7 @@ export const ChangeExpense = () => {
         <Button background="#fff" color="#333">
           Continuar
         </Button>
-        <a href="/gerenciar-gasto">Cadastrar</a>
+        <Link href="/gerenciar-gasto">Cadastrar</Link>
       </Sbuttons>
     </Card>
   );
