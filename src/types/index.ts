@@ -45,3 +45,15 @@ export type UserType = {
   picture: string;
   locale: string;
 };
+
+export type ExpenseType = {
+  id: string;
+  name: string;
+  institutions: InstitutionType[];
+};
+
+export type PersonType = {
+  id: string;
+  name: string;
+  expenses: ExpenseType[];
+};

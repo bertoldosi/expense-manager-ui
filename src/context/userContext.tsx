@@ -1,12 +1,15 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { sumResponsibleCard } from "@helpers/sumResponsibleCard";
-import { updateAmountShoppings } from "@helpers/updateAmountShoppings";
 import { sumResponsibleMonth } from "@helpers/sumResponsibleMonth";
 import { darkTheme, lightTheme } from "src/styles/theme";
 import { DefaultTheme } from "styled-components";
-import { MonthType, ResponsibleValuesType, UserType } from "@interfaces/*";
+import {
+  MonthType,
+  PersonType,
+  ResponsibleValuesType,
+  UserType,
+} from "@interfaces/*";
 import { sumResponsibleYear } from "@helpers/sumResponsibleYear";
-import { getMoths } from "@api/months";
+import { getPerson } from "@api/person";
 
 export type UserContextType = {
   nowMonth: number | undefined;
@@ -25,6 +28,8 @@ export type UserContextType = {
   isThemeDark: boolean;
   user: UserType | undefined;
   setUser: Dispatch<SetStateAction<UserType | undefined>>;
+  person: PersonType | undefined;
+  setPerson: React.Dispatch<React.SetStateAction<PersonType | undefined>>;
 };
 
 type PropsType = {
@@ -47,33 +52,40 @@ const UserContextProvider = ({ children }: PropsType) => {
     isThemeDark ? darkTheme : lightTheme
   );
   const [user, setUser] = React.useState<UserType>();
+  const [person, setPerson] = React.useState<PersonType>();
 
   const getMonths = async () => {
-    const { months } = await getMoths();
+    setMonths([]);
+    // const { months } = await getMoths();
+    // setMonths(
+    //   months.map((month: MonthType) => {
+    //     return {
+    //       ...month,
+    //       institutions: month.institutions.map((institution) => {
+    //         return {
+    //           ...institution,
+    //           listResponsibleValues: sumResponsibleCard(institution),
+    //           listResponsibleValuesInitial: sumResponsibleCard(institution),
+    //           amount: updateAmountShoppings(institution.shoppings),
+    //           isShowShoppings: false,
+    //           shoppings: institution.shoppings.map((shopping) => {
+    //             return {
+    //               ...shopping,
+    //               isUpdate: false,
+    //               select: false,
+    //             };
+    //           }),
+    //         };
+    //       }),
+    //     };
+    //   })
+    // );
+  };
 
-    setMonths(
-      months.map((month: MonthType) => {
-        return {
-          ...month,
-          institutions: month.institutions.map((institution) => {
-            return {
-              ...institution,
-              listResponsibleValues: sumResponsibleCard(institution),
-              listResponsibleValuesInitial: sumResponsibleCard(institution),
-              amount: updateAmountShoppings(institution.shoppings),
-              isShowShoppings: false,
-              shoppings: institution.shoppings.map((shopping) => {
-                return {
-                  ...shopping,
-                  isUpdate: false,
-                  select: false,
-                };
-              }),
-            };
-          }),
-        };
-      })
-    );
+  const getPersonHy = async (email: string) => {
+    const response = await getPerson(email);
+
+    setPerson(response.person);
   };
 
   const handlerNumberMonth = (value: number) => {
@@ -143,6 +155,11 @@ const UserContextProvider = ({ children }: PropsType) => {
     getMonths();
   }, [nowMonth, nowCard]);
 
+  React.useMemo(() => {
+    if (user?.email) {
+      getPersonHy(user.email);
+    }
+  }, [user]);
   return (
     <UserContext.Provider
       value={{
@@ -162,6 +179,8 @@ const UserContextProvider = ({ children }: PropsType) => {
         isThemeDark,
         user,
         setUser,
+        person,
+        setPerson,
       }}
     >
       {children}

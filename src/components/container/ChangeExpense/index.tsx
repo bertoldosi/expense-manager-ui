@@ -4,17 +4,19 @@ import { Card } from "@commons/Card";
 import { Scontainer, Sbuttons } from "./styles";
 import { Button } from "@commons/Button";
 import { Checkbox } from "@commons/Checkbox";
+import { UserContext, UserContextType } from "src/context/userContext";
 
 export const ChangeExpense = () => {
+  const { person } = React.useContext(UserContext) as UserContextType;
+
   return (
     <Card title="Escolha um gasto para gerenciar:">
       <Scontainer>
-        <Checkbox value="pessoal" name="expense" checked>
-          Pessoal
-        </Checkbox>
-        <Checkbox value="familia" name="expense">
-          Familia
-        </Checkbox>
+        {person?.expenses.map((expense) => (
+          <Checkbox value="pessoal" name="expense" checked>
+            {expense.name}
+          </Checkbox>
+        ))}
       </Scontainer>
 
       <Sbuttons>
