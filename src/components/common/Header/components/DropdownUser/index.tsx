@@ -1,8 +1,10 @@
 import Dropdown from "@commons/Dropdown";
 import { User } from "@icons/User";
+import { googleLogout } from "@react-oauth/google";
 import Link from "next/link";
+import Router from "next/router";
 import React from "react";
-import { UserContext, UserContextType } from "src/context/userContext";
+import { UserAppContext, UserAppContextType } from "src/context/userAppContext";
 import { useTheme } from "styled-components";
 
 import { Scontainer, ScontentFooter, Sitem } from "./styles";
@@ -10,11 +12,21 @@ import { Scontainer, ScontentFooter, Sitem } from "./styles";
 function DropdownUser() {
   const theme = useTheme();
   const [isVisible, setIsVisible] = React.useState(false);
-  const { user } = React.useContext(UserContext) as UserContextType;
+  const { user } = React.useContext(UserAppContext) as UserAppContextType;
+
+  const logOut = () => {
+    googleLogout();
+
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("@expense-manager");
+    }
+
+    Router.push("/login");
+  };
 
   return (
     <Dropdown
-      position="right"
+      position="left"
       hideChevronIcon
       icon={<User color={theme.color} width={25} height={25} />}
       isVisible={isVisible}
@@ -26,6 +38,9 @@ function DropdownUser() {
         </Sitem>
         <Sitem>
           <Link href="/gerenciar-gasto">Gerenciar gasto</Link>
+        </Sitem>
+        <Sitem>
+          <span onClick={logOut}>Sair</span>
         </Sitem>
         <ScontentFooter>{user?.name}</ScontentFooter>
       </Scontainer>

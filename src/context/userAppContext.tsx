@@ -21,15 +21,28 @@ const UserAppContextProvider = ({ children }: PropsType) => {
   const [user, setUser] = React.useState<UserType>();
   const [person, setPerson] = React.useState<PersonType>();
 
-  const getPersonHy = async (email: string) => {
-    const response = await getPerson(email);
+  const getPersonHy = async (user: UserType) => {
+    const response = await getPerson(user.email);
 
     setPerson(response.person);
+    setUser(user);
   };
 
   React.useMemo(() => {
-    if (user?.email) {
-      getPersonHy(user.email);
+    if (typeof window !== "undefined") {
+      const dataStorage = JSON.parse(
+        localStorage.getItem("@expense-manager") || "{}"
+      );
+
+      if (user?.email) {
+        getPersonHy(user);
+        localStorage.setItem(
+          "@expense-manager",
+          JSON.stringify({ user: user })
+        );
+      } else {
+        getPersonHy(dataStorage.user);
+      }
     }
   }, [user]);
 

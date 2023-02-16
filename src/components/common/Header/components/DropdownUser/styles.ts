@@ -16,7 +16,6 @@ export const ScontentFooter = styled.div`
 `;
 
 export const Sitem = styled.div`
-  padding: 1rem;
   transition: background 0.5s;
 
   &:hover {
@@ -32,14 +31,21 @@ export const Sitem = styled.div`
 
   a {
     width: 100%;
+    height: 100%;
     display: block;
     text-decoration: none;
     color: ${(props) => props.theme.color};
     font-size: 1.2rem;
+
+    padding: 1rem;
   }
 
   span {
+    width: 100%;
+    height: 100%;
+    display: block;
     color: ${(props) => props.theme.color};
     font-size: 1.5rem;
+    padding: 1rem;
   }
 `;
