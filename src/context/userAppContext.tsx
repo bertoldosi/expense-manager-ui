@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { PersonType, UserType } from "@interfaces/*";
 import { getPerson } from "@api/person";
+import Cookies from "universal-cookie";
 
 export type UserAppContextType = {
   user: UserType | undefined;
@@ -21,6 +22,8 @@ const UserAppContextProvider = ({ children }: PropsType) => {
   const [user, setUser] = React.useState<UserType>();
   const [person, setPerson] = React.useState<PersonType>();
 
+  const cookies = new Cookies();
+
   const getPersonHy = async (user: UserType) => {
     const response = await getPerson(user.email);
 
@@ -29,19 +32,14 @@ const UserAppContextProvider = ({ children }: PropsType) => {
   };
 
   React.useMemo(() => {
-    if (typeof window !== "undefined") {
-      const dataStorage = JSON.parse(
-        localStorage.getItem("@expense-manager") || "{}"
-      );
+    if (user?.email) {
+      getPersonHy(user);
+      cookies.set("expense-manager", { user: user });
+    } else {
+      const dataCookies = cookies.get("expense-manager");
 
-      if (user?.email) {
-        getPersonHy(user);
-        localStorage.setItem(
-          "@expense-manager",
-          JSON.stringify({ user: user })
-        );
-      } else {
-        getPersonHy(dataStorage.user);
+      if (dataCookies) {
+        getPersonHy(dataCookies.user);
       }
     }
   }, [user]);

@@ -10,8 +10,6 @@ function Home() {
     UserContext
   ) as UserContextType;
 
-  console.log(user);
-
   return (
     <Scontainer>
       {months.length === 0 && (

@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import HomeContainer from "@containers/Home";
+import { withAuth } from "src/lib/authenticatedRoute";
 
 const Home = () => {
   return (
@@ -13,5 +14,11 @@ const Home = () => {
     </>
   );
 };
+
+export const getServerSideProps = withAuth(async function () {
+  return {
+    props: {},
+  };
+});
 
 export default Home;

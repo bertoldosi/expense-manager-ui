@@ -6,6 +6,7 @@ import Router from "next/router";
 import React from "react";
 import { UserAppContext, UserAppContextType } from "src/context/userAppContext";
 import { useTheme } from "styled-components";
+import Cookies from "universal-cookie";
 
 import { Scontainer, ScontentFooter, Sitem } from "./styles";
 
@@ -14,13 +15,12 @@ function DropdownUser() {
   const [isVisible, setIsVisible] = React.useState(false);
   const { user } = React.useContext(UserAppContext) as UserAppContextType;
 
+  const cookies = new Cookies();
+
   const logOut = () => {
     googleLogout();
 
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("@expense-manager");
-    }
-
+    cookies.remove("expense-manager");
     Router.push("/login");
   };
 
