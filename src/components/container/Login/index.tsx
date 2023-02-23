@@ -7,6 +7,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { Sconstainer } from "./styles";
 import { UserAppContextType } from "src/context/userAppContext";
 import { UserAppContext } from "src/context/userAppContext";
+import { createPerson, getPerson } from "@api/person";
 
 const Login = () => {
   const { setUser } = React.useContext(UserAppContext) as UserAppContextType;
@@ -24,7 +25,15 @@ const Login = () => {
       );
 
       setUser(data);
-      Router.push("/alterar-gasto");
+
+      const { person } = await getPerson(data.email);
+
+      if (person?.name) {
+        Router.push("/alterar-gasto");
+      } else {
+        await createPerson(data);
+        Router.push("/alterar-gasto");
+      }
     },
     onError: (error) => console.log("Login Failed:", error),
   });

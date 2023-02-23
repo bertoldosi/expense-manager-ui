@@ -12,7 +12,7 @@ export const ChangeExpense = () => {
 
   return (
     <Card title="Escolha um gasto para gerenciar:">
-      {person?.expenses.length > 0 ? (
+      {person?.expenses.length ? (
         <Scontainer>
           {person?.expenses.map((expense) => (
             <Checkbox value="pessoal" name="expense" checked>
@@ -27,13 +27,17 @@ export const ChangeExpense = () => {
       )}
 
       <Sbuttons>
-        {person?.expenses.length > 0 && (
-          <Button background="#fff" color="#333">
-            Continuar
-          </Button>
-        )}
+        {person?.expenses.length ? (
+          <>
+            <Button background="#fff" color="#333">
+              Continuar
+            </Button>
 
-        <Link href="/gerenciar-gasto">Cadastrar</Link>
+            <Link href="/gerenciar-gasto">Cadastrar</Link>
+          </>
+        ) : (
+          <Link href="/gerenciar-gasto">Cadastrar</Link>
+        )}
       </Sbuttons>
     </Card>
   );
