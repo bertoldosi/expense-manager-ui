@@ -19,10 +19,10 @@ export const UserAppContext = React.createContext<UserAppContextType | null>(
 );
 
 const UserAppContextProvider = ({ children }: PropsType) => {
+  const cookies = new Cookies();
+
   const [user, setUser] = React.useState<UserType>();
   const [person, setPerson] = React.useState<PersonType>();
-
-  const cookies = new Cookies();
 
   const getPersonHy = async (user: UserType) => {
     const response = await getPerson(user.email);

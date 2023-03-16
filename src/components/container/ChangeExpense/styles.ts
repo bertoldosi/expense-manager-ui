@@ -5,8 +5,21 @@ export const Scontainer = styled.div`
   flex-direction: column;
   gap: 0.1rem;
 
+  strong {
+    font-size: 1.5rem;
+  }
+
   > span {
-    font-size: 2rem;
+    font-size: 1.5rem;
+    padding-left: 1rem;
+
+    &:hover {
+      border-radius: 0.3rem;
+      background-color: ${(props) => props.theme.backgroundSecondary};
+      color: ${(props) => props.theme.colorSecondary};
+      font-weight: bold;
+      cursor: pointer;
+    }
   }
 `;
 

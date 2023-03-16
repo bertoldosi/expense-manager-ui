@@ -14,7 +14,7 @@ function Header() {
           <User />
         </Scontent>
       </Scontainer>
-      <ToggleDate />
+      {/* <ToggleDate /> */}
     </>
   );
 }
