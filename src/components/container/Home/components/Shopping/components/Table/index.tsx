@@ -1,5 +1,4 @@
 import React from "react";
-import { v4 as uuidv4 } from "uuid";
 
 import { Save } from "@icons/Save";
 import { HeaderTable } from "../../components/HeaderTable";
@@ -8,12 +7,6 @@ import { deleteShopping } from "@graphqls/shopping";
 import { SelectStatus } from "@commons/SelectStatus";
 import InputTable from "@containers/Home/components/Shopping/components/InputTable";
 import { updateShopping as upShopping } from "@graphqls/shopping";
-import { getMonthNumber, updateMonthInstitution } from "@graphqls/month";
-
-import {
-  createInstitutionShoppings,
-  updateInstitutionShoppings,
-} from "@graphqls/institution";
 
 import { NoResult, Scontent, ScontentModal } from "./styles";
 import { Modal } from "@commons/Modal";
@@ -21,12 +14,10 @@ import { Button } from "@commons/Button";
 import Input from "@commons/Input";
 import { customToast } from "@commons/CustomToast";
 import { UserContext, UserContextType } from "src/context/userContext";
-import { InstitutionType, MonthType, ShoppingType } from "@interfaces/*";
-import { chunk } from "@helpers/chunk";
+import { InstitutionType, ShoppingType } from "@interfaces/*";
 
 type PropsType = {
   institution: InstitutionType;
-  month: MonthType;
 };
 
 const initialNewAllShopping = {
@@ -35,7 +26,7 @@ const initialNewAllShopping = {
   select: false,
 };
 
-export const Table = ({ institution, month }: PropsType) => {
+export const Table = ({ institution }: PropsType) => {
   const { getMonths } = React.useContext(UserContext) as UserContextType;
 
   const [valueFilter, setValueFilter] = React.useState("todos");
@@ -119,99 +110,6 @@ export const Table = ({ institution, month }: PropsType) => {
     }
   };
 
-  const getNextMonth = async () => {
-    const { id: monthIdNextMonth, institutions: institutionsNextMonth } =
-      await getMonthNumber(month.monthNumber + 1).catch(() => {
-        customToast("error", "Algo de errado aconteceu ao buscar próximo mês!");
-      });
-
-    return {
-      monthIdNextMonth,
-      institutionsNextMonth,
-    };
-  };
-
-  const repeatShopping = async () => {
-    setIsRequest(true);
-    const { monthIdNextMonth, institutionsNextMonth } = await getNextMonth();
-
-    const nextInstitution = institutionsNextMonth.filter(
-      (institutionMap: InstitutionType) =>
-        institutionMap.name === institution.name
-    );
-
-    const isExistInstitutionNextMonth = nextInstitution.length > 0;
-
-    const shoppingsRepeat = shoppings
-      .filter((shopping) => shopping.select)
-      .map((shopping) => {
-        return {
-          ...shopping,
-          reference: uuidv4(),
-          paymentStatus: "aberto",
-          select: false,
-        };
-      });
-
-    const institutionRepeat = {
-      ...institution,
-      reference: uuidv4(),
-      shoppings: shoppingsRepeat,
-    };
-
-    if (isExistInstitutionNextMonth) {
-      const institutionReference = nextInstitution[0].reference;
-
-      updateInstitutionShoppings(institutionReference, shoppingsRepeat)
-        .then(() => {
-          getMonths();
-          customToast("success", "Item(s) foram repetidos para o próximo mês!");
-        })
-
-        .catch(() => {
-          customToast("error", "Tente novamente!");
-        })
-
-        .finally(() => {
-          setIsRequest(false);
-        });
-    } else {
-      if (monthIdNextMonth) {
-        createInstitutionShoppings(institutionRepeat)
-          .then(({ reference: institutionReference }) => {
-            updateMonthInstitution(monthIdNextMonth, institutionReference)
-              .then(() => {
-                getMonths();
-                customToast(
-                  "success",
-                  "Item(s) foram repetidos para o próximo mês!"
-                );
-              })
-
-              .catch(() => {
-                customToast(
-                  "error",
-                  "Algo de errado aconteceu ao atualizar o proximo mês com a novo cartão"
-                );
-              });
-          })
-
-          .catch(() => {
-            customToast(
-              "error",
-              "Algo de errado aconteceu ao criar nova cartão com itens"
-            );
-          })
-
-          .finally(() => {
-            setIsRequest(false);
-          });
-      } else {
-        customToast("info", "Mês não encontrado!");
-      }
-    }
-  };
-
   const removeShopping = async () => {
     setIsRequest(true);
 
@@ -256,76 +154,6 @@ export const Table = ({ institution, month }: PropsType) => {
       });
   };
 
-  const updateAllShopping = async () => {
-    setIsRequest(true);
-
-    const shoppingSelecteds = shoppings.filter(
-      (shoppingFilter) => shoppingFilter.select
-    );
-
-    const newShoppings = shoppingSelecteds.map((shoppingMap) => {
-      const newShoppingUpdate = {
-        ...shoppingMap,
-        responsible:
-          newAllShopping.responsible === ""
-            ? shoppingMap.responsible
-            : newAllShopping.responsible,
-        paymentStatus:
-          newAllShopping.paymentStatus === ""
-            ? shoppingMap.paymentStatus
-            : newAllShopping.paymentStatus,
-        select: false,
-      };
-
-      return newShoppingUpdate;
-    });
-
-    let position = 0;
-    while (newShoppings[position]) {
-      await upShopping(newShoppings[position])
-        .then(() => {
-          customToast("success", "Alterado com sucesso!");
-        })
-        .catch(() => {
-          customToast("error", "Tente novamente!");
-        });
-
-      position++;
-    }
-
-    getMonths();
-    setValueFilter("todos");
-    setIsRequest(false);
-    setIsVisible(false);
-    setNewAllShopping(initialNewAllShopping);
-  };
-
-  const filter = () => {
-    setShoppings(
-      institution.shoppings.filter((shopping) => {
-        if (shopping.responsible === valueFilter) {
-          return shopping;
-        } else if (valueFilter === "todos") {
-          return shopping;
-        }
-      })
-    );
-  };
-
-  React.useMemo(() => {
-    filter();
-    setIsRequest(false);
-  }, [valueFilter]);
-
-  React.useMemo(() => {
-    const resultFilter = shoppings.filter((shopping) => shopping.select);
-    setIsItensSelect(resultFilter.length > 0);
-  }, [shoppings]);
-
-  React.useMemo(() => {
-    setShoppings(institution.shoppings);
-  }, [institution.shoppings]);
-
   return (
     <>
       <HeaderTable
@@ -333,7 +161,7 @@ export const Table = ({ institution, month }: PropsType) => {
         options={institution.listResponsibleValues}
         onChange={onChangeSelectAll}
         isItensSelect={isItensSelect}
-        handlerRepeat={repeatShopping}
+        handlerRepeat={() => {}}
         isRequest={isRequest}
         removeShoppings={removeShopping}
         setIsVisible={setIsVisible}

@@ -13,7 +13,7 @@ function Nav({ institutions }: PropsType) {
     UserContext
   ) as UserContextType;
 
-  if (institutions.length === 0) {
+  if (institutions?.length === 0) {
     return (
       <Scontent>
         <h2>Cadastre um cartão!</h2>
@@ -24,7 +24,7 @@ function Nav({ institutions }: PropsType) {
   return (
     <Scontent>
       <Slist>
-        {institutions.map((institutionMap, index) =>
+        {institutions?.map((institutionMap, index) =>
           institutionMap.name === nowCard ? (
             <Sitem
               key={index}

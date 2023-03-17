@@ -1,29 +1,39 @@
 import React from "react";
+import Cookies from "universal-cookie";
+import { getExpense } from "../../../api/expense";
 
 import { Institution } from "@containers/Home/components/Institution";
 
 import { Scontainer, ScontentNull } from "./styles";
 import { UserContext, UserContextType } from "src/context/userContext";
+import { ExpenseType } from "@interfaces/*";
 
 function Home() {
-  const { months, nowMonth, user } = React.useContext(
-    UserContext
-  ) as UserContextType;
+  const cookies = new Cookies();
+
+  const [expense, setExpense] = React.useState<ExpenseType>();
+
+  const getExpenseData = async () => {
+    const { filter } = await cookies.get("expense-manager");
+
+    const response = await getExpense(filter?.expense?.id);
+
+    setExpense(response.expense);
+  };
+
+  React.useEffect(() => {
+    getExpenseData();
+  }, []);
 
   return (
     <Scontainer>
-      {months.length === 0 && (
+      {expense?.institutions.length === 0 && (
         <ScontentNull>
           <h2>Acesse o https://hygraph.com e cadastre os meses!</h2>
         </ScontentNull>
       )}
 
-      {months.map(
-        (monthMap, index) =>
-          monthMap.monthNumber === nowMonth && (
-            <Institution key={index} month={monthMap} />
-          )
-      )}
+      <Institution institutions={expense?.institutions || []} />
     </Scontainer>
   );
 }
