@@ -5,12 +5,30 @@ import { Scontainer, Sbuttons } from "./styles";
 import Link from "next/link";
 import { UserAppContext, UserAppContextType } from "src/context/userAppContext";
 import { ExpenseType } from "@interfaces/*";
+import Cookies from "universal-cookie";
+import Router from "next/router";
 
 export const ChangeExpense = () => {
+  const cookies = new Cookies();
+
   const { person } = React.useContext(UserAppContext) as UserAppContextType;
 
   const redirectHome = (expense: ExpenseType) => {
-    console.log(expense);
+    const { user } = cookies.get("expense-manager");
+
+    const newCookies = {
+      user,
+      filter: {
+        expense: {
+          id: expense.id,
+          name: expense.name,
+        },
+      },
+    };
+
+    cookies.set("expense-manager", newCookies);
+
+    Router.push("/");
   };
 
   return (
