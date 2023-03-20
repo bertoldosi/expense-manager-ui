@@ -36,7 +36,6 @@ const UserAppContextProvider = ({ children }: PropsType) => {
 
     if (user?.email) {
       getPersonHy(user);
-      console.log(dataCookies);
       cookies.set("expense-manager", { ...dataCookies, user: user });
     } else {
       if (dataCookies) {

@@ -5,7 +5,6 @@ import { getExpense } from "../../../api/expense";
 import { Institution } from "@containers/Home/components/Institution";
 
 import { Scontainer, ScontentNull } from "./styles";
-import { UserContext, UserContextType } from "src/context/userContext";
 import { ExpenseType } from "@interfaces/*";
 
 function Home() {
@@ -29,7 +28,7 @@ function Home() {
     <Scontainer>
       {expense?.institutions.length === 0 && (
         <ScontentNull>
-          <h2>Acesse o https://hygraph.com e cadastre os meses!</h2>
+          <h2>Sem registro!</h2>
         </ScontentNull>
       )}
 

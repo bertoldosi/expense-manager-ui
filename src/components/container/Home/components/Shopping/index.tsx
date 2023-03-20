@@ -5,7 +5,6 @@ import Input from "@commons/Input";
 import { Table } from "@containers/Home/components/Shopping/components/Table";
 
 import { Scontent, Sheader } from "./styles";
-
 import { InstitutionType } from "@interfaces/";
 
 type PropsType = {
