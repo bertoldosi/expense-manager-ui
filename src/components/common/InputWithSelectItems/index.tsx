@@ -3,11 +3,18 @@ import React from "react";
 
 import { Scontainer } from "./styles";
 
-export const InputWithSelectItems = () => {
+interface PropsTypes extends React.HTMLProps<HTMLInputElement> {
+  onClickAddItem: () => void;
+}
+
+export const InputWithSelectItems = ({
+  onClickAddItem,
+  ...props
+}: PropsTypes) => {
   return (
     <Scontainer>
-      <input placeholder="Email" />
-      <Save width={20} height={20} />
+      <input {...props} />
+      <Save width={20} height={20} onClick={onClickAddItem} />
     </Scontainer>
   );
 };

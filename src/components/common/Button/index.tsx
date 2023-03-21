@@ -2,14 +2,12 @@ import React, { ReactNode } from "react";
 
 import { Scontent } from "./styles";
 
-type PropsType = {
-  children: ReactNode;
+interface PropsType extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color?: string;
   background?: string;
   width?: string;
   height?: string;
-  props?: React.ChangeEventHandler<HTMLInputElement>;
-};
+}
 
 export const Button = ({
   children,

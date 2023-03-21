@@ -6,9 +6,11 @@ import { Trash } from "@icons/Trash";
 import { Edit } from "@icons/Edit";
 import { ExpenseData } from "./components/ExpenseData";
 import { Modal } from "@commons/Modal";
+import { UserAppContext, UserAppContextType } from "src/context/userAppContext";
 
 export const ManagerExpense = () => {
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
+  const { person } = React.useContext(UserAppContext) as UserAppContextType;
 
   return (
     <>
@@ -19,32 +21,21 @@ export const ManagerExpense = () => {
       <Card title="Gerenciar gastos:">
         <Sexpenses>
           <Slist>
-            <div>
-              <span>matheus@gmail.com</span>
+            {person?.expenses.map((expense) => (
               <div>
-                <Edit
-                  width={15}
-                  height={15}
-                  onClick={() => {
-                    setIsVisible((prevState) => !prevState);
-                  }}
-                />
-                <Trash width={15} height={15} />
+                <span>{expense.name}</span>
+                <div>
+                  <Edit
+                    width={15}
+                    height={15}
+                    onClick={() => {
+                      setIsVisible((prevState) => !prevState);
+                    }}
+                  />
+                  <Trash width={15} height={15} />
+                </div>
               </div>
-            </div>
-            <div>
-              <span>matheus@gmail.com</span>
-              <div>
-                <Edit
-                  width={15}
-                  height={15}
-                  onClick={() => {
-                    setIsVisible((prevState) => !prevState);
-                  }}
-                />
-                <Trash width={15} height={15} />
-              </div>
-            </div>
+            ))}
           </Slist>
         </Sexpenses>
       </Card>
