@@ -1,0 +1,7 @@
+### Criando nova pessoa
+POST http://localhost:3000/api/person HTTP/1.1
+{
+    "name": "Pessoa criado da api",
+    "email": "email.qualquer@gmail.com"
+}
+

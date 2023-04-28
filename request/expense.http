@@ -1,13 +1,11 @@
-
 ### Buscar pessoa por email
-GET  http://localhost:3000/api/person?email=matheus.bertoldosi@gmail.com HTTP/1.1
-
-
-### Buscar gasto por idenciticador
-GET  http://localhost:3000/api/expense?id=clflbinrn0du60blw8hmtlr24 HTTP/1.1
+GET  http://localhost:3000/api/person?email=email.qualquer@gmail.com HTTP/1.1
 
 ### Buscar todos os gastos
 GET  http://localhost:3000/api/expense HTTP/1.1
+
+### Buscar gasto por idenciticador
+GET  http://localhost:3000/api/expense?id=clflbinrn0du60blw8hmtlr24 HTTP/1.1
 
 ### Buscar gastos vinculado ao email
 GET  http://localhost:3000/api/expense HTTP/1.1
