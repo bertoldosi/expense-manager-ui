@@ -66,7 +66,7 @@ export default async function handler(
   }
 
   if (req.method === "POST") {
-    const { name, email } = JSON.parse(req.body);
+    const { name, email } = req.body;
 
     try {
       const requestBody = {
@@ -85,9 +85,9 @@ export default async function handler(
       };
 
       const response = await instances.post("", requestBody);
-      const data = response.data;
+      const { data } = response.data;
 
-      return res.status(200).send(data);
+      return res.status(200).send(data.createPerson);
     } catch (err) {
       console.log("ERROR AXIOS REQUEST", err);
       return res.send(err);
