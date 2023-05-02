@@ -82,6 +82,31 @@ export default async function handler(
     }
   }
 
+  if (req.method === "POST") {
+    const { name, date } = req.body;
+
+    try {
+      const requestBody = {
+        query: gql`
+          mutation CreateExpense($name: String!, $date: Date!) {
+            createExpense(data: { name: $name, date: $date }) {
+              id
+            }
+          }
+        `,
+        variables: { name, date },
+      };
+
+      const response = await instances.post("", requestBody);
+      const { data } = response.data;
+
+      return res.status(200).send(data.createExpense);
+    } catch (err) {
+      console.log("ERROR AXIOS REQUEST", err);
+      return res.send(err);
+    }
+  }
+
   return res.send({
     message: "REQUEST IS NOT DEFINED",
     method: req.method,
