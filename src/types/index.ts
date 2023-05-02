@@ -57,3 +57,12 @@ export type PersonType = {
   name: string;
   expenses: ExpenseType[];
 };
+
+export type EmailType = {
+  email: string;
+};
+
+export type NewExpenseType = {
+  name: string;
+  persons: EmailType[];
+};

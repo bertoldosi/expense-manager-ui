@@ -1,24 +1,18 @@
 import React from "react";
-import { Button } from "@commons/Button";
-import Input from "@commons/Input";
+import { createExpense as createExpenseApi } from "src/api/expense";
 import { InputWithSelectItems } from "@commons/InputWithSelectItems";
 import { Slist } from "@containers/ManagerExpense/styles";
+
+import Input from "@commons/Input";
 import { Trash } from "@icons/Trash";
-
+import { Button } from "@commons/Button";
 import { Sbuttons, Scontainer, Sinputs, Sresume } from "./styles";
-
-type EmailType = {
-  email: string;
-};
-
-type NewExpenseType = {
-  name: string;
-  emails: EmailType[];
-};
+import { NewExpenseType } from "@interfaces/*";
 
 const initialExpense = {
   name: "",
-  emails: [],
+  date: "2022-01-01",
+  persons: [],
 };
 
 export const ExpenseData = () => {
@@ -31,7 +25,7 @@ export const ExpenseData = () => {
       return alert("Digite um email!");
     }
 
-    const isEmailOnExpenseEmails = !!newExpense.emails.find(
+    const isEmailOnExpenseEmails = !!newExpense.persons.find(
       (email) => email.email === emailValue
     );
 
@@ -44,7 +38,7 @@ export const ExpenseData = () => {
 
     setNewExpense({
       ...newExpense,
-      emails: [...newExpense.emails, { email: emailValue }],
+      persons: [...newExpense.persons, { email: emailValue }],
     });
 
     return setEmailValue("");
@@ -53,14 +47,18 @@ export const ExpenseData = () => {
   function removeEmail(emailDelete: string) {
     return setNewExpense({
       ...newExpense,
-      emails: newExpense.emails.filter(
+      persons: newExpense.persons.filter(
         (emailMap) => emailDelete !== emailMap.email
       ),
     });
   }
 
-  function createExpense() {
+  async function createExpense() {
     console.log(newExpense);
+
+    createExpenseApi(newExpense).then(() => {
+      location.reload();
+    });
   }
 
   return (
@@ -93,7 +91,7 @@ export const ExpenseData = () => {
       <Sresume>
         <Slist>
           <h3>Compartilhado com:</h3>
-          {newExpense.emails.map(({ email }) => (
+          {newExpense.persons.map(({ email }) => (
             <div>
               <span>{email}</span>
               <Trash

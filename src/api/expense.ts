@@ -1,5 +1,10 @@
+import { NewExpenseType } from "@interfaces/*";
 import { gql } from "graphql-request";
-import instances from "src/lib/axios-instance";
+import instances from "src/lib/axios-instance-bff";
+
+export const createExpense = async (expense: NewExpenseType) => {
+  return instances.post("/expense", expense);
+};
 
 export const getExpense = async (id: string) => {
   try {
