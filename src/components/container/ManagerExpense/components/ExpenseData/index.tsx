@@ -9,6 +9,7 @@ import { Button } from "@commons/Button";
 import { Sbuttons, Scontainer, Sinputs, Sresume } from "./styles";
 import { NewExpenseType } from "@interfaces/*";
 import Cookies from "universal-cookie";
+import Router from "next/router";
 
 const initialExpense = {
   name: "",
@@ -17,7 +18,7 @@ const initialExpense = {
 };
 
 export const ExpenseData = () => {
-  const [emailValue, setEmailValue] = React.useState<string>("");
+  // const [emailValue, setEmailValue] = React.useState<string>("");
   const [newExpense, setNewExpense] =
     React.useState<NewExpenseType>(initialExpense);
 
@@ -60,7 +61,9 @@ export const ExpenseData = () => {
 
     const { user } = await cookies.get("expense-manager");
 
-    await createExpenseApi({ ...newExpense, email: user.email });
+    await createExpenseApi({ ...newExpense, email: user.email }).finally(() => {
+      Router.push("/alterar-gasto");
+    });
   }
 
   return (
