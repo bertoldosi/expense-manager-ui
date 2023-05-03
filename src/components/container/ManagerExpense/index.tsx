@@ -18,7 +18,7 @@ export const ManagerExpense = () => {
         <ExpenseData />
       </Card>
 
-      <Card title="Gerenciar gastos:">
+      {/* <Card title="Gerenciar gastos:">
         <Sexpenses>
           <Slist>
             {person?.expenses.map((expense) => (
@@ -38,7 +38,7 @@ export const ManagerExpense = () => {
             ))}
           </Slist>
         </Sexpenses>
-      </Card>
+      </Card> */}
 
       <Modal
         isVisible={isVisible}

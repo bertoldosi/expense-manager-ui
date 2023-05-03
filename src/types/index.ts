@@ -64,5 +64,6 @@ export type EmailType = {
 
 export type NewExpenseType = {
   name: string;
+  email?: string;
   persons: EmailType[];
 };

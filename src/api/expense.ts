@@ -3,6 +3,7 @@ import { gql } from "graphql-request";
 import instances from "src/lib/axios-instance-bff";
 
 export const createExpense = async (expense: NewExpenseType) => {
+  console.log(expense);
   return instances.post("/expense", expense);
 };
 
