@@ -4,7 +4,7 @@ import { getExpense } from "../../../api/expense";
 
 import { Institution } from "@containers/Home/components/Institution";
 
-import { Scontainer, ScontentNull } from "./styles";
+import { Scontainer } from "./styles";
 import { ExpenseType } from "@interfaces/*";
 
 function Home() {
@@ -17,7 +17,7 @@ function Home() {
 
     const response = await getExpense(filter?.expense?.id);
 
-    setExpense(response.expense);
+    setExpense(response.data);
   };
 
   React.useEffect(() => {
@@ -26,12 +26,6 @@ function Home() {
 
   return (
     <Scontainer>
-      {expense?.institutions.length === 0 && (
-        <ScontentNull>
-          <h2>Sem registro!</h2>
-        </ScontentNull>
-      )}
-
       <Institution institutions={expense?.institutions || []} />
     </Scontainer>
   );
