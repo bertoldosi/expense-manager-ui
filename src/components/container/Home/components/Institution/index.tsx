@@ -7,6 +7,7 @@ import { CardMenu } from "@containers/Home/components/Institution/components/Car
 import { Shopping } from "@containers/Home/components/Shopping";
 import { Saside, Ssection, Swrapper } from "./styles";
 import { UserContext, UserContextType } from "src/context/userContext";
+import { WithoutInstitution } from "./components/WithoutInstitution";
 import Nav from "./components/Nav";
 
 type PropsType = {
@@ -19,30 +20,7 @@ export const Institution = ({ institutions }: PropsType) => {
   ) as UserContextType;
 
   if (institutions.length === 0) {
-    return (
-      <div>
-        <nav>
-          <Nav institutions={[]} />
-        </nav>
-
-        <Ssection>
-          <Saside>
-            <CardMenu
-              title={"SEM CARTÃO"}
-              list={[]}
-              background={theme.backgroundPrimary}
-              isFooter={
-                <>
-                  <Button color="#fff" background="#1b66ff" width="100%">
-                    Novo cartão
-                  </Button>
-                </>
-              }
-            />
-          </Saside>
-        </Ssection>
-      </div>
-    );
+    return <WithoutInstitution />;
   }
 
   return (
