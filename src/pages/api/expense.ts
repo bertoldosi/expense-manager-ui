@@ -83,20 +83,15 @@ export default async function handler(
   }
 
   if (req.method === "POST") {
-    const { name, date, email } = req.body;
+    const { name, email } = req.body;
 
     try {
       const requestBody = {
         query: gql`
-          mutation CreateExpense(
-            $name: String!
-            $date: Date!
-            $email: String!
-          ) {
+          mutation CreateExpense($name: String!, $email: String!) {
             createExpense(
               data: {
                 name: $name
-                date: $date
                 persons: { connect: { Person: { email: $email } } }
               }
             ) {
@@ -104,7 +99,7 @@ export default async function handler(
             }
           }
         `,
-        variables: { name, date, email },
+        variables: { name, email },
       };
 
       const response = await instances.post("", requestBody);

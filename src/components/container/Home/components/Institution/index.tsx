@@ -11,9 +11,17 @@ import { WithoutInstitution } from "./components/WithoutInstitution";
 import Nav from "./components/Nav";
 import { Modal } from "@commons/Modal";
 import Input from "@commons/Input";
+import { createInstitution } from "@api/institution";
+import Cookies from "universal-cookie";
 
 type PropsType = {
   institutions: InstitutionType[];
+};
+
+const initialNewInstitution = {
+  name: "",
+  amount: 0,
+  shoppings: [],
 };
 
 export const Institution = ({ institutions }: PropsType) => {
@@ -22,6 +30,20 @@ export const Institution = ({ institutions }: PropsType) => {
   ) as UserContextType;
 
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [newInstitution, setNewInstitution] = useState<InstitutionType>(
+    initialNewInstitution
+  );
+
+  async function submitNewInstitution() {
+    const cookies = new Cookies();
+
+    const { filter } = cookies.get("expense-manager");
+
+    await createInstitution({
+      ...newInstitution,
+      expenseId: filter.expense.id,
+    });
+  }
 
   if (institutions.length === 0) {
     return <WithoutInstitution />;
@@ -76,13 +98,26 @@ export const Institution = ({ institutions }: PropsType) => {
                   }}
                   footer={
                     <>
-                      <Button color="#fff" background="#1b66ff">
+                      <Button
+                        color="#fff"
+                        background="#1b66ff"
+                        onClick={submitNewInstitution}
+                      >
                         Salvar
                       </Button>
                     </>
                   }
                 >
-                  <Input placeholder="Nome do cartão" />
+                  <Input
+                    placeholder="Nome do cartão"
+                    value={newInstitution.name}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                      setNewInstitution({
+                        ...newInstitution,
+                        name: event.target.value,
+                      });
+                    }}
+                  />
                 </Modal>
               </div>
             );

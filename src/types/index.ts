@@ -19,11 +19,11 @@ export type SelectValuType = {
 };
 
 export type InstitutionType = {
-  reference: string;
+  reference?: string;
   name: string;
   amount: string | number;
   listResponsibleValues?: ResponsibleValuesType[] | undefined;
-  expirationDate: string;
+  expirationDate?: string;
   shoppings: ShoppingType[];
   isShowShoppings?: boolean;
 };
