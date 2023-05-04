@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 
 import { Scontainer } from "./styles";
 import Nav from "../Nav";
@@ -8,38 +8,31 @@ import { Button } from "@commons/Button";
 import { UserContext, UserContextType } from "src/context/userContext";
 import { Modal } from "@commons/Modal";
 import Input from "@commons/Input";
-import Cookies from "universal-cookie";
-import { createInstitution } from "@api/institution";
-import { InstitutionType } from "@interfaces/*";
+import { InstitutionType, ShoppingType } from "@interfaces/*";
 
-const initialNewInstitution = {
-  name: "",
-  amount: 0,
-  shoppings: [],
-};
+interface WithoutInstitutionType {
+  submitNewInstitution: () => void;
+  initialNewInstitution: {
+    name: string;
+    amount: number | string;
+    shoppings: ShoppingType[];
+  };
+  newInstitution: InstitutionType;
+  setNewInstitution: Dispatch<SetStateAction<void>>;
+}
 
-export const WithoutInstitution = () => {
+export const WithoutInstitution = ({
+  submitNewInstitution,
+  initialNewInstitution,
+  newInstitution,
+  setNewInstitution,
+}: any) => {
   const { theme } = React.useContext(UserContext) as UserContextType;
 
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [newInstitution, setNewInstitution] = useState<InstitutionType>(
-    initialNewInstitution
-  );
-
-  async function submitNewInstitution() {
-    const cookies = new Cookies();
-
-    const { filter } = cookies.get("expense-manager");
-
-    await createInstitution({
-      ...newInstitution,
-      expenseId: filter.expense.id,
-    });
-  }
 
   return (
     <Scontainer>
-      return (
       <div>
         <nav>
           <Nav institutions={[]} />
@@ -74,6 +67,7 @@ export const WithoutInstitution = () => {
           isVisible={isVisible}
           handlerIsVisible={() => {
             setIsVisible(!isVisible);
+            setNewInstitution(initialNewInstitution);
           }}
           footer={
             <>
@@ -99,7 +93,6 @@ export const WithoutInstitution = () => {
           />
         </Modal>
       </div>
-      );
     </Scontainer>
   );
 };

@@ -13,6 +13,8 @@ import { Modal } from "@commons/Modal";
 import Input from "@commons/Input";
 import { createInstitution } from "@api/institution";
 import Cookies from "universal-cookie";
+import { customToast } from "@commons/CustomToast";
+import Router from "next/router";
 
 type PropsType = {
   institutions: InstitutionType[];
@@ -39,14 +41,33 @@ export const Institution = ({ institutions }: PropsType) => {
 
     const { filter } = cookies.get("expense-manager");
 
-    await createInstitution({
+    createInstitution({
       ...newInstitution,
       expenseId: filter.expense.id,
-    });
+    })
+      .then(() => {
+        customToast("success", "Cartão incluído com sucesso!");
+      })
+      .catch(() => {
+        customToast(
+          "error",
+          "Algo de errado aconteceu ao tentar incluir novo cartão!"
+        );
+      })
+      .finally(() => {
+        Router.reload();
+      });
   }
 
   if (institutions.length === 0) {
-    return <WithoutInstitution />;
+    return (
+      <WithoutInstitution
+        submitNewInstitution={submitNewInstitution}
+        initialNewInstitution={initialNewInstitution}
+        newInstitution={newInstitution}
+        setNewInstitution={setNewInstitution}
+      />
+    );
   }
 
   return (
@@ -95,6 +116,7 @@ export const Institution = ({ institutions }: PropsType) => {
                   isVisible={isVisible}
                   handlerIsVisible={() => {
                     setIsVisible(!isVisible);
+                    setNewInstitution(initialNewInstitution);
                   }}
                   footer={
                     <>
