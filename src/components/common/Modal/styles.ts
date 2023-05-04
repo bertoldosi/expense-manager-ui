@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 export const Swrapper = styled.div`
   width: 100%;
-  height: calc(100vh - 7rem);
+  height: calc(100vh - 8.4rem);
   left: 0;
-  top: 7rem;
+  top: 8.4rem;
   position: absolute;
   background: rgba(0, 0, 0, 0.9);
 

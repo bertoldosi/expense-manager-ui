@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { InstitutionType } from "@interfaces/";
 
@@ -9,6 +9,8 @@ import { Saside, Ssection, Swrapper } from "./styles";
 import { UserContext, UserContextType } from "src/context/userContext";
 import { WithoutInstitution } from "./components/WithoutInstitution";
 import Nav from "./components/Nav";
+import { Modal } from "@commons/Modal";
+import Input from "@commons/Input";
 
 type PropsType = {
   institutions: InstitutionType[];
@@ -18,6 +20,8 @@ export const Institution = ({ institutions }: PropsType) => {
   const { listResponsibleTotalMonth, nowCard, theme } = React.useContext(
     UserContext
   ) as UserContextType;
+
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
   if (institutions.length === 0) {
     return <WithoutInstitution />;
@@ -46,6 +50,9 @@ export const Institution = ({ institutions }: PropsType) => {
                             color="#fff"
                             background="#1b66ff"
                             width="100%"
+                            onClick={() => {
+                              setIsVisible(!isVisible);
+                            }}
                           >
                             Novo cartão
                           </Button>
@@ -60,6 +67,23 @@ export const Institution = ({ institutions }: PropsType) => {
                   </Saside>
                   <Shopping institution={institutionMap} />
                 </Ssection>
+
+                <Modal
+                  title="Criando novo cartão"
+                  isVisible={isVisible}
+                  handlerIsVisible={() => {
+                    setIsVisible(!isVisible);
+                  }}
+                  footer={
+                    <>
+                      <Button color="#fff" background="#1b66ff">
+                        Salvar
+                      </Button>
+                    </>
+                  }
+                >
+                  <Input placeholder="Nome do cartão" />
+                </Modal>
               </div>
             );
           }

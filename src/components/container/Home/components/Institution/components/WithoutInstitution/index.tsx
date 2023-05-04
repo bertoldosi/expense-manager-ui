@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Scontainer } from "./styles";
 import Nav from "../Nav";
@@ -6,9 +6,13 @@ import { Saside, Ssection } from "../../styles";
 import { CardMenu } from "../CardMenu";
 import { Button } from "@commons/Button";
 import { UserContext, UserContextType } from "src/context/userContext";
+import { Modal } from "@commons/Modal";
+import Input from "@commons/Input";
 
 export const WithoutInstitution = () => {
   const { theme } = React.useContext(UserContext) as UserContextType;
+
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
   return (
     <Scontainer>
@@ -26,7 +30,14 @@ export const WithoutInstitution = () => {
               background={theme.backgroundPrimary}
               isFooter={
                 <>
-                  <Button color="#fff" background="#1b66ff" width="100%">
+                  <Button
+                    color="#fff"
+                    background="#1b66ff"
+                    width="100%"
+                    onClick={() => {
+                      setIsVisible(!isVisible);
+                    }}
+                  >
                     Novo cartão
                   </Button>
                 </>
@@ -34,6 +45,23 @@ export const WithoutInstitution = () => {
             />
           </Saside>
         </Ssection>
+
+        <Modal
+          title="Criando novo cartão"
+          isVisible={isVisible}
+          handlerIsVisible={() => {
+            setIsVisible(!isVisible);
+          }}
+          footer={
+            <>
+              <Button color="#fff" background="#1b66ff">
+                Salvar
+              </Button>
+            </>
+          }
+        >
+          <Input placeholder="Nome do cartão" />
+        </Modal>
       </div>
       );
     </Scontainer>
