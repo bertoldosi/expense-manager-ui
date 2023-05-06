@@ -1,8 +1,11 @@
 import axios from "axios";
+import getConfig from "next/config";
+const { publicRuntimeConfig = {} } = getConfig() || {};
+
+const BASE_URL_BFF = publicRuntimeConfig.BASE_URL_BFF;
 
 const instances = axios.create({
-  baseURL: "http://localhost:3000/api",
-  headers: {},
+  baseURL: `${BASE_URL_BFF}/api`,
 });
 
 export default instances;
