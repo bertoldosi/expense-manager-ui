@@ -25,9 +25,9 @@ const UserAppContextProvider = ({ children }: PropsType) => {
   const [person, setPerson] = React.useState<PersonType>();
 
   const getPersonHy = async (user: UserType) => {
-    const response = await getPerson(user.email);
+    const { data: responsePerson } = await getPerson(user.email);
 
-    setPerson(response.person);
+    setPerson(responsePerson);
     setUser(user);
   };
 

@@ -14,7 +14,7 @@ const Login = () => {
 
   const login = useGoogleLogin({
     onSuccess: async (response: any) => {
-      const { data } = await axios.get(
+      const { data: responseData } = await axios.get(
         `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${response.access_token}`,
         {
           headers: {
@@ -24,14 +24,14 @@ const Login = () => {
         }
       );
 
-      setUser(data);
+      setUser(responseData);
 
-      const { person } = await getPerson(data.email);
+      const { data: responsePerson } = await getPerson(responseData.email);
 
-      if (person?.name) {
+      if (responsePerson?.name) {
         Router.push("/alterar-gasto");
       } else {
-        await createPerson(data);
+        await createPerson(responseData);
         Router.push("/alterar-gasto");
       }
     },

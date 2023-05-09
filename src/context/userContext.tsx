@@ -83,9 +83,9 @@ const UserContextProvider = ({ children }: PropsType) => {
   };
 
   const getPersonHy = async (email: string) => {
-    const response = await getPerson(email);
+    const { data: responsePerson } = await getPerson(email);
 
-    setPerson(response.person);
+    setPerson(responsePerson);
   };
 
   const handlerNumberMonth = (value: number) => {
