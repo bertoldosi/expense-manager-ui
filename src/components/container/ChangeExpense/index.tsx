@@ -33,9 +33,9 @@ export const ChangeExpense = () => {
 
   return (
     <Card title="Escolha um gasto para gerenciar:">
-      {person?.expenses?.length !== 0 ? (
+      {person?.expenses.length ? (
         <Scontainer>
-          {person?.expenses?.map((expense) => (
+          {person?.expenses.map((expense) => (
             <span
               onClick={() => {
                 redirectHome(expense);
