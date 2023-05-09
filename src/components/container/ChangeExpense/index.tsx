@@ -13,8 +13,6 @@ export const ChangeExpense = () => {
 
   const { person } = React.useContext(UserAppContext) as UserAppContextType;
 
-  console.log(person);
-
   const redirectHome = (expense: ExpenseType) => {
     const { user } = cookies.get("expense-manager");
 
