@@ -33,7 +33,7 @@ export const ChangeExpense = () => {
 
   return (
     <Card title="Escolha um gasto para gerenciar:">
-      {person?.expenses.length ? (
+      {person?.expenses?.length ? (
         <Scontainer>
           {person?.expenses.map((expense) => (
             <span
