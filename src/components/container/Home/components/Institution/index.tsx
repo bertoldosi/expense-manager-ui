@@ -71,81 +71,79 @@ export const Institution = ({ institutions }: PropsType) => {
   }
 
   return (
-    <>
-      <Swrapper>
-        <nav>
-          <Nav institutions={institutions} />
-        </nav>
+    <Swrapper>
+      <nav>
+        <Nav institutions={institutions} />
+      </nav>
 
-        {institutions?.map((institutionMap, index) => {
-          if (institutionMap.name === nowCard) {
-            return (
-              <div key={index}>
-                <Ssection>
-                  <Saside>
-                    <CardMenu
-                      title={`TOTAL ${institutionMap.name.toUpperCase()}`}
-                      list={institutionMap.listResponsibleValues}
-                      background={theme.backgroundPrimary}
-                      isFooter={
-                        <>
-                          <Button
-                            color="#fff"
-                            background="#1b66ff"
-                            width="100%"
-                            onClick={() => {
-                              setIsVisible(!isVisible);
-                            }}
-                          >
-                            Novo cartão
-                          </Button>
-                        </>
-                      }
-                    />
-                    <CardMenu
-                      title="TOTAL MENSAL"
-                      list={listResponsibleTotalMonth}
-                      background={theme.backgroundPrimary}
-                    />
-                  </Saside>
-                  <Shopping institution={institutionMap} />
-                </Ssection>
-
-                <Modal
-                  title="Criando novo cartão"
-                  isVisible={isVisible}
-                  handlerIsVisible={() => {
-                    setIsVisible(!isVisible);
-                    setNewInstitution(initialNewInstitution);
-                  }}
-                  footer={
-                    <>
-                      <Button
-                        color="#fff"
-                        background="#1b66ff"
-                        onClick={submitNewInstitution}
-                      >
-                        Salvar
-                      </Button>
-                    </>
-                  }
-                >
-                  <Input
-                    placeholder="Nome do cartão"
-                    value={newInstitution.name}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                      setNewInstitution({
-                        ...newInstitution,
-                        name: event.target.value,
-                      });
-                    }}
+      {institutions?.map((institutionMap, index) => {
+        if (institutionMap.name === nowCard) {
+          return (
+            <div key={index}>
+              <Ssection>
+                <Saside>
+                  <CardMenu
+                    title={`TOTAL ${institutionMap.name.toUpperCase()}`}
+                    list={institutionMap.listResponsibleValues}
+                    background={theme.backgroundPrimary}
+                    isFooter={
+                      <>
+                        <Button
+                          color="#fff"
+                          background="#1b66ff"
+                          width="100%"
+                          onClick={() => {
+                            setIsVisible(!isVisible);
+                          }}
+                        >
+                          Novo cartão
+                        </Button>
+                      </>
+                    }
                   />
-                </Modal>
-              </div>
-            );
-          }
-        })}
-      </Swrapper>
-    </>
+                  <CardMenu
+                    title="TOTAL MENSAL"
+                    list={listResponsibleTotalMonth}
+                    background={theme.backgroundPrimary}
+                  />
+                </Saside>
+                <Shopping institution={institutionMap} />
+              </Ssection>
+
+              <Modal
+                title="Criando novo cartão"
+                isVisible={isVisible}
+                handlerIsVisible={() => {
+                  setIsVisible(!isVisible);
+                  setNewInstitution(initialNewInstitution);
+                }}
+                footer={
+                  <>
+                    <Button
+                      color="#fff"
+                      background="#1b66ff"
+                      onClick={submitNewInstitution}
+                    >
+                      Salvar
+                    </Button>
+                  </>
+                }
+              >
+                <Input
+                  placeholder="Nome do cartão"
+                  value={newInstitution.name}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setNewInstitution({
+                      ...newInstitution,
+                      name: event.target.value,
+                    });
+                  }}
+                />
+              </Modal>
+            </div>
+          );
+        }
+      })}
+    </Swrapper>
   );
 };

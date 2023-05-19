@@ -6,28 +6,50 @@ import { Table } from "@containers/Home/components/Shopping/components/Table";
 
 import { Scontent, Sheader } from "./styles";
 import { InstitutionType } from "@interfaces/";
+import { useFormik } from "formik";
 
 type PropsType = {
   institution: InstitutionType;
 };
 
 export const Shopping = ({ institution }: PropsType) => {
+  const onSubmitShopping = useFormik({
+    initialValues: {
+      description: "",
+      amount: "",
+      responsible: "",
+    },
+    onSubmit: async (values) => {
+      console.log(institution, values);
+    },
+  });
+
   return (
     <Scontent>
-      <Sheader>
+      <Sheader onSubmit={onSubmitShopping.handleSubmit}>
         <Input
-          autoComplete="off"
-          autoFocus
           name="description"
-          placeholder="Descrição do item"
-        />
-        <Input autoComplete="off" name="amount" placeholder="R$ 00,00" />
-        <Input
+          id="description"
+          autoFocus
           autoComplete="off"
+          placeholder="Descrição do item"
+          onChange={onSubmitShopping.handleChange}
+        />
+        <Input
+          name="amount"
+          id="amount"
+          autoComplete="off"
+          placeholder="R$ 00,00"
+          onChange={onSubmitShopping.handleChange}
+        />
+        <Input
           name="responsible"
+          id="responsible"
+          autoComplete="off"
+          onChange={onSubmitShopping.handleChange}
           placeholder="Nome do responsavel"
         />
-        <Button color="#fff" background="#1b66ff">
+        <Button color="#fff" background="#1b66ff" type="submit">
           Adicionar
         </Button>
       </Sheader>
