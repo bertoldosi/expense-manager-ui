@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { ExpenseType, PersonType, UserType } from "@interfaces/*";
-import { getPerson } from "@api/person";
+import { getPerson as getPersonApi } from "@api/person";
 import Cookies from "universal-cookie";
 import { getExpense } from "@api/expense";
 
@@ -10,7 +10,7 @@ export type UserAppContextType = {
   person: PersonType | undefined;
   setPerson: React.Dispatch<React.SetStateAction<PersonType | undefined>>;
   expense: ExpenseType | undefined;
-  getExpenseData: () => {};
+  getExpenseData: Function;
 };
 
 type PropsType = {
@@ -28,8 +28,8 @@ const UserAppContextProvider = ({ children }: PropsType) => {
   const [person, setPerson] = React.useState<PersonType>();
   const [expense, setExpense] = React.useState<ExpenseType>();
 
-  const getPersonHy = async (user: UserType) => {
-    const { data: responsePerson } = await getPerson(user.email);
+  const getPerson = async (user: UserType) => {
+    const { data: responsePerson } = await getPersonApi(user.email);
 
     setPerson(responsePerson);
     setUser(user);
@@ -45,11 +45,11 @@ const UserAppContextProvider = ({ children }: PropsType) => {
     const dataCookies = cookies.get("expense-manager");
 
     if (user?.email) {
-      getPersonHy(user);
+      getPerson(user);
       cookies.set("expense-manager", { ...dataCookies, user: user });
     } else {
       if (dataCookies) {
-        getPersonHy(dataCookies.user);
+        getPerson(dataCookies.user);
       }
     }
   }, [user]);
