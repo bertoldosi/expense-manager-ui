@@ -29,18 +29,18 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
   const [person, setPerson] = React.useState<PersonType>();
   const [expense, setExpense] = React.useState<ExpenseType>();
 
-  const getPerson = async (user: UserType) => {
+  async function getPerson(user: UserType) {
     const { data: responsePerson } = await getPersonApi(user.email);
 
     setPerson(responsePerson);
     setUser(user);
-  };
+  }
 
-  const getExpenseData = async () => {
+  async function getExpenseData() {
     const { filter } = await cookies.get("expense-manager");
     const response = await getExpense(filter?.expense?.id);
     setExpense(response.data);
-  };
+  }
 
   React.useMemo(() => {
     const dataCookies = cookies.get("expense-manager");
