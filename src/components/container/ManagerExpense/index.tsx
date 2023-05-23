@@ -6,11 +6,16 @@ import { Trash } from "@icons/Trash";
 import { Edit } from "@icons/Edit";
 import { ExpenseData } from "./components/ExpenseData";
 import { Modal } from "@commons/Modal";
-import { UserAppContext, UserAppContextType } from "src/context/userAppContext";
+import {
+  UserAppContextData,
+  UserAppContextDataType,
+} from "src/context/userAppContextData";
 
 export const ManagerExpense = () => {
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
-  const { person } = React.useContext(UserAppContext) as UserAppContextType;
+  const { person } = React.useContext(
+    UserAppContextData
+  ) as UserAppContextDataType;
 
   return (
     <>

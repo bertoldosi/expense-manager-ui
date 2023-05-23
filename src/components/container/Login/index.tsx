@@ -5,12 +5,14 @@ import Router from "next/router";
 import { useGoogleLogin } from "@react-oauth/google";
 
 import { Sconstainer } from "./styles";
-import { UserAppContextType } from "src/context/userAppContext";
-import { UserAppContext } from "src/context/userAppContext";
+import { UserAppContextDataType } from "src/context/userAppContextData";
+import { UserAppContextData } from "src/context/userAppContextData";
 import { createPerson, getPerson } from "@api/person";
 
 const Login = () => {
-  const { setUser } = React.useContext(UserAppContext) as UserAppContextType;
+  const { setUser } = React.useContext(
+    UserAppContextData
+  ) as UserAppContextDataType;
 
   const login = useGoogleLogin({
     onSuccess: async (response: any) => {

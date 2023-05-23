@@ -1,10 +1,11 @@
 import React, { Dispatch, SetStateAction } from "react";
+import Cookies from "universal-cookie";
+
 import { ExpenseType, PersonType, UserType } from "@interfaces/*";
 import { getPerson as getPersonApi } from "@api/person";
-import Cookies from "universal-cookie";
 import { getExpense } from "@api/expense";
 
-export type UserAppContextType = {
+export type UserAppContextDataType = {
   user: UserType | undefined;
   setUser: Dispatch<SetStateAction<UserType | undefined>>;
   person: PersonType | undefined;
@@ -17,11 +18,10 @@ type PropsType = {
   children: React.ReactNode;
 };
 
-export const UserAppContext = React.createContext<UserAppContextType | null>(
-  null
-);
+export const UserAppContextData =
+  React.createContext<UserAppContextDataType | null>(null);
 
-const UserAppContextProvider = ({ children }: PropsType) => {
+const UserAppContextProviderData = ({ children }: PropsType) => {
   const cookies = new Cookies();
 
   const [user, setUser] = React.useState<UserType>();
@@ -55,7 +55,7 @@ const UserAppContextProvider = ({ children }: PropsType) => {
   }, [user]);
 
   return (
-    <UserAppContext.Provider
+    <UserAppContextData.Provider
       value={{
         user,
         setUser,
@@ -66,8 +66,8 @@ const UserAppContextProvider = ({ children }: PropsType) => {
       }}
     >
       {children}
-    </UserAppContext.Provider>
+    </UserAppContextData.Provider>
   );
 };
 
-export default UserAppContextProvider;
+export default UserAppContextProviderData;

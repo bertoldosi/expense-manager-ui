@@ -3,7 +3,10 @@ import { Card } from "@commons/Card";
 
 import { Scontainer, Sbuttons } from "./styles";
 import Link from "next/link";
-import { UserAppContext, UserAppContextType } from "src/context/userAppContext";
+import {
+  UserAppContextData,
+  UserAppContextDataType,
+} from "src/context/userAppContextData";
 import { ExpenseType } from "@interfaces/*";
 import Cookies from "universal-cookie";
 import Router from "next/router";
@@ -11,7 +14,9 @@ import Router from "next/router";
 export const ChangeExpense = () => {
   const cookies = new Cookies();
 
-  const { person } = React.useContext(UserAppContext) as UserAppContextType;
+  const { person } = React.useContext(
+    UserAppContextData
+  ) as UserAppContextDataType;
 
   const redirectHome = (expense: ExpenseType) => {
     const { user } = cookies.get("expense-manager");

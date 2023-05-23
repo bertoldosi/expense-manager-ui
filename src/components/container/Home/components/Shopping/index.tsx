@@ -8,7 +8,10 @@ import { Scontent, Sheader } from "./styles";
 import { InstitutionType } from "@interfaces/";
 import { useFormik } from "formik";
 import { createShopping } from "@api/shopping";
-import { UserAppContext, UserAppContextType } from "src/context/userAppContext";
+import {
+  UserAppContextData,
+  UserAppContextDataType,
+} from "src/context/userAppContextData";
 
 type PropsType = {
   institution: InstitutionType;
@@ -22,8 +25,8 @@ const initialValues = {
 
 export const Shopping = ({ institution }: PropsType) => {
   const { getExpenseData } = React.useContext(
-    UserAppContext
-  ) as UserAppContextType;
+    UserAppContextData
+  ) as UserAppContextDataType;
 
   const [isResponse, setIsResponse] = React.useState<boolean>(false);
 

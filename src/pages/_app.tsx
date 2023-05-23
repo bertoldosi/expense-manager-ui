@@ -10,7 +10,7 @@ import { Page } from "page";
 import { Wrapped } from "@commons/Wrapped";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import getConfig from "next/config";
-import UserAppContextProvider from "src/context/userAppContext";
+import UserAppContextProvider from "src/context/userAppContextData";
 const { publicRuntimeConfig = {} } = getConfig() || {};
 
 type Props = AppProps & {

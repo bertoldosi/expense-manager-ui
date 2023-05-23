@@ -4,7 +4,10 @@ import { googleLogout } from "@react-oauth/google";
 import Link from "next/link";
 import Router from "next/router";
 import React from "react";
-import { UserAppContext, UserAppContextType } from "src/context/userAppContext";
+import {
+  UserAppContextData,
+  UserAppContextDataType,
+} from "src/context/userAppContextData";
 import { useTheme } from "styled-components";
 import Cookies from "universal-cookie";
 
@@ -13,7 +16,9 @@ import { Scontainer, ScontentFooter, Sitem } from "./styles";
 function DropdownUser() {
   const theme = useTheme();
   const [isVisible, setIsVisible] = React.useState(false);
-  const { user } = React.useContext(UserAppContext) as UserAppContextType;
+  const { user } = React.useContext(
+    UserAppContextData
+  ) as UserAppContextDataType;
 
   const cookies = new Cookies();
 
