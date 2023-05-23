@@ -21,7 +21,7 @@ export default async function handler(
                   id
                   name
                   amount
-                  shoppings {
+                  shoppings(first: 5000, orderBy: createdAt_DESC) {
                     id
                     description
                     amount

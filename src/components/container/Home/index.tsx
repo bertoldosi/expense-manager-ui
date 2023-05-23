@@ -1,24 +1,13 @@
 import React from "react";
-import Cookies from "universal-cookie";
-import { getExpense } from "../../../api/expense";
-
 import { Institution } from "@containers/Home/components/Institution";
 
 import { Scontainer } from "./styles";
-import { ExpenseType } from "@interfaces/*";
+import { UserAppContext, UserAppContextType } from "src/context/userAppContext";
 
 function Home() {
-  const cookies = new Cookies();
-
-  const [expense, setExpense] = React.useState<ExpenseType>();
-
-  const getExpenseData = async () => {
-    const { filter } = await cookies.get("expense-manager");
-
-    const response = await getExpense(filter?.expense?.id);
-
-    setExpense(response.data);
-  };
+  const { expense, getExpenseData } = React.useContext(
+    UserAppContext
+  ) as UserAppContextType;
 
   React.useEffect(() => {
     getExpenseData();

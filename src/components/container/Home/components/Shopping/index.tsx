@@ -16,7 +16,9 @@ type PropsType = {
 };
 
 export const Shopping = ({ institution }: PropsType) => {
-  const { updateData } = React.useContext(UserAppContext) as UserAppContextType;
+  const { getExpenseData } = React.useContext(
+    UserAppContext
+  ) as UserAppContextType;
 
   const onSubmitShopping = useFormik({
     initialValues: {
@@ -25,8 +27,10 @@ export const Shopping = ({ institution }: PropsType) => {
       responsible: "",
     },
     onSubmit: async (values) => {
-      await createShopping(institution.id, values);
-      updateData();
+      createShopping(institution.id, values).finally(() => {
+        getExpenseData();
+        customToast("success", "Item incluído com sucesso!");
+      });
     },
   });
 

@@ -1,14 +1,16 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { PersonType, UserType } from "@interfaces/*";
+import { ExpenseType, PersonType, UserType } from "@interfaces/*";
 import { getPerson } from "@api/person";
 import Cookies from "universal-cookie";
+import { getExpense } from "@api/expense";
 
 export type UserAppContextType = {
   user: UserType | undefined;
   setUser: Dispatch<SetStateAction<UserType | undefined>>;
   person: PersonType | undefined;
   setPerson: React.Dispatch<React.SetStateAction<PersonType | undefined>>;
-  updateData: () => {};
+  expense: ExpenseType | undefined;
+  getExpenseData: () => {};
 };
 
 type PropsType = {
@@ -24,6 +26,7 @@ const UserAppContextProvider = ({ children }: PropsType) => {
 
   const [user, setUser] = React.useState<UserType>();
   const [person, setPerson] = React.useState<PersonType>();
+  const [expense, setExpense] = React.useState<ExpenseType>();
 
   const getPersonHy = async (user: UserType) => {
     const { data: responsePerson } = await getPerson(user.email);
@@ -32,8 +35,10 @@ const UserAppContextProvider = ({ children }: PropsType) => {
     setUser(user);
   };
 
-  const updateData = async () => {
-    await getPersonHy(user?.email);
+  const getExpenseData = async () => {
+    const { filter } = await cookies.get("expense-manager");
+    const response = await getExpense(filter?.expense?.id);
+    setExpense(response.data);
   };
 
   React.useMemo(() => {
@@ -56,7 +61,8 @@ const UserAppContextProvider = ({ children }: PropsType) => {
         setUser,
         person,
         setPerson,
-        updateData,
+        expense,
+        getExpenseData,
       }}
     >
       {children}
