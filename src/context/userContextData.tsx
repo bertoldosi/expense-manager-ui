@@ -5,7 +5,7 @@ import { ExpenseType, PersonType, UserType } from "@interfaces/*";
 import { getPerson as getPersonApi } from "@api/person";
 import { getExpense } from "@api/expense";
 
-export type UserAppContextDataType = {
+export type userContextDataType = {
   user: UserType | undefined;
   setUser: Dispatch<SetStateAction<UserType | undefined>>;
   person: PersonType | undefined;
@@ -18,8 +18,9 @@ type PropsType = {
   children: React.ReactNode;
 };
 
-export const UserAppContextData =
-  React.createContext<UserAppContextDataType | null>(null);
+export const userContextData = React.createContext<userContextDataType | null>(
+  null
+);
 
 const UserAppContextProviderData = ({ children }: PropsType) => {
   const cookies = new Cookies();
@@ -55,7 +56,7 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
   }, [user]);
 
   return (
-    <UserAppContextData.Provider
+    <userContextData.Provider
       value={{
         user,
         setUser,
@@ -66,7 +67,7 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
       }}
     >
       {children}
-    </UserAppContextData.Provider>
+    </userContextData.Provider>
   );
 };
 

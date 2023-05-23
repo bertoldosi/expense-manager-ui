@@ -9,9 +9,9 @@ import { InstitutionType } from "@interfaces/";
 import { useFormik } from "formik";
 import { createShopping } from "@api/shopping";
 import {
-  UserAppContextData,
-  UserAppContextDataType,
-} from "src/context/userAppContextData";
+  userContextData,
+  userContextDataType,
+} from "src/context/userContextData";
 
 type PropsType = {
   institution: InstitutionType;
@@ -25,8 +25,8 @@ const initialValues = {
 
 export const Shopping = ({ institution }: PropsType) => {
   const { getExpenseData } = React.useContext(
-    UserAppContextData
-  ) as UserAppContextDataType;
+    userContextData
+  ) as userContextDataType;
 
   const [isResponse, setIsResponse] = React.useState<boolean>(false);
 

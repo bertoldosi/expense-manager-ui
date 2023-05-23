@@ -5,9 +5,9 @@ import Link from "next/link";
 import Router from "next/router";
 import React from "react";
 import {
-  UserAppContextData,
-  UserAppContextDataType,
-} from "src/context/userAppContextData";
+  userContextData,
+  userContextDataType,
+} from "src/context/userContextData";
 import { useTheme } from "styled-components";
 import Cookies from "universal-cookie";
 
@@ -16,9 +16,7 @@ import { Scontainer, ScontentFooter, Sitem } from "./styles";
 function DropdownUser() {
   const theme = useTheme();
   const [isVisible, setIsVisible] = React.useState(false);
-  const { user } = React.useContext(
-    UserAppContextData
-  ) as UserAppContextDataType;
+  const { user } = React.useContext(userContextData) as userContextDataType;
 
   const cookies = new Cookies();
 

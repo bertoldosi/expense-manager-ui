@@ -3,14 +3,14 @@ import { Institution } from "@containers/Home/components/Institution";
 
 import { Scontainer } from "./styles";
 import {
-  UserAppContextData,
-  UserAppContextDataType,
-} from "src/context/userAppContextData";
+  userContextData,
+  userContextDataType,
+} from "src/context/userContextData";
 
 function Home() {
   const { expense, getExpenseData } = React.useContext(
-    UserAppContextData
-  ) as UserAppContextDataType;
+    userContextData
+  ) as userContextDataType;
 
   React.useEffect(() => {
     getExpenseData();
