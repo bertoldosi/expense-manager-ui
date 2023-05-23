@@ -21,6 +21,7 @@ type PropsType = {
 };
 
 const initialNewInstitution = {
+  id: "",
   name: "",
   amount: 0,
   shoppings: [],

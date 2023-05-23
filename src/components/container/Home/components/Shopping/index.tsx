@@ -7,12 +7,17 @@ import { Table } from "@containers/Home/components/Shopping/components/Table";
 import { Scontent, Sheader } from "./styles";
 import { InstitutionType } from "@interfaces/";
 import { useFormik } from "formik";
+import { createShopping } from "@api/shopping";
+import { customToast } from "@commons/CustomToast";
+import { UserAppContext, UserAppContextType } from "src/context/userAppContext";
 
 type PropsType = {
   institution: InstitutionType;
 };
 
 export const Shopping = ({ institution }: PropsType) => {
+  const { updateData } = React.useContext(UserAppContext) as UserAppContextType;
+
   const onSubmitShopping = useFormik({
     initialValues: {
       description: "",
@@ -20,7 +25,8 @@ export const Shopping = ({ institution }: PropsType) => {
       responsible: "",
     },
     onSubmit: async (values) => {
-      console.log(institution, values);
+      await createShopping(institution.id, values);
+      updateData();
     },
   });
 

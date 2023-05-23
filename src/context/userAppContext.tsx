@@ -8,6 +8,7 @@ export type UserAppContextType = {
   setUser: Dispatch<SetStateAction<UserType | undefined>>;
   person: PersonType | undefined;
   setPerson: React.Dispatch<React.SetStateAction<PersonType | undefined>>;
+  updateData: () => {};
 };
 
 type PropsType = {
@@ -31,6 +32,10 @@ const UserAppContextProvider = ({ children }: PropsType) => {
     setUser(user);
   };
 
+  const updateData = async () => {
+    await getPersonHy(user?.email);
+  };
+
   React.useMemo(() => {
     const dataCookies = cookies.get("expense-manager");
 
@@ -51,6 +56,7 @@ const UserAppContextProvider = ({ children }: PropsType) => {
         setUser,
         person,
         setPerson,
+        updateData,
       }}
     >
       {children}

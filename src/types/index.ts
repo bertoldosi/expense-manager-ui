@@ -1,11 +1,12 @@
 export type ShoppingType = {
-  reference: string;
+  id?: string;
+  reference?: string;
   description: string;
   amount: string | number;
   responsible: string;
   isUpdate?: boolean;
   select?: boolean;
-  paymentStatus: string;
+  paymentStatus?: string;
 };
 
 export type ResponsibleValuesType = {
@@ -19,6 +20,7 @@ export type SelectValuType = {
 };
 
 export type InstitutionType = {
+  id: string;
   reference?: string;
   name: string;
   amount: string | number;
