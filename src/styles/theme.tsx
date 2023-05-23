@@ -1,5 +1,8 @@
 import React, { ReactNode } from "react";
-import { UserContext, UserContextType } from "src/context/userContext";
+import {
+  UserContextConfig,
+  UserContextConfigType,
+} from "src/context/userContextConfig";
 import { ThemeProvider } from "styled-components";
 
 type ThemeTypes = {
@@ -42,7 +45,9 @@ export const darkTheme = {
 };
 
 const Theme = ({ children }: ThemeTypes) => {
-  const { theme } = React.useContext(UserContext) as UserContextType;
+  const { theme } = React.useContext(
+    UserContextConfig
+  ) as UserContextConfigType;
 
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };

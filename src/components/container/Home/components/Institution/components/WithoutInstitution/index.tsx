@@ -5,7 +5,10 @@ import Nav from "../Nav";
 import { Saside, Ssection } from "../../styles";
 import { CardMenu } from "../CardMenu";
 import { Button } from "@commons/Button";
-import { UserContext, UserContextType } from "src/context/userContext";
+import {
+  UserContextConfig,
+  UserContextConfigType,
+} from "src/context/userContextConfig";
 import { Modal } from "@commons/Modal";
 import Input from "@commons/Input";
 import { InstitutionType, ShoppingType } from "@interfaces/*";
@@ -27,7 +30,9 @@ export const WithoutInstitution = ({
   newInstitution,
   setNewInstitution,
 }: any) => {
-  const { theme } = React.useContext(UserContext) as UserContextType;
+  const { theme } = React.useContext(
+    UserContextConfig
+  ) as UserContextConfigType;
 
   const [isVisible, setIsVisible] = useState<boolean>(false);
 

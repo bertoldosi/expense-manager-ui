@@ -6,7 +6,10 @@ import { Button } from "@commons/Button";
 import { CardMenu } from "@containers/Home/components/Institution/components/CardMenu";
 import { Shopping } from "@containers/Home/components/Shopping";
 import { Saside, Ssection, Swrapper } from "./styles";
-import { UserContext, UserContextType } from "src/context/userContext";
+import {
+  UserContextConfig,
+  UserContextConfigType,
+} from "src/context/userContextConfig";
 import { WithoutInstitution } from "./components/WithoutInstitution";
 import Nav from "./components/Nav";
 import { Modal } from "@commons/Modal";
@@ -28,9 +31,9 @@ const initialNewInstitution = {
 };
 
 export const Institution = ({ institutions }: PropsType) => {
-  const { listResponsibleTotalMonth, nowCard, theme } = React.useContext(
-    UserContext
-  ) as UserContextType;
+  const { nowCard, theme } = React.useContext(
+    UserContextConfig
+  ) as UserContextConfigType;
 
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [newInstitution, setNewInstitution] = useState<InstitutionType>(
@@ -104,7 +107,7 @@ export const Institution = ({ institutions }: PropsType) => {
                   />
                   <CardMenu
                     title="TOTAL MENSAL"
-                    list={listResponsibleTotalMonth}
+                    list={[]}
                     background={theme.backgroundPrimary}
                   />
                 </Saside>

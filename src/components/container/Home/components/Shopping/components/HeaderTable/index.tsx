@@ -5,10 +5,10 @@ import { SelectFilter } from "@commons/SelectFilter";
 import { GroupLeft, Scontent } from "./styles";
 import InputTable from "../InputTable";
 import { Button } from "@commons/Button";
-import { Repeat } from "@icons/Repeat";
-import { Trash } from "@icons/Trash";
-import { Edit } from "@icons/Edit";
-import { UserContext, UserContextType } from "src/context/userContext";
+import {
+  UserContextConfig,
+  UserContextConfigType,
+} from "src/context/userContextConfig";
 import { ResponsibleValuesType } from "@interfaces/*";
 
 type PropsType = {
@@ -34,7 +34,9 @@ export const HeaderTable = ({
   setIsVisible,
   valueFilter,
 }: PropsType) => {
-  const { theme } = React.useContext(UserContext) as UserContextType;
+  const { theme } = React.useContext(
+    UserContextConfig
+  ) as UserContextConfigType;
 
   return (
     <Scontent>

@@ -2,7 +2,7 @@ import React from "react";
 import { darkTheme, lightTheme } from "src/styles/theme";
 import { DefaultTheme } from "styled-components";
 
-export type UserContextType = {
+export type UserContextConfigType = {
   nowMonth: number | undefined;
   nowCard: string | undefined;
   setNowMonth: Function;
@@ -13,13 +13,14 @@ export type UserContextType = {
   isThemeDark: boolean;
 };
 
-type PropsType = {
+type PropsConfigType = {
   children: React.ReactNode;
 };
 
-export const UserContext = React.createContext<UserContextType | null>(null);
+export const UserContextConfig =
+  React.createContext<UserContextConfigType | null>(null);
 
-const UserContextProvider = ({ children }: PropsType) => {
+const UserContextConfigProvider = ({ children }: PropsConfigType) => {
   const [nowMonth, setNowMonth] = React.useState<number | undefined>();
   const [nowCard, setNowCard] = React.useState<string | undefined>();
   const [isThemeDark, setIsThemeDark] = React.useState<boolean>(false);
@@ -63,7 +64,6 @@ const UserContextProvider = ({ children }: PropsType) => {
 
   React.useEffect(() => {
     const isDarkThemeStorageStrig = localStorage.getItem("@expManTheme");
-
     const isDarkThemeStorageBoolean = isDarkThemeStorageStrig === "true";
 
     if (isDarkThemeStorageStrig) {
@@ -80,7 +80,7 @@ const UserContextProvider = ({ children }: PropsType) => {
   }, [isThemeDark]);
 
   return (
-    <UserContext.Provider
+    <UserContextConfig.Provider
       value={{
         nowMonth,
         setNowMonth,
@@ -93,8 +93,8 @@ const UserContextProvider = ({ children }: PropsType) => {
       }}
     >
       {children}
-    </UserContext.Provider>
+    </UserContextConfig.Provider>
   );
 };
 
-export default UserContextProvider;
+export default UserContextConfigProvider;

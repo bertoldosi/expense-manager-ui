@@ -1,7 +1,10 @@
 import React from "react";
 
 import { Scontent, Sitem, Slist } from "./styles";
-import { UserContext, UserContextType } from "src/context/userContext";
+import {
+  UserContextConfig,
+  UserContextConfigType,
+} from "src/context/userContextConfig";
 import { InstitutionType } from "@interfaces/*";
 
 type PropsType = {
@@ -10,8 +13,8 @@ type PropsType = {
 
 function Nav({ institutions }: PropsType) {
   const { nowCard, handlerNameCard } = React.useContext(
-    UserContext
-  ) as UserContextType;
+    UserContextConfig
+  ) as UserContextConfigType;
 
   if (institutions?.length === 0) {
     return (

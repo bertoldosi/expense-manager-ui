@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 
 import GlobalStyle from "../styles/globalStyle";
 import Theme from "src/styles/theme";
-import UserContextProvider from "src/context/userContext";
+import UserContextProvider from "src/context/userContextConfig";
 import Layout from "@commons/Layout";
 import { Page } from "page";
 import { Wrapped } from "@commons/Wrapped";
