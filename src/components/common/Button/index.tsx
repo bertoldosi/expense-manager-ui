@@ -13,6 +13,7 @@ export const Button = ({
   children,
   color,
   background,
+  disabled,
   width = "12rem",
   height = "4rem",
   ...props
@@ -24,7 +25,7 @@ export const Button = ({
       width={width}
       height={height}
     >
-      <button {...props}>{children}</button>
+      <button {...props}>{disabled ? "Carregando" : children}</button>
     </Scontent>
   );
 };

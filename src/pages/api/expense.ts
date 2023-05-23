@@ -24,6 +24,7 @@ export default async function handler(
                   shoppings(first: 5000, orderBy: createdAt_DESC) {
                     id
                     description
+                    responsible
                     amount
                   }
                 }

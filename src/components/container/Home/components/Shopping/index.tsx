@@ -15,25 +15,32 @@ type PropsType = {
   institution: InstitutionType;
 };
 
+const initialValues = {
+  description: "",
+  amount: "",
+  responsible: "",
+};
+
 export const Shopping = ({ institution }: PropsType) => {
   const { getExpenseData } = React.useContext(
     UserAppContext
   ) as UserAppContextType;
 
+  const [isResponse, setIsResponse] = React.useState<boolean>(false);
+
   const onSubmitShopping = useFormik({
-    initialValues: {
-      description: "",
-      amount: "",
-      responsible: "",
-    },
+    initialValues: initialValues,
     onSubmit: async (values) => {
+      setIsResponse(true);
+
       createShopping(institution.id, values).finally(() => {
         getExpenseData();
-        customToast("success", "Item incluído com sucesso!");
+        setIsResponse(false);
       });
+
+      onSubmitShopping.resetForm();
     },
   });
-
   return (
     <Scontent>
       <Sheader onSubmit={onSubmitShopping.handleSubmit}>
@@ -50,6 +57,7 @@ export const Shopping = ({ institution }: PropsType) => {
           id="amount"
           autoComplete="off"
           placeholder="R$ 00,00"
+          disabled={isResponse}
           onChange={onSubmitShopping.handleChange}
         />
         <Input

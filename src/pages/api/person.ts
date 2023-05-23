@@ -27,6 +27,7 @@ export default async function handler(
                       id
                       description
                       amount
+                      responsible
                       createdAt
                     }
                   }
