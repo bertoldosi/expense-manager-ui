@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import { darkTheme, lightTheme } from "src/styles/theme";
+import { darkTheme } from "src/styles/theme";
 import { DefaultTheme } from "styled-components";
 
 export type UserContextConfigType = {
   toggleNameSelectedInstitution: Function;
   nameSelectedInstitution: string | undefined;
   theme: DefaultTheme;
-  toggleTheme: Function;
-  isThemeDark: boolean;
 };
 
 type PropsConfigType = {
@@ -18,40 +16,14 @@ export const UserContextConfig =
   React.createContext<UserContextConfigType | null>(null);
 
 const UserContextConfigProvider = ({ children }: PropsConfigType) => {
-  const [isThemeDark, setIsThemeDark] = React.useState<boolean>(false);
+  const [theme, _setTheme] = React.useState<DefaultTheme>(darkTheme);
   const [nameSelectedInstitution, setNameSelectedInstitution] =
     useState<string>();
 
-  const [theme, setTheme] = React.useState(() =>
-    isThemeDark ? darkTheme : lightTheme
-  );
-
-  const toggleNameSelectedInstitution = (value: string) => {
+  function toggleNameSelectedInstitution(value: string) {
     setNameSelectedInstitution(value);
     localStorage.setItem("@nameSelectedInstitution", value);
-  };
-
-  const toggleTheme = () => {
-    setIsThemeDark((prevIsThemeDark) => !prevIsThemeDark);
-    localStorage.setItem("@expManTheme", String(!isThemeDark));
-  };
-
-  React.useEffect(() => {
-    const isDarkThemeStorageStrig = localStorage.getItem("@expManTheme");
-    const isDarkThemeStorageBoolean = isDarkThemeStorageStrig === "true";
-
-    if (isDarkThemeStorageStrig) {
-      setIsThemeDark(isDarkThemeStorageBoolean);
-    } else {
-      setIsThemeDark(true);
-    }
-  }, []);
-
-  React.useMemo(() => {
-    const theme = isThemeDark ? darkTheme : lightTheme;
-
-    setTheme(theme);
-  }, [isThemeDark]);
+  }
 
   return (
     <UserContextConfig.Provider
@@ -59,8 +31,6 @@ const UserContextConfigProvider = ({ children }: PropsConfigType) => {
         toggleNameSelectedInstitution,
         nameSelectedInstitution,
         theme,
-        toggleTheme,
-        isThemeDark,
       }}
     >
       {children}
