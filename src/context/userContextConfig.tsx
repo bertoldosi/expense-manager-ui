@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { darkTheme, lightTheme } from "src/styles/theme";
-// import { DefaultTheme } from "styled-components";
+import { DefaultTheme } from "styled-components";
 
 export type UserContextConfigType = {
-  nameSelectedInstitution: string | undefined;
   toggleNameSelectedInstitution: Function;
-  theme: any;
+  nameSelectedInstitution: string | undefined;
+  theme: DefaultTheme;
   toggleTheme: Function;
   isThemeDark: boolean;
 };
@@ -28,7 +28,7 @@ const UserContextConfigProvider = ({ children }: PropsConfigType) => {
 
   const toggleNameSelectedInstitution = (value: string) => {
     setNameSelectedInstitution(value);
-    localStorage.setItem("@nameCard", value);
+    localStorage.setItem("@nameSelectedInstitution", value);
   };
 
   const toggleTheme = () => {

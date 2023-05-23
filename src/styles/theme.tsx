@@ -9,10 +9,7 @@ type ThemeTypes = {
   children: ReactNode;
 };
 
-const common = {};
-
 export const lightTheme = {
-  ...common,
   backgroundBory: "#f0f8ff",
   color: "#333",
 
@@ -35,7 +32,6 @@ export const lightTheme = {
 };
 
 export const darkTheme = {
-  ...common,
   backgroundBory: "#1B1B1D",
   backgroundPrimary: "#333",
   backgroundSecondary: "#fff",
