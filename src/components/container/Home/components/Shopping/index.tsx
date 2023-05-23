@@ -8,7 +8,6 @@ import { Scontent, Sheader } from "./styles";
 import { InstitutionType } from "@interfaces/";
 import { useFormik } from "formik";
 import { createShopping } from "@api/shopping";
-import { customToast } from "@commons/CustomToast";
 import { UserAppContext, UserAppContextType } from "src/context/userAppContext";
 
 type PropsType = {
