@@ -1,14 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { darkTheme, lightTheme } from "src/styles/theme";
-import { DefaultTheme } from "styled-components";
+// import { DefaultTheme } from "styled-components";
 
 export type UserContextConfigType = {
-  nowMonth: number | undefined;
-  nowCard: string | undefined;
-  setNowMonth: Function;
-  handlerNumberMonth: Function;
-  handlerNameCard: Function;
-  theme: DefaultTheme | any;
+  nameSelectedInstitution: string | undefined;
+  toggleNameSelectedInstitution: Function;
+  theme: any;
   toggleTheme: Function;
   isThemeDark: boolean;
 };
@@ -21,21 +18,16 @@ export const UserContextConfig =
   React.createContext<UserContextConfigType | null>(null);
 
 const UserContextConfigProvider = ({ children }: PropsConfigType) => {
-  const [nowMonth, setNowMonth] = React.useState<number | undefined>();
-  const [nowCard, setNowCard] = React.useState<string | undefined>();
   const [isThemeDark, setIsThemeDark] = React.useState<boolean>(false);
+  const [nameSelectedInstitution, setNameSelectedInstitution] =
+    useState<string>();
 
   const [theme, setTheme] = React.useState(() =>
     isThemeDark ? darkTheme : lightTheme
   );
 
-  const handlerNumberMonth = (value: number) => {
-    setNowMonth(value);
-    localStorage.setItem("@numberMonth", String(value));
-  };
-
-  const handlerNameCard = (value: string) => {
-    setNowCard(value);
+  const toggleNameSelectedInstitution = (value: string) => {
+    setNameSelectedInstitution(value);
     localStorage.setItem("@nameCard", value);
   };
 
@@ -43,24 +35,6 @@ const UserContextConfigProvider = ({ children }: PropsConfigType) => {
     setIsThemeDark((prevIsThemeDark) => !prevIsThemeDark);
     localStorage.setItem("@expManTheme", String(!isThemeDark));
   };
-
-  React.useEffect(() => {
-    const numberMonth = new Date().getMonth() + 1;
-    const numberMonthStorage = localStorage.getItem("@numberMonth");
-    const numberCardStorage = localStorage.getItem("@nameCard");
-
-    if (numberMonthStorage) {
-      setNowMonth(Number(numberMonthStorage));
-    } else {
-      setNowMonth(numberMonth);
-    }
-
-    if (numberCardStorage) {
-      setNowCard(numberCardStorage);
-    } else {
-      setNowCard("sem card");
-    }
-  }, []);
 
   React.useEffect(() => {
     const isDarkThemeStorageStrig = localStorage.getItem("@expManTheme");
@@ -82,11 +56,8 @@ const UserContextConfigProvider = ({ children }: PropsConfigType) => {
   return (
     <UserContextConfig.Provider
       value={{
-        nowMonth,
-        setNowMonth,
-        handlerNumberMonth,
-        handlerNameCard,
-        nowCard,
+        toggleNameSelectedInstitution,
+        nameSelectedInstitution,
         theme,
         toggleTheme,
         isThemeDark,

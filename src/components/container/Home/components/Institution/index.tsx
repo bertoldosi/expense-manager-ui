@@ -31,7 +31,7 @@ const initialNewInstitution = {
 };
 
 export const Institution = ({ institutions }: PropsType) => {
-  const { nowCard, theme } = React.useContext(
+  const { nameSelectedInstitution, theme } = React.useContext(
     UserContextConfig
   ) as UserContextConfigType;
 
@@ -81,7 +81,7 @@ export const Institution = ({ institutions }: PropsType) => {
       </nav>
 
       {institutions?.map((institutionMap, index) => {
-        if (institutionMap.name === nowCard) {
+        if (institutionMap.name === nameSelectedInstitution) {
           return (
             <div key={index}>
               <Ssection>
