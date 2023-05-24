@@ -42,6 +42,7 @@ export const GET_EXPENSE = gql`
     }
   }
 `;
+
 export const CREATE_EXPENSE = gql`
   mutation CreateExpense($name: String!, $email: String!) {
     createExpense(
