@@ -1,22 +1,22 @@
 import React from "react";
-import { Card } from "@commons/Card";
+import Link from "next/link";
+import Router from "next/router";
+import Cookies from "universal-cookie";
 
 import { Scontainer, Sbuttons } from "./styles";
-import Link from "next/link";
+import { ExpenseType } from "@interfaces/*";
+import { Card } from "@commons/Card";
+
 import {
   userContextData,
   userContextDataType,
 } from "src/context/userContextData";
-import { ExpenseType } from "@interfaces/*";
-import Cookies from "universal-cookie";
-import Router from "next/router";
 
 export const ChangeExpense = () => {
   const cookies = new Cookies();
-
   const { person } = React.useContext(userContextData) as userContextDataType;
 
-  const redirectHome = (expense: ExpenseType) => {
+  function redirectHome(expense: ExpenseType) {
     const { user } = cookies.get("expense-manager");
 
     const newCookies = {
@@ -30,9 +30,8 @@ export const ChangeExpense = () => {
     };
 
     cookies.set("expense-manager", newCookies);
-
     Router.push("/");
-  };
+  }
 
   return (
     <Card title="Escolha um gasto para gerenciar:">
