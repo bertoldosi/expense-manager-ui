@@ -39,7 +39,7 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
   async function getExpenseData() {
     const { filter } = await cookies.get("expense-manager");
     const response = await getExpense(filter?.expense?.id);
-    setExpense(response.data);
+    return setExpense(response.data);
   }
 
   React.useMemo(() => {

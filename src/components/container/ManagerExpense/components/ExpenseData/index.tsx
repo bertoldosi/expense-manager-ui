@@ -1,15 +1,16 @@
 import React from "react";
 import { createExpense as createExpenseApi } from "src/api/expense";
-// import { InputWithSelectItems } from "@commons/InputWithSelectItems";
-// import { Slist } from "@containers/ManagerExpense/styles";
 
 import Input from "@commons/Input";
-// import { Trash } from "@icons/Trash";
 import { Button } from "@commons/Button";
 import { Sbuttons, Scontainer, Sinputs, Sresume } from "./styles";
 import { NewExpenseType } from "@interfaces/*";
 import Cookies from "universal-cookie";
 import Router from "next/router";
+import {
+  userContextData,
+  userContextDataType,
+} from "src/context/userContextData";
 
 const initialExpense = {
   name: "",
@@ -18,50 +19,20 @@ const initialExpense = {
 };
 
 export const ExpenseData = () => {
-  // const [emailValue, setEmailValue] = React.useState<string>("");
   const [newExpense, setNewExpense] =
     React.useState<NewExpenseType>(initialExpense);
 
-  // function addEmail() {
-  //   if (!emailValue) {
-  //     return alert("Digite um email!");
-  //   }
-
-  //   const isEmailOnExpenseEmails = !!newExpense.persons.find(
-  //     (email) => email.email === emailValue
-  //   );
-
-  //   if (isEmailOnExpenseEmails) {
-  //     alert("Já está na lista!");
-  //     setEmailValue("");
-
-  //     return;
-  //   }
-
-  //   setNewExpense({
-  //     ...newExpense,
-  //     persons: [...newExpense.persons, { email: emailValue }],
-  //   });
-
-  //   return setEmailValue("");
-  // }
-
-  // function removeEmail(emailDelete: string) {
-  //   return setNewExpense({
-  //     ...newExpense,
-  //     persons: newExpense.persons.filter(
-  //       (emailMap) => emailDelete !== emailMap.email
-  //     ),
-  //   });
-  // }
+  const { getExpenseData } = React.useContext(
+    userContextData
+  ) as userContextDataType;
 
   async function createExpense() {
-    console.log(newExpense);
     const cookies = new Cookies();
 
     const { user } = await cookies.get("expense-manager");
 
-    await createExpenseApi({ ...newExpense, email: user.email }).finally(() => {
+    createExpenseApi({ ...newExpense, email: user.email }).then(async () => {
+      await getExpenseData();
       Router.push("/alterar-gasto");
     });
   }
