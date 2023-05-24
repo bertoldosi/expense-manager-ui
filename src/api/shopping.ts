@@ -1,5 +1,5 @@
 import { ShoppingType } from "@interfaces/*";
-import instances from "src/lib/axios-instance-bff";
+import instances from "src/lib/axios-instance-internal";
 
 export const createShopping = async (
   institutionId: string,

@@ -1,5 +1,5 @@
 import { NewExpenseType } from "@interfaces/*";
-import instances from "src/lib/axios-instance-bff";
+import instances from "src/lib/axios-instance-internal";
 
 export const createExpense = async (expense: NewExpenseType) => {
   return instances.post("/expense", expense);

@@ -1,5 +1,5 @@
 import { InstitutionType } from "@interfaces/*";
-import instances from "src/lib/axios-instance-bff";
+import instances from "src/lib/axios-instance-internal";
 
 interface NewInstitutionType extends InstitutionType {
   expenseId: string;

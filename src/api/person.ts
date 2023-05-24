@@ -1,12 +1,12 @@
 import { UserType } from "@interfaces/*";
-import instancesBff from "src/lib/axios-instance-bff";
+import instancesInternal from "src/lib/axios-instance-internal";
 
 export const createPerson = async (user: UserType) => {
-  return instancesBff.post("/person", user);
+  return instancesInternal.post("/person", user);
 };
 
 export const getPerson = async (email: string) => {
-  return instancesBff.get("/person", {
+  return instancesInternal.get("/person", {
     params: {
       email,
     },
