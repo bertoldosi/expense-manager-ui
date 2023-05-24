@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import instances from "src/lib/axios-instance";
 
+import instances from "src/lib/axios-instance";
 import { CREATE_EXPENSE, GET_EXPENSE, GET_EXPENSES } from "./graphql/expense";
 
 async function getExpense(req: NextApiRequest, res: NextApiResponse) {
