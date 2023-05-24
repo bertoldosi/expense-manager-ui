@@ -1,11 +1,6 @@
 import React from "react";
 
-type PropsType = {
-  width?: string | number;
-  height?: string | number;
-  fill?: string;
-  stroke?: string;
-};
+interface PropsType extends React.SVGProps<SVGAElement> {}
 
 export const BsChevronDown: React.FC<PropsType> = ({
   width = "40",

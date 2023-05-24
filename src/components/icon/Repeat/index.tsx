@@ -1,11 +1,7 @@
-import { MouseEventHandler } from "react";
-
-type PropsType = {
-  width?: string | number;
-  height?: string | number;
-  disabled?: boolean;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
-};
+interface PropsType extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  width: string;
+  height: string;
+}
 
 export const Repeat = ({ width = "40", height = "40" }: PropsType) => {
   return (

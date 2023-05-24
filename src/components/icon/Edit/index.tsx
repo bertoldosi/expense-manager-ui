@@ -1,12 +1,9 @@
-import { MouseEventHandler } from "react";
 import styled from "styled-components";
 
-type PropsType = {
-  width?: string | number;
-  height?: string | number;
-  disabled?: boolean;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
-};
+interface PropsType extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  width: string;
+  height: string;
+}
 
 const Scontent = styled.button`
   background-color: transparent;

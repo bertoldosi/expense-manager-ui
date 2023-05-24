@@ -1,13 +1,9 @@
-import { MouseEventHandler } from "react";
 import styled from "styled-components";
 
-type PropsType = {
-  width?: string | number;
-  height?: string | number;
-  disabled?: boolean;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
-  color?: string;
-};
+interface PropsType extends React.HTMLAttributes<HTMLImageElement> {
+  width: string;
+  height: string;
+}
 
 export const Scontainer = styled.div`
   cursor: pointer;
