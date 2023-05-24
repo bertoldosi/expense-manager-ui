@@ -43,14 +43,14 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
   }
 
   React.useMemo(() => {
-    const dataCookies = cookies.get("expense-manager");
+    const expenseManagerCookies = cookies.get("expense-manager");
 
     if (user?.email) {
       getPerson(user);
-      cookies.set("expense-manager", { ...dataCookies, user: user });
+      cookies.set("expense-manager", { ...expenseManagerCookies, user: user });
     } else {
-      if (dataCookies) {
-        getPerson(dataCookies.user);
+      if (expenseManagerCookies) {
+        getPerson(expenseManagerCookies.user);
       }
     }
   }, [user]);
