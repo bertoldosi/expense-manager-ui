@@ -9,6 +9,7 @@ export type userContextDataType = {
   user: UserType | undefined;
   setUser: Dispatch<SetStateAction<UserType | undefined>>;
   person: PersonType | undefined;
+  getPerson: Function;
   setPerson: React.Dispatch<React.SetStateAction<PersonType | undefined>>;
   expense: ExpenseType | undefined;
   getExpenseData: Function;
@@ -30,15 +31,16 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
   const [expense, setExpense] = React.useState<ExpenseType>();
 
   async function getPerson(user: UserType) {
-    const { data: responsePerson } = await getPersonApi(user.email);
-
-    setPerson(responsePerson);
-    setUser(user);
+    getPersonApi(user.email).then((response) => {
+      setPerson(response.data);
+      setUser(user);
+    });
   }
 
   async function getExpenseData() {
     const { filter } = await cookies.get("expense-manager");
     const response = await getExpense(filter?.expense?.id);
+
     return setExpense(response.data);
   }
 
@@ -61,6 +63,7 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
         user,
         setUser,
         person,
+        getPerson,
         setPerson,
         expense,
         getExpenseData,

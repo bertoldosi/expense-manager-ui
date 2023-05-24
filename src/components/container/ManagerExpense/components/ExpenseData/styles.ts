@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Scontainer = styled.div``;
+export const Scontainer = styled.form``;
 
 export const Sinputs = styled.div`
   display: flex;
