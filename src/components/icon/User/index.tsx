@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 interface PropsType extends React.HTMLAttributes<HTMLImageElement> {
-  width: string;
-  height: string;
+  width: string | number;
+  height: string | number;
 }
 
 export const Scontainer = styled.div`

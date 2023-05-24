@@ -1,6 +1,6 @@
 interface PropsType extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  width: string;
-  height: string;
+  width: string | number;
+  height: string | number;
 }
 
 export const Add = ({ width = "40", height = "40" }: PropsType) => {
