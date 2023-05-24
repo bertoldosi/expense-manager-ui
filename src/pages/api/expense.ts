@@ -1,6 +1,7 @@
 import { gql } from "graphql-request";
 import { NextApiRequest, NextApiResponse } from "next";
 import instances from "src/lib/axios-instance";
+import { CREATE_EXPENSE, GET_EXPENSE, GET_EXPENSES } from "./graphql/expense";
 
 export default async function handler(
   req: NextApiRequest,
@@ -12,25 +13,7 @@ export default async function handler(
     if (id) {
       try {
         const requestBody = {
-          query: gql`
-            query Expense($id: ID!) {
-              expense(where: { id: $id }) {
-                id
-                name
-                institutions {
-                  id
-                  name
-                  amount
-                  shoppings(first: 5000, orderBy: createdAt_DESC) {
-                    id
-                    description
-                    responsible
-                    amount
-                  }
-                }
-              }
-            }
-          `,
+          query: GET_EXPENSE,
           variables: {
             id,
           },
@@ -47,29 +30,7 @@ export default async function handler(
     } else {
       try {
         const requestBody = {
-          query: gql`
-            query Expenses {
-              expenses {
-                id
-                name
-                persons {
-                  email
-                }
-                institutions {
-                  id
-                  name
-                  amount
-                  shoppings {
-                    id
-                    description
-                    amount
-                    createdAt
-                  }
-                }
-              }
-            }
-          `,
-          variables: {},
+          query: GET_EXPENSES,
         };
 
         const response = await instances.post("", requestBody);
@@ -88,18 +49,7 @@ export default async function handler(
 
     try {
       const requestBody = {
-        query: gql`
-          mutation CreateExpense($name: String!, $email: String!) {
-            createExpense(
-              data: {
-                name: $name
-                persons: { connect: { Person: { email: $email } } }
-              }
-            ) {
-              id
-            }
-          }
-        `,
+        query: CREATE_EXPENSE,
         variables: { name, email },
       };
 
