@@ -1,6 +1,6 @@
-import { gql } from "graphql-request";
 import { NextApiRequest, NextApiResponse } from "next";
 import instances from "src/lib/axios-instance";
+import { CREATE_PERSON, GET_PERSON, GET_PERSONS } from "./graphql/person";
 
 export default async function handler(
   req: NextApiRequest,
@@ -12,29 +12,7 @@ export default async function handler(
     if (email) {
       try {
         const requestBody = {
-          query: gql`
-            query Person($email: String!) {
-              person(where: { email: $email }) {
-                name
-                expenses {
-                  id
-                  name
-                  institutions {
-                    id
-                    name
-                    amount
-                    shoppings(first: 5000, orderBy: createdAt_DESC) {
-                      id
-                      description
-                      amount
-                      responsible
-                      createdAt
-                    }
-                  }
-                }
-              }
-            }
-          `,
+          query: GET_PERSON,
           variables: {
             email,
           },
@@ -51,7 +29,7 @@ export default async function handler(
     } else {
       try {
         const requestBody = {
-          query: gql``,
+          query: GET_PERSONS,
           variables: {},
         };
 
@@ -71,14 +49,7 @@ export default async function handler(
 
     try {
       const requestBody = {
-        query: gql`
-          mutation CreatePerson($name: String!, $email: String!) {
-            createPerson(data: { name: $name, email: $email }) {
-              id
-              email
-            }
-          }
-        `,
+        query: CREATE_PERSON,
         variables: {
           name,
           email,

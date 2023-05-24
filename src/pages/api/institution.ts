@@ -1,6 +1,6 @@
-import { gql } from "graphql-request";
 import { NextApiRequest, NextApiResponse } from "next";
 import instances from "src/lib/axios-instance";
+import { CREATE_INSTITUTION } from "./graphql/institution";
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,16 +11,7 @@ export default async function handler(
 
     try {
       const requestBody = {
-        query: gql`
-          mutation CreateInstitution($expenseId: ID, $name: String!) {
-            updateExpense(
-              where: { id: $expenseId }
-              data: { institutions: { create: { name: $name } } }
-            ) {
-              id
-            }
-          }
-        `,
+        query: CREATE_INSTITUTION,
         variables: {
           expenseId,
           name,

@@ -1,6 +1,6 @@
-import { gql } from "graphql-request";
 import { NextApiRequest, NextApiResponse } from "next";
 import instances from "src/lib/axios-instance";
+import { CREATE_SHOPPING } from "./graphql/shopping";
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,19 +11,7 @@ export default async function handler(
 
     try {
       const requestBody = {
-        query: gql`
-          mutation CreateShopping(
-            $institutionId: ID
-            $shopping: [ShoppingCreateInput!]
-          ) {
-            updateInstitution(
-              data: { shoppings: { create: $shopping } }
-              where: { id: $institutionId }
-            ) {
-              id
-            }
-          }
-        `,
+        query: CREATE_SHOPPING,
         variables: {
           institutionId,
           shopping: [shopping],
