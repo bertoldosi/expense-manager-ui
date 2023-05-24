@@ -1,12 +1,12 @@
 import React from "react";
-import { createExpense as createExpenseApi } from "src/api/expense";
+import Router from "next/router";
+import Cookies from "universal-cookie";
 
 import Input from "@commons/Input";
 import { Button } from "@commons/Button";
-import { Sbuttons, Scontainer, Sinputs, Sresume } from "./styles";
 import { NewExpenseType } from "@interfaces/*";
-import Cookies from "universal-cookie";
-import Router from "next/router";
+import { Sbuttons, Scontainer, Sinputs } from "./styles";
+import { createExpense as createExpenseApi } from "src/api/expense";
 import {
   userContextData,
   userContextDataType,
@@ -26,9 +26,13 @@ export const ExpenseData = () => {
     userContextData
   ) as userContextDataType;
 
+  function onChangeExpenseName(event: React.ChangeEvent<HTMLInputElement>) {
+    const { value } = event.target;
+    setNewExpense({ ...newExpense, name: value });
+  }
+
   async function createExpense() {
     const cookies = new Cookies();
-
     const { user } = await cookies.get("expense-manager");
 
     createExpenseApi({ ...newExpense, email: user.email }).then(async () => {
@@ -43,46 +47,9 @@ export const ExpenseData = () => {
         <Input
           placeholder="Nome do gasto"
           value={newExpense?.name}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const { value } = event.target;
-            setNewExpense({ ...newExpense, name: value });
-          }}
+          onChange={onChangeExpenseName}
         />
-        {/* <InputWithSelectItems
-          value={emailValue}
-          placeholder="Email"
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const { value } = event.target;
-            setEmailValue(value);
-          }}
-          onClickAddItem={addEmail}
-          onKeyUp={(event) => {
-            if (event.keyCode === 13) {
-              addEmail();
-            }
-          }}
-        /> */}
       </Sinputs>
-
-      {/* <Sresume>
-        <Slist>
-          <h3>Pessoas que terão acesso a esse gasto:</h3>
-          {newExpense.persons.length
-            ? newExpense.persons.map(({ email }) => (
-                <div>
-                  <span>{email}</span>
-                  <Trash
-                    width={15}
-                    height={15}
-                    onClick={() => {
-                      removeEmail(email);
-                    }}
-                  />
-                </div>
-              ))
-            : "Nenhum email vinculado!"}
-        </Slist>
-      </Sresume> */}
 
       <Sbuttons>
         <Button background="#fff" color="#333" onClick={createExpense}>
