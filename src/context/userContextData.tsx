@@ -1,61 +1,51 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useEffect,
+  useState,
+} from "react";
 import Cookies from "universal-cookie";
 
-import { ExpenseType, PersonType, UserType } from "@interfaces/*";
+import { PersonType, UserType } from "@interfaces/*";
 import { getPerson as getPersonApi } from "@api/person";
-import { getExpense } from "@api/expense";
 
 export type userContextDataType = {
-  user: UserType | undefined;
-  setUser: Dispatch<SetStateAction<UserType | undefined>>;
-  person: PersonType | undefined;
+  user: UserType | null;
+  setUser: Dispatch<SetStateAction<UserType | null>>;
+  person: PersonType | null;
   getPerson: Function;
-  setPerson: React.Dispatch<React.SetStateAction<PersonType | undefined>>;
-  expense: ExpenseType | undefined;
-  getExpenseData: Function;
+  setPerson: Dispatch<SetStateAction<PersonType | null>>;
 };
 
 type PropsType = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
-export const userContextData = React.createContext<userContextDataType | null>(
-  null
-);
+export const userContextData = createContext<userContextDataType | null>(null);
 
 const UserAppContextProviderData = ({ children }: PropsType) => {
   const cookies = new Cookies();
 
-  const [user, setUser] = React.useState<UserType>();
-  const [person, setPerson] = React.useState<PersonType>();
-  const [expense, setExpense] = React.useState<ExpenseType>();
+  const [user, setUser] = useState<UserType | null>(null);
+  const [person, setPerson] = useState<PersonType | null>(null);
 
-  async function getPerson(user: UserType) {
+  function getPerson(user: UserType) {
     getPersonApi(user.email).then((response) => {
       setPerson(response.data);
       setUser(user);
     });
   }
 
-  async function getExpenseData() {
-    const { filter } = await cookies.get("expense-manager");
-    const response = await getExpense(filter?.expense?.id);
-
-    return setExpense(response.data);
-  }
-
-  React.useMemo(() => {
-    const expenseManagerCookies = cookies.get("expense-manager");
-
-    if (user?.email) {
+  useEffect(() => {
+    if (user) {
       getPerson(user);
-      cookies.set("expense-manager", { ...expenseManagerCookies, user: user });
     } else {
-      if (expenseManagerCookies) {
-        getPerson(expenseManagerCookies.user);
-      }
+      const { user } = cookies.get("expense-manager");
+      getPerson(user);
     }
-  }, [user]);
+  }, []);
 
   return (
     <userContextData.Provider
@@ -65,8 +55,6 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
         person,
         getPerson,
         setPerson,
-        expense,
-        getExpenseData,
       }}
     >
       {children}

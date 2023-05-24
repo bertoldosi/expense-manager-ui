@@ -1,6 +1,7 @@
-import React from "react";
-import axios from "axios";
+import React, { useContext } from "react";
+import Cookies from "universal-cookie";
 import Router from "next/router";
+import axios from "axios";
 
 import { useGoogleLogin } from "@react-oauth/google";
 
@@ -9,13 +10,20 @@ import { userContextDataType } from "src/context/userContextData";
 import { userContextData } from "src/context/userContextData";
 import { createPerson, getPerson } from "@api/person";
 
+const URL_GOOGLE_APIS =
+  "https://www.googleapis.com/oauth2/v1/userinfo?access_token=";
+
 const Login = () => {
-  const { setUser } = React.useContext(userContextData) as userContextDataType;
+  const cookies = new Cookies();
+
+  const { setUser, setPerson } = useContext(
+    userContextData
+  ) as userContextDataType;
 
   const login = useGoogleLogin({
     onSuccess: async (response: any) => {
       const { data: responseData } = await axios.get(
-        `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${response.access_token}`,
+        `${URL_GOOGLE_APIS}${response.access_token}`,
         {
           headers: {
             Authorization: `Bearer ${response.access_token}`,
@@ -25,13 +33,17 @@ const Login = () => {
       );
 
       setUser(responseData);
-
+      cookies.set("expense-manager", { user: responseData });
       const { data: responsePerson } = await getPerson(responseData.email);
 
       if (responsePerson?.name) {
+        setPerson(responsePerson);
         Router.push("/alterar-gasto");
       } else {
-        await createPerson(responseData);
+        createPerson(responseData).then((response) => {
+          setPerson(response.data);
+        });
+
         Router.push("/alterar-gasto");
       }
     },

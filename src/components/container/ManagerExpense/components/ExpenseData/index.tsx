@@ -37,12 +37,11 @@ export const ExpenseData = () => {
         email: user.email,
       };
 
-      createExpenseApi(newExpense).then(async () => {
-        await getPerson(user);
-        Router.push("/alterar-gasto");
+      createExpenseApi(newExpense).then(() => {
+        getPerson(user);
       });
 
-      onSubmitExpense.resetForm();
+      Router.push("/alterar-gasto");
     },
   });
 

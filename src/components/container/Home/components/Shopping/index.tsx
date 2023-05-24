@@ -24,9 +24,7 @@ const initialValues = {
 };
 
 export const Shopping = ({ institution }: PropsType) => {
-  const { getExpenseData } = React.useContext(
-    userContextData
-  ) as userContextDataType;
+  const {} = React.useContext(userContextData) as userContextDataType;
 
   const [isResponse, setIsResponse] = React.useState<boolean>(false);
 
@@ -36,7 +34,6 @@ export const Shopping = ({ institution }: PropsType) => {
       setIsResponse(true);
 
       createShopping(institution.id, values).finally(() => {
-        getExpenseData();
         setIsResponse(false);
       });
 

@@ -30,7 +30,7 @@ export const ChangeExpense = () => {
     };
 
     cookies.set("expense-manager", newCookies);
-    Router.push("/");
+    Router.push("/", expense.id);
   }
 
   return (
@@ -43,7 +43,7 @@ export const ChangeExpense = () => {
                 redirectHome(expense);
               }}
             >
-              {expense.name}
+              {expense?.name}
             </span>
           ))}
         </Scontainer>

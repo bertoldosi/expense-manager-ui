@@ -8,17 +8,11 @@ import {
 } from "src/context/userContextData";
 
 function Home() {
-  const { expense, getExpenseData } = React.useContext(
-    userContextData
-  ) as userContextDataType;
-
-  React.useEffect(() => {
-    getExpenseData();
-  }, []);
+  const {} = React.useContext(userContextData) as userContextDataType;
 
   return (
     <Scontainer>
-      <Institution institutions={expense?.institutions || []} />
+      <Institution institutions={[]} />
     </Scontainer>
   );
 }
