@@ -11,7 +11,7 @@ export const Scontainer = styled.div`
 
   > span {
     font-size: 1.5rem;
-    padding-left: 1.5rem;
+    padding: 0.8rem 0.5rem;
 
     &:hover {
       border-radius: 0.3rem;

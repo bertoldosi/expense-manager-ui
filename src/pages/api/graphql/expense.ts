@@ -2,7 +2,7 @@ import { gql } from "@services/HygraphClient";
 
 export const GET_EXPENSES = gql`
   query Expenses {
-    expenses {
+    expenses(first: 5000) {
       id
       name
       persons {

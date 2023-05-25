@@ -1,5 +1,6 @@
-import React from "react";
-import Router from "next/router";
+import React, { useEffect } from "react";
+import { useRouter } from "next/router";
+import { useFormik } from "formik";
 import Cookies from "universal-cookie";
 
 import Input from "@commons/Input";
@@ -10,7 +11,6 @@ import {
   userContextData,
   userContextDataType,
 } from "src/context/userContextData";
-import { useFormik } from "formik";
 
 const initialExpense = {
   name: "",
@@ -19,6 +19,8 @@ const initialExpense = {
 };
 
 export const ExpenseData = () => {
+  const router = useRouter();
+
   const [isResponse, setIsResponse] = React.useState<boolean>(false);
 
   const { getPerson } = React.useContext(
@@ -37,11 +39,11 @@ export const ExpenseData = () => {
         email: user.email,
       };
 
-      createExpenseApi(newExpense).then(() => {
-        getPerson(user);
-      });
+      await createExpenseApi(newExpense);
+      setIsResponse(false);
 
-      Router.push("/alterar-gasto");
+      await getPerson(user);
+      router.push("/alterar-gasto");
     },
   });
 
@@ -51,6 +53,7 @@ export const ExpenseData = () => {
         <Input
           id="name"
           name="name"
+          autoFocus
           placeholder="Nome do gasto"
           onChange={onSubmitExpense.handleChange}
         />

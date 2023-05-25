@@ -30,7 +30,7 @@ export const ChangeExpense = () => {
     };
 
     cookies.set("expense-manager", newCookies);
-    Router.push("/", expense.id);
+    Router.push("/");
   }
 
   return (

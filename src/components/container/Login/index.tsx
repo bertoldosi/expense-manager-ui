@@ -16,13 +16,11 @@ const URL_GOOGLE_APIS =
 const Login = () => {
   const cookies = new Cookies();
 
-  const { setUser, setPerson } = useContext(
-    userContextData
-  ) as userContextDataType;
+  const { setPerson } = useContext(userContextData) as userContextDataType;
 
   const login = useGoogleLogin({
     onSuccess: async (response: any) => {
-      const { data: responseData } = await axios.get(
+      const { data: responseUser } = await axios.get(
         `${URL_GOOGLE_APIS}${response.access_token}`,
         {
           headers: {
@@ -32,15 +30,14 @@ const Login = () => {
         }
       );
 
-      setUser(responseData);
-      cookies.set("expense-manager", { user: responseData });
-      const { data: responsePerson } = await getPerson(responseData.email);
+      cookies.set("expense-manager", { user: responseUser });
+      const { data: responsePerson } = await getPerson(responseUser.email);
 
       if (responsePerson?.name) {
         setPerson(responsePerson);
         Router.push("/alterar-gasto");
       } else {
-        createPerson(responseData).then((response) => {
+        createPerson(responseUser).then((response) => {
           setPerson(response.data);
         });
 

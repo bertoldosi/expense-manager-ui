@@ -5,10 +5,10 @@ export const GET_PERSON = gql`
     person(where: { email: $email }) {
       name
       email
-      expenses {
+      expenses(first: 5000) {
         id
         name
-        institutions {
+        institutions(first: 5000) {
           id
           name
           amount
@@ -32,10 +32,10 @@ export const CREATE_PERSON = gql`
     createPerson(data: { name: $name, email: $email }) {
       name
       email
-      expenses {
+      expenses(first: 5000) {
         id
         name
-        institutions {
+        institutions(first: 5000) {
           id
           name
           amount
