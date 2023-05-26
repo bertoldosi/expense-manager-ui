@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Cookies from "universal-cookie";
 
 import { InstitutionType } from "@interfaces/";
 
@@ -6,22 +7,25 @@ import { Button } from "@commons/Button";
 import { CardMenu } from "@containers/Home/components/Institution/components/CardMenu";
 import { Shopping } from "@containers/Home/components/Shopping";
 import { Saside, Ssection, Swrapper } from "./styles";
+
+import { WithoutInstitution } from "./components/WithoutInstitution";
+import { createInstitution } from "@api/institution";
+import { customToast } from "@commons/CustomToast";
+import { Modal } from "@commons/Modal";
+import Nav from "./components/Nav";
+import Input from "@commons/Input";
+
 import {
   UserContextConfig,
   UserContextConfigType,
 } from "src/context/userContextConfig";
-import { WithoutInstitution } from "./components/WithoutInstitution";
-import Nav from "./components/Nav";
-import { Modal } from "@commons/Modal";
-import Input from "@commons/Input";
-import { createInstitution } from "@api/institution";
-import Cookies from "universal-cookie";
-import { customToast } from "@commons/CustomToast";
-import Router from "next/router";
 
-type PropsType = {
-  institutions: InstitutionType[];
-};
+import {
+  userContextData,
+  userContextDataType,
+} from "src/context/userContextData";
+
+type PropsType = {};
 
 const initialNewInstitution = {
   id: "",
@@ -30,46 +34,52 @@ const initialNewInstitution = {
   shoppings: [],
 };
 
-export const Institution = ({ institutions }: PropsType) => {
-  const { nameSelectedInstitution, theme } = React.useContext(
-    UserContextConfig
-  ) as UserContextConfigType;
+export const Institution = ({}: PropsType) => {
+  const { nameSelectedInstitution, theme, toggleNameSelectedInstitution } =
+    React.useContext(UserContextConfig) as UserContextConfigType;
+
+  const { getExpense, expense } = React.useContext(
+    userContextData
+  ) as userContextDataType;
 
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isResponse, setIsResponse] = useState<boolean>(false);
   const [newInstitution, setNewInstitution] = useState<InstitutionType>(
     initialNewInstitution
   );
 
   async function submitNewInstitution() {
+    setIsResponse(true);
+
     const cookies = new Cookies();
+    const coockieValues = cookies.get("expense-manager");
 
-    const { filter } = cookies.get("expense-manager");
-
-    createInstitution({
+    await createInstitution({
       ...newInstitution,
-      expenseId: filter.expense.id,
+      expenseId: coockieValues.filter.expense.id,
     })
       .then(() => {
         customToast("success", "Cartão incluído com sucesso!");
       })
       .catch(() => {
-        customToast(
-          "error",
-          "Algo de errado aconteceu ao tentar incluir novo cartão!"
-        );
-      })
-      .finally(() => {
-        Router.reload();
+        customToast("error", "Tente novamente mais tarde!");
       });
+
+    await getExpense(coockieValues.filter.expense.id);
+    toggleNameSelectedInstitution(newInstitution.name);
+    setIsResponse(false);
+    setIsVisible(false);
+    setNewInstitution(initialNewInstitution);
   }
 
-  if (institutions.length === 0) {
+  if (expense?.institutions.length === 0) {
     return (
       <WithoutInstitution
         submitNewInstitution={submitNewInstitution}
         initialNewInstitution={initialNewInstitution}
         newInstitution={newInstitution}
         setNewInstitution={setNewInstitution}
+        isResponse={isResponse}
       />
     );
   }
@@ -77,10 +87,10 @@ export const Institution = ({ institutions }: PropsType) => {
   return (
     <Swrapper>
       <nav>
-        <Nav institutions={institutions} />
+        <Nav institutions={expense?.institutions || []} />
       </nav>
 
-      {institutions?.map((institutionMap, index) => {
+      {expense?.institutions?.map((institutionMap, index) => {
         if (institutionMap.name === nameSelectedInstitution) {
           return (
             <div key={index}>
@@ -91,18 +101,16 @@ export const Institution = ({ institutions }: PropsType) => {
                     list={institutionMap.listResponsibleValues}
                     background={theme.backgroundPrimary}
                     isFooter={
-                      <>
-                        <Button
-                          color="#fff"
-                          background="#1b66ff"
-                          width="100%"
-                          onClick={() => {
-                            setIsVisible(!isVisible);
-                          }}
-                        >
-                          Novo cartão
-                        </Button>
-                      </>
+                      <Button
+                        color="#fff"
+                        background="#1b66ff"
+                        width="100%"
+                        onClick={() => {
+                          setIsVisible(!isVisible);
+                        }}
+                      >
+                        Novo cartão
+                      </Button>
                     }
                   />
                   <CardMenu
@@ -122,20 +130,20 @@ export const Institution = ({ institutions }: PropsType) => {
                   setNewInstitution(initialNewInstitution);
                 }}
                 footer={
-                  <>
-                    <Button
-                      color="#fff"
-                      background="#1b66ff"
-                      onClick={submitNewInstitution}
-                    >
-                      Salvar
-                    </Button>
-                  </>
+                  <Button
+                    color="#fff"
+                    background="#1b66ff"
+                    disabled={isResponse}
+                    onClick={submitNewInstitution}
+                  >
+                    Salvar
+                  </Button>
                 }
               >
                 <Input
                   placeholder="Nome do cartão"
                   value={newInstitution.name}
+                  autoFocus
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                     setNewInstitution({
                       ...newInstitution,

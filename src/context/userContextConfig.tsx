@@ -3,7 +3,7 @@ import { darkTheme } from "src/styles/theme";
 import { DefaultTheme } from "styled-components";
 
 export type UserContextConfigType = {
-  toggleNameSelectedInstitution: Function;
+  toggleNameSelectedInstitution: FunctionStringCallback;
   nameSelectedInstitution: string | undefined;
   theme: DefaultTheme;
 };

@@ -1,4 +1,9 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, {
+  Dispatch,
+  MouseEventHandler,
+  SetStateAction,
+  useState,
+} from "react";
 
 import { Scontainer } from "./styles";
 import Nav from "../Nav";
@@ -12,16 +17,24 @@ import {
 import { Modal } from "@commons/Modal";
 import Input from "@commons/Input";
 import { InstitutionType, ShoppingType } from "@interfaces/*";
+import {
+  userContextData,
+  userContextDataType,
+} from "src/context/userContextData";
+
+interface InitialNewInstitutionType {
+  id: string;
+  name: string;
+  amount: number | string;
+  shoppings: ShoppingType[];
+}
 
 interface WithoutInstitutionType {
-  submitNewInstitution: () => void;
-  initialNewInstitution: {
-    name: string;
-    amount: number | string;
-    shoppings: ShoppingType[];
-  };
+  submitNewInstitution: MouseEventHandler<HTMLButtonElement>;
+  initialNewInstitution: InitialNewInstitutionType;
   newInstitution: InstitutionType;
-  setNewInstitution: Dispatch<SetStateAction<void>>;
+  setNewInstitution: Dispatch<SetStateAction<InitialNewInstitutionType>>;
+  isResponse: boolean;
 }
 
 export const WithoutInstitution = ({
@@ -29,10 +42,13 @@ export const WithoutInstitution = ({
   initialNewInstitution,
   newInstitution,
   setNewInstitution,
-}: any) => {
+  isResponse,
+}: WithoutInstitutionType) => {
   const { theme } = React.useContext(
     UserContextConfig
   ) as UserContextConfigType;
+
+  const { expense } = React.useContext(userContextData) as userContextDataType;
 
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
@@ -40,7 +56,7 @@ export const WithoutInstitution = ({
     <Scontainer>
       <div>
         <nav>
-          <Nav institutions={[]} />
+          <Nav institutions={expense?.institutions || []} />
         </nav>
 
         <Ssection>
@@ -80,6 +96,7 @@ export const WithoutInstitution = ({
                 color="#fff"
                 background="#1b66ff"
                 onClick={submitNewInstitution}
+                disabled={isResponse}
               >
                 Salvar
               </Button>
@@ -89,6 +106,7 @@ export const WithoutInstitution = ({
           <Input
             placeholder="Nome do cartão"
             value={newInstitution.name}
+            autoFocus
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setNewInstitution({
                 ...newInstitution,
