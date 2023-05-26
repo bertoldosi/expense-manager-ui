@@ -12,8 +12,9 @@ type PropsType = {
 };
 
 function Nav({ institutions }: PropsType) {
-  const { nameSelectedInstitution, toggleNameSelectedInstitution } =
-    React.useContext(UserContextConfig) as UserContextConfigType;
+  const { selectedInstitution, toggleSelectedInstitution } = React.useContext(
+    UserContextConfig
+  ) as UserContextConfigType;
 
   if (institutions?.length === 0) {
     return (
@@ -27,12 +28,12 @@ function Nav({ institutions }: PropsType) {
     <Scontent>
       <Slist>
         {institutions?.map((institutionMap, index) =>
-          institutionMap.name === nameSelectedInstitution ? (
+          institutionMap.name === selectedInstitution?.name ? (
             <Sitem
               key={index}
               className="selected"
               onClick={() => {
-                toggleNameSelectedInstitution(institutionMap.name);
+                toggleSelectedInstitution(institutionMap);
               }}
             >
               <h1>{institutionMap.name}</h1>
@@ -41,7 +42,7 @@ function Nav({ institutions }: PropsType) {
             <Sitem
               key={index}
               onClick={() => {
-                toggleNameSelectedInstitution(institutionMap.name);
+                toggleSelectedInstitution(institutionMap);
               }}
             >
               <h1>{institutionMap.name}</h1>

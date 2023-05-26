@@ -69,3 +69,11 @@ export type NewExpenseType = {
   email?: string;
   persons: EmailType[];
 };
+
+export type CookiesType = {
+  user: { email: string; name: string };
+  filter: {
+    expense: { id: string; name: string };
+    institution: { id: string; name: string };
+  };
+};

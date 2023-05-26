@@ -35,7 +35,7 @@ const initialNewInstitution = {
 };
 
 export const Institution = ({}: PropsType) => {
-  const { nameSelectedInstitution, theme, toggleNameSelectedInstitution } =
+  const { selectedInstitution, theme, toggleSelectedInstitution } =
     React.useContext(UserContextConfig) as UserContextConfigType;
 
   const { getExpense, expense } = React.useContext(
@@ -66,7 +66,7 @@ export const Institution = ({}: PropsType) => {
       });
 
     await getExpense(coockieValues.filter.expense.id);
-    toggleNameSelectedInstitution(newInstitution.name);
+    toggleSelectedInstitution(newInstitution);
     setIsResponse(false);
     setIsVisible(false);
     setNewInstitution(initialNewInstitution);
@@ -91,7 +91,7 @@ export const Institution = ({}: PropsType) => {
       </nav>
 
       {expense?.institutions?.map((institutionMap, index) => {
-        if (institutionMap.name === nameSelectedInstitution) {
+        if (institutionMap.name === selectedInstitution?.name) {
           return (
             <div key={index}>
               <Ssection>

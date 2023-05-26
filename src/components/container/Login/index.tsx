@@ -30,7 +30,9 @@ const Login = () => {
         }
       );
 
-      cookies.set("expense-manager", { user: responseUser });
+      cookies.set("expense-manager", {
+        user: { email: responseUser.email, name: responseUser.name },
+      });
       const { data: responsePerson } = await getPerson(responseUser.email);
 
       if (responsePerson?.name) {
