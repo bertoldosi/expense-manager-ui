@@ -8,3 +8,15 @@ interface NewInstitutionType extends InstitutionType {
 export const createInstitution = async (institution: NewInstitutionType) => {
   return instances.post("/institution", institution);
 };
+
+export const getInstitutionsForName = async (
+  expenseId: string,
+  institutionName: string
+) => {
+  return instances.get("/institution", {
+    params: {
+      expenseId,
+      institutionName,
+    },
+  });
+};

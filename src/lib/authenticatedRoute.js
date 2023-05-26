@@ -1,4 +1,4 @@
-const redirectForLogin = (res) => {
+const redirectLogin = (res) => {
   res.writeHead(302, {
     Location: "/login",
   });
@@ -11,12 +11,15 @@ export const withAuth = (callback) => {
   return async (context) => {
     const { req, res } = context;
 
-    const { user } = JSON.parse(req.cookies["expense-manager"] || "{}");
+    const cookieValues = JSON.parse(req.cookies["expense-manager"] || "{}");
 
-    if (user?.email) {
+    const isLoggedIn = !!cookieValues?.user?.email;
+    const isExpenseSelected = !!cookieValues?.filter?.expense;
+
+    if (isLoggedIn & isExpenseSelected) {
       return await callback(context);
-    } else {
-      return redirectForLogin(res);
     }
+
+    return redirectLogin(res);
   };
 };

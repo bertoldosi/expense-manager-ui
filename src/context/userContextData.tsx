@@ -15,6 +15,8 @@ import { getExpense as getExpenseApi } from "@api/expense";
 
 export type userContextDataType = {
   person: PersonType | null;
+  user: UserType | null;
+  setUser: Dispatch<SetStateAction<UserType | null>>;
   getPerson: Function;
   setPerson: Dispatch<SetStateAction<PersonType | null>>;
   getExpense: Function;
@@ -30,6 +32,7 @@ export const userContextData = createContext<userContextDataType | null>(null);
 const UserAppContextProviderData = ({ children }: PropsType) => {
   const cookies = new Cookies();
 
+  const [user, setUser] = useState<UserType | null>(null);
   const [person, setPerson] = useState<PersonType | null>(null);
   const [expense, setExpense] = useState<ExpenseType | null>(null);
 
@@ -58,6 +61,8 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
   return (
     <userContextData.Provider
       value={{
+        user,
+        setUser,
         person,
         getPerson,
         setPerson,

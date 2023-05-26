@@ -49,7 +49,7 @@ const UserContextConfigProvider = ({ children }: PropsConfigType) => {
   useEffect(() => {
     const cookieValues = cookies.get<CookiesType>("expense-manager");
 
-    if (cookieValues?.filter.institution.name) {
+    if (cookieValues?.filter?.institution?.name) {
       toggleSelectedInstitution(cookieValues?.filter.institution);
     }
   }, []);

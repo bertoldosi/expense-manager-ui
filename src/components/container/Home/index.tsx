@@ -17,12 +17,12 @@ function Home() {
     const cookies = new Cookies();
     const cookieValues = cookies.get("expense-manager");
 
-    getExpense(cookieValues.filter.expense.id);
+    getExpense(cookieValues?.filter?.expense?.id);
   }, []);
 
   return (
     <Scontainer>
-      <Institution institutions={expense?.institutions || []} />
+      <Institution />
     </Scontainer>
   );
 }

@@ -9,7 +9,7 @@ import { Shopping } from "@containers/Home/components/Shopping";
 import { Saside, Ssection, Swrapper } from "./styles";
 
 import { WithoutInstitution } from "./components/WithoutInstitution";
-import { createInstitution } from "@api/institution";
+import { createInstitution, getInstitutionsForName } from "@api/institution";
 import { customToast } from "@commons/CustomToast";
 import { Modal } from "@commons/Modal";
 import Nav from "./components/Nav";
@@ -55,16 +55,26 @@ export const Institution = ({}: PropsType) => {
     const cookies = new Cookies();
     const coockieValues = cookies.get("expense-manager");
 
+    const { data: institutionsResponse } = await getInstitutionsForName(
+      coockieValues.filter.expense.id,
+      newInstitution.name
+    );
+
+    const isInstitutionsAlreadyExists = institutionsResponse.length > 0;
+    if (isInstitutionsAlreadyExists) {
+      await getExpense(coockieValues.filter.expense.id);
+
+      setIsResponse(false);
+      setIsVisible(false);
+      setNewInstitution(initialNewInstitution);
+
+      return customToast("info", "Nome já existente!");
+    }
+
     await createInstitution({
       ...newInstitution,
       expenseId: coockieValues.filter.expense.id,
-    })
-      .then(() => {
-        customToast("success", "Cartão incluído com sucesso!");
-      })
-      .catch(() => {
-        customToast("error", "Tente novamente mais tarde!");
-      });
+    });
 
     await getExpense(coockieValues.filter.expense.id);
     toggleSelectedInstitution(newInstitution);
@@ -73,7 +83,7 @@ export const Institution = ({}: PropsType) => {
     setNewInstitution(initialNewInstitution);
   }
 
-  if (expense?.institutions.length === 0) {
+  if (expense?.institutions?.length === 0) {
     return (
       <WithoutInstitution
         submitNewInstitution={submitNewInstitution}

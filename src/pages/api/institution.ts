@@ -1,7 +1,43 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 import instances from "src/lib/axios-instance";
-import { CREATE_INSTITUTION } from "./graphql/institution";
+
+import {
+  CREATE_INSTITUTION,
+  GET_INSTITUTIONS_FOR_NAME,
+} from "./graphql/institution";
+
+async function getInstitutionsForName(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const { expenseId, institutionName } = req.query;
+
+  if (institutionName) {
+    try {
+      const requestBody = {
+        query: GET_INSTITUTIONS_FOR_NAME,
+        variables: {
+          expenseId,
+          institutionName,
+        },
+      };
+
+      const response = await instances.post("", requestBody);
+      const { data } = response.data;
+
+      return res.status(200).send(data.expense.institutions);
+    } catch (err) {
+      console.log("ERROR AXIOS REQUEST", err);
+      return res.send(err);
+    }
+  }
+
+  return res.send({
+    message: "REQUEST IS NOT DEFINED",
+    method: req.method,
+  });
+}
 
 async function createInstitution(req: NextApiRequest, res: NextApiResponse) {
   const { expenseId, name } = req.body;
@@ -32,6 +68,10 @@ export default async function handler(
   switch (req.method) {
     case "POST":
       await createInstitution(req, res);
+      break;
+
+    case "GET":
+      await getInstitutionsForName(req, res);
       break;
 
     default:

@@ -16,7 +16,9 @@ const URL_GOOGLE_APIS =
 const Login = () => {
   const cookies = new Cookies();
 
-  const { setPerson } = useContext(userContextData) as userContextDataType;
+  const { setPerson, setUser } = useContext(
+    userContextData
+  ) as userContextDataType;
 
   const login = useGoogleLogin({
     onSuccess: async (response: any) => {
@@ -30,8 +32,11 @@ const Login = () => {
         }
       );
 
+      const user = { email: responseUser.email, name: responseUser.name };
+
+      setUser(user);
       cookies.set("expense-manager", {
-        user: { email: responseUser.email, name: responseUser.name },
+        user,
       });
       const { data: responsePerson } = await getPerson(responseUser.email);
 

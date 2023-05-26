@@ -1,7 +1,9 @@
 import React, {
+  ChangeEvent,
   Dispatch,
   MouseEventHandler,
   SetStateAction,
+  useContext,
   useState,
 } from "react";
 
@@ -44,11 +46,9 @@ export const WithoutInstitution = ({
   setNewInstitution,
   isResponse,
 }: WithoutInstitutionType) => {
-  const { theme } = React.useContext(
-    UserContextConfig
-  ) as UserContextConfigType;
+  const { theme } = useContext(UserContextConfig) as UserContextConfigType;
 
-  const { expense } = React.useContext(userContextData) as userContextDataType;
+  const { expense } = useContext(userContextData) as userContextDataType;
 
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
@@ -107,7 +107,7 @@ export const WithoutInstitution = ({
             placeholder="Nome do cartão"
             value={newInstitution.name}
             autoFocus
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            onChange={(event: ChangeEvent<HTMLInputElement>) => {
               setNewInstitution({
                 ...newInstitution,
                 name: event.target.value,
