@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useContext, useState } from "react";
 import Cookies from "universal-cookie";
 
 import { InstitutionType } from "@interfaces/";
@@ -35,10 +35,11 @@ const initialNewInstitution = {
 };
 
 export const Institution = ({}: PropsType) => {
-  const { selectedInstitution, theme, toggleSelectedInstitution } =
-    React.useContext(UserContextConfig) as UserContextConfigType;
+  const { selectedInstitution, theme, toggleSelectedInstitution } = useContext(
+    UserContextConfig
+  ) as UserContextConfigType;
 
-  const { getExpense, expense } = React.useContext(
+  const { getExpense, expense } = useContext(
     userContextData
   ) as userContextDataType;
 
@@ -144,7 +145,7 @@ export const Institution = ({}: PropsType) => {
                   placeholder="Nome do cartão"
                   value={newInstitution.name}
                   autoFocus
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => {
                     setNewInstitution({
                       ...newInstitution,
                       name: event.target.value,
