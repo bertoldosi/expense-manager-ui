@@ -114,8 +114,14 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
 
   useMemo(() => {
     const cookieValues = cookies.get<CookiesType>("expense-manager");
+    const institutionId = cookieValues?.filter?.institution.id;
+
+    const institutionResult = expense?.institutions.find(
+      (institutionFind) => institutionFind.id === institutionId
+    );
 
     if (cookieValues?.filter?.institution) {
+      setInstitution(institutionResult || null);
       getInstitution(cookieValues.filter.institution.id);
     }
   }, [selectedInstitution]);
