@@ -1,11 +1,11 @@
 import React from "react";
 
 import { Scontent, Sitem, Slist } from "./styles";
-import {
-  UserContextConfig,
-  UserContextConfigType,
-} from "src/context/userContextConfig";
 import { InstitutionType } from "@interfaces/*";
+import {
+  userContextData,
+  userContextDataType,
+} from "src/context/userContextData";
 
 type PropsType = {
   institutions: InstitutionType[];
@@ -13,8 +13,8 @@ type PropsType = {
 
 function Nav({ institutions }: PropsType) {
   const { selectedInstitution, toggleSelectedInstitution } = React.useContext(
-    UserContextConfig
-  ) as UserContextConfigType;
+    userContextData
+  ) as userContextDataType;
 
   if (institutions?.length === 0) {
     return (

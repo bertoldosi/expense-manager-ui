@@ -4,14 +4,12 @@ import instances from "src/lib/axios-instance";
 
 import {
   CREATE_INSTITUTION,
+  GET_INSTITUTION,
   GET_INSTITUTIONS_FOR_NAME,
 } from "./graphql/institution";
 
-async function getInstitutionsForName(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  const { expenseId, institutionName } = req.query;
+async function getInstitution(req: NextApiRequest, res: NextApiResponse) {
+  const { expenseId, institutionName, id } = req.query;
 
   if (institutionName) {
     try {
@@ -27,6 +25,25 @@ async function getInstitutionsForName(
       const { data } = response.data;
 
       return res.status(200).send(data.expense.institutions);
+    } catch (err) {
+      console.log("ERROR AXIOS REQUEST", err);
+      return res.send(err);
+    }
+  }
+
+  if (id) {
+    try {
+      const requestBody = {
+        query: GET_INSTITUTION,
+        variables: {
+          id,
+        },
+      };
+
+      const response = await instances.post("", requestBody);
+      const { data } = response.data;
+
+      return res.status(200).send(data.institution);
     } catch (err) {
       console.log("ERROR AXIOS REQUEST", err);
       return res.send(err);
@@ -71,7 +88,7 @@ export default async function handler(
       break;
 
     case "GET":
-      await getInstitutionsForName(req, res);
+      await getInstitution(req, res);
       break;
 
     default:

@@ -1,12 +1,8 @@
 export type ShoppingType = {
   id?: string;
-  reference?: string;
-  description: string;
-  amount: string | number;
-  responsible: string;
-  isUpdate?: boolean;
-  select?: boolean;
-  paymentStatus?: string;
+  description?: string;
+  amount?: string | number;
+  responsible?: string;
 };
 
 export type ResponsibleValuesType = {
@@ -20,14 +16,10 @@ export type SelectValuType = {
 };
 
 export type InstitutionType = {
-  id: string;
-  reference?: string;
-  name: string;
-  amount: string | number;
-  listResponsibleValues?: ResponsibleValuesType[] | undefined;
-  expirationDate?: string;
-  shoppings: ShoppingType[];
-  isShowShoppings?: boolean;
+  id?: string;
+  name?: string;
+  amount?: string | number | null;
+  shoppings?: ShoppingType[];
 };
 
 export type MonthType = {
@@ -43,13 +35,13 @@ export type UserType = {
 };
 
 export type ExpenseType = {
-  id: string;
-  name: string;
+  id?: string;
+  name?: string;
   institutions: InstitutionType[];
 };
 
 export type PersonType = {
-  id: string;
+  id?: string;
   name: string;
   expenses: ExpenseType[];
 };

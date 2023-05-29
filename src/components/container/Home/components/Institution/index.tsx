@@ -28,26 +28,35 @@ import {
 type PropsType = {};
 
 const initialNewInstitution = {
-  id: "",
   name: "",
   amount: 0,
   shoppings: [],
 };
 
 export const Institution = ({}: PropsType) => {
-  const { selectedInstitution, theme, toggleSelectedInstitution } = useContext(
-    UserContextConfig
-  ) as UserContextConfigType;
+  const { theme } = useContext(UserContextConfig) as UserContextConfigType;
 
-  const { getExpense, expense } = useContext(
-    userContextData
-  ) as userContextDataType;
+  const {
+    expense,
+    setExpense,
+    selectedInstitution,
+    toggleSelectedInstitution,
+  } = useContext(userContextData) as userContextDataType;
 
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [isResponse, setIsResponse] = useState<boolean>(false);
   const [newInstitution, setNewInstitution] = useState<InstitutionType>(
     initialNewInstitution
   );
+
+  function addInstitution(institution: InstitutionType) {
+    let newExpense = {
+      ...expense,
+      institutions: [...(expense?.institutions || []), institution],
+    };
+
+    setExpense(newExpense);
+  }
 
   async function submitNewInstitution() {
     setIsResponse(true);
@@ -57,13 +66,12 @@ export const Institution = ({}: PropsType) => {
 
     const { data: institutionsResponse } = await getInstitutionsForName(
       coockieValues.filter.expense.id,
-      newInstitution.name
+      newInstitution.name || ""
     );
 
     const isInstitutionsAlreadyExists = institutionsResponse.length > 0;
     if (isInstitutionsAlreadyExists) {
-      await getExpense(coockieValues.filter.expense.id);
-
+      toggleSelectedInstitution(newInstitution);
       setIsResponse(false);
       setIsVisible(false);
       setNewInstitution(initialNewInstitution);
@@ -76,7 +84,7 @@ export const Institution = ({}: PropsType) => {
       expenseId: coockieValues.filter.expense.id,
     });
 
-    await getExpense(coockieValues.filter.expense.id);
+    addInstitution(newInstitution);
     toggleSelectedInstitution(newInstitution);
     setIsResponse(false);
     setIsVisible(false);
@@ -108,8 +116,8 @@ export const Institution = ({}: PropsType) => {
               <Ssection>
                 <Saside>
                   <CardMenu
-                    title={`TOTAL ${institutionMap.name.toUpperCase()}`}
-                    list={institutionMap.listResponsibleValues}
+                    title={`TOTAL ${institutionMap?.name?.toUpperCase()}`}
+                    list={[]}
                     background={theme.backgroundPrimary}
                     isFooter={
                       <Button
@@ -130,7 +138,7 @@ export const Institution = ({}: PropsType) => {
                     background={theme.backgroundPrimary}
                   />
                 </Saside>
-                <Shopping institution={institutionMap} />
+                <Shopping />
               </Ssection>
 
               <Modal

@@ -12,20 +12,21 @@ import Nav from "../Nav";
 import { Saside, Ssection } from "../../styles";
 import { CardMenu } from "../CardMenu";
 import { Button } from "@commons/Button";
-import {
-  UserContextConfig,
-  UserContextConfigType,
-} from "src/context/userContextConfig";
 import { Modal } from "@commons/Modal";
 import Input from "@commons/Input";
 import { InstitutionType, ShoppingType } from "@interfaces/*";
+
 import {
   userContextData,
   userContextDataType,
 } from "src/context/userContextData";
 
+import {
+  UserContextConfig,
+  UserContextConfigType,
+} from "src/context/userContextConfig";
+
 interface InitialNewInstitutionType {
-  id: string;
   name: string;
   amount: number | string;
   shoppings: ShoppingType[];
@@ -35,7 +36,7 @@ interface WithoutInstitutionType {
   submitNewInstitution: MouseEventHandler<HTMLButtonElement>;
   initialNewInstitution: InitialNewInstitutionType;
   newInstitution: InstitutionType;
-  setNewInstitution: Dispatch<SetStateAction<InitialNewInstitutionType>>;
+  setNewInstitution: Dispatch<SetStateAction<InstitutionType>>;
   isResponse: boolean;
 }
 

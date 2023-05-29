@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 
 import { Save } from "@icons/Save";
 import { HeaderTable } from "../../components/HeaderTable";
@@ -9,11 +9,10 @@ import { NoResult, Scontent, ScontentModal } from "./styles";
 import { Modal } from "@commons/Modal";
 import { Button } from "@commons/Button";
 import Input from "@commons/Input";
-import { InstitutionType } from "@interfaces/*";
-
-type PropsType = {
-  institution: InstitutionType;
-};
+import {
+  userContextData,
+  userContextDataType,
+} from "src/context/userContextData";
 
 const initialNewAllShopping = {
   responsible: "",
@@ -21,7 +20,9 @@ const initialNewAllShopping = {
   select: false,
 };
 
-export const Table = ({ institution }: PropsType) => {
+export const Table = () => {
+  const { institution } = useContext(userContextData) as userContextDataType;
+
   const [valueFilter, setValueFilter] = React.useState("todos");
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
   const [newAllShopping] = React.useState(initialNewAllShopping);
@@ -30,7 +31,7 @@ export const Table = ({ institution }: PropsType) => {
     <>
       <HeaderTable
         setValueFilter={setValueFilter}
-        options={institution.listResponsibleValues}
+        options={[]}
         onChange={() => {}}
         isItensSelect={false}
         handlerRepeat={() => {}}
@@ -41,7 +42,7 @@ export const Table = ({ institution }: PropsType) => {
       />
 
       <Scontent>
-        {institution.shoppings.length > 0 ? (
+        {institution?.shoppings?.length > 0 ? (
           institution.shoppings.map((shopping, index) => (
             <span key={index}>
               <strong>

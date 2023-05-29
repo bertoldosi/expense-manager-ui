@@ -9,9 +9,7 @@ import {
 import Cookies from "universal-cookie";
 
 function Home() {
-  const { expense, getExpense } = useContext(
-    userContextData
-  ) as userContextDataType;
+  const { getExpense } = useContext(userContextData) as userContextDataType;
 
   useEffect(() => {
     const cookies = new Cookies();
