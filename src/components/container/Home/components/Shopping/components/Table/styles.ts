@@ -25,6 +25,7 @@ export const Scontent = styled.div`
     justify-content: space-between;
     padding: 1rem 0.5rem;
     border-radius: 0.2rem;
+    background-color: ${(props) => props.theme.backgroundPrimary};
 
     > strong {
       width: max-content;
@@ -32,20 +33,10 @@ export const Scontent = styled.div`
       align-items: center;
       gap: 1rem;
       padding: 0 1rem;
-
-      input {
-        &.aberto {
-          color: ${(props) => props.theme.color};
-        }
-
-        &.pago {
-          color: green;
-        }
-      }
     }
 
     &:hover {
-      background-color: ${(props) => props.theme.backgroundPrimary};
+      background-color: ${(props) => props.theme.backgroundBory};
     }
   }
 

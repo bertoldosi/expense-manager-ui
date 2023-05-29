@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from "react";
 
-import { Save } from "@icons/Save";
 import { HeaderTable } from "../../components/HeaderTable";
 import { SelectStatus } from "@commons/SelectStatus";
 import InputTable from "@containers/Home/components/Shopping/components/InputTable";
@@ -9,6 +8,7 @@ import { NoResult, Scontent, ScontentModal } from "./styles";
 import { Modal } from "@commons/Modal";
 import { Button } from "@commons/Button";
 import Input from "@commons/Input";
+
 import {
   userContextData,
   userContextDataType,
@@ -42,70 +42,45 @@ export const Table = () => {
       />
 
       <Scontent>
-        {institution?.shoppings?.length > 0 ? (
-          institution.shoppings.map((shopping, index) => (
+        {Array.isArray(institution?.shoppings) ? (
+          institution?.shoppings.map((shoppingMap, index) => (
             <span key={index}>
               <strong>
                 <InputTable
-                  className={shopping.paymentStatus}
                   type="checkbox"
                   disabled={false}
-                  name="select"
-                  id={shopping.reference}
-                  checked={shopping.select}
+                  name="selected"
+                  id={shoppingMap.id}
+                  checked={shoppingMap.selected}
                   onChange={() => {}}
                 />
                 <InputTable
-                  className={shopping.paymentStatus}
                   disabled={false}
                   name="description"
-                  id={shopping.reference}
-                  value={shopping.description}
+                  id={shoppingMap.id}
+                  value={shoppingMap.description}
                   handleEnter={() => {}}
                   onChange={() => {}}
                 />
               </strong>
               <strong>
                 <InputTable
-                  className={shopping.paymentStatus}
                   disabled={false}
                   name="amount"
-                  id={shopping.reference}
-                  value={shopping.amount}
+                  id={shoppingMap.id}
+                  value={shoppingMap.amount}
                   handleEnter={() => {}}
                   onChange={() => {}}
                 />
               </strong>
               <strong>
                 <InputTable
-                  className={shopping.paymentStatus}
-                  disabled={false || valueFilter != "todos"}
                   name="responsible"
-                  id={shopping.reference}
-                  value={shopping.responsible}
+                  id={shoppingMap.id}
+                  value={shoppingMap.responsible}
                   handleEnter={() => {}}
                   onChange={() => {}}
                 />
-              </strong>
-              <strong>
-                <SelectStatus
-                  selectClassName={shopping.paymentStatus}
-                  optionClassName={shopping.paymentStatus}
-                  name="paymentStatus"
-                  id={shopping.reference}
-                  value={shopping.paymentStatus}
-                  options={[{ name: "aberto" }, { name: "pago" }]}
-                  onChange={() => {}}
-                />
-
-                {shopping.isUpdate && (
-                  <Save
-                    width={20}
-                    height={20}
-                    disabled={false}
-                    onClick={() => {}}
-                  />
-                )}
               </strong>
             </span>
           ))

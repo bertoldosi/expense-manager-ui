@@ -3,6 +3,7 @@ export type ShoppingType = {
   description?: string;
   amount?: string | number;
   responsible?: string;
+  selected?: boolean;
 };
 
 export type ResponsibleValuesType = {
@@ -19,7 +20,7 @@ export type InstitutionType = {
   id?: string;
   name?: string;
   amount?: string | number | null;
-  shoppings?: ShoppingType[];
+  shoppings: ShoppingType[];
 };
 
 export type MonthType = {

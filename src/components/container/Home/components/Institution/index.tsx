@@ -138,6 +138,7 @@ export const Institution = ({}: PropsType) => {
                     background={theme.backgroundPrimary}
                   />
                 </Saside>
+
                 <Shopping />
               </Ssection>
 
