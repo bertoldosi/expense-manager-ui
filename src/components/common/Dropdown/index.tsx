@@ -54,7 +54,13 @@ function Dropdown({
         {!hideChevronIcon && <RenderIcon isVisible={isVisible} />}
       </Sheader>
 
-      <Scontent isVisible={isVisible} position={position} top={top}>
+      <Scontent
+        isVisible={isVisible}
+        position={position}
+        top={top}
+        onMouseOver={() => setIsVisible(true)}
+        onMouseOut={() => setIsVisible(false)}
+      >
         {children}
       </Scontent>
     </Scontainer>
