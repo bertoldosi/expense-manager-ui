@@ -14,7 +14,7 @@ import {
 
 export const ChangeExpense = () => {
   const cookies = new Cookies();
-  const { person, institution, toggleSelectedInstitution } = React.useContext(
+  const { person, toggleSelectedInstitution } = React.useContext(
     userContextData
   ) as userContextDataType;
 

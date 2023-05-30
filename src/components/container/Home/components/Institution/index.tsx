@@ -116,7 +116,7 @@ export const Institution = ({}: PropsType) => {
               <Ssection>
                 <Saside>
                   <CardMenu
-                    title={`TOTAL ${institutionMap?.name?.toUpperCase()}`}
+                    title={institutionMap?.name?.toUpperCase() || ""}
                     list={[]}
                     background={theme.backgroundPrimary}
                     isFooter={
