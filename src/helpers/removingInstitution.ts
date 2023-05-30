@@ -2,10 +2,10 @@ import { InstitutionType } from "@interfaces/*";
 
 export const removingInstitution = (
   institutions: InstitutionType[],
-  institutionReference: string
+  institutionId: string
 ) => {
   const resultFilter = institutions.filter((institution) => {
-    return institution.reference != institutionReference;
+    return institution.id != institutionId;
   });
 
   return resultFilter;

@@ -2,10 +2,10 @@ import { ShoppingType } from "@interfaces/*";
 
 export const removingShopping = (
   shoppings: ShoppingType[],
-  shoppingReference: string
+  shoppingId: string
 ) => {
   const resultFilter = shoppings.filter((shopping) => {
-    return shopping.reference != shoppingReference;
+    return shopping.id != shoppingId;
   });
 
   return resultFilter;
