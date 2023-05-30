@@ -42,7 +42,7 @@ export const Table = () => {
       />
 
       <Scontent>
-        {Array.isArray(institution?.shoppings) ? (
+        {institution?.shoppings?.length ? (
           institution?.shoppings.map((shoppingMap, index) => (
             <span key={index}>
               <strong>

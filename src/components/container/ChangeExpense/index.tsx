@@ -14,10 +14,14 @@ import {
 
 export const ChangeExpense = () => {
   const cookies = new Cookies();
-  const { person } = React.useContext(userContextData) as userContextDataType;
+  const { person, institution, toggleSelectedInstitution } = React.useContext(
+    userContextData
+  ) as userContextDataType;
 
   function redirectHome(expense: ExpenseType) {
     const { user } = cookies.get("expense-manager");
+
+    toggleSelectedInstitution(null);
 
     const newCookies = {
       user,

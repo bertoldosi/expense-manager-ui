@@ -68,8 +68,8 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
       filter: {
         ...cookieValues.filter,
         institution: {
-          id: institution.id,
-          name: institution.name,
+          id: institution?.id,
+          name: institution?.name,
         },
       },
     });
@@ -114,7 +114,7 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
 
   useMemo(() => {
     const cookieValues = cookies.get<CookiesType>("expense-manager");
-    const institutionId = cookieValues?.filter?.institution.id;
+    const institutionId = cookieValues?.filter?.institution?.id;
 
     const institutionResult = expense?.institutions.find(
       (institutionFind) => institutionFind.id === institutionId
