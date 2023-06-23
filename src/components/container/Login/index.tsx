@@ -22,7 +22,7 @@ const Login = () => {
 
   const login = useGoogleLogin({
     onSuccess: async (response: any) => {
-      const { data: responseUser } = await axios.get(
+      const { data: userGoogle } = await axios.get(
         `${URL_GOOGLE_APIS}${response.access_token}`,
         {
           headers: {
@@ -32,19 +32,18 @@ const Login = () => {
         }
       );
 
-      const user = { email: responseUser.email, name: responseUser.name };
-
-      setUser(user);
+      setUser(userGoogle);
       cookies.set("expense-manager", {
-        user,
+        userGoogle,
       });
-      const { data: responsePerson } = await getPerson(responseUser.email);
 
-      if (responsePerson?.name) {
-        setPerson(responsePerson);
+      const { data: person } = await getPerson(userGoogle.email);
+
+      if (person?.name) {
+        setPerson(person);
         Router.push("/alterar-gasto");
       } else {
-        createPerson(responseUser).then((response) => {
+        createPerson(userGoogle).then((response) => {
           setPerson(response.data);
         });
 

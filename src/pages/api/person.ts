@@ -1,39 +1,27 @@
 import { NextApiRequest, NextApiResponse } from "next";
-
-import instances from "src/lib/axios-instance";
-import { CREATE_PERSON, GET_PERSON, GET_PERSONS } from "./graphql/person";
+import prisma from "@services/prisma";
 
 async function getPerson(req: NextApiRequest, res: NextApiResponse) {
   const { email } = req.query;
 
   if (email) {
     try {
-      const requestBody = {
-        query: GET_PERSON,
-        variables: {
+      const responsePerson = await prisma.user.findUnique({
+        where: {
           email,
         },
-      };
+      });
 
-      const response = await instances.post("", requestBody);
-      const { data } = response.data;
-
-      return res.status(200).send(data.person);
+      return res.status(200).send(responsePerson);
     } catch (err) {
       console.log("ERROR AXIOS REQUEST", err);
       return res.send(err);
     }
   } else {
     try {
-      const requestBody = {
-        query: GET_PERSONS,
-        variables: {},
-      };
+      const responsePersons = await prisma.user.findMany();
 
-      const response = await instances.post("", requestBody);
-      const { data } = response.data;
-
-      return res.status(200).send(data.persons);
+      return res.status(200).send(responsePersons);
     } catch (err) {
       console.log("ERROR AXIOS REQUEST", err);
       return res.send(err);
@@ -45,18 +33,14 @@ async function createPerson(req: NextApiRequest, res: NextApiResponse) {
   const { name, email } = req.body;
 
   try {
-    const requestBody = {
-      query: CREATE_PERSON,
-      variables: {
-        name,
-        email,
+    const response = await prisma.user.create({
+      data: {
+        name: name,
+        email: email,
       },
-    };
+    });
 
-    const response = await instances.post("", requestBody);
-    const { data } = response.data;
-
-    return res.status(200).send(data.createPerson);
+    return res.status(200).send(response);
   } catch (err) {
     console.log("ERROR AXIOS REQUEST", err);
     return res.send(err);
