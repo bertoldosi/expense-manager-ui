@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Shopping {
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  reference     String       @unique
+  description   String
+  responsible   String
+  amount        String
+  paymentStatus String
+  Institution   Institution? @relation(fields: [institutionId], references: [id])
+  institutionId String?      @db.ObjectId
+}
+
+model Institution {
+  id             String     @id @default(auto()) @map("_id") @db.ObjectId
+  reference      String     @unique
+  name           String
+  expirationDate String
+  amount         String
+  shoppings      Shopping[]
+  Month          Month?     @relation(fields: [monthId], references: [id])
+  monthId        String?    @db.ObjectId
+}
+
+model Month {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  monthNumber  Int           @unique
+  institutions Institution[]
+}

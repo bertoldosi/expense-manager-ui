@@ -8,6 +8,7 @@ import { darkTheme, lightTheme } from "src/styles/theme";
 import { DefaultTheme } from "styled-components";
 import { MonthType, ResponsibleValuesType } from "@interfaces/*";
 import { sumResponsibleYear } from "@helpers/sumResponsibleYear";
+import { instance } from "@services/instance";
 
 export type UserContextType = {
   nowMonth: number | undefined;
@@ -47,29 +48,30 @@ const UserContextProvider = ({ children }: PropsType) => {
   );
 
   const getMonths = async () => {
-    const { months: monthsResponse } =
-      (await hygraph.request(GET_MONTHS)) || [];
+    const { data: monthsResponse } = (await instance.get("/month")) || [];
 
     setMonths(
       monthsResponse.map((month: MonthType) => {
         return {
           ...month,
-          institutions: month.institutions.map((institution) => {
-            return {
-              ...institution,
-              listResponsibleValues: sumResponsibleCard(institution),
-              listResponsibleValuesInitial: sumResponsibleCard(institution),
-              amount: updateAmountShoppings(institution.shoppings),
-              isShowShoppings: false,
-              shoppings: institution.shoppings.map((shopping) => {
+          institutions: month.institutions
+            ? month.institutions.map((institution) => {
                 return {
-                  ...shopping,
-                  isUpdate: false,
-                  select: false,
+                  ...institution,
+                  listResponsibleValues: sumResponsibleCard(institution),
+                  listResponsibleValuesInitial: sumResponsibleCard(institution),
+                  amount: updateAmountShoppings(institution.shoppings),
+                  isShowShoppings: false,
+                  shoppings: institution.shoppings.map((shopping) => {
+                    return {
+                      ...shopping,
+                      isUpdate: false,
+                      select: false,
+                    };
+                  }),
                 };
-              }),
-            };
-          }),
+              })
+            : [],
         };
       })
     );
