@@ -18,6 +18,7 @@ import { InstitutionType, MonthType } from "@interfaces/";
 import { customToast } from "@commons/CustomToast";
 import { useFormik } from "formik";
 import { UserContext, UserContextType } from "src/context/userContext";
+import { instance } from "@services/instance";
 
 type PropsType = {
   institution: InstitutionType;
@@ -46,9 +47,12 @@ export const Shopping = ({ institution, month }: PropsType) => {
         ...values,
         responsible: values.responsible ? values.responsible : "sem",
         reference: uuidv4(),
+        institutionReference: institution.reference,
       };
 
-      updateInstitutionShoppings(institution.reference, [payload])
+      await instance
+        .post("/shopping", { ...payload })
+
         .then(() => {
           getMonths();
           customToast("success", "Adicionado com sucesso!");

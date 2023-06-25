@@ -11,7 +11,11 @@ export default async function handles(
     try {
       const months = await prisma.month.findMany({
         include: {
-          institutions: true,
+          institutions: {
+            include: {
+              shoppings: true,
+            },
+          },
         },
       });
 
