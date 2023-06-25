@@ -14,7 +14,7 @@ export default async function handles(
       try {
         const month = await prisma.month.findUnique({
           where: {
-            monthNumber,
+            monthNumber: Number(monthNumber),
           },
 
           include: {
@@ -44,6 +44,31 @@ export default async function handles(
         console.log("Error axios request mongodb", error);
         return res.send(error);
       }
+    }
+  }
+
+  if (req.method === "PUT") {
+    const { monthIdNextMonth, institutionReference } = req.body;
+
+    try {
+      const month = await prisma.month.update({
+        where: {
+          id: monthIdNextMonth,
+        },
+
+        data: {
+          institutions: {
+            connect: {
+              reference: institutionReference,
+            },
+          },
+        },
+      });
+
+      return res.send(month);
+    } catch (error) {
+      console.log("Error axios request mongodb", error);
+      return res.send(error);
     }
   }
 }

@@ -54,7 +54,7 @@ export const updateMonthInstitution = async (
   monthId: string,
   institutionReference: string
 ) => {
-  const { updateMonth } = await hygraph
+  const { updateMonth }: any = await hygraph
     .request(UPDATE_MONTH, {
       institutionReference,
       monthId,
@@ -69,7 +69,7 @@ export const updateMonthInstitution = async (
 };
 
 export const getMonths = async () => {
-  const { months } = await hygraph.request(GET_MONTHS).catch((error) => {
+  const { months }: any = await hygraph.request(GET_MONTHS).catch((error) => {
     console.log(error);
   });
 
@@ -79,7 +79,7 @@ export const getMonths = async () => {
 };
 
 export const getMonthNumber = async (monthNumber: Number) => {
-  const { month } = await hygraph
+  const { month }: any = await hygraph
     .request(GET_MONTH_NUMBER, {
       monthNumber,
     })

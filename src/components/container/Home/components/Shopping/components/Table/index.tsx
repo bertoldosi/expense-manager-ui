@@ -121,23 +121,19 @@ export const Table = ({ institution, month }: PropsType) => {
   };
 
   const getNextMonth = async () => {
-    const { id: monthIdNextMonth, institutions: institutionsNextMonth } =
-      await instance
-        .get("/month", {
-          params: {
-            monthNumber: month.monthNumber + 1,
-          },
-        })
-        .catch(() => {
-          customToast(
-            "error",
-            "Algo de errado aconteceu ao buscar próximo mês!"
-          );
-        });
+    const { data }: any = await instance
+      .get("/month", {
+        params: {
+          monthNumber: month.monthNumber + 1,
+        },
+      })
+      .catch(() => {
+        customToast("error", "Algo de errado aconteceu ao buscar próximo mês!");
+      });
 
     return {
-      monthIdNextMonth,
-      institutionsNextMonth,
+      monthIdNextMonth: data.id,
+      institutionsNextMonth: data.institutions,
     };
   };
 
@@ -172,7 +168,13 @@ export const Table = ({ institution, month }: PropsType) => {
     if (isExistInstitutionNextMonth) {
       const institutionReference = nextInstitution[0].reference;
 
-      updateInstitutionShoppings(institutionReference, shoppingsRepeat)
+      await instance
+        .post("/shopping", {
+          data: {
+            ...shoppingsRepeat,
+            institutionReference,
+          },
+        })
         .then(() => {
           getMonths();
           customToast("success", "Item(s) foram repetidos para o próximo mês!");
@@ -187,9 +189,27 @@ export const Table = ({ institution, month }: PropsType) => {
         });
     } else {
       if (monthIdNextMonth) {
-        createInstitutionShoppings(institutionRepeat)
-          .then(({ reference: institutionReference }) => {
-            updateMonthInstitution(monthIdNextMonth, institutionReference)
+        await instance
+          .post("/institution", {
+            data: {
+              reference: institutionRepeat.reference,
+              name: institutionRepeat.name,
+              amount: institutionRepeat.amount,
+              expirationDate: institutionRepeat.expirationDate,
+              monthId: monthIdNextMonth,
+            },
+          })
+          .then(async ({ data: institutionData }) => {
+            const institutionReference = institutionData.reference;
+
+            await instance
+              .put("/month", {
+                data: {
+                  monthIdNextMonth,
+                  institutionReference,
+                },
+              })
+
               .then(() => {
                 getMonths();
                 customToast(

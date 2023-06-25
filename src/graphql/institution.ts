@@ -80,7 +80,7 @@ const DELETE_INSTITUTION = gql`
 `;
 
 export const createInstitution = async (institution: InstitutionType) => {
-  const { createInstitution } = await hygraph
+  const { createInstitution }: any = await hygraph
     .request(CREATE_INSTITUTION, institution)
     .catch((error) => {
       console.log(error);
@@ -94,7 +94,7 @@ export const createInstitution = async (institution: InstitutionType) => {
 export const createInstitutionShoppings = async (
   institution: InstitutionType
 ) => {
-  const { createInstitution } = await hygraph
+  const { createInstitution }: any = await hygraph
     .request(CREATE_INSTITUTION_SHOPPINGS, {
       ...institution,
       shoppings: institution.shoppings.map((shopping) => ({
@@ -118,7 +118,7 @@ export const updateInstitutionShopping = async (
   institutionReference: string,
   shoppingReference: string
 ) => {
-  const { updateInstitution } = await hygraph
+  const { updateInstitution }: any = await hygraph
     .request(UPDATE_INSTITUTION_SHOPPING, {
       institutionReference,
       shoppingReference,
@@ -146,7 +146,7 @@ export const updateInstitutionShoppings = async (
     };
   });
 
-  const { updateInstitution } = await hygraph
+  const { updateInstitution }: any = await hygraph
     .request(UPDATE_INSTITUTION_SHOPPINGS, {
       institutionReference,
       shoppings: newShoppings,
@@ -161,7 +161,7 @@ export const updateInstitutionShoppings = async (
 };
 
 export const deleteInstitution = async (reference: string) => {
-  const { deleteShopping } = await hygraph
+  const { deleteShopping }: any = await hygraph
     .request(DELETE_INSTITUTION, {
       reference,
     })

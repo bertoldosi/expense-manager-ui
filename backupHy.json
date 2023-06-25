@@ -1,13 +1,12 @@
 [
   {
-    "id": "cl80ra8j70g2e0ckesnso0lr5",
     "name": "Janeiro",
     "monthNumber": 1,
     "institutions": [
       {
         "reference": "1adf8782-c024-454f-bec1-6e05b3bc6ecd",
         "name": "Debito",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-19",
         "shoppings": [
           {
@@ -85,7 +84,7 @@
       {
         "reference": "5461e2c9-3847-4443-b556-bbf3dc7be771",
         "name": "Bradesco",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-27",
         "shoppings": [
           {
@@ -100,7 +99,7 @@
       {
         "reference": "98e844c8-930c-4c25-82ad-9f09a438e85a",
         "name": "Santander",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-27",
         "shoppings": [
           {
@@ -136,7 +135,7 @@
       {
         "reference": "4f2fc0fc-86a4-4e1f-b487-b3475ee5d659",
         "name": "Inter",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-19",
         "shoppings": [
           {
@@ -291,14 +290,14 @@
       {
         "reference": "02ba8df8-4f98-4fb1-9de2-f83e4b7af311",
         "name": "Nubank",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-20",
         "shoppings": []
       },
       {
         "reference": "b9938ca7-0a20-44a8-99ff-aecc80cc98d1",
         "name": "Itau",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-12-20",
         "shoppings": [
           {
@@ -369,14 +368,13 @@
     ]
   },
   {
-    "id": "cl80rbdxp0g3q0ckehzkhuspl",
     "name": "Fevereiro",
     "monthNumber": 2,
     "institutions": [
       {
         "reference": "1d7ae095-74e0-4cea-a238-bee41477a268",
         "name": "Nubank",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-20",
         "shoppings": [
           {
@@ -804,7 +802,7 @@
       {
         "reference": "85f9563a-c6fd-4dd2-a3fc-af3c284da5d7",
         "name": "Debito",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-11-09",
         "shoppings": [
           {
@@ -910,7 +908,7 @@
       {
         "reference": "2630af34-941b-4cbc-8de3-f40d3fd261cb",
         "name": "Bradesco",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-27",
         "shoppings": [
           {
@@ -925,7 +923,7 @@
       {
         "reference": "fae133e9-ee5b-42ca-b985-bd4dd3305513",
         "name": "Santander",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-27",
         "shoppings": [
           {
@@ -954,7 +952,7 @@
       {
         "reference": "085c5cc3-8a72-45dd-95fa-5a8fa47c5bad",
         "name": "Inter",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-19",
         "shoppings": [
           {
@@ -1067,7 +1065,7 @@
       {
         "reference": "8399a6bb-1958-4a02-90e4-a340d27be94b",
         "name": "Itau",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2023-01-20",
         "shoppings": [
           {
@@ -1131,14 +1129,13 @@
     ]
   },
   {
-    "id": "cl80rjxwr0eby0blsb3pqp6ec",
     "name": "Março",
     "monthNumber": 3,
     "institutions": [
       {
         "reference": "4986509d-c3e4-4848-9912-63a1f14a26a4",
         "name": "Nubank",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-20",
         "shoppings": [
           {
@@ -1454,7 +1451,7 @@
       {
         "reference": "602075e5-9fcf-49f0-9bef-e51f18ccf506",
         "name": "Debito",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-11-09",
         "shoppings": [
           {
@@ -1497,7 +1494,7 @@
       {
         "reference": "29780547-7717-4c7d-9b78-81a7a851c9e5",
         "name": "Santander",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-27",
         "shoppings": [
           {
@@ -1526,7 +1523,7 @@
       {
         "reference": "64610db6-8605-415d-a888-af1f0ad6f9fc",
         "name": "Inter",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-19",
         "shoppings": [
           {
@@ -1709,7 +1706,7 @@
       {
         "reference": "82421f5b-67e7-4f04-8684-8313071d951d",
         "name": "Itau",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2023-01-20",
         "shoppings": [
           {
@@ -1752,7 +1749,7 @@
       {
         "reference": "fc9042c1-9712-49bc-8567-3e39bc51d049",
         "name": "Outros",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2023-02-26",
         "shoppings": [
           {
@@ -1788,7 +1785,7 @@
       {
         "reference": "be36b7cb-0267-4896-842e-a3303d10ddc5",
         "name": "Bradesco",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-27",
         "shoppings": [
           {
@@ -1803,7 +1800,7 @@
       {
         "reference": "d52ea525-f52c-4f9e-a878-777dc809ffb3",
         "name": "Itau Uniclass",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2023-03-11",
         "shoppings": [
           {
@@ -1888,14 +1885,13 @@
     ]
   },
   {
-    "id": "cl81txspd02bw0dlw96ltlkwk",
     "name": "Abril",
     "monthNumber": 4,
     "institutions": [
       {
         "reference": "3a099519-63b9-4884-8cf0-4e693fd0c6c2",
         "name": "Nubank",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-09-29",
         "shoppings": [
           {
@@ -2218,7 +2214,7 @@
       {
         "reference": "60b41131-f530-4910-bb23-5ac410aa3f2b",
         "name": "Debito",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-11-17",
         "shoppings": [
           {
@@ -2275,7 +2271,7 @@
       {
         "reference": "608bf3d6-2936-49bb-a815-1815fa3c2d80",
         "name": "Bradesco",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-27",
         "shoppings": [
           {
@@ -2290,7 +2286,7 @@
       {
         "reference": "51706afb-0a2c-4f04-9605-98e272a7cad5",
         "name": "Santander",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-27",
         "shoppings": [
           {
@@ -2319,7 +2315,7 @@
       {
         "reference": "4d211bf2-6b06-4b6a-97b1-79fc131e4cb8",
         "name": "Inter",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-19",
         "shoppings": [
           {
@@ -2404,7 +2400,7 @@
       {
         "reference": "8eea29a3-a226-4de1-ae63-133ffcec3f57",
         "name": "Itau",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2023-01-20",
         "shoppings": [
           {
@@ -2440,7 +2436,7 @@
       {
         "reference": "93e8a517-737a-4a93-9365-badb072d5819",
         "name": "Outros",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2023-02-26",
         "shoppings": [
           {
@@ -2490,7 +2486,7 @@
       {
         "reference": "a0d0ba97-0ef0-4b7b-8e9d-a8052c00ce1c",
         "name": "Itau Uniclass",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2023-03-11",
         "shoppings": [
           {
@@ -2561,14 +2557,13 @@
     ]
   },
   {
-    "id": "cl81ty5di02dk0dlwdns3cgdm",
     "name": "Maio",
     "monthNumber": 5,
     "institutions": [
       {
         "reference": "2d6779ce-53d3-431c-a1f1-e9c453acfc5b",
         "name": "Nubank",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-09-29",
         "shoppings": [
           {
@@ -2961,7 +2956,7 @@
       {
         "reference": "d51d0645-ff08-4278-8cdf-0d314ec4f1f2",
         "name": "Debito",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-11-17",
         "shoppings": [
           {
@@ -3004,7 +2999,7 @@
       {
         "reference": "681aafae-b069-4846-912e-16386de8b599",
         "name": "Santander",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-27",
         "shoppings": [
           {
@@ -3082,7 +3077,7 @@
       {
         "reference": "486bcbdf-cf3c-4e17-aa0d-b8d60ec8a19a",
         "name": "Bradesco",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-27",
         "shoppings": [
           {
@@ -3097,7 +3092,7 @@
       {
         "reference": "1bd75627-f923-453f-a046-ac3d958ce49c",
         "name": "Itau",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2023-01-20",
         "shoppings": [
           {
@@ -3133,7 +3128,7 @@
       {
         "reference": "fb6893db-c643-4953-898a-66f57ca69e05",
         "name": "Itau Uniclass",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2023-03-11",
         "shoppings": [
           {
@@ -3197,7 +3192,7 @@
       {
         "reference": "fb6b428a-ee24-45a1-9f66-ecf4f96ee423",
         "name": "Outros",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2023-02-26",
         "shoppings": [
           {
@@ -3289,7 +3284,7 @@
       {
         "reference": "8051524b-8e53-4c3f-8e2f-eadce936f045",
         "name": "Inter",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-19",
         "shoppings": [
           {
@@ -3402,14 +3397,13 @@
     ]
   },
   {
-    "id": "cl81tytkf03l90bk94ym77ovz",
     "name": "Junho",
     "monthNumber": 6,
     "institutions": [
       {
         "reference": "016e5fed-8105-41b4-9a32-13383e09d328",
         "name": "Debito",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-11-17",
         "shoppings": [
           {
@@ -3438,7 +3432,7 @@
       {
         "reference": "c1064ef2-9448-4f3a-9519-a5417b5fb386",
         "name": "Santander",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-27",
         "shoppings": [
           {
@@ -3481,7 +3475,7 @@
       {
         "reference": "ba22b5ec-6cb1-4c50-8f2e-66a6ff46d353",
         "name": "Bradesco",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-27",
         "shoppings": [
           {
@@ -3496,7 +3490,7 @@
       {
         "reference": "3460117a-bddb-4724-b9c0-b820710633aa",
         "name": "Outros",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2023-02-26",
         "shoppings": [
           {
@@ -3553,7 +3547,7 @@
       {
         "reference": "36393214-8b1a-4600-81b0-5b5fe8ea6f76",
         "name": "Itau",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2023-01-20",
         "shoppings": [
           {
@@ -3659,7 +3653,7 @@
       {
         "reference": "5c43834b-a945-453b-ad1b-1a1e94daba26",
         "name": "Itau Uniclass",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2023-03-11",
         "shoppings": [
           {
@@ -3674,7 +3668,7 @@
       {
         "reference": "4842efa0-b25e-4fba-8105-637147e3470e",
         "name": "Inter",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-19",
         "shoppings": [
           {
@@ -3773,7 +3767,7 @@
       {
         "reference": "97fff0ca-7a96-4708-b947-39895ffc6a0f",
         "name": "Casa",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2023-06-01",
         "shoppings": [
           {
@@ -3844,7 +3838,7 @@
       {
         "reference": "f4e63f5a-b317-4844-bc93-4efddedb0a77",
         "name": "Nubank",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-09-29",
         "shoppings": [
           {
@@ -4055,14 +4049,13 @@
     ]
   },
   {
-    "id": "cl81tz7jt02gi0dlw80nq92cw",
     "name": "Julho",
     "monthNumber": 7,
     "institutions": [
       {
         "reference": "b7a21062-e8d8-4ce7-bfdf-260c26bd3a83",
         "name": "Debito",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-11-17",
         "shoppings": [
           {
@@ -4147,7 +4140,7 @@
       {
         "reference": "4eddd549-cd6e-4119-971e-7c0f58a46da4",
         "name": "Santander",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-27",
         "shoppings": [
           {
@@ -4197,7 +4190,7 @@
       {
         "reference": "8591a2b3-7f95-4262-bed4-295be35e80af",
         "name": "Bradesco",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-27",
         "shoppings": [
           {
@@ -4219,7 +4212,7 @@
       {
         "reference": "be683425-bb07-4a86-b43f-e2e830b6d977",
         "name": "Outros",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2023-02-26",
         "shoppings": [
           {
@@ -4248,7 +4241,7 @@
       {
         "reference": "5fbc3007-4690-4d17-a42b-eee2a4728c3d",
         "name": "Itau",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2023-01-20",
         "shoppings": [
           {
@@ -4263,7 +4256,7 @@
       {
         "reference": "9302d692-2c0d-4697-bb1e-975c78987972",
         "name": "Inter",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-19",
         "shoppings": [
           {
@@ -4327,14 +4320,13 @@
     ]
   },
   {
-    "id": "cl81tzixh03oj0bk911i8z6sa",
     "name": "Agosto",
     "monthNumber": 8,
     "institutions": [
       {
         "reference": "a48fdb19-4a0e-41b0-ae6a-7dc1a2af608b",
         "name": "Debito",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-11-17",
         "shoppings": [
           {
@@ -4426,7 +4418,7 @@
       {
         "reference": "b6fc758e-4c4e-4357-b5bf-226c8c912771",
         "name": "Outros",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2023-06-23",
         "shoppings": [
           {
@@ -4441,14 +4433,13 @@
     ]
   },
   {
-    "id": "cl81u025f02jw0dlwi7g1fqwx",
     "name": "Setembro",
     "monthNumber": 9,
     "institutions": [
       {
         "reference": "67b44b21-5bfb-4341-b568-3a7d4216d93e",
         "name": "Debito",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-09-20",
         "shoppings": [
           {
@@ -4533,14 +4524,13 @@
     ]
   },
   {
-    "id": "cl81u112s03ue0bk9eoqi524h",
     "name": "Outubro",
     "monthNumber": 10,
     "institutions": [
       {
         "reference": "11178277-4978-4afd-b07f-2d90a3ff2f16",
         "name": "Debito",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-09-20",
         "shoppings": [
           {
@@ -4625,7 +4615,7 @@
       {
         "reference": "3a40188e-8acf-45e1-a1c5-e76bbe902e15",
         "name": "Bradesco",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-07",
         "shoppings": [
           {
@@ -4654,7 +4644,7 @@
       {
         "reference": "d0a5d059-43f7-439a-920a-f7bbcc71ca93",
         "name": "Satander",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-07",
         "shoppings": [
           {
@@ -4711,7 +4701,7 @@
       {
         "reference": "7beb61ac-11fa-4331-9bd7-0174783d9a99",
         "name": "Inter",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-07",
         "shoppings": [
           {
@@ -4824,7 +4814,7 @@
       {
         "reference": "8bceaec6-ab1d-4ba4-ac55-f037a6bffb74",
         "name": "Nubank",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-11-07",
         "shoppings": [
           {
@@ -5196,14 +5186,13 @@
     ]
   },
   {
-    "id": "cl81u19mv02oh0dlwj49e5gy3",
     "name": "Novembro",
     "monthNumber": 11,
     "institutions": [
       {
         "reference": "b08bc449-3f96-4eab-8695-fd47a0e4cac6",
         "name": "Debito",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-09-20",
         "shoppings": [
           {
@@ -5267,7 +5256,7 @@
       {
         "reference": "275cd838-5462-4888-ac67-dc807876aae0",
         "name": "Inter",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-07",
         "shoppings": [
           {
@@ -5373,7 +5362,7 @@
       {
         "reference": "7aecc93b-dab4-4b4c-b761-f4d575201250",
         "name": "Satander",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-07",
         "shoppings": [
           {
@@ -5416,7 +5405,7 @@
       {
         "reference": "3e9e6ac7-dc83-4247-b993-4aa4e15e52ab",
         "name": "Bradesco",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-10-07",
         "shoppings": [
           {
@@ -5459,7 +5448,7 @@
       {
         "reference": "a759f5e8-c93f-42e8-ae8f-e39e98505616",
         "name": "Nubank",
-        "amount": null,
+        "amount": "0",
         "expirationDate": "2022-11-07",
         "shoppings": [
           {
@@ -6132,7 +6121,6 @@
     ]
   },
   {
-    "id": "cl81u1oht03xf0bk9rud55ie1",
     "name": "Dezembro",
     "monthNumber": 12,
     "institutions": []

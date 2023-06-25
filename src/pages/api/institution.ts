@@ -19,8 +19,7 @@ export default async function handles(
   }
 
   if (req.method === "POST") {
-    const { reference, name, amount, expirationDate, monthId, shoppings } =
-      req.body;
+    const { reference, name, amount, expirationDate, monthId } = req.body;
 
     const newInstitution = await prisma.institution.create({
       data: {

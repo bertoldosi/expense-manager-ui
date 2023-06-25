@@ -53,7 +53,7 @@ const DELETE_SHOPPING = gql`
 `;
 
 export const createShopping = async (shopping: ShoppingType) => {
-  const { createShopping } = await hygraph
+  const { createShopping }: any = await hygraph
     .request(CREATE_SHOPPING, {
       ...shopping,
     })
@@ -67,7 +67,7 @@ export const createShopping = async (shopping: ShoppingType) => {
 };
 
 export const updateShopping = async (shopping: ShoppingType) => {
-  const { updateShopping } = await hygraph
+  const { updateShopping }: any = await hygraph
     .request(UPDATE_SHOPPING, {
       ...shopping,
     })
@@ -81,7 +81,7 @@ export const updateShopping = async (shopping: ShoppingType) => {
 };
 
 export const deleteShopping = async (reference: string) => {
-  const { deleteShopping } = await hygraph
+  const { deleteShopping }: any = await hygraph
     .request(DELETE_SHOPPING, {
       reference,
     })
