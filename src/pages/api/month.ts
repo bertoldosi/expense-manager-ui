@@ -5,13 +5,19 @@ export default async function handles(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const prisma = new PrismaClient();
+
   if (req.method === "GET") {
     try {
-      const prisma = new PrismaClient();
-      const response = await prisma.month.findMany();
+      const months = await prisma.month.findMany({
+        include: {
+          institutions: true,
+        },
+      });
 
-      return res.send(response);
+      return res.send(months);
     } catch (error) {
+      console.log("Error axios request mongodb", error);
       return res.send(error);
     }
   }

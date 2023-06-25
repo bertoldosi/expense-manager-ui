@@ -21,6 +21,7 @@ import { customToast } from "@commons/CustomToast";
 import validationSchema from "./validations";
 import { Error } from "@commons/Error";
 import { UserContext, UserContextType } from "src/context/userContext";
+import { instance } from "@services/instance";
 
 type PropsType = {
   month: MonthType;
@@ -57,13 +58,15 @@ export const Institution = ({ month }: PropsType) => {
         reference: uuidv4(),
       };
 
-      const { reference, name } = await createInstitution(payload);
-
-      await updateMonthInstitution(month.id, reference)
-        .then(() => {
+      await instance
+        .post("/institution", {
+          ...payload,
+          monthId: month.id,
+        })
+        .then((response) => {
           getMonths();
-          customToast("success", `${name} incluído com sucesso!`);
-          handlerNameCard(name);
+          customToast("success", `${response.data.name} incluído com sucesso!`);
+          handlerNameCard(response.data.name);
         })
         .catch(() => {
           customToast("error", "Tente novamente!");

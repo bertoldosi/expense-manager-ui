@@ -48,7 +48,7 @@ const UserContextProvider = ({ children }: PropsType) => {
   );
 
   const getMonths = async () => {
-    const { data: monthsResponse } = (await instance.get("/month")) || [];
+    const { data: monthsResponse } = await instance.get("/month");
 
     setMonths(
       monthsResponse.map((month: MonthType) => {
@@ -58,17 +58,23 @@ const UserContextProvider = ({ children }: PropsType) => {
             ? month.institutions.map((institution) => {
                 return {
                   ...institution,
-                  listResponsibleValues: sumResponsibleCard(institution),
-                  listResponsibleValuesInitial: sumResponsibleCard(institution),
-                  amount: updateAmountShoppings(institution.shoppings),
+                  listResponsibleValues:
+                    institution.shoppings && sumResponsibleCard(institution),
+                  listResponsibleValuesInitial:
+                    institution.shoppings && sumResponsibleCard(institution),
+                  amount:
+                    institution.shoppings &&
+                    updateAmountShoppings(institution.shoppings),
                   isShowShoppings: false,
-                  shoppings: institution.shoppings.map((shopping) => {
-                    return {
-                      ...shopping,
-                      isUpdate: false,
-                      select: false,
-                    };
-                  }),
+                  shoppings: institution.shoppings
+                    ? institution.shoppings.map((shopping) => {
+                        return {
+                          ...shopping,
+                          isUpdate: false,
+                          select: false,
+                        };
+                      })
+                    : [],
                 };
               })
             : [],

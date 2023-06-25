@@ -17,7 +17,7 @@ model Shopping {
   responsible   String
   amount        String
   paymentStatus String
-  Institution   Institution? @relation(fields: [institutionId], references: [id])
+  institution   Institution? @relation(fields: [institutionId], references: [id])
   institutionId String?      @db.ObjectId
 }
 
@@ -28,7 +28,7 @@ model Institution {
   expirationDate String
   amount         String
   shoppings      Shopping[]
-  Month          Month?     @relation(fields: [monthId], references: [id])
+  month          Month?     @relation(fields: [monthId], references: [id])
   monthId        String?    @db.ObjectId
 }
 
