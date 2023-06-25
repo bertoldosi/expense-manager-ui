@@ -23,6 +23,7 @@ import { customToast } from "@commons/CustomToast";
 import { UserContext, UserContextType } from "src/context/userContext";
 import { InstitutionType, MonthType, ShoppingType } from "@interfaces/*";
 import { chunk } from "@helpers/chunk";
+import { instance } from "@services/instance";
 
 type PropsType = {
   institution: InstitutionType;
@@ -121,9 +122,18 @@ export const Table = ({ institution, month }: PropsType) => {
 
   const getNextMonth = async () => {
     const { id: monthIdNextMonth, institutions: institutionsNextMonth } =
-      await getMonthNumber(month.monthNumber + 1).catch(() => {
-        customToast("error", "Algo de errado aconteceu ao buscar próximo mês!");
-      });
+      await instance
+        .get("/month", {
+          params: {
+            monthNumber: month.monthNumber + 1,
+          },
+        })
+        .catch(() => {
+          customToast(
+            "error",
+            "Algo de errado aconteceu ao buscar próximo mês!"
+          );
+        });
 
     return {
       monthIdNextMonth,
@@ -222,7 +232,12 @@ export const Table = ({ institution, month }: PropsType) => {
     let position = 0;
     while (shoppingSelecteds[position]) {
       const shoppingReference = shoppingSelecteds[position].reference;
-      await deleteShopping(shoppingReference)
+      await instance
+        .delete("/shopping", {
+          params: {
+            reference: shoppingReference,
+          },
+        })
         .then(() => {
           customToast("success", "Deletado com sucesso!");
         })
@@ -241,7 +256,10 @@ export const Table = ({ institution, month }: PropsType) => {
   const updateShopping = async (shoppingUpdate: ShoppingType) => {
     setIsRequest(true);
 
-    upShopping(shoppingUpdate)
+    await instance
+      .put("/shopping", {
+        ...shoppingUpdate,
+      })
       .then(() => {
         getMonths();
         customToast("success", "Alterado com sucesso!");
@@ -282,7 +300,8 @@ export const Table = ({ institution, month }: PropsType) => {
 
     let position = 0;
     while (newShoppings[position]) {
-      await upShopping(newShoppings[position])
+      await instance
+        .put("/shopping", newShoppings[position])
         .then(() => {
           customToast("success", "Alterado com sucesso!");
         })

@@ -64,4 +64,29 @@ export default async function handles(
       return res.send(error);
     }
   }
+
+  if (req.method === "PUT") {
+    const { id, reference, description, responsible, amount, paymentStatus } =
+      req.body;
+
+    try {
+      const shoppingUpdate = await prisma.shopping.update({
+        where: {
+          reference: reference,
+        },
+        data: {
+          reference,
+          description,
+          responsible,
+          amount,
+          paymentStatus,
+        },
+      });
+
+      return res.send(shoppingUpdate);
+    } catch (error) {
+      console.log("Error axios request mongodb");
+      return res.send(error);
+    }
+  }
 }
