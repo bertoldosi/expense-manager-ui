@@ -9,11 +9,11 @@ export default async function handles(
 
   if (req.method === "GET") {
     try {
-      const prisma = new PrismaClient();
       const response = await prisma.institution.findMany();
 
       return res.send(response);
     } catch (error) {
+      console.log("Error axios request mongodb");
       return res.send(error);
     }
   }
@@ -48,6 +48,23 @@ export default async function handles(
       return res.send(newInstitution);
     } catch (error) {
       console.log("error axios request mongodb", error);
+      return res.send(error);
+    }
+  }
+
+  if (req.method === "DELETE") {
+    const { reference } = req.query;
+
+    try {
+      await prisma.institution.delete({
+        where: {
+          reference,
+        },
+      });
+
+      return res.status(204).send("Ok");
+    } catch (error) {
+      console.log("Error axios request mongodb");
       return res.send(error);
     }
   }

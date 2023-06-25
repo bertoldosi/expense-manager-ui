@@ -81,7 +81,7 @@ export const Institution = ({ month }: PropsType) => {
     validationSchema,
   });
 
-  const removeInstitution = (institution: InstitutionType) => {
+  const removeInstitution = async (institution: InstitutionType) => {
     setIsRequest(true);
     const isShoppings = institution.shoppings.length > 0;
 
@@ -90,7 +90,12 @@ export const Institution = ({ month }: PropsType) => {
       return;
     }
 
-    deleteInstitution(institution.reference)
+    await instance
+      .delete("institution", {
+        params: {
+          reference: institution.reference,
+        },
+      })
       .then(() => {
         getMonths();
         customToast("success", `${institution.name} removido com sucesso!`);
