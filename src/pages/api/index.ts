@@ -6,21 +6,8 @@ export default async function handles(
   res: NextApiResponse
 ) {
   if (req.method === "GET") {
-    const prisma = new PrismaClient();
-
-    const months = await prisma.month.findMany({
-      include: {
-        institutions: {
-          include: {
-            shoppings: true,
-          },
-        },
-      },
-    });
-
     return res.send({
       hello: "Hello api!",
-      months,
     });
   }
 }

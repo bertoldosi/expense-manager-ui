@@ -1,12 +1,12 @@
 import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 
+const prisma = new PrismaClient();
+
 export default async function handles(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const prisma = new PrismaClient();
-
   if (req.method === "POST") {
     const {
       responsible,
