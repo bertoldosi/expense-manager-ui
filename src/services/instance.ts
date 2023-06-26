@@ -6,6 +6,7 @@ const { publicRuntimeConfig = {} } = getConfig() || {};
 const BASE_URL = publicRuntimeConfig.BASE_URL;
 
 export const instance = axios.create({
-  baseURL: `${BASE_URL}/api`,
+  baseURL: `${BASE_URL}`,
+  headers: { "Content-Type": "application/json" },
   timeout: 3000,
 });

@@ -47,9 +47,7 @@ const UserContextProvider = ({ children }: PropsType) => {
   );
 
   const getMonths = async () => {
-    const { data } = await axios.get("api/month");
-    console.log(data);
-    const { data: monthsResponse } = await instance.get("/month");
+    const { data: monthsResponse } = await instance.get("/api/month");
 
     setMonths(
       monthsResponse.map((month: MonthType) => {

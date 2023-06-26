@@ -50,7 +50,7 @@ export const Shopping = ({ institution, month }: PropsType) => {
       };
 
       await instance
-        .post("/shopping", { ...payload })
+        .post("/api/shopping", { ...payload })
 
         .then(() => {
           getMonths();

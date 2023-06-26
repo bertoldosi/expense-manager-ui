@@ -113,7 +113,7 @@ export const Table = ({ institution, month }: PropsType) => {
 
   const getNextMonth = async () => {
     const { data }: any = await instance
-      .get("/month", {
+      .get("/api/month", {
         params: {
           monthNumber: month.monthNumber + 1,
         },
@@ -160,7 +160,7 @@ export const Table = ({ institution, month }: PropsType) => {
       const institutionReference = nextInstitution[0].reference;
 
       await instance
-        .post("/shopping", {
+        .post("/api/shopping", {
           data: {
             ...shoppingsRepeat,
             institutionReference,
@@ -181,7 +181,7 @@ export const Table = ({ institution, month }: PropsType) => {
     } else {
       if (monthIdNextMonth) {
         await instance
-          .post("/institution", {
+          .post("/api/institution", {
             data: {
               reference: institutionRepeat.reference,
               name: institutionRepeat.name,
@@ -194,7 +194,7 @@ export const Table = ({ institution, month }: PropsType) => {
             const institutionReference = institutionData.reference;
 
             await instance
-              .put("/month", {
+              .put("/api/month", {
                 data: {
                   monthIdNextMonth,
                   institutionReference,
@@ -244,7 +244,7 @@ export const Table = ({ institution, month }: PropsType) => {
     while (shoppingSelecteds[position]) {
       const shoppingReference = shoppingSelecteds[position].reference;
       await instance
-        .delete("/shopping", {
+        .delete("/api/shopping", {
           params: {
             reference: shoppingReference,
           },
@@ -268,7 +268,7 @@ export const Table = ({ institution, month }: PropsType) => {
     setIsRequest(true);
 
     await instance
-      .put("/shopping", {
+      .put("/api/shopping", {
         ...shoppingUpdate,
       })
       .then(() => {
@@ -312,7 +312,7 @@ export const Table = ({ institution, month }: PropsType) => {
     let position = 0;
     while (newShoppings[position]) {
       await instance
-        .put("/shopping", newShoppings[position])
+        .put("/api/shopping", newShoppings[position])
         .then(() => {
           customToast("success", "Alterado com sucesso!");
         })

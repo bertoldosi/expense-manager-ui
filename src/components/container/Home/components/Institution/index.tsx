@@ -56,7 +56,7 @@ export const Institution = ({ month }: PropsType) => {
       };
 
       await instance
-        .post("/institution", {
+        .post("/api/institution", {
           ...payload,
           monthId: month.id,
         })
