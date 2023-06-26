@@ -1,8 +1,11 @@
 import axios from "axios";
+import getConfig from "next/config";
 
-const BASE_URL = process.env.BASE_URL || "http://localhost:3000/api";
+const { publicRuntimeConfig = {} } = getConfig() || {};
+
+const BASE_URL = publicRuntimeConfig.BASE_URL;
 
 export const instance = axios.create({
-  baseURL: BASE_URL,
+  baseURL: `${BASE_URL}/api`,
   timeout: 3000,
 });
