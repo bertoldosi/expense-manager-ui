@@ -49,7 +49,7 @@ export default async function handles(
   }
 
   if (req.method === "DELETE") {
-    const { reference } = req.query;
+    const { reference }: any = req.query;
 
     try {
       await prisma.shopping.delete({

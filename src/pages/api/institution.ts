@@ -19,7 +19,7 @@ export default async function handles(
   }
 
   if (req.method === "POST") {
-    const { reference, name, amount, expirationDate, monthId } = req.body;
+    const { reference, name, amount, expirationDate, monthId }: any = req.body;
 
     const newInstitution = await prisma.institution.create({
       data: {
@@ -52,7 +52,7 @@ export default async function handles(
   }
 
   if (req.method === "DELETE") {
-    const { reference } = req.query;
+    const { reference }: any = req.query;
 
     try {
       await prisma.institution.delete({
