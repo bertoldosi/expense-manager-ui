@@ -46,7 +46,7 @@ export const Shopping = ({ institution, month }: PropsType) => {
         ...values,
         responsible: values.responsible ? values.responsible : "sem",
         reference: uuidv4(),
-        institutionReference: institution.reference,
+        institutionId: institution.id,
       };
 
       await instance

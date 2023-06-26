@@ -157,14 +157,12 @@ export const Table = ({ institution, month }: PropsType) => {
     };
 
     if (isExistInstitutionNextMonth) {
-      const institutionReference = nextInstitution[0].reference;
+      const institutionId = nextInstitution[0].id;
 
       await instance
         .post("/api/shopping", {
-          data: {
-            ...shoppingsRepeat,
-            institutionReference,
-          },
+          shoppings: shoppingsRepeat,
+          institutionId,
         })
         .then(() => {
           getMonths();
@@ -182,25 +180,18 @@ export const Table = ({ institution, month }: PropsType) => {
       if (monthIdNextMonth) {
         await instance
           .post("/api/institution", {
-            data: {
-              reference: institutionRepeat.reference,
-              name: institutionRepeat.name,
-              amount: institutionRepeat.amount,
-              expirationDate: institutionRepeat.expirationDate,
-              monthId: monthIdNextMonth,
-            },
+            reference: institutionRepeat.reference,
+            name: institutionRepeat.name,
+            amount: institutionRepeat.amount,
+            expirationDate: institutionRepeat.expirationDate,
+            monthId: monthIdNextMonth,
           })
           .then(async ({ data: institutionData }) => {
-            const institutionReference = institutionData.reference;
-
             await instance
-              .put("/api/month", {
-                data: {
-                  monthIdNextMonth,
-                  institutionReference,
-                },
+              .post("/api/shopping", {
+                shoppings: shoppingsRepeat,
+                institutionId: institutionData.id,
               })
-
               .then(() => {
                 getMonths();
                 customToast(
@@ -216,7 +207,6 @@ export const Table = ({ institution, month }: PropsType) => {
                 );
               });
           })
-
           .catch(() => {
             customToast(
               "error",

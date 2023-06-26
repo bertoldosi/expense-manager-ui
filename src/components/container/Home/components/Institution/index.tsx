@@ -88,9 +88,9 @@ export const Institution = ({ month }: PropsType) => {
     }
 
     await instance
-      .delete("institution", {
+      .delete("/api/institution", {
         params: {
-          reference: institution.reference,
+          id: institution.id,
         },
       })
       .then(() => {

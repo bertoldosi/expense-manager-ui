@@ -21,16 +21,16 @@ export default async function handler(
   if (req.method === "POST") {
     const { reference, name, amount, expirationDate, monthId }: any = req.body;
 
-    const newInstitution = await prisma.institution.create({
-      data: {
-        name,
-        reference,
-        amount,
-        expirationDate,
-      },
-    });
-
     try {
+      const newInstitution = await prisma.institution.create({
+        data: {
+          name,
+          reference,
+          amount: String(amount),
+          expirationDate,
+        },
+      });
+
       await prisma.month.update({
         where: {
           id: monthId,
@@ -52,12 +52,12 @@ export default async function handler(
   }
 
   if (req.method === "DELETE") {
-    const { reference }: any = req.query;
+    const { id }: any = req.query;
 
     try {
       await prisma.institution.delete({
         where: {
-          reference,
+          id,
         },
       });
 

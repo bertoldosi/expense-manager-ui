@@ -14,23 +14,49 @@ export default async function handler(
       description,
       amount,
       paymentStatus,
-      institutionReference,
+
+      institutionId,
+      shoppings,
     } = req.body;
 
-    const newShopping = await prisma.shopping.create({
-      data: {
-        responsible,
-        reference,
-        description,
-        amount,
-        paymentStatus,
-      },
-    });
+    // create many shoppings
+    if (shoppings) {
+      try {
+        const newInstitution = await shoppings.map(async (shopping: any) => {
+          await prisma.shopping.create({
+            data: {
+              amount: shopping.amount,
+              description: shopping.description,
+              paymentStatus: shopping.paymentStatus,
+              reference: shopping.reference,
+              responsible: shopping.responsible,
+              institutionId: institutionId,
+            },
+          });
+        });
 
+        return res.send(newInstitution);
+      } catch (error) {
+        console.log("error axios request mongodb", error);
+        return res.send(error);
+      }
+    }
+
+    // create shopping
     try {
+      const newShopping = await prisma.shopping.create({
+        data: {
+          responsible,
+          reference,
+          description,
+          amount,
+          paymentStatus,
+        },
+      });
+
       await prisma.institution.update({
         where: {
-          reference: institutionReference,
+          id: institutionId,
         },
         data: {
           shoppings: {

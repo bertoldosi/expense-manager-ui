@@ -19,6 +19,7 @@ export type SelectValuType = {
 };
 
 export type InstitutionType = {
+  id: string;
   reference: string;
   name: string;
   amount: string | number;
