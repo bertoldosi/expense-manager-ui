@@ -4,16 +4,8 @@ import { v4 as uuidv4 } from "uuid";
 import { Save } from "@icons/Save";
 import { HeaderTable } from "../../components/HeaderTable";
 import { maskMorney } from "@helpers/masks";
-import { deleteShopping } from "@graphqls/shopping";
 import { SelectStatus } from "@commons/SelectStatus";
 import InputTable from "@containers/Home/components/Shopping/components/InputTable";
-import { updateShopping as upShopping } from "@graphqls/shopping";
-import { getMonthNumber, updateMonthInstitution } from "@graphqls/month";
-
-import {
-  createInstitutionShoppings,
-  updateInstitutionShoppings,
-} from "@graphqls/institution";
 
 import { NoResult, Scontent, ScontentModal } from "./styles";
 import { Modal } from "@commons/Modal";
@@ -22,7 +14,6 @@ import Input from "@commons/Input";
 import { customToast } from "@commons/CustomToast";
 import { UserContext, UserContextType } from "src/context/userContext";
 import { InstitutionType, MonthType, ShoppingType } from "@interfaces/*";
-import { chunk } from "@helpers/chunk";
 import { instance } from "@services/instance";
 
 type PropsType = {

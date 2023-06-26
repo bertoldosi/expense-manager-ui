@@ -6,7 +6,6 @@ import Input from "@commons/Input";
 import { Add } from "@icons/Add";
 import { Table } from "@containers/Home/components/Shopping/components/Table";
 
-import { updateInstitutionShoppings } from "@graphqls/institution";
 import { focusInput } from "@helpers/focusInput";
 import { maskMorney } from "@helpers/masks";
 import validationSchema from "./validations";

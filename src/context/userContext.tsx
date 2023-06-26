@@ -1,6 +1,4 @@
 import React from "react";
-import { GET_MONTHS } from "@graphqls/month";
-import { hygraph } from "@services/HygraphClient";
 import { sumResponsibleCard } from "@helpers/sumResponsibleCard";
 import { updateAmountShoppings } from "@helpers/updateAmountShoppings";
 import { sumResponsibleMonth } from "@helpers/sumResponsibleMonth";

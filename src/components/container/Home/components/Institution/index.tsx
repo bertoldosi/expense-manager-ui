@@ -2,9 +2,6 @@ import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useFormik } from "formik";
 
-import { updateMonthInstitution } from "@graphqls/month";
-import { createInstitution, deleteInstitution } from "@graphqls/institution";
-
 import { InstitutionType, MonthType } from "@interfaces/";
 
 import Nav from "@containers/Home/components/Institution/components/Nav";
