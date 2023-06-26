@@ -7,6 +7,7 @@ import { DefaultTheme } from "styled-components";
 import { MonthType, ResponsibleValuesType } from "@interfaces/*";
 import { sumResponsibleYear } from "@helpers/sumResponsibleYear";
 import { instance } from "@services/instance";
+import axios from "axios";
 
 export type UserContextType = {
   nowMonth: number | undefined;
@@ -46,6 +47,8 @@ const UserContextProvider = ({ children }: PropsType) => {
   );
 
   const getMonths = async () => {
+    const { data } = await axios.get("api/month");
+    console.log(data);
     const { data: monthsResponse } = await instance.get("/month");
 
     setMonths(
