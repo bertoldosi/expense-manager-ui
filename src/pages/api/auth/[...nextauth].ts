@@ -1,0 +1,34 @@
+import getConfig from "next/config";
+import NextAuth from "next-auth/next";
+import GoogleProvider from "next-auth/providers/google";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { NextAuthOptions } from "next-auth";
+import { PrismaClient } from "@prisma/client";
+import { Adapter } from "next-auth/adapters";
+
+const { publicRuntimeConfig = {} } = getConfig() || {};
+
+const clientId = publicRuntimeConfig.CLIENT_ID;
+const clientSecret = publicRuntimeConfig.GOOGLE_SECRET;
+
+const prisma = new PrismaClient();
+
+export const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma) as Adapter,
+  providers: [
+    GoogleProvider({
+      clientId,
+      clientSecret,
+    }),
+  ],
+  theme: {
+    colorScheme: "auto",
+  },
+  callbacks: {
+    session({ session }) {
+      return session;
+    },
+  },
+};
+
+export default NextAuth(authOptions);

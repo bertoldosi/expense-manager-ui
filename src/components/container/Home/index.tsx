@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import { Institution } from "@containers/Home/components/Institution";
 
 import { Scontainer } from "./styles";

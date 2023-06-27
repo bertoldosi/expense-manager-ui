@@ -11,6 +11,7 @@ import {
   userContextData,
   userContextDataType,
 } from "src/context/userContextData";
+import { useSession } from "next-auth/react";
 
 export const ChangeExpense = () => {
   const cookies = new Cookies();
@@ -18,13 +19,12 @@ export const ChangeExpense = () => {
     userContextData
   ) as userContextDataType;
 
-  function redirectHome(expense: ExpenseType) {
-    const { user } = cookies.get("expense-manager");
+  const { data: session } = useSession();
 
+  function redirectHome(expense: ExpenseType) {
     toggleSelectedInstitution(null);
 
     const newCookies = {
-      user,
       filter: {
         expense: {
           id: expense.id,

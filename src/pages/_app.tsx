@@ -8,22 +8,14 @@ import UserContextProvider from "src/context/userContextConfig";
 import Layout from "@commons/Layout";
 import { Page } from "page";
 import { Wrapped } from "@commons/Wrapped";
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import getConfig from "next/config";
 import UserAppContextProvider from "src/context/userContextData";
-const { publicRuntimeConfig = {} } = getConfig() || {};
+import { SessionProvider } from "next-auth/react";
 
-type Props = AppProps & {
-  Component: Page;
-};
-
-const CLIENT_ID = publicRuntimeConfig.CLIENT_ID;
-
-function MyApp({ Component, pageProps }: Props) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const AppLayout = Component.layout || Layout;
 
   return (
-    <GoogleOAuthProvider clientId={CLIENT_ID}>
+    <SessionProvider session={session}>
       <UserContextProvider>
         <UserAppContextProvider>
           <Theme>
@@ -48,7 +40,7 @@ function MyApp({ Component, pageProps }: Props) {
           </Theme>
         </UserAppContextProvider>
       </UserContextProvider>
-    </GoogleOAuthProvider>
+    </SessionProvider>
   );
 }
 
