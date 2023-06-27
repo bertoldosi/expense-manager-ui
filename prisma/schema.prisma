@@ -17,6 +17,7 @@ model Shopping {
   responsible   String
   amount        String
   paymentStatus String
+  createAt      DateTime?    @default(now())
   institution   Institution? @relation(fields: [institutionId], references: [id])
   institutionId String?      @db.ObjectId
 }
@@ -27,6 +28,7 @@ model Institution {
   name           String
   expirationDate String
   amount         String
+  createAt       DateTime?  @default(now())
   shoppings      Shopping[]
   month          Month?     @relation(fields: [monthId], references: [id])
   monthId        String?    @db.ObjectId
@@ -36,5 +38,6 @@ model Month {
   id           String        @id @default(auto()) @map("_id") @db.ObjectId
   name         String
   monthNumber  Int           @unique
+  createAt     DateTime?     @default(now())
   institutions Institution[]
 }

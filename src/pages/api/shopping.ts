@@ -72,6 +72,17 @@ export default async function handler(
     }
   }
 
+  if (req.method === "GET") {
+    try {
+      const shoppings = await prisma.shopping.findMany();
+
+      return res.send(shoppings);
+    } catch (error) {
+      console.log("error axios request mongodb", error);
+      return res.send(error);
+    }
+  }
+
   if (req.method === "DELETE") {
     const { reference }: any = req.query;
 

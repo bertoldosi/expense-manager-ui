@@ -31,7 +31,11 @@ export default async function handler(
           include: {
             institutions: {
               include: {
-                shoppings: true,
+                shoppings: {
+                  orderBy: {
+                    createAt: "desc",
+                  },
+                },
               },
             },
           },
