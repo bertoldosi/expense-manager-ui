@@ -1,24 +1,21 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import prisma from "@services/prisma";
 
 import instances from "src/lib/axios-instance";
-import { CREATE_EXPENSE, GET_EXPENSE, GET_EXPENSES } from "./graphql/expense";
+import { GET_EXPENSE, GET_EXPENSES } from "./graphql/expense";
 
 async function getExpense(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
 
-  if (id) {
+  if (!id) {
     try {
-      const requestBody = {
-        query: GET_EXPENSE,
-        variables: {
+      const expense = await prisma.expense.findUnique({
+        where: {
           id,
         },
-      };
+      });
 
-      const response = await instances.post("", requestBody);
-      const { data } = response.data;
-
-      return res.status(200).send(data.expense);
+      return res.status(200).send(expense);
     } catch (err) {
       console.log("ERROR AXIOS REQUEST", err);
       return res.send(err);
@@ -41,18 +38,23 @@ async function getExpense(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function createExpense(req: NextApiRequest, res: NextApiResponse) {
-  const { name, email } = req.body;
+  const { name, userEmail } = req.body;
 
   try {
-    const requestBody = {
-      query: CREATE_EXPENSE,
-      variables: { name, email },
-    };
+    const user = await prisma.user.findUnique({
+      where: {
+        email: userEmail,
+      },
+    });
 
-    const response = await instances.post("", requestBody);
-    const { data } = response.data;
+    const expense = await prisma.expense.create({
+      data: {
+        name,
+        userId: user?.id,
+      },
+    });
 
-    return res.status(200).send(data.createExpense);
+    return res.status(200).send(expense);
   } catch (err) {
     console.log("ERROR AXIOS REQUEST", err);
     return res.send(err);

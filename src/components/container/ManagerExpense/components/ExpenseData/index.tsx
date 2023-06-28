@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
-import Cookies from "universal-cookie";
 
 import Input from "@commons/Input";
 import { Button } from "@commons/Button";
 import { Sbuttons, Scontainer, Sinputs } from "./styles";
-import { createExpense as createExpenseApi } from "src/api/expense";
+import instances from "src/lib/axios-instance-internal";
+import { useSession } from "next-auth/react";
 import {
   userContextData,
   userContextDataType,
@@ -14,35 +14,30 @@ import {
 
 const initialExpense = {
   name: "",
-  date: "2022-01-01",
-  persons: [],
 };
 
 export const ExpenseData = () => {
   const router = useRouter();
+  const { data: session } = useSession();
+
+  const { getUser } = React.useContext(userContextData) as userContextDataType;
 
   const [isResponse, setIsResponse] = React.useState<boolean>(false);
-
-  const { getPerson } = React.useContext(
-    userContextData
-  ) as userContextDataType;
 
   const onSubmitExpense = useFormik({
     initialValues: initialExpense,
     onSubmit: async (values) => {
       setIsResponse(true);
-      const cookies = new Cookies();
-      const { user } = await cookies.get("expense-manager");
 
       const newExpense = {
         ...values,
-        email: user.email,
+        userEmail: session?.user?.email,
       };
 
-      await createExpenseApi(newExpense);
+      await instances.post("api/expense", newExpense);
+      getUser(session?.user?.email);
       setIsResponse(false);
 
-      await getPerson(user);
       router.push("/alterar-gasto");
     },
   });

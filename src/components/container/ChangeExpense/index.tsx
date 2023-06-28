@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import Router from "next/router";
 import Cookies from "universal-cookie";
@@ -15,15 +15,12 @@ import { useSession } from "next-auth/react";
 
 export const ChangeExpense = () => {
   const cookies = new Cookies();
-  const { person, toggleSelectedInstitution } = React.useContext(
-    userContextData
-  ) as userContextDataType;
-
   const { data: session } = useSession();
+  const { getUser } = React.useContext(userContextData) as userContextDataType;
+
+  const { user } = React.useContext(userContextData) as userContextDataType;
 
   function redirectHome(expense: ExpenseType) {
-    toggleSelectedInstitution(null);
-
     const newCookies = {
       filter: {
         expense: {
@@ -37,11 +34,15 @@ export const ChangeExpense = () => {
     Router.push("/");
   }
 
+  useEffect(() => {
+    getUser(session?.user?.email);
+  }, [session]);
+
   return (
     <Card title="Escolha um gasto para gerenciar:">
-      {person?.expenses?.length ? (
+      {user?.expenses?.length ? (
         <Scontainer>
-          {person?.expenses.map((expense) => (
+          {user.expenses.map((expense) => (
             <span
               onClick={() => {
                 redirectHome(expense);

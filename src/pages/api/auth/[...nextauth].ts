@@ -21,12 +21,20 @@ export const authOptions: NextAuthOptions = {
       clientSecret,
     }),
   ],
-  theme: {
-    colorScheme: "auto",
-  },
   callbacks: {
-    session({ session }) {
+    async session({ session }) {
       return session;
+    },
+    async signIn({ user }) {
+      if (user.email) {
+        return true;
+      } else {
+        return "/login";
+      }
+    },
+
+    async redirect() {
+      return "/";
     },
   },
 };

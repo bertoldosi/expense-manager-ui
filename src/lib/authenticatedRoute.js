@@ -1,9 +1,10 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@pages/api/auth/[...nextauth]";
+import Cookies from "universal-cookie";
 
-const redirect = (res) => {
+const redirect = (res, path) => {
   res.writeHead(302, {
-    Location: "/login",
+    Location: path,
   });
 
   res.end();
@@ -17,7 +18,7 @@ export const withAuth = (callback) => {
     const session = await getServerSession(req, res, authOptions);
 
     if (!session) {
-      return redirect(res);
+      return redirect(res, "/login");
     }
 
     return await callback(context);

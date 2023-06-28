@@ -1,25 +1,10 @@
 import Cookies from "universal-cookie";
 
-import React, {
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  createContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { ReactNode, createContext, useState } from "react";
 
-import {
-  CookiesType,
-  ExpenseType,
-  InstitutionType,
-  PersonType,
-  UserType,
-} from "@interfaces/*";
-import { getPerson as getPersonApi } from "@api/person";
-import { getExpense as getExpenseApi } from "@api/expense";
-import { getInstitution as getInstitutionApi } from "@api/institution";
+import { CookiesType, UserType } from "@interfaces/*";
+import instances from "src/lib/axios-instance-internal";
+import { useSession } from "next-auth/react";
 
 interface SelectedInstitutionType {
   id: string;
@@ -27,17 +12,9 @@ interface SelectedInstitutionType {
 }
 
 export type userContextDataType = {
-  person: PersonType | null;
   user: UserType | null;
-  setUser: Dispatch<SetStateAction<UserType | null>>;
-  getPerson: Function;
-  setPerson: Dispatch<SetStateAction<PersonType | null>>;
-  getExpense: Function;
-  expense: ExpenseType | null;
-  setExpense: Dispatch<SetStateAction<ExpenseType | null>>;
-  getInstitution: Function;
-  setInstitution: Dispatch<SetStateAction<InstitutionType | null>>;
-  institution: InstitutionType | null;
+  getUser: Function;
+
   toggleSelectedInstitution: Function;
   selectedInstitution: SelectedInstitutionType | null;
 };
@@ -52,9 +29,6 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
   const cookies = new Cookies();
 
   const [user, setUser] = useState<UserType | null>(null);
-  const [person, setPerson] = useState<PersonType | null>(null);
-  const [expense, setExpense] = useState<ExpenseType | null>(null);
-  const [institution, setInstitution] = useState<InstitutionType | null>(null);
   const [selectedInstitution, setSelectedInstitution] =
     useState<SelectedInstitutionType | null>(null);
 
@@ -75,71 +49,25 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
     });
   }
 
-  async function getPerson(user: UserType) {
-    await getPersonApi(user.email)
+  async function getUser(email: string) {
+    await instances
+      .get("/api/user", {
+        params: {
+          email: email,
+        },
+      })
       .then((response) => {
-        return setPerson(response.data);
+        return setUser(response.data);
       })
       .catch((error) => console.log(error));
   }
-
-  async function getExpense(id: string) {
-    getExpenseApi(id)
-      .then((response) => {
-        setExpense(response.data);
-      })
-      .catch((error) => console.log(error));
-  }
-
-  async function getInstitution(id: string) {
-    getInstitutionApi(id)
-      .then((response) => {
-        setInstitution(response.data);
-      })
-      .catch((error) => console.log(error));
-  }
-
-  useEffect(() => {
-    const cookieValues = cookies.get<CookiesType>("expense-manager");
-
-    if (cookieValues?.user) {
-      getPerson(cookieValues?.user);
-    }
-
-    if (cookieValues?.filter?.institution) {
-      getInstitution(cookieValues.filter.institution.id);
-      toggleSelectedInstitution(cookieValues?.filter.institution);
-    }
-  }, []);
-
-  useMemo(() => {
-    const cookieValues = cookies.get<CookiesType>("expense-manager");
-    const institutionId = cookieValues?.filter?.institution?.id;
-
-    const institutionResult = expense?.institutions.find(
-      (institutionFind) => institutionFind.id === institutionId
-    );
-
-    if (cookieValues?.filter?.institution) {
-      setInstitution(institutionResult || null);
-      getInstitution(cookieValues.filter.institution.id);
-    }
-  }, [selectedInstitution]);
 
   return (
     <userContextData.Provider
       value={{
         user,
-        setUser,
-        person,
-        getPerson,
-        setPerson,
-        expense,
-        setExpense,
-        getExpense,
-        setInstitution,
-        institution,
-        getInstitution,
+        getUser,
+
         toggleSelectedInstitution,
         selectedInstitution,
       }}

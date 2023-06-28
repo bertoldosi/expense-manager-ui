@@ -33,11 +33,12 @@ export type MonthType = {
 export type UserType = {
   email: string;
   name: string;
+  expenses: ExpenseType[];
 };
 
 export type ExpenseType = {
-  id?: string;
-  name?: string;
+  id: string;
+  name: string;
   institutions: InstitutionType[];
 };
 
