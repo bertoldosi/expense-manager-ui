@@ -4,10 +4,14 @@ import prisma from "@services/prisma";
 import instances from "src/lib/axios-instance";
 import { GET_EXPENSE, GET_EXPENSES } from "./graphql/expense";
 
-async function getExpense(req: NextApiRequest, res: NextApiResponse) {
-  const { id } = req.query;
+interface GetExpenseIdType {
+  id: string;
+}
 
-  if (!id) {
+async function getExpense(req: NextApiRequest, res: NextApiResponse) {
+  const { id } = req.query as unknown as GetExpenseIdType;
+
+  if (id) {
     try {
       const expense = await prisma.expense.findUnique({
         where: {

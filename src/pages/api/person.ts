@@ -1,8 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@services/prisma";
 
+interface GetPersonEmail {
+  email: string;
+}
+
 async function getPerson(req: NextApiRequest, res: NextApiResponse) {
-  const { email } = req.query;
+  const { email } = req.query as unknown as GetPersonEmail;
 
   if (email) {
     try {
