@@ -1,9 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@services/prisma";
 
-import instances from "src/lib/axios-instance";
-import { GET_EXPENSE, GET_EXPENSES } from "./graphql/expense";
-
 interface GetExpenseIdType {
   id: string;
 }
@@ -24,20 +21,6 @@ async function getExpense(req: NextApiRequest, res: NextApiResponse) {
       console.log("ERROR AXIOS REQUEST", err);
       return res.send(err);
     }
-  }
-
-  try {
-    const requestBody = {
-      query: GET_EXPENSES,
-    };
-
-    const response = await instances.post("", requestBody);
-    const { data } = response.data;
-
-    return res.status(200).send(data.expenses);
-  } catch (err) {
-    console.log("ERROR AXIOS REQUEST", err);
-    return res.send(err);
   }
 }
 
