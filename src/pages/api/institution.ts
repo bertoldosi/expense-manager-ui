@@ -31,7 +31,14 @@ async function createInstitution(req: NextApiRequest, res: NextApiResponse) {
   const { expenseId, name } = req.body;
 
   try {
-    return res.status(200).send({});
+    const institution = await prisma.institution.create({
+      data: {
+        name,
+        expenseId,
+      },
+    });
+
+    return res.status(200).send(institution);
   } catch (err) {
     console.log("ERROR AXIOS REQUEST", err);
     return res.send(err);

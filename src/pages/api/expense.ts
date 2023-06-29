@@ -14,6 +14,13 @@ async function getExpense(req: NextApiRequest, res: NextApiResponse) {
         where: {
           id,
         },
+        include: {
+          institutions: {
+            include: {
+              shoppings: true,
+            },
+          },
+        },
       });
 
       return res.status(200).send(expense);

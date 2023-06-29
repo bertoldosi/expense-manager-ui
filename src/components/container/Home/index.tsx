@@ -7,9 +7,12 @@ import {
   userContextDataType,
 } from "src/context/userContextData";
 import Cookies from "universal-cookie";
+import { WithoutInstitution } from "./components/WithoutInstitution";
 
 function Home() {
-  const { getExpense } = useContext(userContextData) as userContextDataType;
+  const { getExpense, expense } = useContext(
+    userContextData
+  ) as userContextDataType;
 
   useEffect(() => {
     const cookies = new Cookies();
@@ -20,7 +23,7 @@ function Home() {
 
   return (
     <Scontainer>
-      <Institution />
+      {expense?.institutions.length ? <Institution /> : <WithoutInstitution />}
     </Scontainer>
   );
 }

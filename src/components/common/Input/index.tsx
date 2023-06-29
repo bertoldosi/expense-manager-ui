@@ -3,17 +3,15 @@ import React from "react";
 import { Scontainer } from "./styles";
 
 interface PropsTypes extends React.HTMLProps<HTMLInputElement> {
-  error?: Object;
+  error?: string;
   props?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 function Input({ error, ...props }: PropsTypes) {
   return (
     <Scontainer>
-      <>
-        <input {...props} />
-        {error}
-      </>
+      <input {...props} />
+      <span>{error}</span>
     </Scontainer>
   );
 }

@@ -2,14 +2,13 @@ import React, { Dispatch, ReactNode, SetStateAction } from "react";
 
 import { Exit } from "@icons/Exit";
 
-import { Scontent, Sfooter, Sheader, Ssection, Swrapper } from "./styles";
+import { Scontent, Sheader, Ssection, Swrapper } from "./styles";
 
 type PropsType = {
   children: ReactNode;
   title: string;
   isVisible: boolean;
   handlerIsVisible: Dispatch<SetStateAction<boolean>>;
-  footer?: ReactNode;
 };
 
 export const Modal = ({
@@ -17,7 +16,6 @@ export const Modal = ({
   title,
   isVisible,
   handlerIsVisible,
-  footer,
 }: PropsType) => {
   return (
     <>
@@ -35,7 +33,6 @@ export const Modal = ({
               />
             </Sheader>
             <Ssection>{children}</Ssection>
-            <Sfooter>{footer}</Sfooter>
           </Scontent>
         </Swrapper>
       )}

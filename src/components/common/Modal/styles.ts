@@ -35,12 +35,3 @@ export const Sheader = styled.header`
 export const Ssection = styled.section`
   padding: 1rem;
 `;
-
-export const Sfooter = styled.footer`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  gap: 1rem;
-`;

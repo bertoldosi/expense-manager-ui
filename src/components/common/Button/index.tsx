@@ -1,31 +1,26 @@
-import React, { ReactNode } from "react";
+import React from "react";
 
 import { Scontent } from "./styles";
+import { Lock } from "phosphor-react";
 
 interface PropsType extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  color?: string;
-  background?: string;
+  text: string;
+  typeButton?: string;
   width?: string;
   height?: string;
 }
 
 export const Button = ({
-  children,
-  color,
-  background,
+  text,
+  typeButton = "primary",
   disabled,
-  width = "12rem",
+  width = "100%",
   height = "4rem",
   ...props
 }: PropsType) => {
   return (
-    <Scontent
-      color={color}
-      background={background}
-      width={width}
-      height={height}
-    >
-      <button {...props}>{disabled ? "Carregando" : children}</button>
+    <Scontent {...props} typeButton={typeButton} width={width} height={height}>
+      {disabled ? <Lock size={18} /> : text}
     </Scontent>
   );
 };

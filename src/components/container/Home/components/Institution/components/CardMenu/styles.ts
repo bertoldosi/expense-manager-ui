@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import css from "styled-jsx/css";
 
 type HeaderType = {
   background?: string;
@@ -16,12 +15,7 @@ export const Sheader = styled.header<HeaderType>`
   align-items: center;
   justify-content: center;
   height: 3rem;
-
-  ${(props: any) =>
-    props.background &&
-    css`
-      background-color: ${props.background};
-    `}
+  background-color: #1b66ff;
 
   h1 {
     font-size: 1.2rem;
@@ -33,6 +27,7 @@ export const Ssection = styled.section`
   flex-direction: column;
   padding: 0.5rem;
   margin-bottom: 2rem;
+  background-color: ${(props) => props.theme.backgroundPrimary};
 
   span {
     display: flex;
@@ -57,5 +52,4 @@ export const Sfooter = styled.footer`
   align-content: center;
   justify-content: center;
   gap: 1rem;
-  padding: 0.5rem;
 `;

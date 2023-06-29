@@ -14,9 +14,16 @@ async function getUser(req: NextApiRequest, res: NextApiResponse) {
         where: {
           email,
         },
-
         include: {
-          expenses: true,
+          expenses: {
+            include: {
+              institutions: {
+                include: {
+                  shoppings: true,
+                },
+              },
+            },
+          },
         },
       });
 

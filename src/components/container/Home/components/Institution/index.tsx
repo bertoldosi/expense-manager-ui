@@ -7,11 +7,6 @@ import { Saside, Ssection, Swrapper } from "./styles";
 import Nav from "./components/Nav";
 
 import {
-  UserContextConfig,
-  UserContextConfigType,
-} from "src/context/userContextConfig";
-
-import {
   userContextData,
   userContextDataType,
 } from "src/context/userContextData";
@@ -19,8 +14,6 @@ import {
 type PropsType = {};
 
 export const Institution = ({}: PropsType) => {
-  const { theme } = useContext(UserContextConfig) as UserContextConfigType;
-
   const { expense, selectedInstitution } = useContext(
     userContextData
   ) as userContextDataType;
@@ -29,9 +22,7 @@ export const Institution = ({}: PropsType) => {
 
   return (
     <Swrapper>
-      <nav>
-        <Nav institutions={expense?.institutions || []} />
-      </nav>
+      <Nav institutions={expense?.institutions || []} />
 
       {expense?.institutions?.map((institutionMap, index) => {
         if (institutionMap.name === selectedInstitution?.name) {
@@ -41,26 +32,17 @@ export const Institution = ({}: PropsType) => {
                 <Saside>
                   <CardMenu
                     title={institutionMap?.name?.toUpperCase() || ""}
-                    list={[]}
-                    background={theme.backgroundPrimary}
+                    items={[]}
                     isFooter={
                       <Button
-                        color="#fff"
-                        background="#1b66ff"
-                        width="100%"
                         onClick={() => {
                           setIsVisible(!isVisible);
                         }}
-                      >
-                        Novo cartão
-                      </Button>
+                        text="Novo cartão"
+                      />
                     }
                   />
-                  <CardMenu
-                    title="TOTAL MENSAL"
-                    list={[]}
-                    background={theme.backgroundPrimary}
-                  />
+                  <CardMenu title="TOTAL MENSAL" items={[]} />
                 </Saside>
 
                 {/* <Shopping /> */}

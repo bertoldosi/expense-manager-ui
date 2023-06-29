@@ -8,10 +8,10 @@ import {
 } from "src/context/userContextData";
 
 type PropsType = {
-  institutions: InstitutionType[];
+  institutions?: InstitutionType[];
 };
 
-function Nav({ institutions }: PropsType) {
+function Nav({ institutions = [] }: PropsType) {
   const { selectedInstitution, toggleSelectedInstitution } = React.useContext(
     userContextData
   ) as userContextDataType;

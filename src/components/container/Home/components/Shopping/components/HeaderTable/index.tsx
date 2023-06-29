@@ -1,7 +1,5 @@
 import React from "react";
 
-import { SelectFilter } from "@commons/SelectFilter";
-
 import { GroupLeft, Scontent } from "./styles";
 import InputTable from "../InputTable";
 import { Button } from "@commons/Button";
@@ -9,11 +7,9 @@ import {
   UserContextConfig,
   UserContextConfigType,
 } from "src/context/userContextConfig";
-import { ResponsibleValuesType } from "@interfaces/*";
 
 type PropsType = {
   setValueFilter: Function;
-  options: ResponsibleValuesType[] | undefined;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   isItensSelect: boolean;
   handlerRepeat: React.MouseEventHandler<HTMLDivElement>;
@@ -25,7 +21,6 @@ type PropsType = {
 
 export const HeaderTable = ({
   setValueFilter,
-  options = [],
   onChange,
   isItensSelect,
   handlerRepeat,
@@ -40,7 +35,7 @@ export const HeaderTable = ({
 
   return (
     <Scontent>
-      <div>
+      {/* <div>
         <InputTable
           type="checkbox"
           name="all"
@@ -65,7 +60,7 @@ export const HeaderTable = ({
           options={options}
           valueFilter={valueFilter}
         />
-      </GroupLeft>
+      </GroupLeft> */}
     </Scontent>
   );
 };
