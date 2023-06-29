@@ -1,15 +1,14 @@
 import "react-toastify/dist/ReactToastify.css";
-import type { AppProps } from "next/app";
+import { SessionProvider } from "next-auth/react";
 import { ToastContainer } from "react-toastify";
 
 import GlobalStyle from "../styles/globalStyle";
 import Theme from "src/styles/theme";
-import UserContextProvider from "src/context/userContextConfig";
-import Layout from "@commons/Layout";
-import { Page } from "page";
-import { Wrapped } from "@commons/Wrapped";
-import UserAppContextProvider from "src/context/userContextData";
-import { SessionProvider } from "next-auth/react";
+
+import Layout from "@components/Layout";
+import { Wrapped } from "@components/Wrapped";
+import UserContextProvider from "@context/userContextConfig";
+import UserAppContextProvider from "@context/userContextData";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const AppLayout = Component.layout || Layout;

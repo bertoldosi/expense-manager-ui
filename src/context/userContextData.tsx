@@ -1,10 +1,8 @@
 import Cookies from "universal-cookie";
-
 import React, { ReactNode, createContext, useState } from "react";
 
-import { CookiesType, ExpenseType, UserType } from "@interfaces/*";
-import instances from "src/lib/axios-instance-internal";
-import { useSession } from "next-auth/react";
+import { ExpenseType, UserType } from "@interfaces/*";
+import instances from "@lib/axios-instance-internal";
 
 interface SelectedInstitutionType {
   id: string;
@@ -38,7 +36,7 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
     useState<SelectedInstitutionType | null>(null);
 
   function toggleSelectedInstitution(institution: SelectedInstitutionType) {
-    const cookieValues = cookies.get<CookiesType>("expense-manager");
+    const cookieValues = cookies.get("expense-manager");
 
     setSelectedInstitution(institution);
 

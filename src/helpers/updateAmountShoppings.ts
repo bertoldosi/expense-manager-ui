@@ -1,7 +1,6 @@
 import { sumAmountMoney } from "@helpers/sumAmountMoney";
-import { ShoppingType } from "@interfaces/*";
 
-export const updateAmountShoppings = (shoppings: ShoppingType[]) => {
+export const updateAmountShoppings = (shoppings: any) => {
   if (shoppings.length > 0) {
     const newShoppings = shoppings
       .map((shopping) => shopping.amount)

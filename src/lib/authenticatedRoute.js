@@ -1,6 +1,5 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@pages/api/auth/[...nextauth]";
-import Cookies from "universal-cookie";
 
 const redirect = (res, path) => {
   res.writeHead(302, {

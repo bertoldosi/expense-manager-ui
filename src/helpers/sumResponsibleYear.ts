@@ -1,7 +1,4 @@
-import { sumAmountMoney } from "@helpers/sumAmountMoney";
-import { MonthType, ShoppingType } from "@interfaces/*";
-
-export const sumResponsibleYear = (months: MonthType[]) => {
+export const sumResponsibleYear = (months) => {
   const listaTotalAmountYear = new Array();
 
   months.map((monthMap) => {

@@ -1,9 +1,10 @@
 import React, { ReactNode } from "react";
+import { ThemeProvider } from "styled-components";
+
 import {
   UserContextConfig,
   UserContextConfigType,
-} from "src/context/userContextConfig";
-import { ThemeProvider } from "styled-components";
+} from "@context/userContextConfig";
 
 type ThemeTypes = {
   children: ReactNode;

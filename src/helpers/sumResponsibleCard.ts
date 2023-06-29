@@ -1,10 +1,6 @@
 import { sumAmountMoney } from "@helpers/sumAmountMoney";
 
-import {
-  InstitutionType,
-  ResponsibleValuesType,
-  ShoppingType,
-} from "@interfaces/*";
+import { InstitutionType, ShoppingType } from "@interfaces/*";
 
 export const sumResponsibleCard = (institution: InstitutionType) => {
   // const newList = institution.shoppings.reduce(
