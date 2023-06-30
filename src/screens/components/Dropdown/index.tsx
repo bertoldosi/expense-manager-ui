@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
-import { BsChevronUp } from "src/screens/icons/BsChevronUp";
-import { BsChevronDown } from "src/screens/icons/BsChevronDown";
+import { BsChevronUp } from "@icons/BsChevronUp";
+import { BsChevronDown } from "@icons/BsChevronDown";
 import { Scontainer, Scontent, Sheader } from "./styles";
 import { useTheme } from "styled-components";
 

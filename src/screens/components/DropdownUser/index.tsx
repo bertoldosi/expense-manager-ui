@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Cookies from "universal-cookie";
 import { signOut } from "next-auth/react";
-import { useTheme } from "styled-components";
 import React, { useContext, useState } from "react";
 
 import { User } from "@components/User";
@@ -13,7 +12,6 @@ import { Scontainer, ScontentFooter, Sitem } from "./styles";
 function DropdownUser() {
   const cookies = new Cookies();
 
-  const theme = useTheme();
   const [isVisible, setIsVisible] = useState(false);
   const { user } = useContext(userContextData) as userContextDataType;
 
