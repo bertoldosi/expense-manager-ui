@@ -1,4 +1,4 @@
-import { Save } from "src/screens/icons/Save";
+import { Save } from "@icons/Save";
 import React from "react";
 
 import { Scontainer } from "./styles";

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { LayoutAccess } from "@components/LayoutAccess";
-import LoginContainer from "@containers/Login";
+import LoginContainer from "@components/Login";
 
 const Login = () => {
   return <LoginContainer />;
