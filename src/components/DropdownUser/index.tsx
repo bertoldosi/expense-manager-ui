@@ -3,14 +3,16 @@ import Cookies from "universal-cookie";
 import { signOut } from "next-auth/react";
 import React, { useContext, useState } from "react";
 
-import { User } from "@components/User";
+import { User } from "@icons/User";
 import Dropdown from "@components/Dropdown";
 import { userContextData, userContextDataType } from "@context/userContextData";
 
 import { Scontainer, ScontentFooter, Sitem } from "./styles";
+import { useTheme } from "styled-components";
 
 function DropdownUser() {
   const cookies = new Cookies();
+  const theme = useTheme();
 
   const [isVisible, setIsVisible] = useState(false);
   const { user } = useContext(userContextData) as userContextDataType;
@@ -24,7 +26,7 @@ function DropdownUser() {
     <Dropdown
       position="left"
       hideChevronIcon
-      icon={<User />}
+      icon={<User color={theme.color} width={25} height={25} />}
       isVisible={isVisible}
       setIsVisible={setIsVisible}
     >
