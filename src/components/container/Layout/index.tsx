@@ -1,4 +1,4 @@
-import Header from "@containers/Layout/Header";
+import Header from "@containers/Layout/LayoutHeader";
 import React, { ReactNode } from "react";
 
 type PropsType = {

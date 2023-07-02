@@ -1,6 +1,6 @@
 import React from "react";
 
-import { HeaderTable } from "@containers/Shopping/HeaderTable";
+import { HeaderTable } from "@containers/Home/ShoppingTableHeader";
 import InputTable from "@commons/InputTable";
 import { Modal } from "@commons/Modal";
 import Input from "@commons/Input";

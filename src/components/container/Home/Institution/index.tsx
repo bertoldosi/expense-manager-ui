@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 
-import Nav from "@containers/Home/Nav";
+import Nav from "@containers/Home/InstitutionMenuHeader";
 import { Button } from "@commons/Button";
-import { CardMenu } from "@containers/Home/CardMenu";
+import { CardMenu } from "@containers/Home/InstitutionMenuCard";
 
 import { Saside, Ssection, Swrapper } from "./styles";
 

@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 
 import { Button } from "@commons/Button";
 import { ShoppingType } from "@interfaces/";
-import { Table } from "@containers/Home/Table";
+import { Table } from "@containers/Home/ShoppingTable";
 import Input from "@commons/Input";
 
 import { Scontent, Sheader } from "./styles";

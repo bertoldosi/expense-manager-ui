@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 
-import { CardMenu } from "@containers/Home/CardMenu";
+import { CardMenu } from "@containers/Home/InstitutionMenuCard";
 import { Button } from "@commons/Button";
 import { Modal } from "@commons/Modal";
-import Form from "@containers/Home/FormInstitution";
-import Nav from "@containers/Home/Nav";
+import Form from "@containers/Home/InstitutionForm";
+import Nav from "@containers/Home/InstitutionMenuHeader";
 
 import { Saside, Ssection } from "@containers/Home/Institution/styles";
-import { Scontainer } from "./styles";
+import { ScontainerWithoutInstitution } from "./styles";
 
-export const WithoutInstitution = () => {
+function WithoutInstitution() {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   function handlerIsVisibleModal() {
@@ -17,7 +17,7 @@ export const WithoutInstitution = () => {
   }
 
   return (
-    <Scontainer>
+    <ScontainerWithoutInstitution>
       <div>
         <Nav />
         <Ssection>
@@ -38,6 +38,8 @@ export const WithoutInstitution = () => {
           <Form />
         </Modal>
       </div>
-    </Scontainer>
+    </ScontainerWithoutInstitution>
   );
-};
+}
+
+export default WithoutInstitution;

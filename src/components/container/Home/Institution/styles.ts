@@ -47,3 +47,7 @@ export const Saside = styled.aside`
     margin-top: 2rem;
   }
 `;
+
+export const ScontainerWithoutInstitution = styled.main`
+  width: 100%;
+`;
