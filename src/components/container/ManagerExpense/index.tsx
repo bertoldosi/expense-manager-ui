@@ -1,8 +1,8 @@
 import React from "react";
 
-import { Card } from "@containers//Card";
+import { Card } from "@commons/Card";
 import { Modal } from "@commons/Modal";
-import { ExpenseData } from "@containers/ExpenseData";
+import ManagerExpenseForm from "@containers/ManagerExpense/ManagerExpenseForm";
 
 export const ManagerExpense = () => {
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
@@ -10,7 +10,7 @@ export const ManagerExpense = () => {
   return (
     <div>
       <Card title="Novo gasto:">
-        <ExpenseData />
+        <ManagerExpenseForm />
       </Card>
 
       <Modal
@@ -18,7 +18,7 @@ export const ManagerExpense = () => {
         handlerIsVisible={setIsVisible}
         title="Editando gasto"
       >
-        <ExpenseData />
+        <ManagerExpenseForm />
       </Modal>
     </div>
   );

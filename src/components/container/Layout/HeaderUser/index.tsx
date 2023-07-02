@@ -3,14 +3,14 @@ import Cookies from "universal-cookie";
 import { signOut } from "next-auth/react";
 import React, { useContext, useState } from "react";
 
-import { User } from "src/components/icons/User";
+import { User } from "@icons/User";
 import Dropdown from "@commons/Dropdown";
 import { userContextData, userContextDataType } from "@context/userContextData";
 
 import { Scontainer, ScontentFooter, Sitem } from "./styles";
 import { useTheme } from "styled-components";
 
-function DropdownUser() {
+function HeaderUser() {
   const cookies = new Cookies();
   const theme = useTheme();
 
@@ -46,4 +46,4 @@ function DropdownUser() {
   );
 }
 
-export default DropdownUser;
+export default HeaderUser;

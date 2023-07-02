@@ -14,7 +14,7 @@ const initialExpense = {
   name: "",
 };
 
-export const ExpenseData = () => {
+function ManagerExpenseForm() {
   const router = useRouter();
   const { data: session } = useSession();
 
@@ -57,4 +57,6 @@ export const ExpenseData = () => {
       </Sbuttons>
     </Scontainer>
   );
-};
+}
+
+export default ManagerExpenseForm;

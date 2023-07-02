@@ -1,8 +1,7 @@
 import React from "react";
 
-// import { ToggleDate } from "@containers/ToggleDate";
-import { Logo } from "@containers/Header/Logo";
-import { User } from "@containers/User";
+import HeaderLogo from "@containers/Layout/HeaderLogo";
+import HeaderUser from "@containers/Layout/HeaderUser";
 
 import { Scontainer, Scontent } from "./styles";
 
@@ -11,11 +10,10 @@ function Header() {
     <>
       <Scontainer>
         <Scontent>
-          <Logo />
-          <User />
+          <HeaderLogo />
+          <HeaderUser />
         </Scontent>
       </Scontainer>
-      {/* <ToggleDate /> */}
     </>
   );
 }

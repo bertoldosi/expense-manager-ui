@@ -5,7 +5,7 @@ import logoDark from "@assets/logo-dark.svg";
 import { Scontainer } from "./styles";
 import Link from "next/link";
 
-export const Logo = () => {
+function HeaderLogo() {
   return (
     <Scontainer>
       <Link href="/">
@@ -13,4 +13,6 @@ export const Logo = () => {
       </Link>
     </Scontainer>
   );
-};
+}
+
+export default HeaderLogo;

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { LayoutAccess } from "@containers/LayoutAccess";
+import { LayoutAccess } from "@containers/Layout/LayoutAccess";
 import LoginContainer from "@containers/Login";
 
 const Login = () => {

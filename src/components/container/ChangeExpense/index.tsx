@@ -5,7 +5,7 @@ import Cookies from "universal-cookie";
 import { useSession } from "next-auth/react";
 
 import { ExpenseType } from "@interfaces/*";
-import { Card } from "@containers/Card";
+import { Card } from "@commons/Card";
 
 import { userContextData, userContextDataType } from "@context/userContextData";
 

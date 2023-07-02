@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-import { CardMenu } from "@containers/CardMenu";
+import { CardMenu } from "@containers/Home/CardMenu";
 import { Button } from "@commons/Button";
 import { Modal } from "@commons/Modal";
 import Form from "@containers/Home/FormInstitution";
-import Nav from "@containers/Nav";
+import Nav from "@containers/Home/Nav";
 
 import { Saside, Ssection } from "@containers/Home/Institution/styles";
 import { Scontainer } from "./styles";
