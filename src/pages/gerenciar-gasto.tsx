@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ManagerExpense } from "@components/ManagerExpense";
+import { ManagerExpense } from "@containers/ManagerExpense";
 import { withAuth } from "@lib/authenticatedRoute";
 
 const GerenciarGasto = () => {

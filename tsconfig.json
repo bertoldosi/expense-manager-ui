@@ -17,8 +17,9 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@icons/*": ["src/icons/*"],
+      "@containers/*": ["src/components/container/*"],
+      "@commons/*": ["src/components/common/*"],
+      "@icons/*": ["src/components/icons/*"],
       "@helpers/*": ["src/helpers/*"],
       "@hooks/*": ["src/hooks/*"],
       "@mocks/*": ["src/mocks/*"],

@@ -5,8 +5,8 @@ import { ToastContainer } from "react-toastify";
 import GlobalStyle from "../styles/globalStyle";
 import Theme from "src/styles/theme";
 
-import Layout from "@components/Layout";
-import { Wrapped } from "@components/Wrapped";
+import Layout from "@containers/Layout";
+import { Wrapped } from "@commons/Wrapped";
 import UserContextProvider from "@context/userContextConfig";
 import UserAppContextProvider from "@context/userContextData";
 

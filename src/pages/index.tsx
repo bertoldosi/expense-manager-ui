@@ -1,7 +1,7 @@
 import React from "react";
 import Head from "next/head";
 
-import HomeContainer from "@components/Home";
+import HomeContainer from "@containers/Home";
 import { withAuth } from "@lib/authenticatedRoute";
 
 const Home = () => {

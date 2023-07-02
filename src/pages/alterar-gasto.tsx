@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ChangeExpense } from "@components/ChangeExpense";
+import { ChangeExpense } from "@containers/ChangeExpense";
 import { withAuth } from "@lib/authenticatedRoute";
 
 const AlterarGasto = () => {
