@@ -1,7 +1,7 @@
 import React from "react";
 
 // import { ToggleDate } from "@containers/ToggleDate";
-import { Logo } from "@containers/Logo";
+import { Logo } from "@containers/Header/Logo";
 import { User } from "@containers/User";
 
 import { Scontainer, Scontent } from "./styles";

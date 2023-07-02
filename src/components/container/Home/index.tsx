@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import Cookies from "universal-cookie";
 
-import { Institution } from "@containers/Institution";
-import { WithoutInstitution } from "@containers/WithoutInstitution";
+import { Institution } from "@containers/Home/Institution";
+import { WithoutInstitution } from "@containers/Home/WithoutInstitution";
 import { userContextData, userContextDataType } from "@context/userContextData";
 
 import { Scontainer } from "./styles";

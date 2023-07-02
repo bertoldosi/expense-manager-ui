@@ -1,9 +1,9 @@
 import React from "react";
 
-import { HeaderTable } from "@containers/HeaderTable";
-import InputTable from "@containers/InputTable";
-import { Modal } from "@containers/Modal";
-import Input from "@containers/Input";
+import { HeaderTable } from "@containers/Shopping/HeaderTable";
+import InputTable from "@commons/InputTable";
+import { Modal } from "@commons/Modal";
+import Input from "@commons/Input";
 
 import { NoResult, Scontent, ScontentModal } from "./styles";
 

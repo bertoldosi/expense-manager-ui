@@ -2,10 +2,10 @@ import React from "react";
 import Cookies from "universal-cookie";
 import { useFormik } from "formik";
 
-import { Button } from "@containers/Button";
+import { Button } from "@commons/Button";
 import { ShoppingType } from "@interfaces/";
-import { Table } from "@containers/Table";
-import Input from "@containers/Input";
+import { Table } from "@containers/Shopping/Table";
+import Input from "@commons/Input";
 
 import { Scontent, Sheader } from "./styles";
 

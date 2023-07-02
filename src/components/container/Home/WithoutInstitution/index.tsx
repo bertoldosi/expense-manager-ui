@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import { CardMenu } from "@containers/CardMenu";
 import { Button } from "@commons/Button";
 import { Modal } from "@commons/Modal";
-import Form from "@containers/FormInstitution";
+import Form from "@containers/Home/FormInstitution";
 import Nav from "@containers/Nav";
 
-import { Saside, Ssection } from "@containers/Institution/styles";
+import { Saside, Ssection } from "@containers/Home/Institution/styles";
 import { Scontainer } from "./styles";
 
 export const WithoutInstitution = () => {
