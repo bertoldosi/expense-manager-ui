@@ -1,19 +1,29 @@
 import React, { useContext, useState } from "react";
 
+import { Modal } from "@commons/Modal";
 import { Button } from "@commons/Button";
-import InstitutionMenuHeader from "@containers/Home/InstitutionMenuHeader";
 import InstitutionMenuCard from "@containers/Home/InstitutionMenuCard";
+import InstitutionMenuHeader from "@containers/Home/InstitutionMenuHeader";
 
 import { Saside, Ssection, Swrapper } from "./styles";
 
 import { userContextData, userContextDataType } from "@context/userContextData";
+import InstitutionForm from "../InstitutionForm";
 
 export const Institution = () => {
   const { expense, selectedInstitution } = useContext(
     userContextData
   ) as userContextDataType;
 
-  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+
+  function openModal() {
+    setIsModalVisible(!isModalVisible);
+  }
+
+  function exitModal() {
+    setIsModalVisible(!isModalVisible);
+  }
 
   return (
     <Swrapper>
@@ -26,48 +36,26 @@ export const Institution = () => {
               <Ssection>
                 <Saside>
                   <InstitutionMenuCard
-                    title={institutionMap?.name?.toUpperCase() || ""}
+                    title={institutionMap?.name}
                     items={[]}
-                    isFooter={
-                      <Button
-                        onClick={() => {
-                          setIsVisible(!isVisible);
-                        }}
-                        text="Novo cartão"
-                      />
-                    }
                   />
-                  <InstitutionMenuCard title="TOTAL MENSAL" items={[]} />
+                  <InstitutionMenuCard
+                    title="TOTAL MENSAL"
+                    items={[]}
+                    isFooter={<Button onClick={openModal} text="Novo cartão" />}
+                  />
                 </Saside>
 
                 {/* <Shopping /> */}
               </Ssection>
 
-              {/* <Modal
+              <Modal
                 title="Criando novo cartão"
-                isVisible={isVisible}
-                handlerIsVisible={() => {
-                  setIsVisible(!isVisible);
-                  setNewInstitution(initialNewInstitution);
-                }}
-                footer={
-                  <Button
-                    color="#fff"
-                    background="#1b66ff"
-                    disabled={isResponse}
-                    onClick={submitNewInstitution}
-                  >
-                    Salvar
-                  </Button>
-                }
+                isVisible={isModalVisible}
+                handlerIsVisible={exitModal}
               >
-                <Input
-                  placeholder="Nome do cartão"
-                  value={newInstitution.name}
-                  autoFocus
-                  onChange={(event: ChangeEvent<HTMLInputElement>) => {}}
-                />
-              </Modal> */}
+                <InstitutionForm exitModal={exitModal} />
+              </Modal>
             </div>
           );
         }

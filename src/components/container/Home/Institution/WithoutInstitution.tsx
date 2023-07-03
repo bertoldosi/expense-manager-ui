@@ -3,15 +3,19 @@ import React, { useState } from "react";
 import InstitutionMenuHeader from "@containers/Home/InstitutionMenuHeader";
 import InstitutionMenuCard from "@containers/Home/InstitutionMenuCard";
 import InstitutionForm from "@containers/Home/InstitutionForm";
-import { Modal } from "@commons/Modal";
 import { Button } from "@commons/Button";
+import { Modal } from "@commons/Modal";
 
 import { Saside, Ssection, ScontainerWithoutInstitution } from "./styles";
 
 function WithoutInstitution() {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
-  function handlerIsVisibleModal() {
+  function openModal() {
+    setIsModalVisible(!isModalVisible);
+  }
+
+  function exitModal() {
     setIsModalVisible(!isModalVisible);
   }
 
@@ -22,9 +26,7 @@ function WithoutInstitution() {
         <Ssection>
           <Saside>
             <InstitutionMenuCard
-              isFooter={
-                <Button text="Novo cartão" onClick={handlerIsVisibleModal} />
-              }
+              isFooter={<Button text="Novo cartão" onClick={openModal} />}
             />
           </Saside>
         </Ssection>
@@ -32,7 +34,7 @@ function WithoutInstitution() {
         <Modal
           title="Criando novo cartão"
           isVisible={isModalVisible}
-          handlerIsVisible={handlerIsVisibleModal}
+          handlerIsVisible={exitModal}
         >
           <InstitutionForm />
         </Modal>
