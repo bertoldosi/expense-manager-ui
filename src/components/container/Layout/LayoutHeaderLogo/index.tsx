@@ -5,7 +5,7 @@ import logoDark from "@assets/logo-dark.svg";
 import { Scontainer } from "./styles";
 import Link from "next/link";
 
-function HeaderLogo() {
+function LayoutHeaderLogo() {
   return (
     <Scontainer>
       <Link href="/">
@@ -15,4 +15,4 @@ function HeaderLogo() {
   );
 }
 
-export default HeaderLogo;
+export default LayoutHeaderLogo;

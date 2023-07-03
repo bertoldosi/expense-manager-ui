@@ -5,7 +5,7 @@ import HeaderUser from "@containers/Layout/LayoutHeaderUser";
 
 import { Scontainer, Scontent } from "./styles";
 
-function Header() {
+function LayoutHeader() {
   return (
     <>
       <Scontainer>
@@ -18,4 +18,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default LayoutHeader;

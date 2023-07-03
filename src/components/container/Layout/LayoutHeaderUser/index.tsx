@@ -10,7 +10,7 @@ import { userContextData, userContextDataType } from "@context/userContextData";
 import { Scontainer, ScontentFooter, Sitem } from "./styles";
 import { useTheme } from "styled-components";
 
-function HeaderUser() {
+function LayoutHeaderUser() {
   const cookies = new Cookies();
   const theme = useTheme();
 
@@ -46,4 +46,4 @@ function HeaderUser() {
   );
 }
 
-export default HeaderUser;
+export default LayoutHeaderUser;

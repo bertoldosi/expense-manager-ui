@@ -1,4 +1,4 @@
-import Header from "@containers/Layout/LayoutHeader";
+import LayoutHeader from "@containers/Layout/LayoutHeader";
 import React, { ReactNode } from "react";
 
 type PropsType = {
@@ -8,7 +8,7 @@ type PropsType = {
 const Layout = ({ children }: PropsType) => {
   return (
     <div>
-      <Header />
+      <LayoutHeader />
       {children}
     </div>
   );
