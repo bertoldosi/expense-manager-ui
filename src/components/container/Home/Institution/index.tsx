@@ -12,9 +12,13 @@ import InstitutionForm from "../InstitutionForm";
 import { InstitutionType } from "@interfaces/*";
 import instances from "@lib/axios-instance-internal";
 import { customToast } from "@commons/CustomToast";
+import Shopping from "@containers/Home/Shopping";
+import Cookies from "universal-cookie";
 
 export const Institution = () => {
-  const { expense, selectedInstitution } = useContext(
+  const cookies = new Cookies();
+
+  const { expense, getExpense, selectedInstitution } = useContext(
     userContextData
   ) as userContextDataType;
 
@@ -36,7 +40,9 @@ export const Institution = () => {
         },
       })
       .then((response) => {
-        console.log(response.data);
+        const { filter } = cookies.get("expense-manager");
+
+        getExpense(filter?.expense?.id);
         customToast("success", "Sucesso!");
       });
   }
@@ -73,7 +79,7 @@ export const Institution = () => {
                   />
                 </Saside>
 
-                {/* <Shopping /> */}
+                <Shopping />
               </Ssection>
 
               <Modal

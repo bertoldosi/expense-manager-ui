@@ -29,7 +29,7 @@ function InstitutionForm({ exitModal }: InstitutionFormProps) {
   const onSubmitInstitution = useFormik({
     initialValues: INITIAL_INSTITUTION,
     onSubmit: async (values) => {
-      const { filter } = cookies.get("expense-manager");
+      const { filter = {} } = cookies.get("expense-manager");
 
       instances
         .post("api/institution", {

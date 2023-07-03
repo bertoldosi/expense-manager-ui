@@ -4,8 +4,15 @@ interface DeleteInstitutionType {
   institutionId: string;
 }
 
+interface GetInstitutionType {
+  expenseId?: string;
+  institutionName?: string;
+  id?: string;
+}
+
 async function getInstitution(req: NextApiRequest, res: NextApiResponse) {
-  const { expenseId, institutionName, id } = req.query;
+  const { expenseId, institutionName, id } =
+    req.query as unknown as GetInstitutionType;
 
   if (institutionName) {
     try {
@@ -18,7 +25,21 @@ async function getInstitution(req: NextApiRequest, res: NextApiResponse) {
 
   if (id) {
     try {
-      return res.status(200).send({});
+      const institution = await prisma.institution.findUnique({
+        where: {
+          id,
+        },
+
+        include: {
+          shoppings: {
+            orderBy: {
+              createAt: "desc",
+            },
+          },
+        },
+      });
+
+      return res.status(200).send(institution);
     } catch (err) {
       console.log("ERROR AXIOS REQUEST", err);
       return res.send(err);

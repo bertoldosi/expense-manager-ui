@@ -1,36 +1,58 @@
-import React from "react";
+import React, { useContext } from "react";
 import Cookies from "universal-cookie";
 import { useFormik } from "formik";
 
-import { Button } from "@commons/Button";
-import { ShoppingType } from "@interfaces/";
-import ShoppingTable from "@containers/Home/ShoppingTable";
 import Input from "@commons/Input";
+import { Button } from "@commons/Button";
+import ShoppingTable from "@containers/Home/ShoppingTable";
 
 import { Scontent, Sheader } from "./styles";
+import validationSchema from "@containers/Home/Shopping/validations";
+import instances from "@lib/axios-instance-internal";
+import { userContextData, userContextDataType } from "@context/userContextData";
+import { customToast } from "@commons/CustomToast";
 
-const initialValues = {
+const INITIAL_SHOPPING = {
   description: "",
   amount: "",
   responsible: "",
+  paymentStatus: "aberto",
 };
 
-export const Shopping = () => {
+function Shopping() {
   const cookies = new Cookies();
 
-  const [isResponse, setIsResponse] = React.useState<boolean>(false);
-
-  function addShopping(shopping: ShoppingType) {}
+  const { getInstitution } = useContext(userContextData) as userContextDataType;
 
   const onSubmitShopping = useFormik({
-    initialValues: initialValues,
+    initialValues: INITIAL_SHOPPING,
     onSubmit: async (values) => {
-      setIsResponse(true);
-      const cookieValues = cookies.get("expense-manager");
+      const { filter = {} } = cookies.get("expense-manager");
 
-      setIsResponse(false);
+      const shopping = {
+        ...values,
+        responsible: values.responsible ? values.responsible : "sem",
+      };
+
+      instances
+        .post("api/shopping", {
+          shopping: {
+            ...shopping,
+          },
+          institutionId: filter.institution.id,
+        })
+        .then(() => {
+          getInstitution(filter.institution.id);
+          customToast(
+            "success",
+            `${shopping.description} incluído com sucesso!`
+          );
+        });
+
       onSubmitShopping.resetForm();
     },
+
+    validationSchema,
   });
 
   return (
@@ -44,15 +66,16 @@ export const Shopping = () => {
           placeholder="Descrição do item"
           value={onSubmitShopping.values.description}
           onChange={onSubmitShopping.handleChange}
+          error={onSubmitShopping.errors.description}
         />
         <Input
           name="amount"
           id="amount"
           autoComplete="off"
           placeholder="R$ 00,00"
-          disabled={isResponse}
           value={onSubmitShopping.values.amount}
           onChange={onSubmitShopping.handleChange}
+          error={onSubmitShopping.errors.amount}
         />
         <Input
           name="responsible"
@@ -61,11 +84,14 @@ export const Shopping = () => {
           value={onSubmitShopping.values.responsible}
           onChange={onSubmitShopping.handleChange}
           placeholder="Nome do responsavel"
+          error={onSubmitShopping.errors.responsible}
         />
-        <Button text="Adicionar" type="submit" disabled={isResponse} />
+        <Button text="Adicionar" type="submit" />
       </Sheader>
 
       <ShoppingTable />
     </Scontent>
   );
-};
+}
+
+export default Shopping;

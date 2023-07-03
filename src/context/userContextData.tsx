@@ -1,7 +1,7 @@
 import Cookies from "universal-cookie";
-import React, { ReactNode, createContext, useState } from "react";
+import React, { ReactNode, createContext, useMemo, useState } from "react";
 
-import { ExpenseType, UserType } from "@interfaces/*";
+import { ExpenseType, InstitutionType, UserType } from "@interfaces/*";
 import instances from "@lib/axios-instance-internal";
 
 interface SelectedInstitutionType {
@@ -15,6 +15,9 @@ export type userContextDataType = {
 
   expense: ExpenseType | null;
   getExpense: Function;
+
+  institution: InstitutionType | null;
+  getInstitution: Function;
 
   toggleSelectedInstitution: Function;
   selectedInstitution: SelectedInstitutionType | null;
@@ -31,6 +34,7 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
 
   const [user, setUser] = useState<UserType | null>(null);
   const [expense, setExpense] = useState<ExpenseType | null>(null);
+  const [institution, setInstitution] = useState<InstitutionType | null>(null);
 
   const [selectedInstitution, setSelectedInstitution] =
     useState<SelectedInstitutionType | null>(null);
@@ -52,8 +56,8 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
     });
   }
 
-  async function getUser(email: string) {
-    await instances
+  function getUser(email: string) {
+    instances
       .get("/api/user", {
         params: {
           email: email,
@@ -64,8 +68,8 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
       });
   }
 
-  async function getExpense(id: string) {
-    await instances
+  function getExpense(id: string) {
+    instances
       .get("api/expense", {
         params: {
           id: id,
@@ -73,6 +77,18 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
       })
       .then((response) => {
         return setExpense(response.data);
+      });
+  }
+
+  function getInstitution(id: string) {
+    instances
+      .get("api/institution", {
+        params: {
+          id: id,
+        },
+      })
+      .then((response) => {
+        return setInstitution(response.data);
       });
   }
 
@@ -84,6 +100,9 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
 
         expense,
         getExpense,
+
+        institution,
+        getInstitution,
 
         toggleSelectedInstitution,
         selectedInstitution,

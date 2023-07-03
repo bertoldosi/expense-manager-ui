@@ -19,7 +19,7 @@ export const Scontent = styled.div`
     background: ${(props) => props.theme.backgroundPrimary};
   }
 
-  span {
+  > span {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -52,6 +52,7 @@ export const NoResult = styled.div`
   justify-content: center;
   background-color: ${(props) => props.theme.backgroundPrimary};
   border-radius: 0.3rem;
+
   span {
     font-size: 2rem;
   }

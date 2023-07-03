@@ -23,4 +23,5 @@ export type ShoppingType = {
   description: string;
   amount: string;
   responsible: string;
+  paymentStatus: string;
 };

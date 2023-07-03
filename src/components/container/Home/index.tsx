@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useMemo } from "react";
 import Cookies from "universal-cookie";
 
 import { Institution } from "@containers/Home/Institution";
@@ -12,16 +12,24 @@ function Home() {
     userContextData
   ) as userContextDataType;
 
-  useEffect(() => {
+  useMemo(() => {
     const cookies = new Cookies();
     const cookieValues = cookies.get("expense-manager");
 
     getExpense(cookieValues?.filter?.expense?.id);
   }, []);
 
+  if (expense?.institutions?.length) {
+    return (
+      <Scontainer>
+        <Institution />
+      </Scontainer>
+    );
+  }
+
   return (
     <Scontainer>
-      {expense?.institutions.length ? <Institution /> : <WithoutInstitution />}
+      <WithoutInstitution />
     </Scontainer>
   );
 }
