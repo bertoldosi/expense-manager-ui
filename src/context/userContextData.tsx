@@ -37,7 +37,11 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
   const [institution, setInstitution] = useState<InstitutionType | null>(null);
 
   const [selectedInstitution, setSelectedInstitution] =
-    useState<SelectedInstitutionType | null>(null);
+    useState<SelectedInstitutionType | null>(() => {
+      const cookieValues = cookies.get("expense-manager");
+
+      return cookieValues?.filter?.institution;
+    });
 
   function toggleSelectedInstitution(institution: SelectedInstitutionType) {
     const cookieValues = cookies.get("expense-manager");
