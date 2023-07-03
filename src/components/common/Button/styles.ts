@@ -17,12 +17,20 @@ export const Scontent = styled.button<PropsType>`
 
   background-color: ${(props) => {
     if (props.typeButton === "primary") {
-      return "#1b66ff";
+      return "#0EB3E0";
+    }
+
+    if (props.typeButton === "delete") {
+      return "#FA3C33";
     }
   }};
 
   color: ${(props) => {
     if (props.typeButton === "primary") {
+      return "#fff";
+    }
+
+    if (props.typeButton === "delete") {
       return "#fff";
     }
   }};

@@ -20,7 +20,7 @@ export const Button = ({
 }: PropsType) => {
   return (
     <Scontent {...props} typeButton={typeButton} width={width} height={height}>
-      {disabled ? <Lock size={18} /> : text}
+      {disabled ? <Lock size={18} /> : <strong>{text}</strong>}
     </Scontent>
   );
 };

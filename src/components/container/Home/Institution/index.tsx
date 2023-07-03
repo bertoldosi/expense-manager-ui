@@ -9,6 +9,9 @@ import { Saside, Ssection, Swrapper } from "./styles";
 
 import { userContextData, userContextDataType } from "@context/userContextData";
 import InstitutionForm from "../InstitutionForm";
+import { InstitutionType } from "@interfaces/*";
+import instances from "@lib/axios-instance-internal";
+import { customToast } from "@commons/CustomToast";
 
 export const Institution = () => {
   const { expense, selectedInstitution } = useContext(
@@ -23,6 +26,19 @@ export const Institution = () => {
 
   function exitModal() {
     setIsModalVisible(!isModalVisible);
+  }
+
+  function deleteInstitution(institution: InstitutionType) {
+    instances
+      .delete("api/institution", {
+        params: {
+          institutionId: institution.id,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        customToast("success", "Sucesso!");
+      });
   }
 
   return (
@@ -42,7 +58,18 @@ export const Institution = () => {
                   <InstitutionMenuCard
                     title="TOTAL MENSAL"
                     items={[]}
-                    isFooter={<Button onClick={openModal} text="Novo cartão" />}
+                    isFooter={
+                      <>
+                        <Button onClick={openModal} text="Novo cartão" />
+                        <Button
+                          onClick={() => {
+                            deleteInstitution(institutionMap);
+                          }}
+                          text={`Excluir ${institutionMap?.name}`}
+                          typeButton="delete"
+                        />
+                      </>
+                    }
                   />
                 </Saside>
 
