@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 
 import { Button } from "@commons/Button";
 import { ShoppingType } from "@interfaces/";
-import { Table } from "@containers/Home/ShoppingTable";
+import ShoppingTable from "@containers/Home/ShoppingTable";
 import Input from "@commons/Input";
 
 import { Scontent, Sheader } from "./styles";
@@ -64,7 +64,8 @@ export const Shopping = () => {
         />
         <Button text="Adicionar" type="submit" disabled={isResponse} />
       </Sheader>
-      <Table />
+
+      <ShoppingTable />
     </Scontent>
   );
 };

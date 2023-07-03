@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 
-import Nav from "@containers/Home/InstitutionMenuHeader";
 import { Button } from "@commons/Button";
-import { CardMenu } from "@containers/Home/InstitutionMenuCard";
+import InstitutionMenuHeader from "@containers/Home/InstitutionMenuHeader";
+import InstitutionMenuCard from "@containers/Home/InstitutionMenuCard";
 
 import { Saside, Ssection, Swrapper } from "./styles";
 
@@ -17,7 +17,7 @@ export const Institution = () => {
 
   return (
     <Swrapper>
-      <Nav institutions={expense?.institutions} />
+      <InstitutionMenuHeader institutions={expense?.institutions} />
 
       {expense?.institutions?.map((institutionMap, index) => {
         if (institutionMap.name === selectedInstitution?.name) {
@@ -25,7 +25,7 @@ export const Institution = () => {
             <div key={index}>
               <Ssection>
                 <Saside>
-                  <CardMenu
+                  <InstitutionMenuCard
                     title={institutionMap?.name?.toUpperCase() || ""}
                     items={[]}
                     isFooter={
@@ -37,7 +37,7 @@ export const Institution = () => {
                       />
                     }
                   />
-                  <CardMenu title="TOTAL MENSAL" items={[]} />
+                  <InstitutionMenuCard title="TOTAL MENSAL" items={[]} />
                 </Saside>
 
                 {/* <Shopping /> */}

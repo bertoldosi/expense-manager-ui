@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 
-import { CardMenu } from "@containers/Home/InstitutionMenuCard";
-import { Button } from "@commons/Button";
+import InstitutionMenuHeader from "@containers/Home/InstitutionMenuHeader";
+import InstitutionMenuCard from "@containers/Home/InstitutionMenuCard";
+import InstitutionForm from "@containers/Home/InstitutionForm";
 import { Modal } from "@commons/Modal";
-import Form from "@containers/Home/InstitutionForm";
-import Nav from "@containers/Home/InstitutionMenuHeader";
+import { Button } from "@commons/Button";
 
-import { Saside, Ssection } from "@containers/Home/Institution/styles";
-import { ScontainerWithoutInstitution } from "./styles";
+import { Saside, Ssection, ScontainerWithoutInstitution } from "./styles";
 
 function WithoutInstitution() {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
@@ -19,10 +18,10 @@ function WithoutInstitution() {
   return (
     <ScontainerWithoutInstitution>
       <div>
-        <Nav />
+        <InstitutionMenuHeader />
         <Ssection>
           <Saside>
-            <CardMenu
+            <InstitutionMenuCard
               isFooter={
                 <Button text="Novo cartão" onClick={handlerIsVisibleModal} />
               }
@@ -35,7 +34,7 @@ function WithoutInstitution() {
           isVisible={isModalVisible}
           handlerIsVisible={handlerIsVisibleModal}
         >
-          <Form />
+          <InstitutionForm />
         </Modal>
       </div>
     </ScontainerWithoutInstitution>

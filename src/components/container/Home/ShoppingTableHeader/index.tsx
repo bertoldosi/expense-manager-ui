@@ -1,6 +1,6 @@
 import React from "react";
 
-export const HeaderTable = () => {
+function ShoppingTableHeader() {
   return (
     <h1>header table</h1>
     // <Scontent>
@@ -32,4 +32,6 @@ export const HeaderTable = () => {
     //   </GroupLeft>
     // </Scontent>
   );
-};
+}
+
+export default ShoppingTableHeader;

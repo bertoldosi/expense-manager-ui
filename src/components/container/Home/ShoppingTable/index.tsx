@@ -1,6 +1,6 @@
 import React from "react";
 
-import { HeaderTable } from "@containers/Home/ShoppingTableHeader";
+import ShoppingTableHeader from "@containers/Home/ShoppingTableHeader";
 import InputTable from "@commons/InputTable";
 import { Modal } from "@commons/Modal";
 import Input from "@commons/Input";
@@ -17,13 +17,13 @@ const institution = {
   shoppings: [],
 };
 
-export const Table = () => {
+function ShoppingTable() {
   const [isVisible, setIsVisible] = React.useState<boolean>(false);
   const [newAllShopping] = React.useState(initialNewAllShopping);
 
   return (
     <>
-      <HeaderTable />
+      <ShoppingTableHeader />
 
       <Scontent>
         {institution?.shoppings?.length ? (
@@ -86,4 +86,6 @@ export const Table = () => {
       </Modal>
     </>
   );
-};
+}
+
+export default ShoppingTable;

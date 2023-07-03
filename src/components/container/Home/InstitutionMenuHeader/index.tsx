@@ -11,7 +11,7 @@ type PropsType = {
   institutions?: InstitutionType[];
 };
 
-function Nav({ institutions = [] }: PropsType) {
+function InstitutionMenuHeader({ institutions = [] }: PropsType) {
   const { selectedInstitution, toggleSelectedInstitution } = React.useContext(
     userContextData
   ) as userContextDataType;
@@ -54,4 +54,4 @@ function Nav({ institutions = [] }: PropsType) {
   );
 }
 
-export default Nav;
+export default InstitutionMenuHeader;

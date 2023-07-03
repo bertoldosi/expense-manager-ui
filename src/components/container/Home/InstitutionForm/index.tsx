@@ -13,7 +13,7 @@ const INITIAL_INSTITUTION = {
   name: "",
 };
 
-function FormInstitution() {
+function InstitutionForm() {
   const cookies = new Cookies();
 
   const onSubmitInstitution = useFormik({
@@ -48,4 +48,4 @@ function FormInstitution() {
   );
 }
 
-export default FormInstitution;
+export default InstitutionForm;

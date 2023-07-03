@@ -14,11 +14,11 @@ type PropsType = {
   isFooter?: ReactNode;
 };
 
-export const CardMenu = ({
+function InstitutionMenuCard({
   items = [],
   title = "SEM CARTÃO",
   isFooter,
-}: PropsType) => {
+}: PropsType) {
   return (
     <Scontent>
       <Sheader>
@@ -40,4 +40,6 @@ export const CardMenu = ({
       {isFooter && <Sfooter>{isFooter}</Sfooter>}
     </Scontent>
   );
-};
+}
+
+export default InstitutionMenuCard;
