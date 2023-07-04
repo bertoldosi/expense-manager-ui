@@ -1,7 +1,7 @@
 expense
     ✔ criar
-    ☐ editar
-    ☐ deletar
+    ✔ editar
+    ✔ deletar
 
 institution
     ✔ criar
@@ -10,5 +10,5 @@ institution
 
 shopping
     ☐ criar
-    editar
-    deletar
+    ☐ editar
+    ☐ deletar

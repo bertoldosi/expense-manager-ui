@@ -1,29 +1,18 @@
-import React, { useContext, useMemo } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
 
 import ShoppingTableHeader from "@containers/Home/ShoppingTableHeader";
 import InputTable from "@commons/InputTable";
-import { Modal } from "@commons/Modal";
-import Input from "@commons/Input";
 
-import { NoResult, Scontent, ScontentModal } from "./styles";
+import { NoResult, Scontent } from "./styles";
 import { userContextData, userContextDataType } from "@context/userContextData";
 import Cookies from "universal-cookie";
-
-// const initialNewAllShopping = {
-//   responsible: "",
-//   paymentStatus: "aberto",
-//   select: false,
-// };
 
 function ShoppingTable() {
   const { institution, getInstitution } = useContext(
     userContextData
   ) as userContextDataType;
 
-  // const [isVisible, setIsVisible] = React.useState<boolean>(false);
-  // const [newAllShopping] = React.useState(initialNewAllShopping);
-
-  useMemo(() => {
+  useEffect(() => {
     const cookies = new Cookies();
     const cookieValues = cookies.get("expense-manager");
 

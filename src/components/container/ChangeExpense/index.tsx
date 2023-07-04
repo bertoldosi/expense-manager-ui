@@ -26,6 +26,7 @@ export const ChangeExpense = () => {
           id: expense.id,
           name: expense.name,
         },
+        institution: expense.institutions?.length && expense.institutions[0],
       },
     };
 

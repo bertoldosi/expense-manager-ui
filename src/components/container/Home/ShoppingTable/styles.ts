@@ -36,7 +36,13 @@ export const Scontent = styled.div`
     }
 
     &:hover {
-      background-color: ${(props) => props.theme.backgroundBory};
+      background-color: ${(props) => props.theme.backgroundSecondary};
+
+      strong {
+        input {
+          color: #000;
+        }
+      }
     }
   }
 
