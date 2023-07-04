@@ -14,9 +14,10 @@ import { Scontainer, Sbuttons } from "./styles";
 export const ChangeExpense = () => {
   const cookies = new Cookies();
   const { data: session } = useSession();
-  const { getUser } = React.useContext(userContextData) as userContextDataType;
 
-  const { user } = React.useContext(userContextData) as userContextDataType;
+  const { getUser, user } = React.useContext(
+    userContextData
+  ) as userContextDataType;
 
   function redirectHome(expense: ExpenseType) {
     const newCookies = {
@@ -57,7 +58,7 @@ export const ChangeExpense = () => {
       )}
 
       <Sbuttons>
-        <Link href="/gerenciar-gasto">Cadastrar</Link>
+        <Link href="/gerenciar-gasto">Cadastrar ou Editar</Link>
       </Sbuttons>
     </Card>
   );

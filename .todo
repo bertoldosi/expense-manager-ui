@@ -1,2 +1,14 @@
-pegar card pela name
-criar card de gasto anual
+expense
+    ✔ criar
+    ☐ editar
+    ☐ deletar
+
+institution
+    ✔ criar
+    editar
+    ✔ deletar
+
+shopping
+    ☐ criar
+    editar
+    deletar

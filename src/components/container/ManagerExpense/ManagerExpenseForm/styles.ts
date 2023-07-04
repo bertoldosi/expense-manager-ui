@@ -10,7 +10,7 @@ export const Sinputs = styled.div`
 export const Sbuttons = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   margin-top: 4rem;
 
   a {

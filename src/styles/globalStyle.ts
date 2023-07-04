@@ -12,8 +12,6 @@ const GlobalStyle = createGlobalStyle`
     html {
         font-size: 62.5%;
         scroll-behavior: smooth;
-
-        
     }
 
     html,
@@ -33,6 +31,13 @@ const GlobalStyle = createGlobalStyle`
     button{
         cursor: pointer;    
         border: none;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        font-size: 1.2rem;
     }
 `;
 

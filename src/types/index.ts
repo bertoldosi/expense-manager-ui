@@ -8,7 +8,7 @@ export type UserType = {
 export type ExpenseType = {
   id: string;
   name: string;
-  institutions: InstitutionType[];
+  institutions?: InstitutionType[];
 };
 
 export type InstitutionType = {
