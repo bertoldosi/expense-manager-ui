@@ -1,5 +1,11 @@
 import Cookies from "universal-cookie";
-import React, { ReactNode, createContext, useMemo, useState } from "react";
+import React, {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useState,
+} from "react";
 
 import { ExpenseType, InstitutionType, UserType } from "@interfaces/*";
 import instances from "@lib/axios-instance-internal";
@@ -17,6 +23,7 @@ export type userContextDataType = {
   getExpense: Function;
 
   institution: InstitutionType | null;
+  setInstitution: Function;
   getInstitution: Function;
 
   toggleSelectedInstitution: Function;
@@ -106,6 +113,7 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
         getExpense,
 
         institution,
+        setInstitution,
         getInstitution,
 
         toggleSelectedInstitution,

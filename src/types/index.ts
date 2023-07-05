@@ -14,8 +14,8 @@ export type ExpenseType = {
 export type InstitutionType = {
   id: string;
   name: string;
-  amount?: string | null;
-  shoppings: ShoppingType[];
+  amount?: string | undefined;
+  shoppings?: ShoppingType[] | undefined;
 };
 
 export type ShoppingType = {

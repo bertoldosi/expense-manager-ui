@@ -1,11 +1,11 @@
-function maskCurrency(value: any, locale = "pt-BR", currency = "BRL") {
+function maskCurrency(value: any, locale = "pt-BR", currency = "BRL"): string {
   return new Intl.NumberFormat(locale, {
     style: "currency",
     currency,
   }).format(value);
 }
 
-export const maskMorney = (value: string, name: string) => {
+export const maskMoney = (value: string, name: string): string => {
   if (name === "amount") {
     const onlyDigits = value
       .split("")
@@ -28,10 +28,9 @@ export const maskMorney = (value: string, name: string) => {
   return value;
 };
 
-export const maskDate = (value: string, name: string) => {
+export const maskDate = (value: string, name: string): string => {
   if (name === "expirationDate") {
     value = value.replace(/^(\d{3})(\d{3})(\d{4}).*/, "($1) $2-$3");
-
     return value;
   }
 

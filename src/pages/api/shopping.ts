@@ -6,6 +6,10 @@ interface CreateShoppingType {
   institutionId: string;
 }
 
+interface DeleteShoppingType {
+  id: string;
+}
+
 async function createShopping(req: NextApiRequest, res: NextApiResponse) {
   const { institutionId, shopping } = req.body as unknown as CreateShoppingType;
 
@@ -24,6 +28,47 @@ async function createShopping(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
+async function updateShopping(req: NextApiRequest, res: NextApiResponse) {
+  const { id, description, amount, responsible, paymentStatus } = req.body;
+
+  try {
+    const newShopping = await prisma.shopping.update({
+      where: {
+        id,
+      },
+
+      data: {
+        description,
+        amount,
+        responsible,
+        paymentStatus,
+      },
+    });
+
+    return res.status(200).send(newShopping);
+  } catch (err) {
+    console.log("ERROR AXIOS REQUEST", err);
+    return res.send(err);
+  }
+}
+
+async function deleteShopping(req: NextApiRequest, res: NextApiResponse) {
+  const { id } = req.query as unknown as DeleteShoppingType;
+
+  try {
+    await prisma.shopping.delete({
+      where: {
+        id,
+      },
+    });
+
+    return res.status(200).send("ok");
+  } catch (err) {
+    console.log("ERROR AXIOS REQUEST", err);
+    return res.send(err);
+  }
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -31,6 +76,14 @@ export default async function handler(
   switch (req.method) {
     case "POST":
       await createShopping(req, res);
+      break;
+
+    case "PUT":
+      await updateShopping(req, res);
+      break;
+
+    case "DELETE":
+      await deleteShopping(req, res);
       break;
 
     default:
