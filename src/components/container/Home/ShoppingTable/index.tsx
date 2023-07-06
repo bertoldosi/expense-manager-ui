@@ -9,7 +9,7 @@ import { userContextData, userContextDataType } from "@context/userContextData";
 import { InstitutionType, ShoppingType } from "@interfaces/*";
 import instances from "@lib/axios-instance-internal";
 import { customToast } from "@commons/CustomToast";
-import { maskMoney } from "@helpers/masks";
+import { formatedInputValue } from "@helpers/formatedInputValue";
 
 function ShoppingTable() {
   const { institution, getInstitution, setInstitution } = useContext(
@@ -24,7 +24,7 @@ function ShoppingTable() {
   }
 
   function onChangeShopping(ev: React.ChangeEvent<HTMLInputElement>) {
-    const { id, name, value } = ev.target;
+    const { id, name, value, checked } = ev.target;
 
     setInstitution((prevInstitution: InstitutionType) => {
       return {
@@ -33,7 +33,8 @@ function ShoppingTable() {
           if (shoppingMap.id === id) {
             return {
               ...shoppingMap,
-              [name]: maskMoney(value, name),
+              [name]:
+                name != "selected" ? formatedInputValue(value, name) : checked,
             };
           }
 
@@ -72,7 +73,8 @@ function ShoppingTable() {
                   type="checkbox"
                   disabled={false}
                   name="selected"
-                  onChange={() => {}}
+                  checked={shoppingMap.selected}
+                  onChange={onChangeShopping}
                 />
                 <InputTable
                   disabled={false}
@@ -93,7 +95,7 @@ function ShoppingTable() {
                   handleEnter={() => {
                     updateShopping(shoppingMap);
                   }}
-                  value={maskMoney(shoppingMap.amount, "amount")}
+                  value={formatedInputValue(shoppingMap.amount, "amount")}
                   onChange={onChangeShopping}
                 />
               </strong>

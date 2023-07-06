@@ -7,7 +7,12 @@ import React, {
   useState,
 } from "react";
 
-import { ExpenseType, InstitutionType, UserType } from "@interfaces/*";
+import {
+  ExpenseType,
+  InstitutionType,
+  ShoppingType,
+  UserType,
+} from "@interfaces/*";
 import instances from "@lib/axios-instance-internal";
 
 interface SelectedInstitutionType {
@@ -99,7 +104,17 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
         },
       })
       .then((response) => {
-        return setInstitution(response.data);
+        return setInstitution({
+          ...response.data,
+          shoppings: response.data.shoppings.map(
+            (shoppingMap: ShoppingType) => {
+              return {
+                ...shoppingMap,
+                selected: false,
+              };
+            }
+          ),
+        });
       });
   }
 

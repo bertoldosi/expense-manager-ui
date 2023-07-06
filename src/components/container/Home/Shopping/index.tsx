@@ -11,7 +11,7 @@ import validationSchema from "@containers/Home/Shopping/validations";
 import instances from "@lib/axios-instance-internal";
 import { userContextData, userContextDataType } from "@context/userContextData";
 import { customToast } from "@commons/CustomToast";
-import { maskMoney } from "@helpers/masks";
+import { formatedInputValue } from "@helpers/formatedInputValue";
 
 const INITIAL_SHOPPING = {
   description: "",
@@ -75,7 +75,7 @@ function Shopping() {
           id="amount"
           autoComplete="off"
           placeholder="R$ 00,00"
-          value={maskMoney(onSubmitShopping.values.amount, "amount")}
+          value={formatedInputValue(onSubmitShopping.values.amount, "amount")}
           onChange={onSubmitShopping.handleChange}
           error={onSubmitShopping.errors.amount}
         />

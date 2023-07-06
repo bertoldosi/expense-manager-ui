@@ -24,4 +24,5 @@ export type ShoppingType = {
   amount: string;
   responsible: string;
   paymentStatus: string;
+  selected?: boolean;
 };
