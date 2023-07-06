@@ -67,12 +67,13 @@ function ShoppingTable() {
           institution?.shoppings.map((shoppingMap, index) => (
             <span key={index}>
               <strong>
-                {/* <InputTable
+                <InputTable
+                  id={shoppingMap.id}
                   type="checkbox"
                   disabled={false}
                   name="selected"
                   onChange={() => {}}
-                /> */}
+                />
                 <InputTable
                   disabled={false}
                   id={shoppingMap.id}
