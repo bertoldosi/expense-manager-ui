@@ -9,6 +9,7 @@ import instances from "@lib/axios-instance-internal";
 import { userContextData, userContextDataType } from "@context/userContextData";
 
 import { Sbuttons, Scontainer, Sinputs } from "./styles";
+import validationSchema from "./validations";
 
 interface InitialExpenseUpdateType {
   id: string;
@@ -54,8 +55,11 @@ function ManagerExpenseForm({ expenseInitial }: ManagerExpenseFormType) {
         ...values,
         userEmail: session?.user?.email,
       });
+
       redirectChangeExpense();
     },
+
+    validationSchema,
   });
 
   return (
@@ -68,6 +72,7 @@ function ManagerExpenseForm({ expenseInitial }: ManagerExpenseFormType) {
           placeholder="Nome do gasto"
           onChange={onSubmitExpense.handleChange}
           value={onSubmitExpense.values.name}
+          error={onSubmitExpense.errors.name}
         />
       </Sinputs>
 

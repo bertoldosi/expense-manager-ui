@@ -9,7 +9,9 @@ import ManagerExpenseList from "@containers/ManagerExpense/ManagerExpenseList";
 
 export const ManagerExpense = () => {
   const { data: session } = useSession();
-  const { getUser } = React.useContext(userContextData) as userContextDataType;
+  const { getUser, user } = React.useContext(
+    userContextData
+  ) as userContextDataType;
 
   useEffect(() => {
     getUser(session?.user?.email);
@@ -21,9 +23,13 @@ export const ManagerExpense = () => {
         <ManagerExpenseForm />
       </Card>
 
-      <Card title="Gastos:">
-        <ManagerExpenseList />
-      </Card>
+      {user?.expenses.length ? (
+        <Card title="Gastos:">
+          <ManagerExpenseList />
+        </Card>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
