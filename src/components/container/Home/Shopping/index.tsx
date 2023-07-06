@@ -39,6 +39,7 @@ function Shopping() {
         .post("api/shopping", {
           shopping: {
             ...shopping,
+            amount: shopping.amount.replace(/,/g, ""),
           },
           institutionId: filter.institution.id,
         })

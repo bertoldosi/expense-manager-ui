@@ -44,10 +44,15 @@ function ShoppingTable() {
   }
 
   function updateShopping(shopping: ShoppingType) {
-    instances.put("api/shopping", shopping).then(() => {
-      customToast("success", "Item atualizado com sucesso!");
-      fethInstitution();
-    });
+    instances
+      .put("api/shopping", {
+        ...shopping,
+        amount: shopping.amount.replace(/,/g, ""),
+      })
+      .then(() => {
+        customToast("success", "Item atualizado com sucesso!");
+        fethInstitution();
+      });
   }
 
   useEffect(() => {
