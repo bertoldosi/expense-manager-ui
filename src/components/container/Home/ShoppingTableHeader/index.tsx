@@ -1,5 +1,5 @@
 import { ShoppingType } from "@interfaces/*";
-import React, { useContext, useMemo } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import { GroupLeft, Scontent } from "./styles";
 import { Button } from "@commons/Button";
 import instances from "@lib/axios-instance-internal";
@@ -7,12 +7,14 @@ import { customToast } from "@commons/CustomToast";
 import Cookies from "universal-cookie";
 import { userContextData, userContextDataType } from "@context/userContextData";
 
-interface ShoppingTableHeaderType {
-  shoppings: ShoppingType[];
-}
+function ShoppingTableHeader() {
+  const { getInstitution, institution } = useContext(
+    userContextData
+  ) as userContextDataType;
 
-function ShoppingTableHeader({ shoppings }: ShoppingTableHeaderType) {
-  const { getInstitution } = useContext(userContextData) as userContextDataType;
+  const [shoppingsSeleceted, setShoppingsSelected] = useState<ShoppingType[]>(
+    []
+  );
 
   function fethInstitution() {
     const cookies = new Cookies();
@@ -22,14 +24,14 @@ function ShoppingTableHeader({ shoppings }: ShoppingTableHeaderType) {
   }
 
   function updateShoppings() {
-    console.log(shoppings);
+    console.log(shoppingsSeleceted);
   }
 
   function deleteShoppings() {
     instances
       .delete("api/shopping", {
         data: {
-          shoppings: shoppings,
+          shoppings: shoppingsSeleceted,
         },
       })
       .then((response) => {
@@ -41,6 +43,14 @@ function ShoppingTableHeader({ shoppings }: ShoppingTableHeaderType) {
       });
   }
 
+  useMemo(() => {
+    const shoppings = institution?.shoppings?.filter(
+      (shoppingFilter) => shoppingFilter.selected
+    );
+
+    setShoppingsSelected(shoppings || []);
+  }, [institution?.shoppings]);
+
   return (
     <Scontent>
       <div>
@@ -48,7 +58,7 @@ function ShoppingTableHeader({ shoppings }: ShoppingTableHeaderType) {
       </div>
 
       <GroupLeft>
-        {shoppings.length ? (
+        {shoppingsSeleceted.length ? (
           <>
             <Button
               text="Editar"

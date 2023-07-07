@@ -16,10 +16,6 @@ function ShoppingTable() {
     userContextData
   ) as userContextDataType;
 
-  const [shoppingsSeleceted, setShoppingsSelected] = useState<ShoppingType[]>(
-    []
-  );
-
   function fethInstitution() {
     const cookies = new Cookies();
     const cookieValues = cookies.get("expense-manager");
@@ -60,21 +56,13 @@ function ShoppingTable() {
       });
   }
 
-  useEffect(() => {
+  useMemo(() => {
     fethInstitution();
   }, []);
 
-  useMemo(() => {
-    const shoppings = institution?.shoppings?.filter(
-      (shoppingFilter) => shoppingFilter.selected
-    );
-
-    setShoppingsSelected(shoppings || []);
-  }, [institution?.shoppings]);
-
   return (
     <>
-      <ShoppingTableHeader shoppings={shoppingsSeleceted} />
+      <ShoppingTableHeader />
       <Scontent>
         {institution?.shoppings?.length ? (
           institution?.shoppings.map((shoppingMap, index) => (
