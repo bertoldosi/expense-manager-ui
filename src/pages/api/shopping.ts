@@ -34,26 +34,60 @@ async function createShopping(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function updateShopping(req: NextApiRequest, res: NextApiResponse) {
-  const { id, description, amount, responsible, paymentStatus } = req.body;
+  const { id, description, amount, responsible, paymentStatus, shoppings } =
+    req.body;
 
-  try {
-    const newShopping = await prisma.shopping.update({
-      where: {
-        id,
-      },
+  if (id) {
+    try {
+      const newShopping = await prisma.shopping.update({
+        where: {
+          id,
+        },
 
-      data: {
-        description,
-        amount,
-        responsible,
-        paymentStatus,
-      },
-    });
+        data: {
+          description,
+          amount,
+          responsible,
+          paymentStatus,
+        },
+      });
 
-    return res.status(200).send(newShopping);
-  } catch (err) {
-    console.log("ERROR AXIOS REQUEST", err);
-    return res.send(err);
+      return res.status(200).send(newShopping);
+    } catch (err) {
+      console.log("ERROR AXIOS REQUEST", err);
+      return res.send(err);
+    }
+  }
+
+  if (shoppings) {
+    try {
+      try {
+        await prisma.$transaction(
+          shoppings.map((shopping: ShoppingType) => {
+            return prisma.shopping.update({
+              where: {
+                id: shopping.id,
+              },
+              data: {
+                description: shopping.description,
+                amount: shopping.amount,
+                responsible: shopping.responsible,
+                paymentStatus: shopping.paymentStatus,
+              },
+            });
+          })
+        );
+
+        return res.status(200).send("ok");
+      } catch (err) {
+        console.log("ERROR AXIOS REQUEST", err);
+        return res.send(err);
+      }
+      return res.status(200).send("ok");
+    } catch (err) {
+      console.log("ERROR AXIOS REQUEST", err);
+      return res.send(err);
+    }
   }
 }
 

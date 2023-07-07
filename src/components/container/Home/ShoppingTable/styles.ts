@@ -63,9 +63,3 @@ export const NoResult = styled.div`
     font-size: 2rem;
   }
 `;
-
-export const ScontentModal = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
