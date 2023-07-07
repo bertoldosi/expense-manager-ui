@@ -14,6 +14,7 @@ export const Scontent = styled.button<PropsType>`
   align-items: center;
   justify-content: center;
   border-radius: 0.2rem;
+  padding: 1rem;
 
   background-color: ${(props) => {
     if (props.typeButton === "primary") {

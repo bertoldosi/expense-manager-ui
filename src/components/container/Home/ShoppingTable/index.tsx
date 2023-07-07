@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import Cookies from "universal-cookie";
 
 import ShoppingTableHeader from "@containers/Home/ShoppingTableHeader";
@@ -15,6 +15,10 @@ function ShoppingTable() {
   const { institution, getInstitution, setInstitution } = useContext(
     userContextData
   ) as userContextDataType;
+
+  const [shoppingsSeleceted, setShoppingsSelected] = useState<ShoppingType[]>(
+    []
+  );
 
   function fethInstitution() {
     const cookies = new Cookies();
@@ -60,9 +64,17 @@ function ShoppingTable() {
     fethInstitution();
   }, []);
 
+  useMemo(() => {
+    const shoppings = institution?.shoppings?.filter(
+      (shoppingFilter) => shoppingFilter.selected
+    );
+
+    setShoppingsSelected(shoppings || []);
+  }, [institution?.shoppings]);
+
   return (
     <>
-      <ShoppingTableHeader />
+      <ShoppingTableHeader shoppings={shoppingsSeleceted} />
       <Scontent>
         {institution?.shoppings?.length ? (
           institution?.shoppings.map((shoppingMap, index) => (

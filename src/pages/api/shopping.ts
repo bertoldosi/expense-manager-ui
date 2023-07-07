@@ -8,6 +8,11 @@ interface CreateShoppingType {
 
 interface DeleteShoppingType {
   id: string;
+  shoppings: ShoppingType[];
+}
+
+interface DeleteShoppingsType {
+  shoppings: ShoppingType[];
 }
 
 async function createShopping(req: NextApiRequest, res: NextApiResponse) {
@@ -54,18 +59,38 @@ async function updateShopping(req: NextApiRequest, res: NextApiResponse) {
 
 async function deleteShopping(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query as unknown as DeleteShoppingType;
+  const { shoppings } = req.body as unknown as DeleteShoppingsType;
 
-  try {
-    await prisma.shopping.delete({
-      where: {
-        id,
-      },
-    });
+  if (id) {
+    try {
+      await prisma.shopping.delete({
+        where: {
+          id,
+        },
+      });
 
-    return res.status(200).send("ok");
-  } catch (err) {
-    console.log("ERROR AXIOS REQUEST", err);
-    return res.send(err);
+      return res.status(200).send("ok");
+    } catch (err) {
+      console.log("ERROR AXIOS REQUEST", err);
+      return res.send(err);
+    }
+  }
+
+  if (shoppings) {
+    try {
+      await prisma.shopping.deleteMany({
+        where: {
+          id: {
+            in: shoppings.map((shopping) => shopping.id),
+          },
+        },
+      });
+
+      return res.status(200).send("ok");
+    } catch (err) {
+      console.log("ERROR AXIOS REQUEST", err);
+      return res.send(err);
+    }
   }
 }
 
