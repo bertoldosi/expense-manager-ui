@@ -12,6 +12,7 @@ import instances from "@lib/axios-instance-internal";
 import { userContextData, userContextDataType } from "@context/userContextData";
 import { customToast } from "@commons/CustomToast";
 import { formatedInputValue } from "@helpers/formatedInputValue";
+import { focusInput } from "@helpers/focusInput";
 
 const INITIAL_SHOPPING = {
   description: "",
@@ -44,6 +45,7 @@ function Shopping() {
           institutionId: filter.institution.id,
         })
         .then(() => {
+          focusInput("description");
           getInstitution(filter.institution.id);
           customToast(
             "success",
