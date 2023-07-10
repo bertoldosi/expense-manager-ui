@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const Scontainer = styled.div`
   padding: 0 1rem;
   background-color: ${(props) => props.theme.backgroundPrimary};
-  margin-bottom: 2rem;
 `;
 
 export const Scontent = styled.div`

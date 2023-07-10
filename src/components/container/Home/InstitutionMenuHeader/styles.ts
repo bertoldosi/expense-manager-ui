@@ -1,6 +1,12 @@
 import styled from "styled-components";
 
-export const Scontent = styled.nav`
+export const Scontainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const SmenuHeader = styled.nav`
   width: 100%;
   height: 5rem;
   display: flex;
@@ -13,7 +19,7 @@ export const Scontent = styled.nav`
   }
 `;
 
-export const Slist = styled.div`
+export const Soptions = styled.div`
   width: 100%;
   height: 100%;
   max-width: max-content;
