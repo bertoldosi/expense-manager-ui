@@ -9,10 +9,18 @@ import { Button } from "@commons/Button";
 import { Modal } from "@commons/Modal";
 import Input from "@commons/Input";
 
-import { ShoppingType } from "@interfaces/*";
+import { InstitutionType, ShoppingType } from "@interfaces/*";
 import validationSchema from "./validations";
-import { GroupLeft, Scontent, ScontentModal, Sform, Slist } from "./styles";
+import {
+  ButtonsOptions,
+  Scontent,
+  ScontentModal,
+  Sform,
+  Slist,
+  SselectingAll,
+} from "./styles";
 import { userContextData, userContextDataType } from "@context/userContextData";
+import InputTable from "@commons/InputTable";
 
 const INITIAL_SHOPPING = {
   description: "",
@@ -22,14 +30,37 @@ const INITIAL_SHOPPING = {
 };
 
 function ShoppingTableHeader() {
-  const { getInstitution, institution } = useContext(
+  const { getInstitution, institution, setInstitution } = useContext(
     userContextData
   ) as userContextDataType;
 
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [valueSelectingAllShoppings, setValueSelectingAllShoppings] =
+    useState<boolean>(false);
   const [shoppingsSeleceted, setShoppingsSelected] = useState<ShoppingType[]>(
     []
   );
+
+  function openModal() {
+    setIsModalVisible(!isModalVisible);
+  }
+
+  function exitModal() {
+    setIsModalVisible(!isModalVisible);
+  }
+
+  function selectingAllShoppings(ev: React.ChangeEvent<HTMLInputElement>) {
+    const { checked } = ev.target;
+    setValueSelectingAllShoppings(checked);
+
+    setInstitution((prevInstitution: InstitutionType) => ({
+      ...prevInstitution,
+      shoppings: prevInstitution.shoppings?.map((shoppingMap) => ({
+        ...shoppingMap,
+        selected: checked,
+      })),
+    }));
+  }
 
   const onSubmitShopping = useFormik({
     initialValues: INITIAL_SHOPPING,
@@ -60,6 +91,7 @@ function ShoppingTableHeader() {
           fethInstitution();
           customToast("success", "Itens alterados com sucesso!");
           setIsModalVisible(false);
+          setValueSelectingAllShoppings(false);
         })
         .catch((response) => {
           customToast("error", "Algo deu errado, tente novamente mais tarde!");
@@ -71,21 +103,6 @@ function ShoppingTableHeader() {
     validationSchema,
   });
 
-  function openModal() {
-    setIsModalVisible(!isModalVisible);
-  }
-
-  function exitModal() {
-    setIsModalVisible(!isModalVisible);
-  }
-
-  async function fethInstitution() {
-    const cookies = new Cookies();
-    const cookieValues = cookies.get("expense-manager");
-
-    await getInstitution(cookieValues?.filter?.institution?.id);
-  }
-
   function deleteShoppings() {
     instances
       .delete("api/shopping", {
@@ -93,13 +110,21 @@ function ShoppingTableHeader() {
           shoppings: shoppingsSeleceted,
         },
       })
-      .then((response) => {
+      .then(() => {
         fethInstitution();
         customToast("success", "Itens excluidos com sucesso!");
+        setValueSelectingAllShoppings(false);
       })
-      .catch((response) => {
+      .catch(() => {
         customToast("error", "Algo deu errado, tente novamente mais tarde!");
       });
+  }
+
+  function fethInstitution() {
+    const cookies = new Cookies();
+    const cookieValues = cookies.get("expense-manager");
+
+    getInstitution(cookieValues?.filter?.institution?.id);
   }
 
   useMemo(() => {
@@ -113,11 +138,18 @@ function ShoppingTableHeader() {
   return (
     <>
       <Scontent>
-        <div>
-          <h3>Selecionar todos</h3>
-        </div>
+        <SselectingAll>
+          <InputTable
+            id="selectingAll"
+            type="checkbox"
+            name="selectingAll"
+            checked={valueSelectingAllShoppings}
+            onChange={selectingAllShoppings}
+          />
+          <span>Todos</span>
+        </SselectingAll>
 
-        <GroupLeft>
+        <ButtonsOptions>
           {shoppingsSeleceted.length ? (
             <>
               <Button
@@ -137,7 +169,7 @@ function ShoppingTableHeader() {
           ) : (
             ""
           )}
-        </GroupLeft>
+        </ButtonsOptions>
       </Scontent>
 
       <Modal

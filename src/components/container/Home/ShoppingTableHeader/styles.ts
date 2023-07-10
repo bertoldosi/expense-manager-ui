@@ -6,7 +6,7 @@ export const Scontent = styled.div`
   align-items: center;
   margin-bottom: 1rem;
   background: ${(props) => props.theme.backgroundPrimary};
-  padding: 1rem 1.2rem;
+  padding: 1rem 1.5rem;
 
   > div {
     display: flex;
@@ -14,7 +14,17 @@ export const Scontent = styled.div`
   }
 `;
 
-export const GroupLeft = styled.div`
+export const SselectingAll = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  span {
+    font-size: 1.3rem;
+  }
+`;
+
+export const ButtonsOptions = styled.div`
   display: flex;
   gap: 1rem;
 `;
