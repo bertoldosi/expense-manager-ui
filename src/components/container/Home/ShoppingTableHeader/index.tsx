@@ -10,17 +10,21 @@ import { Modal } from "@commons/Modal";
 import Input from "@commons/Input";
 
 import { InstitutionType, ShoppingType } from "@interfaces/*";
-import validationSchema from "./validations";
+import { schemaCreate, schemaFilter } from "./validations";
+import { userContextData, userContextDataType } from "@context/userContextData";
+import InputTable from "@commons/InputTable";
+import { Filter } from "@icons/Filter";
+
 import {
   ButtonsOptions,
+  SFilterform,
   Scontent,
   ScontentModal,
+  Sfilter,
   Sform,
   Slist,
   SselectingAll,
 } from "./styles";
-import { userContextData, userContextDataType } from "@context/userContextData";
-import InputTable from "@commons/InputTable";
 
 const INITIAL_SHOPPING = {
   description: "",
@@ -29,24 +33,39 @@ const INITIAL_SHOPPING = {
   paymentStatus: "aberto",
 };
 
+const INITIAL_FILTER_SHOPPING = {
+  responsible: "Todos",
+};
+
 function ShoppingTableHeader() {
   const { getInstitution, institution, setInstitution } = useContext(
     userContextData
   ) as userContextDataType;
 
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [isModalUpdateVisible, setIsModalUpdateVisible] =
+    useState<boolean>(false);
+  const [isModalFilterVisible, setIsModalFilterVisible] =
+    useState<boolean>(false);
   const [valueSelectingAllShoppings, setValueSelectingAllShoppings] =
     useState<boolean>(false);
   const [shoppingsSeleceted, setShoppingsSelected] = useState<ShoppingType[]>(
     []
   );
 
-  function openModal() {
-    setIsModalVisible(!isModalVisible);
+  function openModalUpdate() {
+    setIsModalUpdateVisible(!isModalUpdateVisible);
   }
 
-  function exitModal() {
-    setIsModalVisible(!isModalVisible);
+  function exitModalUpdate() {
+    setIsModalUpdateVisible(!isModalUpdateVisible);
+  }
+
+  function openModalFilter() {
+    setIsModalFilterVisible(!isModalFilterVisible);
+  }
+
+  function exitModalFilter() {
+    setIsModalFilterVisible(!isModalFilterVisible);
   }
 
   function selectingAllShoppings(ev: React.ChangeEvent<HTMLInputElement>) {
@@ -90,7 +109,7 @@ function ShoppingTableHeader() {
         .then(async (response) => {
           fethInstitution();
           customToast("success", "Itens alterados com sucesso!");
-          setIsModalVisible(false);
+          setIsModalUpdateVisible(false);
           setValueSelectingAllShoppings(false);
         })
         .catch((response) => {
@@ -100,7 +119,32 @@ function ShoppingTableHeader() {
       onSubmitShopping.resetForm();
     },
 
-    validationSchema,
+    validationSchema: schemaCreate,
+  });
+
+  const onSubmitFilterShopping = useFormik({
+    initialValues: INITIAL_FILTER_SHOPPING,
+    onSubmit: async (values) => {
+      instances
+        .get("api/shopping", {
+          params: {
+            responsible: values.responsible,
+            institutionId: institution?.id,
+          },
+        })
+        .then((response) => {
+          setInstitution((prevInstitution: ShoppingType) => ({
+            ...prevInstitution,
+            shoppings: response.data,
+          }));
+          setIsModalFilterVisible(false);
+        })
+        .catch(() => {
+          customToast("error", "Tente novamente, mais tarde!");
+        });
+    },
+
+    validationSchema: schemaFilter,
   });
 
   function deleteShoppings() {
@@ -150,13 +194,17 @@ function ShoppingTableHeader() {
         </SselectingAll>
 
         <ButtonsOptions>
+          <Sfilter>
+            <Filter width="2rem" height="2rem" onClick={openModalFilter} />
+          </Sfilter>
+
           {shoppingsSeleceted.length ? (
             <>
               <Button
                 text="Editar"
                 width="30rem"
                 height="2.5rem"
-                onClick={openModal}
+                onClick={openModalUpdate}
               />
               <Button
                 text="Excluir"
@@ -174,8 +222,8 @@ function ShoppingTableHeader() {
 
       <Modal
         title="Editando item(s)"
-        isVisible={isModalVisible}
-        handlerIsVisible={exitModal}
+        isVisible={isModalUpdateVisible}
+        handlerIsVisible={exitModalUpdate}
       >
         <ScontentModal>
           <Slist>
@@ -226,6 +274,27 @@ function ShoppingTableHeader() {
             />
             <Button text="Adicionar" type="submit" width="20rem" />
           </Sform>
+        </ScontentModal>
+      </Modal>
+
+      <Modal
+        title="Filtrando itens"
+        isVisible={isModalFilterVisible}
+        handlerIsVisible={exitModalFilter}
+      >
+        <ScontentModal>
+          <SFilterform onSubmit={onSubmitFilterShopping.handleSubmit}>
+            <Input
+              name="responsible"
+              id="responsible"
+              autoComplete="off"
+              value={onSubmitFilterShopping.values.responsible}
+              onChange={onSubmitFilterShopping.handleChange}
+              placeholder="Nome do responsavel"
+              error={onSubmitFilterShopping.errors.responsible}
+            />
+            <Button text="Filtrar" type="submit" width="20rem" />
+          </SFilterform>
         </ScontentModal>
       </Modal>
     </>

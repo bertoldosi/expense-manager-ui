@@ -6,6 +6,11 @@ interface CreateShoppingType {
   institutionId: string;
 }
 
+interface GetShoppingType {
+  responsible?: string;
+  institutionId?: string;
+}
+
 interface DeleteShoppingType {
   id: string;
   shoppings: ShoppingType[];
@@ -27,6 +32,39 @@ async function createShopping(req: NextApiRequest, res: NextApiResponse) {
     });
 
     return res.status(200).send(newShopping);
+  } catch (err) {
+    console.log("ERROR AXIOS REQUEST", err);
+    return res.send(err);
+  }
+}
+
+async function getShopping(req: NextApiRequest, res: NextApiResponse) {
+  const { responsible, institutionId } = req.query as any as GetShoppingType;
+
+  if (responsible === "Todos") {
+    try {
+      const shoppings = await prisma.shopping.findMany({
+        where: {
+          institutionId,
+        },
+      });
+
+      return res.status(200).send(shoppings);
+    } catch (err) {
+      console.log("ERROR AXIOS REQUEST", err);
+      return res.send(err);
+    }
+  }
+
+  try {
+    const shoppings = await prisma.shopping.findMany({
+      where: {
+        responsible,
+        institutionId,
+      },
+    });
+
+    return res.status(200).send(shoppings);
   } catch (err) {
     console.log("ERROR AXIOS REQUEST", err);
     return res.send(err);
@@ -135,6 +173,10 @@ export default async function handler(
   switch (req.method) {
     case "POST":
       await createShopping(req, res);
+      break;
+
+    case "GET":
+      await getShopping(req, res);
       break;
 
     case "PUT":

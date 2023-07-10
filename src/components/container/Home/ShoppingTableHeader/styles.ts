@@ -29,6 +29,8 @@ export const ButtonsOptions = styled.div`
   gap: 1rem;
 `;
 
+export const Sfilter = styled.div``;
+
 export const ScontentModal = styled.div`
   display: flex;
   flex-direction: column;
@@ -48,6 +50,18 @@ export const Slist = styled.div`
 `;
 
 export const Sform = styled.form`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  gap: 1rem;
+
+  > button {
+    margin-top: 2rem;
+  }
+`;
+
+export const SFilterform = styled.form`
   display: flex;
   align-items: center;
   flex-direction: column;

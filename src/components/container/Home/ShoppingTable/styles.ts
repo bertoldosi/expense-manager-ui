@@ -24,7 +24,6 @@ export const Scontent = styled.div`
     align-items: center;
     justify-content: space-between;
     padding: 1rem 0.5rem;
-    border-radius: 0.2rem;
     background-color: ${(props) => props.theme.backgroundPrimary};
 
     > strong {
