@@ -118,25 +118,6 @@ function ShoppingTable() {
           </NoResult>
         )}
       </Scontent>
-
-      {/* <Modal
-        title="Editando item(s)"
-        isVisible={isVisible}
-        handlerIsVisible={setIsVisible}
-      >
-        <ScontentModal>
-          <Input
-            autoFocus
-            disabled={false}
-            name="responsible"
-            placeholder="Nome do responsavel"
-            id="responsible"
-            value={newAllShopping.responsible}
-            value={shoppingMap.}
-            onChange={() => {}}
-          />
-        </ScontentModal>
-      </Modal> */}
     </>
   );
 }
