@@ -86,22 +86,6 @@ function ShoppingTableHeader() {
     await getInstitution(cookieValues?.filter?.institution?.id);
   }
 
-  // function updateShoppings() {
-  //   instances
-  //     .put("api/shopping", {
-  //       data: {
-  //         shoppings: shoppingsSeleceted,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       fethInstitution();
-  //       customToast("success", "Itens alterados com sucesso!");
-  //     })
-  //     .catch((response) => {
-  //       customToast("error", "Algo deu errado, tente novamente mais tarde!");
-  //     });
-  // }
-
   function deleteShoppings() {
     instances
       .delete("api/shopping", {
