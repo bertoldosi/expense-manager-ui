@@ -163,7 +163,7 @@ function ShoppingTableHeader() {
       >
         <ScontentModal>
           <Slist>
-            <h2>Itens que serão editados:</h2>
+            <h2>{`Serão editados ${shoppingsSeleceted.length} itens:`}</h2>
             <ul>
               {shoppingsSeleceted.map((shoppingMap) => (
                 <li>{shoppingMap.description}</li>

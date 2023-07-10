@@ -11,5 +11,6 @@ institution
 shopping
     ✔ criar
     ✔ editar
-    ☐ selecionar compras
-    ☐ deletar
+    ✔ selecionar compras
+    ✔ deletar
+    ☐ selecionar todos
