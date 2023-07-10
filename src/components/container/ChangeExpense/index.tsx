@@ -44,6 +44,7 @@ export const ChangeExpense = () => {
         <Scontainer>
           {user.expenses.map((expense) => (
             <span
+              key={expense.id}
               onClick={() => {
                 redirectHome(expense);
               }}
