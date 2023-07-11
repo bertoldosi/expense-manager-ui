@@ -25,6 +25,7 @@ export type userContextDataType = {
   getUser: Function;
 
   expense: ExpenseType | null;
+  setExpense: Function;
   getExpense: Function;
 
   institution: InstitutionType | null;
@@ -125,6 +126,7 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
         getUser,
 
         expense,
+        setExpense,
         getExpense,
 
         institution,

@@ -6,13 +6,28 @@ interface DeleteInstitutionType {
 
 interface GetInstitutionType {
   expenseId?: string;
+  createAt?: string;
   institutionName?: string;
   id?: string;
 }
 
 async function getInstitution(req: NextApiRequest, res: NextApiResponse) {
-  const { expenseId, institutionName, id } =
+  const { expenseId, institutionName, id, createAt } =
     req.query as unknown as GetInstitutionType;
+
+  if (createAt) {
+    try {
+      const institutions = await prisma.institution.findMany({
+        where: {
+          createAt,
+        },
+      });
+      return res.status(200).send(institutions);
+    } catch (err) {
+      console.log("ERROR AXIOS REQUEST", err);
+      return res.send(err);
+    }
+  }
 
   if (institutionName) {
     try {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 
 import { ChevronDoubleLeft } from "@icons/ChevronDoubleLeft";
@@ -14,6 +14,10 @@ import {
   Sdate,
   SmonthItem,
 } from "./styles";
+import { userContextData, userContextDataType } from "@context/userContextData";
+import instances from "@lib/axios-instance-internal";
+import { customToast } from "@commons/CustomToast";
+import { ExpenseType } from "@interfaces/*";
 
 const DATES = [
   { name: "JAN", number: "01" },
@@ -33,25 +37,39 @@ const DATES = [
 function InstitutionMenuFilter() {
   const cookies = new Cookies();
 
+  const { setExpense } = useContext(userContextData) as userContextDataType;
+
   const [isOptionsModalVisible, setOptionsModalVisible] = useState(false);
 
   const [valueYear, setValueYear] = useState<number>(() => {
     const cookieValues = cookies.get("expense-manager");
-    const fullDateCookies = new Date(cookieValues.filter.institution.createAt);
-    const fullDateNow = new Date();
 
-    return fullDateCookies.getFullYear() || fullDateNow.getFullYear();
+    if (cookieValues?.filter?.institutions?.createAt) {
+      const fullDateCookies = new Date(
+        cookieValues?.filter?.institutions?.createAt
+      );
+
+      return fullDateCookies.getFullYear();
+    }
+
+    const fullDateNow = new Date();
+    return fullDateNow.getFullYear();
   });
 
   const [valueMonth, setValueMonth] = useState<string>(() => {
     const cookieValues = cookies.get("expense-manager");
-    const fullDateCookies = new Date(
-      cookieValues.filter.institution.createAt
-    ).toISOString();
 
-    const [_year, month, _day] = fullDateCookies.split("-");
+    if (cookieValues?.filter?.institutions?.createAt) {
+      const fullDateCookies = new Date(
+        cookieValues?.filter?.institutions?.createAt
+      ).toISOString();
 
-    return month;
+      const [_year, month, _day] = fullDateCookies.split("-");
+
+      return month;
+    }
+
+    return "01";
   });
 
   function handlerIsVisibleModal() {
@@ -70,7 +88,7 @@ function InstitutionMenuFilter() {
     setValueYear(valueYear - 1);
   }
 
-  function filter() {
+  async function filter() {
     const cookieValues = cookies.get("expense-manager");
 
     const dateFormatted = `${valueYear}/${valueMonth}/01`;
@@ -80,15 +98,30 @@ function InstitutionMenuFilter() {
       ...cookieValues,
       filter: {
         ...cookieValues.filter,
-        institution: {
-          ...cookieValues.filter.institution,
+        institutions: {
           createAt: date,
         },
       },
     };
 
-    cookies.set("expense-manager", newCookies);
-    setOptionsModalVisible(false);
+    instances
+      .get("api/institution", {
+        params: {
+          createAt: date,
+        },
+      })
+      .then((response) => {
+        setExpense((prevExpense: ExpenseType) => ({
+          ...prevExpense,
+          institutions: response.data,
+        }));
+
+        cookies.set("expense-manager", newCookies);
+        setOptionsModalVisible(false);
+      })
+      .catch(() => {
+        customToast("error", "Algo deu errado, tente novamente mais tarde!");
+      });
   }
 
   return (
