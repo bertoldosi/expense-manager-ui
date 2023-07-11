@@ -37,7 +37,6 @@ function InstitutionMenuFilter({}: InstitutionMenuFilterProps) {
   const [isOptionsModalVisible, setOptionsModalVisible] = useState(false);
 
   const [valueYear, setValueYear] = useState<number>(() => {
-    const cookies = new Cookies();
     const cookieValues = cookies.get("expense-manager");
     const fullDateCookies = new Date(cookieValues.filter.institution.createAt);
     const fullDateNow = new Date();
@@ -46,7 +45,6 @@ function InstitutionMenuFilter({}: InstitutionMenuFilterProps) {
   });
 
   const [valueMonth, setValueMonth] = useState<string>(() => {
-    const cookies = new Cookies();
     const cookieValues = cookies.get("expense-manager");
     const fullDateCookies = new Date(
       cookieValues.filter.institution.createAt
@@ -97,8 +95,6 @@ function InstitutionMenuFilter({}: InstitutionMenuFilterProps) {
   return (
     <>
       <Scontainer>
-        {/* <ChevronDoubleLeft width="3rem" /> */}
-
         <Sdate onClick={handlerIsVisibleModal}>
           <div>
             <strong>Set</strong>
@@ -108,8 +104,6 @@ function InstitutionMenuFilter({}: InstitutionMenuFilterProps) {
 
           <BsChevronDown width="2rem" height="2rem" />
         </Sdate>
-
-        {/* <ChevronDoubleRight width="3rem" /> */}
       </Scontainer>
 
       <Modal
