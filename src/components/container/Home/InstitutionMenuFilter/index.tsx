@@ -1,4 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Cookies from "universal-cookie";
+
+import { ChevronDoubleLeft } from "@icons/ChevronDoubleLeft";
+import { ChevronDoubleRight } from "@icons/ChevronDoubleRight";
+import { BsChevronDown } from "@icons/BsChevronDown";
+import { Modal } from "@commons/Modal";
+import { Button } from "@commons/Button";
 
 import {
   Scontainer,
@@ -7,14 +14,6 @@ import {
   Sdate,
   SmonthItem,
 } from "./styles";
-import { ChevronDoubleLeft } from "@icons/ChevronDoubleLeft";
-import { ChevronDoubleRight } from "@icons/ChevronDoubleRight";
-import { BsChevronDown } from "@icons/BsChevronDown";
-import { Modal } from "@commons/Modal";
-import { Button } from "@commons/Button";
-import Cookies from "universal-cookie";
-
-interface InstitutionMenuFilterProps {}
 
 const DATES = [
   { name: "JAN", number: "01" },
@@ -31,7 +30,7 @@ const DATES = [
   { name: "DEZ", number: "12" },
 ];
 
-function InstitutionMenuFilter({}: InstitutionMenuFilterProps) {
+function InstitutionMenuFilter() {
   const cookies = new Cookies();
 
   const [isOptionsModalVisible, setOptionsModalVisible] = useState(false);
@@ -97,7 +96,7 @@ function InstitutionMenuFilter({}: InstitutionMenuFilterProps) {
       <Scontainer>
         <Sdate onClick={handlerIsVisibleModal}>
           <div>
-            <strong>Set</strong>
+            <strong>{DATES[Number(valueMonth) - 1].name}</strong>
             <span>de</span>
             <strong>{valueYear}</strong>
           </div>
