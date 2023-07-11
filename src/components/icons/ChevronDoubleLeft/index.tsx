@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 interface PropsType extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   width: string | number;
-  height: string | number;
+  height?: string | number;
 }
 
 const Scontent = styled.button`
