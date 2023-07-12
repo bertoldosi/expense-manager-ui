@@ -39,7 +39,7 @@ function InstitutionForm({ exitModal }: InstitutionFormProps) {
           createAt: filter.institutions.createAt,
         })
         .then(async (response) => {
-          await getExpense(filter.expense.id);
+          await getExpense(filter.expense.id, filter.institutions.createAt);
           toggleSelectedInstitution(response.data);
           if (exitModal) exitModal();
         })

@@ -42,7 +42,7 @@ export const Institution = () => {
       .then((response) => {
         const { filter } = cookies.get("expense-manager");
 
-        getExpense(filter?.expense?.id);
+        getExpense(filter?.expense?.id, filter.institutions.createAt);
         customToast("success", "Sucesso!");
       });
   }

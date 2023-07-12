@@ -36,7 +36,7 @@ function WithoutInstitution() {
           isVisible={isModalVisible}
           handlerIsVisible={exitModal}
         >
-          <InstitutionForm />
+          <InstitutionForm exitModal={exitModal} />
         </Modal>
       </div>
     </ScontainerWithoutInstitution>
