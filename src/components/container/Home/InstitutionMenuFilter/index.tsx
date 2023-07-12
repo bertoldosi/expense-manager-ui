@@ -17,7 +17,7 @@ import {
 import { userContextData, userContextDataType } from "@context/userContextData";
 import instances from "@lib/axios-instance-internal";
 import { customToast } from "@commons/CustomToast";
-import { ExpenseType } from "@interfaces/*";
+import { ExpenseType, InstitutionType } from "@interfaces/*";
 import moment from "moment";
 
 const DATES = [
@@ -38,7 +38,9 @@ const DATES = [
 function InstitutionMenuFilter() {
   const cookies = new Cookies();
 
-  const { setExpense } = useContext(userContextData) as userContextDataType;
+  const { setExpense, getInstitution, selectedInstitution } = useContext(
+    userContextData
+  ) as userContextDataType;
 
   const [isOptionsModalVisible, setOptionsModalVisible] = useState(false);
   const [valueYear, setValueYear] = useState<number | null>(null);
@@ -69,6 +71,7 @@ function InstitutionMenuFilter() {
       ...cookieValues,
       filter: {
         ...cookieValues.filter,
+        institution: null,
         institutions: {
           createAt: date,
         },
@@ -79,8 +82,10 @@ function InstitutionMenuFilter() {
       .get("api/institution", {
         params: {
           createAt: date,
+          expenseId: newCookies.filter?.expense?.id,
         },
       })
+
       .then((response) => {
         setExpense((prevExpense: ExpenseType) => ({
           ...prevExpense,
@@ -90,6 +95,7 @@ function InstitutionMenuFilter() {
         cookies.set("expense-manager", newCookies);
         setOptionsModalVisible(false);
       })
+
       .catch(() => {
         customToast("error", "Algo deu errado, tente novamente mais tarde!");
       });

@@ -5,8 +5,8 @@ interface DeleteInstitutionType {
 }
 
 interface GetInstitutionType {
-  expenseId?: string;
-  createAt?: string;
+  expenseId: string;
+  createAt: string;
   institutionName?: string;
   id?: string;
 }
@@ -15,11 +15,19 @@ async function getInstitution(req: NextApiRequest, res: NextApiResponse) {
   const { expenseId, institutionName, id, createAt } =
     req.query as unknown as GetInstitutionType;
 
-  if (createAt) {
+  if (createAt && expenseId) {
     try {
       const institutions = await prisma.institution.findMany({
         where: {
           createAt,
+          expenseId,
+        },
+        include: {
+          shoppings: {
+            orderBy: {
+              createAt: "desc",
+            },
+          },
         },
       });
       return res.status(200).send(institutions);
