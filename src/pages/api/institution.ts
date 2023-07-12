@@ -68,17 +68,33 @@ async function getInstitution(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function createInstitution(req: NextApiRequest, res: NextApiResponse) {
-  const { expenseId, name } = req.body;
+  const { expenseId, name, createAt } = req.body;
 
   try {
-    const institution = await prisma.institution.create({
-      data: {
-        name,
+    const nameUPCASE = name.toUpperCase();
+
+    const isInstitutionExist = await prisma.institution.findFirst({
+      where: {
         expenseId,
+        name: nameUPCASE,
       },
     });
 
-    return res.status(200).send(institution);
+    if (isInstitutionExist) {
+      return res
+        .status(405)
+        .send("Not allowed. Name already registered in this period!");
+    } else {
+      const institution = await prisma.institution.create({
+        data: {
+          name: nameUPCASE,
+          expenseId,
+          createAt,
+        },
+      });
+
+      return res.status(200).send(institution);
+    }
   } catch (err) {
     console.log("ERROR AXIOS REQUEST", err);
     return res.send(err);

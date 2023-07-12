@@ -3,6 +3,7 @@ import prisma from "@services/prisma";
 
 interface GetExpenseIdType {
   id: string;
+  institutionsCreateAt: string;
 }
 
 interface DeleteExpenseType {
@@ -10,28 +11,36 @@ interface DeleteExpenseType {
 }
 
 async function getExpense(req: NextApiRequest, res: NextApiResponse) {
-  const { id } = req.query as unknown as GetExpenseIdType;
+  const { id, institutionsCreateAt } = req.query as unknown as GetExpenseIdType;
 
-  if (id) {
+  if (id && institutionsCreateAt) {
     try {
-      const expense = await prisma.expense.findUnique({
+      const institutions = await prisma.institution.findMany({
         where: {
-          id,
+          createAt: institutionsCreateAt,
+          expenseId: id,
         },
         include: {
-          institutions: {
-            include: {
-              shoppings: {
-                orderBy: {
-                  createAt: "desc",
-                },
-              },
+          shoppings: {
+            orderBy: {
+              createAt: "desc",
             },
           },
         },
       });
 
-      return res.status(200).send(expense);
+      const expense = await prisma.expense.findUnique({
+        where: {
+          id,
+        },
+      });
+
+      const newExpense = {
+        ...expense,
+        institutions: institutions,
+      };
+
+      return res.status(200).send(newExpense);
     } catch (err) {
       console.log("ERROR AXIOS REQUEST", err);
       return res.send(err);

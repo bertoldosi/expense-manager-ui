@@ -17,7 +17,10 @@ function Home() {
     const cookies = new Cookies();
     const cookieValues = cookies.get("expense-manager");
 
-    getExpense(cookieValues?.filter?.expense?.id);
+    const expenseId = cookieValues?.filter?.expense?.id;
+    const institutionsCreateAt = cookieValues?.filter?.institutions?.createAt;
+
+    getExpense(expenseId, institutionsCreateAt);
   }, []);
 
   if (expense?.institutions?.length) {

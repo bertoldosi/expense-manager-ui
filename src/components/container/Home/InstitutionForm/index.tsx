@@ -10,6 +10,7 @@ import Input from "@commons/Input";
 
 import { Sform } from "./styles";
 import { userContextData, userContextDataType } from "@context/userContextData";
+import { customToast } from "@commons/CustomToast";
 
 const INITIAL_INSTITUTION = {
   name: "",
@@ -40,6 +41,16 @@ function InstitutionForm({ exitModal }: InstitutionFormProps) {
         .then(async (response) => {
           await getExpense(filter.expense.id);
           toggleSelectedInstitution(response.data);
+        })
+        .catch((error) => {
+          if (error.response.status === 405) {
+            return customToast(
+              "error",
+              "Não permitido. Nome já cadastrado nesse periodo!"
+            );
+          }
+
+          return customToast("error", "Algo deu errado, tente novamente!");
         });
 
       onSubmitInstitution.resetForm();

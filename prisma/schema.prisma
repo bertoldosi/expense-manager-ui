@@ -64,7 +64,7 @@ model Expense {
 model Institution {
   id        String     @id @default(auto()) @map("_id") @db.ObjectId
   name      String
-  createAt  DateTime?  @default(now())
+  createAt  String
   expense   Expense?   @relation(fields: [expenseId], references: [id])
   expenseId String?    @db.ObjectId
   shoppings Shopping[]

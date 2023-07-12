@@ -18,6 +18,7 @@ import { userContextData, userContextDataType } from "@context/userContextData";
 import instances from "@lib/axios-instance-internal";
 import { customToast } from "@commons/CustomToast";
 import { ExpenseType } from "@interfaces/*";
+import moment from "moment";
 
 const DATES = [
   { name: "JAN", number: "01" },
@@ -62,8 +63,7 @@ function InstitutionMenuFilter() {
   async function filter() {
     const cookieValues = cookies.get("expense-manager");
 
-    const dateFormatted = `${valueYear}/${valueMonth}/01`;
-    const date = new Date(dateFormatted).toISOString();
+    const date = `01/${valueMonth}/${valueYear}`;
 
     const newCookies = {
       ...cookieValues,
@@ -99,18 +99,30 @@ function InstitutionMenuFilter() {
     const cookieValues = cookies.get("expense-manager");
 
     if (cookieValues?.filter?.institutions?.createAt) {
-      const fullDateCookies = new Date(
-        cookieValues?.filter?.institutions?.createAt
-      ).toISOString();
+      const fullDateCookies = cookieValues?.filter?.institutions?.createAt;
 
-      const [year, month, _day] = fullDateCookies.split("-");
+      const [_day, month, year] = fullDateCookies.split("/");
 
       setValueYear(Number(year));
       setValueMonth(month);
     } else {
-      const fullDateNow = new Date();
-      setValueYear(fullDateNow.getFullYear());
-      setValueMonth("01");
+      const date = moment().format("DD/MM/YYYY");
+      const [_day, month, year] = date.split("/");
+
+      const newCookies = {
+        ...cookieValues,
+        filter: {
+          ...cookieValues.filter,
+          institutions: {
+            createAt: `01/${month}/${year}`,
+          },
+        },
+      };
+
+      cookies.set("expense-manager", newCookies);
+
+      setValueYear(Number(year));
+      setValueMonth(month);
     }
   }, []);
 

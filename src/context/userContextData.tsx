@@ -85,11 +85,12 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
       });
   }
 
-  function getExpense(id: string) {
+  function getExpense(id: string, institutionsCreateAt: string) {
     instances
       .get("api/expense", {
         params: {
           id: id,
+          institutionsCreateAt: institutionsCreateAt,
         },
       })
       .then((response) => {
