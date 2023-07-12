@@ -27,8 +27,6 @@ function InstitutionMenuHeader({ institutions = [] }: PropsType) {
 
   return (
     <Scontainer>
-      <InstitutionMenuFilter />
-
       <SmenuHeader>
         <Soptions>
           {institutions?.map((institutionMap, index) =>

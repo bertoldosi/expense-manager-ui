@@ -6,6 +6,7 @@ import WithoutInstitution from "@containers/Home/Institution/WithoutInstitution"
 import { userContextData, userContextDataType } from "@context/userContextData";
 
 import { Scontainer } from "./styles";
+import InstitutionMenuFilter from "./InstitutionMenuFilter";
 
 function Home() {
   const { getExpense, expense } = useContext(
@@ -22,6 +23,7 @@ function Home() {
   if (expense?.institutions?.length) {
     return (
       <Scontainer>
+        <InstitutionMenuFilter />
         <Institution />
       </Scontainer>
     );
@@ -29,6 +31,7 @@ function Home() {
 
   return (
     <Scontainer>
+      <InstitutionMenuFilter />
       <WithoutInstitution />
     </Scontainer>
   );

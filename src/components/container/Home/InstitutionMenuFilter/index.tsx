@@ -40,37 +40,8 @@ function InstitutionMenuFilter() {
   const { setExpense } = useContext(userContextData) as userContextDataType;
 
   const [isOptionsModalVisible, setOptionsModalVisible] = useState(false);
-
-  const [valueYear, setValueYear] = useState<number>(() => {
-    const cookieValues = cookies.get("expense-manager");
-
-    if (cookieValues?.filter?.institutions?.createAt) {
-      const fullDateCookies = new Date(
-        cookieValues?.filter?.institutions?.createAt
-      );
-
-      return fullDateCookies.getFullYear();
-    }
-
-    const fullDateNow = new Date();
-    return fullDateNow.getFullYear();
-  });
-
-  const [valueMonth, setValueMonth] = useState<string>(() => {
-    const cookieValues = cookies.get("expense-manager");
-
-    if (cookieValues?.filter?.institutions?.createAt) {
-      const fullDateCookies = new Date(
-        cookieValues?.filter?.institutions?.createAt
-      ).toISOString();
-
-      const [_year, month, _day] = fullDateCookies.split("-");
-
-      return month;
-    }
-
-    return "01";
-  });
+  const [valueYear, setValueYear] = useState<number | null>(null);
+  const [valueMonth, setValueMonth] = useState<string | null>(null);
 
   function handlerIsVisibleModal() {
     setOptionsModalVisible((prev) => !prev);
@@ -81,11 +52,11 @@ function InstitutionMenuFilter() {
   }
 
   function nextYear() {
-    setValueYear(valueYear + 1);
+    if (valueYear) setValueYear(valueYear + 1);
   }
 
   function previousYear() {
-    setValueYear(valueYear - 1);
+    if (valueYear) setValueYear(valueYear + 1);
   }
 
   async function filter() {
@@ -124,12 +95,31 @@ function InstitutionMenuFilter() {
       });
   }
 
+  useEffect(() => {
+    const cookieValues = cookies.get("expense-manager");
+
+    if (cookieValues?.filter?.institutions?.createAt) {
+      const fullDateCookies = new Date(
+        cookieValues?.filter?.institutions?.createAt
+      ).toISOString();
+
+      const [year, month, _day] = fullDateCookies.split("-");
+
+      setValueYear(Number(year));
+      setValueMonth(month);
+    } else {
+      const fullDateNow = new Date();
+      setValueYear(fullDateNow.getFullYear());
+      setValueMonth("01");
+    }
+  }, []);
+
   return (
     <>
       <Scontainer>
         <Sdate onClick={handlerIsVisibleModal}>
           <div>
-            <strong>{DATES[Number(valueMonth) - 1].name}</strong>
+            <strong>{valueMonth}</strong>
             <span>de</span>
             <strong>{valueYear}</strong>
           </div>
