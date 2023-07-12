@@ -15,6 +15,30 @@ async function getInstitution(req: NextApiRequest, res: NextApiResponse) {
   const { expenseId, institutionName, id, createAt } =
     req.query as unknown as GetInstitutionType;
 
+  if (institutionName && createAt && expenseId) {
+    try {
+      const institution = await prisma.institution.findFirst({
+        where: {
+          name: institutionName,
+          createAt,
+          expenseId,
+        },
+        include: {
+          shoppings: {
+            orderBy: {
+              createAt: "desc",
+            },
+          },
+        },
+      });
+
+      return res.status(200).send(institution);
+    } catch (err) {
+      console.log("ERROR AXIOS REQUEST", err);
+      return res.send(err);
+    }
+  }
+
   if (createAt && expenseId) {
     try {
       const institutions = await prisma.institution.findMany({
@@ -31,15 +55,6 @@ async function getInstitution(req: NextApiRequest, res: NextApiResponse) {
         },
       });
       return res.status(200).send(institutions);
-    } catch (err) {
-      console.log("ERROR AXIOS REQUEST", err);
-      return res.send(err);
-    }
-  }
-
-  if (institutionName) {
-    try {
-      return res.status(200).send({});
     } catch (err) {
       console.log("ERROR AXIOS REQUEST", err);
       return res.send(err);

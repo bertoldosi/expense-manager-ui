@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import Cookies from "universal-cookie";
 
 import { ChevronDoubleLeft } from "@icons/ChevronDoubleLeft";
@@ -38,7 +38,7 @@ const DATES = [
 function InstitutionMenuFilter() {
   const cookies = new Cookies();
 
-  const { setExpense, getInstitution, selectedInstitution } = useContext(
+  const { setExpense, expense, setInstitution } = useContext(
     userContextData
   ) as userContextDataType;
 
@@ -71,7 +71,6 @@ function InstitutionMenuFilter() {
       ...cookieValues,
       filter: {
         ...cookieValues.filter,
-        institution: null,
         institutions: {
           createAt: date,
         },
@@ -101,7 +100,23 @@ function InstitutionMenuFilter() {
       });
   }
 
-  useEffect(() => {
+  async function handleMonth() {
+    const cookieValues = cookies.get("expense-manager");
+
+    instances
+      .get("api/institution", {
+        params: {
+          institutionName: cookieValues?.filter?.institution?.name,
+          createAt: cookieValues?.filter?.institutions?.createAt,
+          expenseId: cookieValues?.filter?.expense?.id,
+        },
+      })
+      .then((response) => {
+        setInstitution(response.data);
+      });
+  }
+
+  async function setDateFilter() {
     const cookieValues = cookies.get("expense-manager");
 
     if (cookieValues?.filter?.institutions?.createAt) {
@@ -130,7 +145,15 @@ function InstitutionMenuFilter() {
       setValueYear(Number(year));
       setValueMonth(month);
     }
+  }
+
+  useEffect(() => {
+    setDateFilter();
   }, []);
+
+  useEffect(() => {
+    handleMonth();
+  }, [expense?.institutions]);
 
   return (
     <>
