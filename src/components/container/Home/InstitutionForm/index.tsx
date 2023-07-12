@@ -41,6 +41,7 @@ function InstitutionForm({ exitModal }: InstitutionFormProps) {
         .then(async (response) => {
           await getExpense(filter.expense.id);
           toggleSelectedInstitution(response.data);
+          if (exitModal) exitModal();
         })
         .catch((error) => {
           if (error.response.status === 405) {
@@ -54,10 +55,6 @@ function InstitutionForm({ exitModal }: InstitutionFormProps) {
         });
 
       onSubmitInstitution.resetForm();
-
-      if (exitModal) {
-        exitModal();
-      }
     },
 
     validationSchema,

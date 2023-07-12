@@ -77,6 +77,7 @@ async function createInstitution(req: NextApiRequest, res: NextApiResponse) {
       where: {
         expenseId,
         name: nameUPCASE,
+        createAt,
       },
     });
 
