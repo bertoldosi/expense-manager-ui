@@ -68,31 +68,28 @@ function ShoppingTable() {
                 <InputTable
                   id={shoppingMap.id}
                   type="checkbox"
-                  disabled={false}
                   name="selected"
                   checked={shoppingMap.selected}
                   onChange={onChangeShopping}
                 />
                 <InputTable
-                  disabled={false}
                   id={shoppingMap.id}
                   name="description"
                   handleEnter={() => {
                     updateShopping(shoppingMap);
                   }}
-                  value={shoppingMap.description}
+                  value={shoppingMap.description || ""}
                   onChange={onChangeShopping}
                 />
               </strong>
               <strong>
                 <InputTable
-                  disabled={false}
                   id={shoppingMap.id}
                   name="amount"
                   handleEnter={() => {
                     updateShopping(shoppingMap);
                   }}
-                  value={formatedInputValue(shoppingMap.amount, "amount")}
+                  value={formatedInputValue(shoppingMap.amount, "amount") || ""}
                   onChange={onChangeShopping}
                 />
               </strong>
@@ -103,7 +100,7 @@ function ShoppingTable() {
                   handleEnter={() => {
                     updateShopping(shoppingMap);
                   }}
-                  value={shoppingMap.responsible}
+                  value={shoppingMap.responsible || ""}
                   onChange={onChangeShopping}
                 />
               </strong>
