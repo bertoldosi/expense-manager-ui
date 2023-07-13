@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo } from "react";
+import React, { useContext, useEffect } from "react";
 import Cookies from "universal-cookie";
 
 import { Institution } from "@containers/Home/Institution";
@@ -53,8 +53,7 @@ function Home() {
         },
       })
       .then(async (responseExpense) => {
-        await fethInstitution(responseExpense.data);
-
+        fethInstitution(responseExpense.data);
         return setExpense(responseExpense.data);
       });
   }

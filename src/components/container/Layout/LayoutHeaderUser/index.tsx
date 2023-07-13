@@ -1,11 +1,10 @@
 import Link from "next/link";
 import Cookies from "universal-cookie";
-import { signOut } from "next-auth/react";
-import React, { useContext, useState } from "react";
+import { signOut, useSession } from "next-auth/react";
+import React, { useState } from "react";
 
 import { User } from "@icons/User";
 import Dropdown from "@commons/Dropdown";
-import { userContextData, userContextDataType } from "@context/userContextData";
 
 import { Scontainer, ScontentFooter, Sitem } from "./styles";
 import { useTheme } from "styled-components";
@@ -15,7 +14,7 @@ function LayoutHeaderUser() {
   const theme = useTheme();
 
   const [isVisible, setIsVisible] = useState(false);
-  const { user } = useContext(userContextData) as userContextDataType;
+  const { data: session } = useSession();
 
   const logOut = () => {
     signOut();
@@ -40,7 +39,7 @@ function LayoutHeaderUser() {
         <Sitem>
           <span onClick={logOut}>Sair</span>
         </Sitem>
-        <ScontentFooter>{user?.name}</ScontentFooter>
+        <ScontentFooter>{session?.user?.name}</ScontentFooter>
       </Scontainer>
     </Dropdown>
   );
