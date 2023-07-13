@@ -1,11 +1,17 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Cookies from "universal-cookie";
+import moment from "moment";
 
 import { ChevronDoubleLeft } from "@icons/ChevronDoubleLeft";
 import { ChevronDoubleRight } from "@icons/ChevronDoubleRight";
 import { BsChevronDown } from "@icons/BsChevronDown";
 import { Modal } from "@commons/Modal";
 import { Button } from "@commons/Button";
+
+import { userContextData, userContextDataType } from "@context/userContextData";
+import instances from "@lib/axios-instance-internal";
+import { customToast } from "@commons/CustomToast";
+import { ExpenseType } from "@interfaces/*";
 
 import {
   Scontainer,
@@ -14,11 +20,6 @@ import {
   Sdate,
   SmonthItem,
 } from "./styles";
-import { userContextData, userContextDataType } from "@context/userContextData";
-import instances from "@lib/axios-instance-internal";
-import { customToast } from "@commons/CustomToast";
-import { ExpenseType, InstitutionType } from "@interfaces/*";
-import moment from "moment";
 
 const DATES = [
   { name: "JAN", number: "01" },
@@ -134,6 +135,12 @@ function InstitutionMenuFilter() {
     }
   }
 
+  function renderNameMonth(number: string): string {
+    const nameMonth = DATES.find((date) => date.number == number);
+
+    return nameMonth?.name || "";
+  }
+
   useEffect(() => {
     setDateFilter();
   }, []);
@@ -143,7 +150,7 @@ function InstitutionMenuFilter() {
       <Scontainer>
         <Sdate onClick={handlerIsVisibleModal}>
           <div>
-            <strong>{valueMonth}</strong>
+            <strong>{renderNameMonth(valueMonth || "")}</strong>
             <span>de</span>
             <strong>{valueYear}</strong>
           </div>
