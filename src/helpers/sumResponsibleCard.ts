@@ -2,7 +2,7 @@ import { sumAmountMoney } from "@helpers/sumAmountMoney";
 
 import { InstitutionType, ShoppingType } from "@interfaces/*";
 
-export const sumResponsibleCard = (institution: InstitutionType) => {
+export const sumCategoryCard = (institution: InstitutionType) => {
   // const newList = institution.shoppings.reduce(
   //   (previousValue: ShoppingType[], currentValue) => {
   //     if (currentValue.paymentStatus !== "pago") {
@@ -12,7 +12,7 @@ export const sumResponsibleCard = (institution: InstitutionType) => {
 
   //       let category = newCurrentValue.category;
   //       let repeated = previousValue.find(
-  //         (elem: ResponsibleValuesType) => elem.category === category
+  //         (elem: CategoryValuesType) => elem.category === category
   //       );
 
   //       if (repeated) {

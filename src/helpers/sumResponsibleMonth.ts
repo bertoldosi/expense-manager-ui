@@ -1,10 +1,10 @@
 import { sumAmountMoney } from "@helpers/sumAmountMoney";
 import { InstitutionType, ShoppingType } from "@interfaces/*";
 
-export const sumResponsibleMonth = (institutions: InstitutionType[]) => {
+export const sumCategoryMonth = (institutions: InstitutionType[]) => {
   // const responsibleAmountList = Array();
   // institutions?.map((institution) => {
-  //   institution.listResponsibleValues?.map((category) => {
+  //   institution.listCategoryValues?.map((category) => {
   //     responsibleAmountList.push(category);
   //   });
   // });

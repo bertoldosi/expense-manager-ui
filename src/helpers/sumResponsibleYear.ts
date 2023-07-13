@@ -1,4 +1,4 @@
-export const sumResponsibleYear = (months) => {
+export const sumCategoryYear = (months) => {
   const listaTotalAmountYear = new Array();
 
   months.map((monthMap) => {
