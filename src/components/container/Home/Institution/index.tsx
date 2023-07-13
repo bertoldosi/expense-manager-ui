@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { Modal } from "@commons/Modal";
 import { Button } from "@commons/Button";
@@ -18,7 +18,7 @@ import Cookies from "universal-cookie";
 export const Institution = () => {
   const cookies = new Cookies();
 
-  const { expense, getExpense, selectedInstitution } = useContext(
+  const { getExpense, institution } = useContext(
     userContextData
   ) as userContextDataType;
 
@@ -49,50 +49,45 @@ export const Institution = () => {
 
   return (
     <Swrapper>
-      <InstitutionMenuHeader institutions={expense?.institutions} />
+      <InstitutionMenuHeader />
 
-      {expense?.institutions?.map((institutionMap, index) => {
-        if (institutionMap.name === selectedInstitution?.name) {
-          return (
-            <div key={index}>
-              <Ssection>
-                <Saside>
-                  <InstitutionMenuCard
-                    title={institutionMap?.name}
-                    items={[]}
-                  />
-                  <InstitutionMenuCard
-                    title="TOTAL MENSAL"
-                    items={[]}
-                    isFooter={
-                      <>
-                        <Button onClick={openModal} text="Novo cartão" />
-                        <Button
-                          onClick={() => {
-                            deleteInstitution(institutionMap);
-                          }}
-                          text={`Excluir ${institutionMap?.name}`}
-                          typeButton="delete"
-                        />
-                      </>
-                    }
-                  />
-                </Saside>
+      {institution ? (
+        <div>
+          <Ssection>
+            <Saside>
+              <InstitutionMenuCard title={institution?.name} items={[]} />
+              <InstitutionMenuCard
+                title="TOTAL MENSAL"
+                items={[]}
+                isFooter={
+                  <>
+                    <Button onClick={openModal} text="Novo cartão" />
+                    <Button
+                      onClick={() => {
+                        deleteInstitution(institution);
+                      }}
+                      text={`Excluir ${institution?.name}`}
+                      typeButton="delete"
+                    />
+                  </>
+                }
+              />
+            </Saside>
 
-                <Shopping />
-              </Ssection>
+            <Shopping />
+          </Ssection>
 
-              <Modal
-                title="Criando novo cartão"
-                isVisible={isModalVisible}
-                handlerIsVisible={exitModal}
-              >
-                <InstitutionForm exitModal={exitModal} />
-              </Modal>
-            </div>
-          );
-        }
-      })}
+          <Modal
+            title="Criando novo cartão"
+            isVisible={isModalVisible}
+            handlerIsVisible={exitModal}
+          >
+            <InstitutionForm exitModal={exitModal} />
+          </Modal>
+        </div>
+      ) : (
+        ""
+      )}
     </Swrapper>
   );
 };

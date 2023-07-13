@@ -38,7 +38,7 @@ const DATES = [
 function InstitutionMenuFilter() {
   const cookies = new Cookies();
 
-  const { setExpense, expense, setInstitution } = useContext(
+  const { setExpense, setSelectedInstitution, setInstitution } = useContext(
     userContextData
   ) as userContextDataType;
 
@@ -71,6 +71,7 @@ function InstitutionMenuFilter() {
       ...cookieValues,
       filter: {
         ...cookieValues.filter,
+        institution: null,
         institutions: {
           createAt: date,
         },
@@ -91,28 +92,14 @@ function InstitutionMenuFilter() {
           institutions: response.data,
         }));
 
+        setInstitution(null);
+        setSelectedInstitution();
         cookies.set("expense-manager", newCookies);
         setOptionsModalVisible(false);
       })
 
       .catch(() => {
         customToast("error", "Algo deu errado, tente novamente mais tarde!");
-      });
-  }
-
-  async function handleMonth() {
-    const cookieValues = cookies.get("expense-manager");
-
-    instances
-      .get("api/institution", {
-        params: {
-          institutionName: cookieValues?.filter?.institution?.name,
-          createAt: cookieValues?.filter?.institutions?.createAt,
-          expenseId: cookieValues?.filter?.expense?.id,
-        },
-      })
-      .then((response) => {
-        setInstitution(response.data);
       });
   }
 
@@ -150,10 +137,6 @@ function InstitutionMenuFilter() {
   useEffect(() => {
     setDateFilter();
   }, []);
-
-  useEffect(() => {
-    handleMonth();
-  }, [expense?.institutions]);
 
   return (
     <>

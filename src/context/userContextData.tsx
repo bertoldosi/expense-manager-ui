@@ -33,6 +33,7 @@ export type userContextDataType = {
   getInstitution: Function;
 
   toggleSelectedInstitution: Function;
+  setSelectedInstitution: Function;
   selectedInstitution: SelectedInstitutionType | null;
 };
 
@@ -59,18 +60,27 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
   function toggleSelectedInstitution(institution: SelectedInstitutionType) {
     const cookieValues = cookies.get("expense-manager");
 
-    setSelectedInstitution(institution);
-
-    cookies.set("expense-manager", {
-      ...cookieValues,
-      filter: {
-        ...cookieValues.filter,
-        institution: {
-          id: institution?.id,
-          name: institution?.name,
+    instances
+      .get("api/institution", {
+        params: {
+          id: institution.id,
         },
-      },
-    });
+      })
+      .then((response) => {
+        setInstitution(response.data);
+        setSelectedInstitution(response.data);
+
+        cookies.set("expense-manager", {
+          ...cookieValues,
+          filter: {
+            ...cookieValues.filter,
+            institution: {
+              id: response.data?.id,
+              name: response.data?.name,
+            },
+          },
+        });
+      });
   }
 
   function getUser(email: string) {
@@ -85,11 +95,11 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
       });
   }
 
-  function getExpense(id: string, institutionsCreateAt: string) {
+  function getExpense(expenseId: string, institutionsCreateAt: string) {
     instances
       .get("api/expense", {
         params: {
-          id: id,
+          id: expenseId,
           institutionsCreateAt: institutionsCreateAt,
         },
       })
@@ -135,6 +145,7 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
         getInstitution,
 
         toggleSelectedInstitution,
+        setSelectedInstitution,
         selectedInstitution,
       }}
     >

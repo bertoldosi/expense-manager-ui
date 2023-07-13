@@ -12,12 +12,13 @@ import { customToast } from "@commons/CustomToast";
 import { formatedInputValue } from "@helpers/formatedInputValue";
 
 function ShoppingTable() {
+  const cookies = new Cookies();
+
   const { institution, getInstitution, setInstitution } = useContext(
     userContextData
   ) as userContextDataType;
 
   function fethInstitution() {
-    const cookies = new Cookies();
     const cookieValues = cookies.get("expense-manager");
 
     getInstitution(cookieValues?.filter?.institution?.id);
@@ -55,10 +56,6 @@ function ShoppingTable() {
         fethInstitution();
       });
   }
-
-  useMemo(() => {
-    fethInstitution();
-  }, []);
 
   return (
     <>
