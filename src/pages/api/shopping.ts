@@ -7,7 +7,7 @@ interface CreateShoppingType {
 }
 
 interface GetShoppingType {
-  responsible?: string;
+  category?: string;
   institutionId?: string;
 }
 
@@ -39,9 +39,9 @@ async function createShopping(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function getShopping(req: NextApiRequest, res: NextApiResponse) {
-  const { responsible, institutionId } = req.query as any as GetShoppingType;
+  const { category, institutionId } = req.query as any as GetShoppingType;
 
-  if (responsible === "Todos") {
+  if (category === "Todos") {
     try {
       const shoppings = await prisma.shopping.findMany({
         where: {
@@ -59,7 +59,7 @@ async function getShopping(req: NextApiRequest, res: NextApiResponse) {
   try {
     const shoppings = await prisma.shopping.findMany({
       where: {
-        responsible,
+        category,
         institutionId,
       },
     });
@@ -72,7 +72,7 @@ async function getShopping(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function updateShopping(req: NextApiRequest, res: NextApiResponse) {
-  const { id, description, amount, responsible, paymentStatus, shoppings } =
+  const { id, description, amount, category, paymentStatus, shoppings } =
     req.body;
 
   if (id) {
@@ -85,7 +85,7 @@ async function updateShopping(req: NextApiRequest, res: NextApiResponse) {
         data: {
           description,
           amount,
-          responsible,
+          category,
           paymentStatus,
         },
       });
@@ -109,7 +109,7 @@ async function updateShopping(req: NextApiRequest, res: NextApiResponse) {
               data: {
                 description: shopping.description,
                 amount: shopping.amount,
-                responsible: shopping.responsible,
+                category: shopping.category,
                 paymentStatus: shopping.paymentStatus,
               },
             });

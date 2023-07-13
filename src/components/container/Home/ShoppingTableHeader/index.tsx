@@ -29,12 +29,12 @@ import {
 const INITIAL_SHOPPING = {
   description: "",
   amount: "",
-  responsible: "",
+  category: "",
   paymentStatus: "aberto",
 };
 
 const INITIAL_FILTER_SHOPPING = {
-  responsible: "Todos",
+  category: "Todos",
 };
 
 function ShoppingTableHeader() {
@@ -93,9 +93,7 @@ function ShoppingTableHeader() {
           amount: values.amount
             ? values.amount.replace(/,/g, "")
             : shoppingMap.amount.replace(/,/g, ""),
-          responsible: values.responsible
-            ? values.responsible
-            : shoppingMap.responsible,
+          category: values.category ? values.category : shoppingMap.category,
           paymentStatus: values.paymentStatus
             ? values.paymentStatus
             : shoppingMap.paymentStatus,
@@ -128,7 +126,7 @@ function ShoppingTableHeader() {
       instances
         .get("api/shopping", {
           params: {
-            responsible: values.responsible,
+            category: values.category,
             institutionId: institution?.id,
           },
         })
@@ -264,13 +262,13 @@ function ShoppingTableHeader() {
               error={onSubmitShopping.errors.amount}
             />
             <Input
-              name="responsible"
-              id="responsible"
+              name="category"
+              id="category"
               autoComplete="off"
-              value={onSubmitShopping.values.responsible}
+              value={onSubmitShopping.values.category}
               onChange={onSubmitShopping.handleChange}
-              placeholder="Nome do responsavel"
-              error={onSubmitShopping.errors.responsible}
+              placeholder="Nome da categoria"
+              error={onSubmitShopping.errors.category}
             />
             <Button text="Adicionar" type="submit" width="20rem" />
           </Sform>
@@ -285,13 +283,13 @@ function ShoppingTableHeader() {
         <ScontentModal>
           <SFilterform onSubmit={onSubmitFilterShopping.handleSubmit}>
             <Input
-              name="responsible"
-              id="responsible"
+              name="category"
+              id="category"
               autoComplete="off"
-              value={onSubmitFilterShopping.values.responsible}
+              value={onSubmitFilterShopping.values.category}
               onChange={onSubmitFilterShopping.handleChange}
-              placeholder="Nome do responsavel"
-              error={onSubmitFilterShopping.errors.responsible}
+              placeholder="Nome da categoria"
+              error={onSubmitFilterShopping.errors.category}
             />
             <Button text="Filtrar" type="submit" width="20rem" />
           </SFilterform>

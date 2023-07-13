@@ -17,7 +17,7 @@ import { focusInput } from "@helpers/focusInput";
 const INITIAL_SHOPPING = {
   description: "",
   amount: "",
-  responsible: "",
+  category: "",
   paymentStatus: "aberto",
 };
 
@@ -33,7 +33,7 @@ function Shopping() {
 
       const shopping = {
         ...values,
-        responsible: values.responsible ? values.responsible : "sem",
+        category: values.category ? values.category : "sem",
       };
 
       instances
@@ -82,13 +82,13 @@ function Shopping() {
           error={onSubmitShopping.errors.amount}
         />
         <Input
-          name="responsible"
-          id="responsible"
+          name="category"
+          id="category"
           autoComplete="off"
-          value={onSubmitShopping.values.responsible}
+          value={onSubmitShopping.values.category}
           onChange={onSubmitShopping.handleChange}
-          placeholder="Nome do responsavel"
-          error={onSubmitShopping.errors.responsible}
+          placeholder="Nome da categoria"
+          error={onSubmitShopping.errors.category}
         />
         <Button text="Adicionar" type="submit" />
       </Sheader>

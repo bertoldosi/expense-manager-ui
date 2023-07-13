@@ -22,7 +22,7 @@ export type ShoppingType = {
   id: string;
   description: string;
   amount: string;
-  responsible: string;
+  category: string;
   paymentStatus: string;
   selected?: boolean;
 };

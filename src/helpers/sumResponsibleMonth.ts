@@ -4,8 +4,8 @@ import { InstitutionType, ShoppingType } from "@interfaces/*";
 export const sumResponsibleMonth = (institutions: InstitutionType[]) => {
   // const responsibleAmountList = Array();
   // institutions?.map((institution) => {
-  //   institution.listResponsibleValues?.map((responsible) => {
-  //     responsibleAmountList.push(responsible);
+  //   institution.listResponsibleValues?.map((category) => {
+  //     responsibleAmountList.push(category);
   //   });
   // });
 
@@ -15,9 +15,9 @@ export const sumResponsibleMonth = (institutions: InstitutionType[]) => {
   //       ...currentValue,
   //       amount: currentValue.amount,
   //     };
-  //     let responsible = newCurrentValue.responsible;
+  //     let category = newCurrentValue.category;
   //     let repeated = previousValue.find(
-  //       (elem: ShoppingType) => elem.responsible === responsible
+  //       (elem: ShoppingType) => elem.category === category
   //     );
   //     if (repeated) {
   //       repeated.amount = sumAmountMoney(

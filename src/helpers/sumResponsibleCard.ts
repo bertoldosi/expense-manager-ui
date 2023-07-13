@@ -10,9 +10,9 @@ export const sumResponsibleCard = (institution: InstitutionType) => {
   //         ...currentValue,
   //       };
 
-  //       let responsible = newCurrentValue.responsible;
+  //       let category = newCurrentValue.category;
   //       let repeated = previousValue.find(
-  //         (elem: ResponsibleValuesType) => elem.responsible === responsible
+  //         (elem: ResponsibleValuesType) => elem.category === category
   //       );
 
   //       if (repeated) {

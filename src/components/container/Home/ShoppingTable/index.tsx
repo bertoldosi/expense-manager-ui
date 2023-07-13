@@ -96,11 +96,11 @@ function ShoppingTable() {
               <strong>
                 <InputTable
                   id={shoppingMap.id}
-                  name="responsible"
+                  name="category"
                   handleEnter={() => {
                     updateShopping(shoppingMap);
                   }}
-                  value={shoppingMap.responsible || ""}
+                  value={shoppingMap.category || ""}
                   onChange={onChangeShopping}
                 />
               </strong>

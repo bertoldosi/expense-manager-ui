@@ -15,9 +15,9 @@ export const sumResponsibleYear = (months) => {
   //       ...currentValue,
   //       amount: currentValue.amount,
   //     };
-  //     let responsible = newCurrentValue.responsible;
+  //     let category = newCurrentValue.category;
   //     let repeated = previousValue.find(
-  //       (elem: ShoppingType) => elem.responsible === responsible
+  //       (elem: ShoppingType) => elem.category === category
   //     );
   //     if (repeated) {
   //       repeated.amount = sumAmountMoney(

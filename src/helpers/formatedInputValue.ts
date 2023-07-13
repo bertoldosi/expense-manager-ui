@@ -18,7 +18,7 @@ export const formatedInputValue = (value: string, name: string): string => {
     return valueFormat.replace("R$", "").replace(/\s/g, "");
   }
 
-  if (name === "responsible") {
+  if (name === "category") {
     return value
       .toLowerCase()
       .normalize("NFD")
