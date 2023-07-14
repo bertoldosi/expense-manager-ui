@@ -208,6 +208,7 @@ function ShoppingTableHeader() {
         <ButtonsOptions>
           <Sfilter>
             <Filter width="2rem" height="2rem" onClick={openModalFilter} />
+            <span>{onSubmitFilterShopping.values.category}</span>
           </Sfilter>
 
           {shoppingsSeleceted.length ? (

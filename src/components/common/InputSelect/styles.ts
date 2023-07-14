@@ -1,25 +1,16 @@
 import styled from "styled-components";
 
-export const Scontainer = styled.div`
+export const Sselect = styled.select`
   width: 100%;
-  display: flex;
-  flex-direction: column;
+  padding: 1rem;
+  border-radius: 0.3rem;
+  font-weight: 800;
 
-  > input {
-    width: 100%;
-    height: 4rem;
-    margin-bottom: 0.2rem;
+  background-color: ${(props) => props.theme.backgroundSecondary};
+  color: ${(props) => props.theme.colorSecondary};
+  border: none;
 
-    background-color: transparent;
-    border: 1px solid;
-    padding: 0 1.5rem;
-    border-radius: 0.3rem;
-
-    color: ${(props) => props.theme.color};
-  }
-
-  span {
-    font-size: 1.3rem;
-    color: #ff5733;
+  option {
+    font-weight: 700;
   }
 `;

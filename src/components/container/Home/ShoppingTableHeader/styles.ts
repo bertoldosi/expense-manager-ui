@@ -29,7 +29,18 @@ export const ButtonsOptions = styled.div`
   gap: 1rem;
 `;
 
-export const Sfilter = styled.div``;
+export const Sfilter = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.3rem;
+
+  cursor: pointer;
+
+  span {
+    font-size: 1.5rem;
+  }
+`;
 
 export const ScontentModal = styled.div`
   display: flex;

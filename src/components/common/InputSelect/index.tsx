@@ -1,4 +1,5 @@
 import React, { ChangeEventHandler, SelectHTMLAttributes } from "react";
+import { Sselect } from "./styles";
 
 interface SelectOption<T extends string | number> {
   value: T;
@@ -18,7 +19,7 @@ function InputSelect<T extends string | number>({
   ...props
 }: SelectInputProps<T>) {
   return (
-    <select {...props} defaultValue={defaultOption ? defaultOption.value : ""}>
+    <Sselect {...props} defaultValue={defaultOption ? defaultOption.value : ""}>
       {defaultOption && (
         <option value={defaultOption.value} selected>
           {defaultOption.label}
@@ -30,7 +31,7 @@ function InputSelect<T extends string | number>({
           {option.label}
         </option>
       ))}
-    </select>
+    </Sselect>
   );
 }
 
