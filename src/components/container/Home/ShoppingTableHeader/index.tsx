@@ -74,11 +74,7 @@ function ShoppingTableHeader() {
     ]);
   }, []);
 
-  function openModalUpdate() {
-    setIsModalUpdateVisible(!isModalUpdateVisible);
-  }
-
-  function exitModalUpdate() {
+  function handleModalUpdate() {
     setIsModalUpdateVisible(!isModalUpdateVisible);
   }
 
@@ -206,8 +202,8 @@ function ShoppingTableHeader() {
         </SselectingAll>
 
         <ButtonsOptions>
-          <Sfilter>
-            <Filter width="2rem" height="2rem" onClick={openModalFilter} />
+          <Sfilter onClick={openModalFilter}>
+            <Filter width="2rem" height="2rem" />
             <span>{onSubmitFilterShopping.values.category}</span>
           </Sfilter>
 
@@ -217,7 +213,7 @@ function ShoppingTableHeader() {
                 text="Editar"
                 width="30rem"
                 height="2.5rem"
-                onClick={openModalUpdate}
+                onClick={handleModalUpdate}
               />
               <Button
                 text="Excluir"
@@ -236,7 +232,7 @@ function ShoppingTableHeader() {
       <Modal
         title="Editando item(s)"
         isVisible={isModalUpdateVisible}
-        handlerIsVisible={exitModalUpdate}
+        handlerIsVisible={handleModalUpdate}
       >
         <ScontentModal>
           <Slist>
