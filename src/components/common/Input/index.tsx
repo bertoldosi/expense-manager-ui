@@ -1,10 +1,9 @@
-import React from "react";
+import React, { ChangeEventHandler, HTMLProps } from "react";
 
 import { Scontainer } from "./styles";
 
-interface PropsTypes extends React.HTMLProps<HTMLInputElement> {
+interface PropsTypes extends HTMLProps<HTMLInputElement> {
   error?: string;
-  props?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 function Input({ error, ...props }: PropsTypes) {

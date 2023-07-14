@@ -41,7 +41,7 @@ async function createShopping(req: NextApiRequest, res: NextApiResponse) {
 async function getShopping(req: NextApiRequest, res: NextApiResponse) {
   const { category, institutionId } = req.query as any as GetShoppingType;
 
-  if (category === "Todos") {
+  if (category === "all") {
     try {
       const shoppings = await prisma.shopping.findMany({
         where: {

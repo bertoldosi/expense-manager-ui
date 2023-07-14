@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import instances from "@lib/axios-instance-internal";
 import Cookies from "universal-cookie";
 import { useFormik } from "formik";
@@ -25,6 +25,11 @@ import {
   Slist,
   SselectingAll,
 } from "./styles";
+import InputSelect from "@commons/InputSelect";
+
+interface OptionsFilterType {
+  category: string;
+}
 
 const INITIAL_SHOPPING = {
   description: "",
@@ -33,8 +38,8 @@ const INITIAL_SHOPPING = {
   paymentStatus: "aberto",
 };
 
-const INITIAL_FILTER_SHOPPING = {
-  category: "Todos",
+const INITIAL_OPTIONS = {
+  category: "all",
 };
 
 function ShoppingTableHeader() {
@@ -42,6 +47,7 @@ function ShoppingTableHeader() {
     userContextData
   ) as userContextDataType;
 
+  const [optionsFilter, setOptionsFilter] = useState<OptionsFilterType[]>([]);
   const [isModalUpdateVisible, setIsModalUpdateVisible] =
     useState<boolean>(false);
   const [isModalFilterVisible, setIsModalFilterVisible] =
@@ -51,6 +57,22 @@ function ShoppingTableHeader() {
   const [shoppingsSeleceted, setShoppingsSelected] = useState<ShoppingType[]>(
     []
   );
+
+  useMemo(() => {
+    const shoppings = institution?.shoppings?.filter(
+      (shoppingFilter) => shoppingFilter.selected
+    );
+
+    setShoppingsSelected(shoppings || []);
+  }, [institution?.shoppings]);
+
+  useEffect(() => {
+    setOptionsFilter([
+      { category: "matheus" },
+      { category: "fran" },
+      { category: "cida" },
+    ]);
+  }, []);
 
   function openModalUpdate() {
     setIsModalUpdateVisible(!isModalUpdateVisible);
@@ -121,7 +143,7 @@ function ShoppingTableHeader() {
   });
 
   const onSubmitFilterShopping = useFormik({
-    initialValues: INITIAL_FILTER_SHOPPING,
+    initialValues: INITIAL_OPTIONS,
     onSubmit: async (values) => {
       instances
         .get("api/shopping", {
@@ -168,14 +190,6 @@ function ShoppingTableHeader() {
 
     getInstitution(cookieValues?.filter?.institution?.id);
   }
-
-  useMemo(() => {
-    const shoppings = institution?.shoppings?.filter(
-      (shoppingFilter) => shoppingFilter.selected
-    );
-
-    setShoppingsSelected(shoppings || []);
-  }, [institution?.shoppings]);
 
   return (
     <>
@@ -282,14 +296,16 @@ function ShoppingTableHeader() {
       >
         <ScontentModal>
           <SFilterform onSubmit={onSubmitFilterShopping.handleSubmit}>
-            <Input
+            <InputSelect
               name="category"
               id="category"
-              autoComplete="off"
               value={onSubmitFilterShopping.values.category}
               onChange={onSubmitFilterShopping.handleChange}
-              placeholder="Nome da categoria"
-              error={onSubmitFilterShopping.errors.category}
+              defaultOption={{ value: "all", label: "Todos" }}
+              options={optionsFilter.map((option) => ({
+                value: option.category,
+                label: option.category,
+              }))}
             />
             <Button text="Filtrar" type="submit" width="20rem" />
           </SFilterform>

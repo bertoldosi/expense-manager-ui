@@ -15,3 +15,6 @@ shopping
     ✔ deletar
     ✔ selecionar todos
     ☐ filtros
+
+bugs
+    ☐ ao escolher gasto, quando abre a tela com os gasto, o item não está selecionado e fica aparecendo as compras mesmo assim
