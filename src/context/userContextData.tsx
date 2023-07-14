@@ -4,6 +4,7 @@ import React, {
   ReactNode,
   SetStateAction,
   createContext,
+  useEffect,
   useState,
 } from "react";
 
@@ -14,10 +15,19 @@ import {
   UserType,
 } from "@interfaces/*";
 import instances from "@lib/axios-instance-internal";
+import extractUniqueCategoriesWithSum from "@helpers/extractUniqueCategoriesWithSum";
 
 interface SelectedInstitutionType {
   id: string;
   name: string;
+}
+
+type PropsType = {
+  children: ReactNode;
+};
+
+interface OptionsFilterType {
+  category: string;
 }
 
 export type userContextDataType = {
@@ -35,10 +45,8 @@ export type userContextDataType = {
   toggleSelectedInstitution: Function;
   setSelectedInstitution: Function;
   selectedInstitution: SelectedInstitutionType | null;
-};
 
-type PropsType = {
-  children: ReactNode;
+  optionsFilter: OptionsFilterType[];
 };
 
 export const userContextData = createContext<userContextDataType | null>(null);
@@ -49,6 +57,7 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
   const [user, setUser] = useState<UserType | null>(null);
   const [expense, setExpense] = useState<ExpenseType | null>(null);
   const [institution, setInstitution] = useState<InstitutionType | null>(null);
+  const [optionsFilter, setOptionsFilter] = useState<OptionsFilterType[]>([]);
 
   const [selectedInstitution, setSelectedInstitution] =
     useState<SelectedInstitutionType | null>(() => {
@@ -56,6 +65,13 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
 
       return cookieValues?.filter?.institution;
     });
+
+  useEffect(() => {
+    if (institution) {
+      const options = extractUniqueCategoriesWithSum(institution);
+      setOptionsFilter(options);
+    }
+  }, [institution]);
 
   function toggleSelectedInstitution(institution: SelectedInstitutionType) {
     const cookieValues = cookies.get("expense-manager");
@@ -147,6 +163,8 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
         toggleSelectedInstitution,
         setSelectedInstitution,
         selectedInstitution,
+
+        optionsFilter,
       }}
     >
       {children}

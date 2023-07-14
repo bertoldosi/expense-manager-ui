@@ -14,6 +14,7 @@ import { schemaCreate, schemaFilter } from "./validations";
 import { userContextData, userContextDataType } from "@context/userContextData";
 import InputTable from "@commons/InputTable";
 import { Filter } from "@icons/Filter";
+import InputSelect from "@commons/InputSelect";
 
 import {
   ButtonsOptions,
@@ -25,11 +26,6 @@ import {
   Slist,
   SselectingAll,
 } from "./styles";
-import InputSelect from "@commons/InputSelect";
-
-interface OptionsFilterType {
-  category: string;
-}
 
 const INITIAL_SHOPPING = {
   description: "",
@@ -43,11 +39,9 @@ const INITIAL_OPTIONS = {
 };
 
 function ShoppingTableHeader() {
-  const { getInstitution, institution, setInstitution } = useContext(
-    userContextData
-  ) as userContextDataType;
+  const { getInstitution, institution, setInstitution, optionsFilter } =
+    useContext(userContextData) as userContextDataType;
 
-  const [optionsFilter, setOptionsFilter] = useState<OptionsFilterType[]>([]);
   const [isModalUpdateVisible, setIsModalUpdateVisible] =
     useState<boolean>(false);
   const [isModalFilterVisible, setIsModalFilterVisible] =
@@ -65,14 +59,6 @@ function ShoppingTableHeader() {
 
     setShoppingsSelected(shoppings || []);
   }, [institution?.shoppings]);
-
-  useEffect(() => {
-    setOptionsFilter([
-      { category: "matheus" },
-      { category: "fran" },
-      { category: "cida" },
-    ]);
-  }, []);
 
   function handleModalUpdate() {
     setIsModalUpdateVisible(!isModalUpdateVisible);
