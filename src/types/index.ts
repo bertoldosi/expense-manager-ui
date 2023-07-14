@@ -26,3 +26,8 @@ export type ShoppingType = {
   paymentStatus: string;
   selected?: boolean;
 };
+
+export type CategoryType = {
+  category: string;
+  total: string;
+};

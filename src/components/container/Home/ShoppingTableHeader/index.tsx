@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import instances from "@lib/axios-instance-internal";
 import Cookies from "universal-cookie";
 import { useFormik } from "formik";
@@ -39,7 +39,7 @@ const INITIAL_OPTIONS = {
 };
 
 function ShoppingTableHeader() {
-  const { getInstitution, institution, setInstitution, optionsFilter } =
+  const { getInstitution, institution, setInstitution, categories } =
     useContext(userContextData) as userContextDataType;
 
   const [isModalUpdateVisible, setIsModalUpdateVisible] =
@@ -285,7 +285,7 @@ function ShoppingTableHeader() {
               value={onSubmitFilterShopping.values.category}
               onChange={onSubmitFilterShopping.handleChange}
               defaultOption={{ value: "all", label: "Todos" }}
-              options={optionsFilter.map((option) => ({
+              options={categories.map((option) => ({
                 value: option.category,
                 label: option.category,
               }))}

@@ -2,26 +2,26 @@ import { InstitutionType } from "@interfaces/*";
 
 function extractUniqueCategoriesWithSum(
   institution: InstitutionType
-): { category: string; total: number }[] {
-  const categorias: { [category: string]: number } = {};
+): { category: string; total: string }[] {
+  const categories: { [category: string]: number } = {};
 
   if (institution.shoppings) {
     institution.shoppings.forEach((shopping) => {
       const { category, amount } = shopping;
-      if (categorias[category]) {
-        categorias[category] += Number(amount);
+      if (categories[category]) {
+        categories[category] += Number(amount);
       } else {
-        categorias[category] = Number(amount);
+        categories[category] = Number(amount);
       }
     });
   }
 
-  const categoriasUnicas = Object.keys(categorias).map((category) => ({
+  const uniqueCategories = Object.keys(categories).map((category) => ({
     category,
-    total: categorias[category],
+    total: categories[category].toString(),
   }));
 
-  return categoriasUnicas;
+  return uniqueCategories;
 }
 
 export default extractUniqueCategoriesWithSum;

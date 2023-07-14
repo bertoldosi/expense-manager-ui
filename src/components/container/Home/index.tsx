@@ -17,6 +17,10 @@ function Home() {
     userContextData
   ) as userContextDataType;
 
+  useEffect(() => {
+    fethExpense();
+  }, []);
+
   function fethInstitution(expenses: ExpenseType) {
     const cookieValues = cookies.get("expense-manager");
     const institutionId = cookieValues?.filter?.institution?.id;
@@ -57,10 +61,6 @@ function Home() {
         return setExpense(responseExpense.data);
       });
   }
-
-  useEffect(() => {
-    fethExpense();
-  }, []);
 
   if (expense?.institutions?.length) {
     return (

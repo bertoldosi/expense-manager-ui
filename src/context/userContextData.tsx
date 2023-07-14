@@ -1,14 +1,8 @@
 import Cookies from "universal-cookie";
-import React, {
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  createContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { ReactNode, createContext, useEffect, useState } from "react";
 
 import {
+  CategoryType,
   ExpenseType,
   InstitutionType,
   ShoppingType,
@@ -26,10 +20,6 @@ type PropsType = {
   children: ReactNode;
 };
 
-interface OptionsFilterType {
-  category: string;
-}
-
 export type userContextDataType = {
   user: UserType | null;
   getUser: Function;
@@ -46,7 +36,7 @@ export type userContextDataType = {
   setSelectedInstitution: Function;
   selectedInstitution: SelectedInstitutionType | null;
 
-  optionsFilter: OptionsFilterType[];
+  categories: CategoryType[];
 };
 
 export const userContextData = createContext<userContextDataType | null>(null);
@@ -57,7 +47,7 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
   const [user, setUser] = useState<UserType | null>(null);
   const [expense, setExpense] = useState<ExpenseType | null>(null);
   const [institution, setInstitution] = useState<InstitutionType | null>(null);
-  const [optionsFilter, setOptionsFilter] = useState<OptionsFilterType[]>([]);
+  const [categories, setCategories] = useState<CategoryType[]>([]);
 
   const [selectedInstitution, setSelectedInstitution] =
     useState<SelectedInstitutionType | null>(() => {
@@ -69,7 +59,7 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
   useEffect(() => {
     if (institution) {
       const options = extractUniqueCategoriesWithSum(institution);
-      setOptionsFilter(options);
+      setCategories(options);
     }
   }, [institution]);
 
@@ -164,7 +154,7 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
         setSelectedInstitution,
         selectedInstitution,
 
-        optionsFilter,
+        categories,
       }}
     >
       {children}

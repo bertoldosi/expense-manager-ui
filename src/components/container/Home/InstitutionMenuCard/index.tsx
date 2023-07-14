@@ -1,24 +1,31 @@
 import React, { ReactNode } from "react";
-
 import { formatMorney } from "@helpers/formatMorney";
 import { Scontent, Sfooter, Sheader, Ssection } from "./styles";
 
-interface ItemsType {
+interface ItemType {
   name: string;
   amount: string;
 }
 
-type PropsType = {
-  items?: ItemsType[];
+type Props = {
+  items?: ItemType[];
   title?: string;
   isFooter?: ReactNode;
 };
 
-function InstitutionMenuCard({
+const InstitutionMenuCard: React.FC<Props> = ({
   items = [],
   title = "SEM CARTÃO",
   isFooter,
-}: PropsType) {
+}) => {
+  const calculateTotal = (): string => {
+    const total = items.reduce(
+      (accumulator, currentItem) => accumulator + Number(currentItem.amount),
+      0
+    );
+    return formatMorney(total.toString());
+  };
+
   return (
     <Scontent>
       <Sheader>
@@ -34,12 +41,12 @@ function InstitutionMenuCard({
         ))}
         <span>
           <strong>TOTAL</strong>
-          <strong>{"R$ 00,00"}</strong>
+          <strong>{calculateTotal()}</strong>
         </span>
       </Ssection>
       {isFooter && <Sfooter>{isFooter}</Sfooter>}
     </Scontent>
   );
-}
+};
 
 export default InstitutionMenuCard;

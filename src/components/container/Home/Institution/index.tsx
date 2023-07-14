@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 
 import { Modal } from "@commons/Modal";
 import { Button } from "@commons/Button";
@@ -18,7 +18,7 @@ import Cookies from "universal-cookie";
 export const Institution = () => {
   const cookies = new Cookies();
 
-  const { getExpense, institution } = useContext(
+  const { getExpense, institution, categories } = useContext(
     userContextData
   ) as userContextDataType;
 
@@ -55,7 +55,13 @@ export const Institution = () => {
         <div>
           <Ssection>
             <Saside>
-              <InstitutionMenuCard title={institution?.name} items={[]} />
+              <InstitutionMenuCard
+                title={institution?.name}
+                items={categories.map((categorie) => ({
+                  name: categorie.category,
+                  amount: categorie.total,
+                }))}
+              />
               <InstitutionMenuCard
                 title="TOTAL MENSAL"
                 items={[]}
