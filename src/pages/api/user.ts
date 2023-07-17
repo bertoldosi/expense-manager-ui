@@ -1,12 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@services/prisma";
+import handleError from "@helpers/handleError";
 
-interface GetUserEmailType {
+interface GetUserType {
   email: string;
 }
 
 async function getUser(req: NextApiRequest, res: NextApiResponse) {
-  const { email } = req.query as unknown as GetUserEmailType;
+  const { email } = req.query as unknown as GetUserType;
 
   if (email) {
     try {
@@ -33,10 +34,13 @@ async function getUser(req: NextApiRequest, res: NextApiResponse) {
 
       return res.status(200).send(user);
     } catch (err) {
-      console.log("ERROR AXIOS REQUEST", err);
-      return res.send(err);
+      handleError(res, err);
     }
   }
+
+  return res.status(400).json({
+    error: "Missing 'email' in the request query.",
+  });
 }
 
 export default async function handler(
@@ -49,9 +53,6 @@ export default async function handler(
       break;
 
     default:
-      return res.send({
-        message: "REQUEST IS NOT DEFINED",
-        method: req.method,
-      });
+      return res.status(404).json({ error: "Not Found" });
   }
 }

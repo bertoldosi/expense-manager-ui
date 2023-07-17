@@ -1,14 +1,69 @@
+import handleError from "@helpers/handleError";
 import { NextApiRequest, NextApiResponse } from "next";
+import * as yup from "yup";
 
-interface DeleteInstitutionType {
-  institutionId: string;
+interface CreateInstitutionType {
+  expenseId: string;
+  name: string;
+  createAt: string;
 }
-
 interface GetInstitutionType {
   expenseId: string;
   createAt: string;
   institutionName?: string;
   id?: string;
+}
+interface DeleteInstitutionType {
+  institutionId: string;
+}
+
+async function createInstitution(req: NextApiRequest, res: NextApiResponse) {
+  const { expenseId, name, createAt } = req.body as CreateInstitutionType;
+
+  const nameUPCASE = name.toUpperCase();
+
+  const schema = yup.object().shape({
+    expenseId: yup.string().required(),
+    name: yup.string().required(),
+    createAt: yup
+      .string()
+      .required("Date of create is required")
+      .matches(/^\d{2}\/\d{2}\/\d{4}$/, "Invalid date format. Use DD/MM/YYYY."),
+  });
+
+  try {
+    await schema.validate(req.body, { abortEarly: false });
+
+    const institutionExists = await prisma.$transaction(async (prisma) => {
+      const existingInstitution = await prisma.institution.findFirst({
+        where: {
+          expenseId,
+          name: nameUPCASE,
+          createAt,
+        },
+      });
+
+      return existingInstitution;
+    });
+
+    if (institutionExists) {
+      return res
+        .status(405)
+        .send("Not allowed. Name already registered in this period!");
+    }
+
+    const institution = await prisma.institution.create({
+      data: {
+        name: nameUPCASE,
+        expenseId,
+        createAt,
+      },
+    });
+
+    return res.status(200).json(institution);
+  } catch (err) {
+    return handleError(res, err);
+  }
 }
 
 async function getInstitution(req: NextApiRequest, res: NextApiResponse) {
@@ -34,8 +89,7 @@ async function getInstitution(req: NextApiRequest, res: NextApiResponse) {
 
       return res.status(200).send(institution);
     } catch (err) {
-      console.log("ERROR AXIOS REQUEST", err);
-      return res.send(err);
+      handleError(res, err);
     }
   }
 
@@ -56,8 +110,7 @@ async function getInstitution(req: NextApiRequest, res: NextApiResponse) {
       });
       return res.status(200).send(institutions);
     } catch (err) {
-      console.log("ERROR AXIOS REQUEST", err);
-      return res.send(err);
+      handleError(res, err);
     }
   }
 
@@ -79,50 +132,13 @@ async function getInstitution(req: NextApiRequest, res: NextApiResponse) {
 
       return res.status(200).send(institution);
     } catch (err) {
-      console.log("ERROR AXIOS REQUEST", err);
-      return res.send(err);
+      return handleError(res, err);
     }
   }
 
-  return res.send({
-    message: "REQUEST IS NOT DEFINED",
-    method: req.method,
+  return res.status(400).json({
+    error: "Missing 'createAt' or 'expenseId' or 'id' in the request query.",
   });
-}
-
-async function createInstitution(req: NextApiRequest, res: NextApiResponse) {
-  const { expenseId, name, createAt } = req.body;
-
-  try {
-    const nameUPCASE = name.toUpperCase();
-
-    const isInstitutionExist = await prisma.institution.findFirst({
-      where: {
-        expenseId,
-        name: nameUPCASE,
-        createAt,
-      },
-    });
-
-    if (isInstitutionExist) {
-      return res
-        .status(405)
-        .send("Not allowed. Name already registered in this period!");
-    } else {
-      const institution = await prisma.institution.create({
-        data: {
-          name: nameUPCASE,
-          expenseId,
-          createAt,
-        },
-      });
-
-      return res.status(200).send(institution);
-    }
-  } catch (err) {
-    console.log("ERROR AXIOS REQUEST", err);
-    return res.send(err);
-  }
 }
 
 async function deleteInstitution(req: NextApiRequest, res: NextApiResponse) {
@@ -148,8 +164,7 @@ async function deleteInstitution(req: NextApiRequest, res: NextApiResponse) {
 
     return res.send(transaction);
   } catch (err) {
-    console.log("ERROR AXIOS REQUEST", err);
-    return res.send(err);
+    return handleError(res, err);
   }
 }
 
@@ -171,9 +186,6 @@ export default async function handler(
       break;
 
     default:
-      return res.send({
-        message: "REQUEST IS NOT DEFINED",
-        method: req.method,
-      });
+      return res.status(404).json({ error: "Not Found" });
   }
 }

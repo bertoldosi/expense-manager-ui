@@ -18,7 +18,7 @@ const INITIAL_SHOPPING = {
   description: "",
   amount: "",
   category: "",
-  paymentStatus: "aberto",
+  paymentStatus: "open",
 };
 
 function Shopping() {

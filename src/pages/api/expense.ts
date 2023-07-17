@@ -1,6 +1,15 @@
+import handleError from "@helpers/handleError";
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@services/prisma";
 
+interface CreateShoppingType {
+  name: string;
+  userEmail: string;
+}
+interface UpdateShoppingType {
+  id: string;
+  name: string;
+}
 interface GetExpenseIdType {
   id: string;
   institutionsCreateAt: string;
@@ -8,6 +17,28 @@ interface GetExpenseIdType {
 
 interface DeleteExpenseType {
   id: string;
+}
+async function createExpense(req: NextApiRequest, res: NextApiResponse) {
+  const { name, userEmail } = req.body as CreateShoppingType;
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        email: userEmail,
+      },
+    });
+
+    const expense = await prisma.expense.create({
+      data: {
+        name,
+        userId: user?.id,
+      },
+    });
+
+    return res.status(200).send(expense);
+  } catch (err) {
+    return handleError(res, err);
+  }
 }
 
 async function getExpense(req: NextApiRequest, res: NextApiResponse) {
@@ -42,38 +73,17 @@ async function getExpense(req: NextApiRequest, res: NextApiResponse) {
 
       return res.status(200).send(newExpense);
     } catch (err) {
-      console.log("ERROR AXIOS REQUEST", err);
-      return res.send(err);
+      return handleError(res, err);
     }
   }
-}
 
-async function createExpense(req: NextApiRequest, res: NextApiResponse) {
-  const { name, userEmail } = req.body;
-
-  try {
-    const user = await prisma.user.findUnique({
-      where: {
-        email: userEmail,
-      },
-    });
-
-    const expense = await prisma.expense.create({
-      data: {
-        name,
-        userId: user?.id,
-      },
-    });
-
-    return res.status(200).send(expense);
-  } catch (err) {
-    console.log("ERROR AXIOS REQUEST", err);
-    return res.send(err);
-  }
+  return res.status(400).json({
+    error: "Missing 'id' and 'institutionsCreateAt' in the request query.",
+  });
 }
 
 async function updateExpense(req: NextApiRequest, res: NextApiResponse) {
-  const { id, name } = req.body;
+  const { id, name } = req.body as UpdateShoppingType;
 
   try {
     const newExpense = await prisma.expense.update({
@@ -87,8 +97,7 @@ async function updateExpense(req: NextApiRequest, res: NextApiResponse) {
 
     return res.status(200).send(newExpense);
   } catch (err) {
-    console.log("ERROR AXIOS REQUEST", err);
-    return res.send(err);
+    return handleError(res, err);
   }
 }
 
@@ -118,8 +127,7 @@ async function deleteExpense(req: NextApiRequest, res: NextApiResponse) {
 
     return res.status(204).send("ok");
   } catch (err) {
-    console.log("ERROR AXIOS REQUEST", err);
-    return res.send(err);
+    return handleError(res, err);
   }
 }
 
@@ -145,9 +153,6 @@ export default async function handler(
       break;
 
     default:
-      return res.send({
-        message: "REQUEST IS NOT DEFINED",
-        method: req.method,
-      });
+      return res.status(404).json({ error: "Not Found" });
   }
 }

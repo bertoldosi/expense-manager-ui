@@ -35,7 +35,7 @@ export const ChangeExpense = () => {
   }
 
   useEffect(() => {
-    getUser(session?.user?.email);
+    if (session?.user?.email) getUser(session?.user?.email);
   }, [session]);
 
   return (

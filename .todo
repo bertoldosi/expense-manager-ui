@@ -18,3 +18,24 @@ shopping
 
 bugs
     ☐ ao escolher gasto, quando abre a tela com os gasto, o item não está selecionado e fica aparecendo as compras mesmo assim
+
+
+
+
+Com base nas suas necessidades de cálculos de categorias e valores totais por mês em vários cartões, aqui está uma sugestão de distribuição de responsabilidades entre a API e o front-end:
+
+1. Back-End/API:
+    - O back-end/API será responsável por receber os dados dos cartões de crédito, incluindo as transações e as categorias correspondentes.
+    - Ele deve processar esses dados para agrupar as transações por categoria e calcular os valores totais para cada categoria em cada cartão.
+    - Além disso, o back-end/API pode realizar a soma dos valores totais por categoria para cada mês em todos os cartões.
+    - O back-end/API também deve lidar com a lógica de negócios, como a validação dos dados, a aplicação de regras financeiras e a integridade dos cálculos.
+
+2. Front-End:
+    - O front-end será responsável por fornecer uma interface amigável para o usuário, permitindo que ele visualize os dados financeiros de forma clara e interativa.
+    - Ele deve enviar solicitações à API para obter os dados necessários, como as transações dos cartões e os valores totais por categoria.
+    - Com base nos dados recebidos da API, o front-end pode exibir os valores totais por categoria para cada cartão de crédito, bem como os valores totais por categoria para o mês inteiro.
+    - O front-end também pode fornecer recursos de filtragem e ordenação para que o usuário possa explorar os dados de forma personalizada.
+
+Essa abordagem permite que a API lide com a lógica de cálculos, agrupamento e processamento dos dados financeiros. O front-end é responsável por exibir os resultados para o usuário e permitir interações com os dados. Essa separação de responsabilidades ajuda a manter uma arquitetura limpa e escalável, facilitando a manutenção e a adição de novos recursos no futuro.
+
+Lembre-se de que as necessidades específicas do seu projeto podem influenciar a distribuição das responsabilidades entre a API e o front-end. Portanto, é importante adaptar essas diretrizes às suas circunstâncias particulares e aos requisitos do seu aplicativo.
