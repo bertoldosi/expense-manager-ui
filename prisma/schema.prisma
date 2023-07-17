@@ -62,12 +62,14 @@ model Expense {
 }
 
 model Institution {
-  id        String     @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  createAt  String
-  expense   Expense?   @relation(fields: [expenseId], references: [id])
-  expenseId String?    @db.ObjectId
-  shoppings Shopping[]
+  id             String     @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  createAt       String
+  totalAmount    Float?
+  categoryTotals Json[]
+  expense        Expense?   @relation(fields: [expenseId], references: [id])
+  expenseId      String?    @db.ObjectId
+  shoppings      Shopping[]
 
   @@map("institutions")
 }
@@ -80,7 +82,7 @@ model Shopping {
   paymentStatus String
   createAt      DateTime?    @default(now())
   institution   Institution? @relation(fields: [institutionId], references: [id])
-  institutionId String?      @db.ObjectId
+  institutionId String       @db.ObjectId
 
   @@map("shoppings")
 }

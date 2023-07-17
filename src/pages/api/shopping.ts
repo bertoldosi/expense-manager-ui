@@ -1,3 +1,5 @@
+import calculateCategoryTotals from "@helpers/calculateCategoryTotals";
+import calculateTotalAmountInstitution from "@helpers/calculateTotalAmountInstitution";
 import handleError from "@helpers/handleError";
 import { ShoppingType } from "@interfaces/*";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -43,6 +45,38 @@ const shoppingSchema = yup.object().shape({
     .oneOf(["open", "closed"], "Payment status must be 'open' or 'closed'"),
 });
 
+async function updateInstitutionTotals(institutionId: string) {
+  const institution = await prisma.institution.findUnique({
+    where: {
+      id: institutionId,
+    },
+    include: {
+      shoppings: true,
+    },
+  });
+
+  if (!institution) {
+    throw new Error("Institution not found");
+  }
+
+  const totalAmount = calculateTotalAmountInstitution(institution);
+  const categoryTotals = calculateCategoryTotals(institution);
+
+  try {
+    await prisma.institution.update({
+      where: {
+        id: institutionId,
+      },
+      data: {
+        totalAmount,
+        categoryTotals: categoryTotals,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 async function createShopping(req: NextApiRequest, res: NextApiResponse) {
   const { institutionId, shopping } = req.body as unknown as CreateShoppingType;
 
@@ -55,6 +89,8 @@ async function createShopping(req: NextApiRequest, res: NextApiResponse) {
         institutionId,
       },
     });
+
+    await updateInstitutionTotals(newShopping.institutionId);
 
     return res.status(200).send(newShopping);
   } catch (err) {
@@ -86,6 +122,8 @@ async function updateShopping(req: NextApiRequest, res: NextApiResponse) {
           paymentStatus,
         },
       });
+
+      await updateInstitutionTotals(newShopping.institutionId);
 
       return res.status(200).send(newShopping);
     } catch (err) {

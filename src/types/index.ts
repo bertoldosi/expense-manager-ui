@@ -14,8 +14,10 @@ export type ExpenseType = {
 export type InstitutionType = {
   id: string;
   name: string;
-  amount?: string | undefined;
-  shoppings?: ShoppingType[] | undefined;
+  amount?: string | null;
+  totalAmount?: number;
+  categoryTotals?: CategoryType[];
+  shoppings?: ShoppingType[] | null;
 };
 
 export type ShoppingType = {

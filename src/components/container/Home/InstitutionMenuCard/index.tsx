@@ -1,6 +1,7 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useContext } from "react";
 import { formatMorney } from "@helpers/formatMorney";
 import { Scontent, Sfooter, Sheader, Ssection } from "./styles";
+import { userContextData, userContextDataType } from "@context/userContextData";
 
 interface ItemType {
   name: string;
@@ -18,13 +19,7 @@ const InstitutionMenuCard: React.FC<Props> = ({
   title = "SEM CARTÃO",
   isFooter,
 }) => {
-  const calculateTotal = (): string => {
-    const total = items.reduce(
-      (accumulator, currentItem) => accumulator + Number(currentItem.amount),
-      0
-    );
-    return formatMorney(total.toString());
-  };
+  const { institution } = useContext(userContextData) as userContextDataType;
 
   return (
     <Scontent>
@@ -33,15 +28,15 @@ const InstitutionMenuCard: React.FC<Props> = ({
       </Sheader>
 
       <Ssection>
-        {items.map((item, index) => (
+        {institution?.categoryTotals?.map((item, index) => (
           <span key={index}>
-            <strong>{item.name}</strong>
-            <strong> {formatMorney(item.amount)}</strong>
+            <strong>{item.category}</strong>
+            <strong> {formatMorney(item.total)}</strong>
           </span>
         ))}
         <span>
           <strong>TOTAL</strong>
-          <strong>{calculateTotal()}</strong>
+          <strong>{institution?.totalAmount}</strong>
         </span>
       </Ssection>
       {isFooter && <Sfooter>{isFooter}</Sfooter>}
