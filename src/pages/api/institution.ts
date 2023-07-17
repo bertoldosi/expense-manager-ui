@@ -2,6 +2,12 @@ import handleError from "@helpers/handleError";
 import { NextApiRequest, NextApiResponse } from "next";
 import * as yup from "yup";
 
+enum HttpMethod {
+  GET = "GET",
+  POST = "POST",
+  PUT = "PUT",
+  DELETE = "DELETE",
+}
 interface CreateInstitutionType {
   expenseId: string;
   name: string;
@@ -172,16 +178,18 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  switch (req.method) {
-    case "POST":
-      await createInstitution(req, res);
-      break;
+  const method = req.method as HttpMethod;
 
-    case "GET":
+  switch (method) {
+    case HttpMethod.GET:
       await getInstitution(req, res);
       break;
 
-    case "DELETE":
+    case HttpMethod.POST:
+      await createInstitution(req, res);
+      break;
+
+    case HttpMethod.DELETE:
       await deleteInstitution(req, res);
       break;
 

@@ -3,6 +3,12 @@ import { ShoppingType } from "@interfaces/*";
 import { NextApiRequest, NextApiResponse } from "next";
 import * as yup from "yup";
 
+enum HttpMethod {
+  GET = "GET",
+  POST = "POST",
+  PUT = "PUT",
+  DELETE = "DELETE",
+}
 interface CreateShoppingType {
   shopping: ShoppingType;
   institutionId: string;
@@ -191,20 +197,22 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  switch (req.method) {
-    case "POST":
-      await createShopping(req, res);
-      break;
+  const method = req.method as HttpMethod;
 
-    case "GET":
+  switch (method) {
+    case HttpMethod.GET:
       await getShopping(req, res);
       break;
 
-    case "PUT":
+    case HttpMethod.POST:
+      await createShopping(req, res);
+      break;
+
+    case HttpMethod.PUT:
       await updateShopping(req, res);
       break;
 
-    case "DELETE":
+    case HttpMethod.DELETE:
       await deleteShopping(req, res);
       break;
 

@@ -2,6 +2,12 @@ import handleError from "@helpers/handleError";
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@services/prisma";
 
+enum HttpMethod {
+  GET = "GET",
+  POST = "POST",
+  PUT = "PUT",
+  DELETE = "DELETE",
+}
 interface CreateShoppingType {
   name: string;
   userEmail: string;
@@ -130,25 +136,26 @@ async function deleteExpense(req: NextApiRequest, res: NextApiResponse) {
     return handleError(res, err);
   }
 }
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  switch (req.method) {
-    case "GET":
+  const method = req.method as HttpMethod;
+
+  switch (method) {
+    case HttpMethod.GET:
       await getExpense(req, res);
       break;
 
-    case "POST":
+    case HttpMethod.POST:
       await createExpense(req, res);
       break;
 
-    case "PUT":
+    case HttpMethod.PUT:
       await updateExpense(req, res);
       break;
 
-    case "DELETE":
+    case HttpMethod.DELETE:
       await deleteExpense(req, res);
       break;
 

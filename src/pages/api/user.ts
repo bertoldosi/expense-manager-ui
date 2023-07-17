@@ -2,6 +2,12 @@ import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@services/prisma";
 import handleError from "@helpers/handleError";
 
+enum HttpMethod {
+  GET = "GET",
+  POST = "POST",
+  PUT = "PUT",
+  DELETE = "DELETE",
+}
 interface GetUserType {
   email: string;
 }
@@ -47,8 +53,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  switch (req.method) {
-    case "GET":
+  const method = req.method as HttpMethod;
+
+  switch (method) {
+    case HttpMethod.GET:
       await getUser(req, res);
       break;
 
