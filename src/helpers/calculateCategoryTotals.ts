@@ -20,7 +20,7 @@ function calculateCategoryTotals(institution: InstitutionType): CategoryType[] {
     const categoryTotalsArray: CategoryType[] = Object.keys(categoryTotals).map(
       (category) => ({
         category,
-        total: categoryTotals[category].toString(), // Convertemos o total para string, já que é do tipo string em CategoryType
+        total: categoryTotals[category],
       })
     );
 

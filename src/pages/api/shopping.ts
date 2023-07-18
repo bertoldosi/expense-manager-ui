@@ -1,7 +1,7 @@
 import calculateCategoryTotals from "@helpers/calculateCategoryTotals";
 import calculateTotalAmountInstitution from "@helpers/calculateTotalAmountInstitution";
 import handleError from "@helpers/handleError";
-import { ShoppingType } from "@interfaces/*";
+import { InstitutionType, ShoppingType } from "@interfaces/*";
 import { NextApiRequest, NextApiResponse } from "next";
 import * as yup from "yup";
 

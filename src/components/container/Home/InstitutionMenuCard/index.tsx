@@ -28,15 +28,15 @@ const InstitutionMenuCard: React.FC<Props> = ({
       </Sheader>
 
       <Ssection>
-        {institution?.categoryTotals?.map((item, index) => (
+        {institution?.categoryTotals?.map((categoryTotal, index) => (
           <span key={index}>
-            <strong>{item.category}</strong>
-            <strong> {formatMorney(item.total)}</strong>
+            <strong>{categoryTotal.category}</strong>
+            <strong> {formatMorney(categoryTotal.total)}</strong>
           </span>
         ))}
         <span>
           <strong>TOTAL</strong>
-          <strong>{institution?.totalAmount}</strong>
+          <strong>{formatMorney(institution?.totalAmount || 0)}</strong>
         </span>
       </Ssection>
       {isFooter && <Sfooter>{isFooter}</Sfooter>}

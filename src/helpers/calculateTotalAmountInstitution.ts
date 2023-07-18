@@ -1,7 +1,7 @@
 import { InstitutionType } from "@interfaces/*";
 
 function calculateTotalAmountInstitution(institution: InstitutionType): number {
-  if (institution.shoppings?.length) {
+  if (institution?.shoppings?.length) {
     const totalAmount = institution.shoppings.reduce(
       (sum, shopping) => sum + parseFloat(shopping.amount),
       0

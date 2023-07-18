@@ -31,5 +31,5 @@ export type ShoppingType = {
 
 export type CategoryType = {
   category: string;
-  total: string;
+  total: number;
 };
