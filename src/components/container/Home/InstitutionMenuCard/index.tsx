@@ -5,22 +5,22 @@ import { userContextData, userContextDataType } from "@context/userContextData";
 
 interface ItemType {
   name: string;
-  amount: string;
+  total: number;
 }
 
-type Props = {
+type InstitutionMenuCardType = {
   items?: ItemType[];
   title?: string;
+  totalAmount: number;
   isFooter?: ReactNode;
 };
 
-const InstitutionMenuCard: React.FC<Props> = ({
+const InstitutionMenuCard: React.FC<InstitutionMenuCardType> = ({
   items = [],
   title = "SEM CARTÃO",
+  totalAmount = 0,
   isFooter,
 }) => {
-  const { institution } = useContext(userContextData) as userContextDataType;
-
   return (
     <Scontent>
       <Sheader>
@@ -28,15 +28,15 @@ const InstitutionMenuCard: React.FC<Props> = ({
       </Sheader>
 
       <Ssection>
-        {institution?.categoryTotals?.map((categoryTotal, index) => (
+        {items?.map((item, index) => (
           <span key={index}>
-            <strong>{categoryTotal.category}</strong>
-            <strong> {formatMorney(categoryTotal.total)}</strong>
+            <strong>{item.name}</strong>
+            <strong> {formatMorney(item.total)}</strong>
           </span>
         ))}
         <span>
           <strong>TOTAL</strong>
-          <strong>{formatMorney(institution?.totalAmount || 0)}</strong>
+          <strong>{formatMorney(totalAmount)}</strong>
         </span>
       </Ssection>
       {isFooter && <Sfooter>{isFooter}</Sfooter>}

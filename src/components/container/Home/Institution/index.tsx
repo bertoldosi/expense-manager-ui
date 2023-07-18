@@ -57,13 +57,15 @@ export const Institution = () => {
             <Saside>
               <InstitutionMenuCard
                 title={institution?.name}
-                items={categories.map((categorie) => ({
+                totalAmount={institution.totalAmount || 0}
+                items={institution?.categoryTotals?.map((categorie) => ({
                   name: categorie.category,
-                  amount: categorie.total,
+                  total: categorie.total,
                 }))}
               />
               <InstitutionMenuCard
                 title="TOTAL MENSAL"
+                totalAmount={0}
                 items={[]}
                 isFooter={
                   <>
