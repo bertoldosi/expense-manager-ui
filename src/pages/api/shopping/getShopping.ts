@@ -6,23 +6,8 @@ interface GetShoppingType {
   institutionId: string;
 }
 
-async function getShopping(req: NextApiRequest, res: NextApiResponse) {
+async function getShoppingsCategory(req: NextApiRequest, res: NextApiResponse) {
   const { category, institutionId } = req.query as any as GetShoppingType;
-
-  if (category === "all") {
-    try {
-      const shoppings = await prisma.shopping.findMany({
-        where: {
-          institutionId,
-        },
-      });
-
-      return res.status(200).send(shoppings);
-    } catch (err) {
-      console.log("ERROR AXIOS REQUEST", err);
-      return res.send(err);
-    }
-  }
 
   try {
     const shoppings = await prisma.shopping.findMany({
@@ -38,4 +23,37 @@ async function getShopping(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-export default getShopping;
+async function getShoppings(req: NextApiRequest, res: NextApiResponse) {
+  const { institutionId } = req.query as any as GetShoppingType;
+
+  try {
+    const shoppings = await prisma.shopping.findMany({
+      where: {
+        institutionId,
+      },
+    });
+
+    return res.status(200).send(shoppings);
+  } catch (err) {
+    handleError(res, err);
+  }
+}
+
+async function handle(req: NextApiRequest, res: NextApiResponse) {
+  const { category, institutionId } = req.query as any as GetShoppingType;
+
+  if (category && institutionId) {
+    await getShoppingsCategory(req, res);
+  }
+
+  if (institutionId) {
+    await getShoppings(req, res);
+  } else {
+    return res.status(400).json({
+      error:
+        "Missing 'institutionId' and 'category' or only 'institutionId' in the request query.",
+    });
+  }
+}
+
+export default handle;

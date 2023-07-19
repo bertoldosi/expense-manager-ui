@@ -132,10 +132,12 @@ function ShoppingTableHeader() {
   const onSubmitFilterShopping = useFormik({
     initialValues: INITIAL_OPTIONS,
     onSubmit: async (values) => {
+      const category = values.category === "all" ? "" : values.category;
+
       instances
         .get("api/shopping", {
           params: {
-            category: values.category,
+            category: category,
             institutionId: institution?.id,
           },
         })

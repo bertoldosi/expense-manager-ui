@@ -2,9 +2,8 @@ import * as yup from "yup";
 import handleError from "@helpers/handleError";
 import { ShoppingType } from "@interfaces/*";
 import { NextApiRequest, NextApiResponse } from "next";
-import updateInstitutionTotals from "../institution/updateInstitutionTotals";
 import { shoppingSchema } from ".";
-import updateExpenseTotals from "../expense/updateExpenseTotals";
+import updateInstitutionAndExpense from "./updateInstitutionAndExpense";
 
 interface UpdateShoppingType {
   id?: string;
@@ -13,24 +12,6 @@ interface UpdateShoppingType {
   category?: string;
   paymentStatus?: string;
   shoppings?: ShoppingType[];
-}
-
-async function updateInstitutionAndExpense(institutionId: string) {
-  const institution = await prisma.institution.findUnique({
-    where: {
-      id: institutionId,
-    },
-    include: {
-      expense: true,
-    },
-  });
-
-  if (!institution) {
-    throw new Error("Institution not found");
-  }
-
-  await updateInstitutionTotals(institutionId);
-  await updateExpenseTotals(institution.expenseId!!);
 }
 
 async function updateShopping(req: NextApiRequest, res: NextApiResponse) {

@@ -6,28 +6,11 @@ import { NextApiRequest, NextApiResponse } from "next";
 import updateInstitutionTotals from "../institution/updateInstitutionTotals";
 import { shoppingSchema } from ".";
 import updateExpenseTotals from "../expense/updateExpenseTotals";
+import updateInstitutionAndExpense from "./updateInstitutionAndExpense";
 
 interface CreateShoppingType {
   shopping: ShoppingType;
   institutionId: string;
-}
-
-async function updateInstitutionAndExpense(institutionId: string) {
-  const institution = await prisma.institution.findUnique({
-    where: {
-      id: institutionId,
-    },
-    include: {
-      expense: true,
-    },
-  });
-
-  if (!institution) {
-    throw new Error("Institution not found");
-  }
-
-  await updateInstitutionTotals(institutionId);
-  await updateExpenseTotals(institution.expenseId!!);
 }
 
 async function createShopping(req: NextApiRequest, res: NextApiResponse) {
@@ -42,7 +25,7 @@ async function createShopping(req: NextApiRequest, res: NextApiResponse) {
       },
     });
 
-    await updateInstitutionAndExpense(shoppingUpdate.institutionId);
+    await updateInstitutionAndExpense(institutionId);
 
     return res.status(200).json(shoppingUpdate);
   } catch (err) {
