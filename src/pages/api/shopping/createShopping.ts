@@ -3,9 +3,7 @@ import { ShoppingType } from "@interfaces/*";
 import prisma from "@services/prisma";
 
 import { NextApiRequest, NextApiResponse } from "next";
-import updateInstitutionTotals from "../institution/updateInstitutionTotals";
 import { shoppingSchema } from ".";
-import updateExpenseTotals from "../expense/updateExpenseTotals";
 import updateInstitutionAndExpense from "./updateInstitutionAndExpense";
 
 interface CreateShoppingType {

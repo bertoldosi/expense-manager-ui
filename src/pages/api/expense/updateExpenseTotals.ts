@@ -1,3 +1,4 @@
+import prisma from "@services/prisma";
 import expenseCalculateCategoryTotals from "@helpers/expenseCalculateCategoryTotals";
 
 async function updateExpenseTotals(expenseId: string) {

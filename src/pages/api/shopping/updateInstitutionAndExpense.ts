@@ -1,3 +1,4 @@
+import prisma from "@services/prisma";
 import updateExpenseTotals from "../expense/updateExpenseTotals";
 import updateInstitutionTotals from "../institution/updateInstitutionTotals";
 

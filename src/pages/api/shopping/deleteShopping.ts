@@ -1,4 +1,5 @@
 import handleError from "@helpers/handleError";
+import prisma from "@services/prisma";
 import { ShoppingType } from "@interfaces/*";
 import { NextApiRequest, NextApiResponse } from "next";
 import updateInstitutionAndExpense from "./updateInstitutionAndExpense";

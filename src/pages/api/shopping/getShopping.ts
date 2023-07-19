@@ -1,5 +1,6 @@
 import handleError from "@helpers/handleError";
 import { NextApiRequest, NextApiResponse } from "next";
+import prisma from "@services/prisma";
 
 interface GetShoppingType {
   category: string;
