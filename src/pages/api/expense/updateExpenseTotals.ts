@@ -1,8 +1,7 @@
 import expenseCalculateCategoryTotals from "@helpers/expenseCalculateCategoryTotals";
-import { ExpenseType } from "@interfaces/*";
 
 async function updateExpenseTotals(expenseId: string) {
-  const expense: ExpenseType | null = await prisma.expense.findUnique({
+  const expense = await prisma.expense.findUnique({
     where: {
       id: expenseId,
     },
