@@ -87,12 +87,14 @@ async function updateShoppings(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function handle(req: NextApiRequest, res: NextApiResponse) {
-  const { shoppings } = req.body as UpdateShoppingType;
+  const { shoppings, id } = req.body as UpdateShoppingType;
 
   if (shoppings) {
-    await updateShoppings(req, res);
-  } else {
-    await updateShopping(req, res);
+    return await updateShoppings(req, res);
+  }
+
+  if (id) {
+    return await updateShopping(req, res);
   }
 
   return res.status(400).json({

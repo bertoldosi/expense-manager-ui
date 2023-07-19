@@ -33,4 +33,16 @@ async function deleteInstitution(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-export default deleteInstitution;
+async function handle(req: NextApiRequest, res: NextApiResponse) {
+  const { institutionId } = req.query as unknown as DeleteInstitutionType;
+
+  if (institutionId) {
+    return await deleteInstitution(req, res);
+  }
+
+  return res.status(400).json({
+    error: "Missing 'institutionId' or 'shopping list' in the request query.",
+  });
+}
+
+export default handle;

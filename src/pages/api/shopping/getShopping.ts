@@ -44,11 +44,11 @@ async function handle(req: NextApiRequest, res: NextApiResponse) {
   const { category, institutionId } = req.query as any as GetShoppingType;
 
   if (category && institutionId) {
-    await getShoppingsCategory(req, res);
+    return await getShoppingsCategory(req, res);
   }
 
   if (institutionId) {
-    await getShoppings(req, res);
+    return await getShoppings(req, res);
   } else {
     return res.status(400).json({
       error:

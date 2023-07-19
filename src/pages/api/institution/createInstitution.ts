@@ -58,4 +58,12 @@ async function createInstitution(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-export default createInstitution;
+async function handle(req: NextApiRequest, res: NextApiResponse) {
+  const { expenseId, name, createAt } = req.body as CreateInstitutionType;
+
+  if (expenseId && name && createAt) {
+    return await createInstitution(req, res);
+  }
+}
+
+export default handle;
