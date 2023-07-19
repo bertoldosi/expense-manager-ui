@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { Modal } from "@commons/Modal";
 import { Button } from "@commons/Button";
@@ -9,7 +9,12 @@ import { Saside, Ssection, Swrapper } from "./styles";
 
 import { userContextData, userContextDataType } from "@context/userContextData";
 import InstitutionForm from "../InstitutionForm";
-import { InstitutionType } from "@interfaces/*";
+import {
+  CategoryTotalsMonthType,
+  CategoryType,
+  InstitutionType,
+  TotalAmountType,
+} from "@interfaces/*";
 import instances from "@lib/axios-instance-internal";
 import { customToast } from "@commons/CustomToast";
 import Shopping from "@containers/Home/Shopping";
@@ -18,11 +23,14 @@ import Cookies from "universal-cookie";
 export const Institution = () => {
   const cookies = new Cookies();
 
-  const { getExpense, institution, categories } = useContext(
+  const { getExpense, institution, expense } = useContext(
     userContextData
   ) as userContextDataType;
 
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [categotyTotalsMonth, setCategoryTotalsMonth] =
+    useState<CategoryTotalsMonthType | null>(null);
+  const [totalsMonth, setTotalsMonth] = useState<TotalAmountType | null>(null);
 
   function openModal() {
     setIsModalVisible(!isModalVisible);
@@ -47,6 +55,33 @@ export const Institution = () => {
       });
   }
 
+  function getCategoryTotalsMonth(categoryTotals: CategoryTotalsMonthType[]) {
+    const { filter } = cookies.get("expense-manager");
+
+    const categoryTotalsFilter = categoryTotals.find(
+      (categoryTotal) => categoryTotal.date === filter.institutions.createAt
+    );
+
+    setCategoryTotalsMonth(categoryTotalsFilter || null);
+  }
+
+  function getTotalsMonth(totals: TotalAmountType[]) {
+    const { filter } = cookies.get("expense-manager");
+
+    const totalMonthFilter = totals.find(
+      (categoryTotal) => categoryTotal.date === filter.institutions.createAt
+    );
+
+    setTotalsMonth(totalMonthFilter || null);
+  }
+
+  useEffect(() => {
+    if (expense?.categoryTotals && expense?.totalAmount) {
+      getCategoryTotalsMonth(expense.categoryTotals);
+      getTotalsMonth(expense.totalAmount);
+    }
+  }, [expense]);
+
   return (
     <Swrapper>
       <InstitutionMenuHeader />
@@ -65,8 +100,11 @@ export const Institution = () => {
               />
               <InstitutionMenuCard
                 title="TOTAL MENSAL"
-                totalAmount={0}
-                items={[]}
+                totalAmount={totalsMonth?.total || 0}
+                items={categotyTotalsMonth?.categoryTotals.map((categorie) => ({
+                  name: categorie.category,
+                  total: categorie.total,
+                }))}
                 isFooter={
                   <>
                     <Button onClick={openModal} text="Novo cartão" />

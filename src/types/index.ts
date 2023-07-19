@@ -8,6 +8,8 @@ export type UserType = {
 export type ExpenseType = {
   id: string;
   name: string;
+  totalAmount?: number;
+  categoryTotals?: CategoryType[];
   institutions?: InstitutionType[];
 };
 
@@ -27,9 +29,20 @@ export type ShoppingType = {
   category: string;
   paymentStatus: string;
   selected?: boolean;
+  institutionId?: string;
 };
 
 export type CategoryType = {
   category: string;
+  total: number;
+};
+
+export type CategoryTotalsMonthType = {
+  date: string;
+  categoryTotals: CategoryType[];
+};
+
+export type TotalAmountType = {
+  date: string;
   total: number;
 };

@@ -1,5 +1,5 @@
-import calculateCategoryTotals from "@helpers/calculateCategoryTotals";
-import calculateTotalAmountInstitution from "@helpers/calculateTotalAmountInstitution";
+import institutionCalculateCategoryTotals from "@helpers/institutionCalculateCategoryTotals";
+import institutionCalculateTotalAmountInstitution from "@helpers/institutionCalculateTotalAmountInstitution";
 
 async function updateInstitutionTotals(institutionId: string) {
   const institution = await prisma.institution.findUnique({
@@ -15,8 +15,8 @@ async function updateInstitutionTotals(institutionId: string) {
     throw new Error("Institution not found");
   }
 
-  const totalAmount = calculateTotalAmountInstitution(institution);
-  const categoryTotals = calculateCategoryTotals(institution);
+  const totalAmount = institutionCalculateTotalAmountInstitution(institution);
+  const categoryTotals = institutionCalculateCategoryTotals(institution);
 
   try {
     await prisma.institution.update({

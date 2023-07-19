@@ -1,6 +1,8 @@
 import { CategoryType, InstitutionType } from "@interfaces/*";
 
-function calculateCategoryTotals(institution: InstitutionType): CategoryType[] {
+function institutionCalculateCategoryTotals(
+  institution: InstitutionType
+): CategoryType[] {
   if (institution.shoppings?.length) {
     const categoryTotals: { [category: string]: number } =
       institution.shoppings.reduce((totals, shopping) => {
@@ -30,4 +32,4 @@ function calculateCategoryTotals(institution: InstitutionType): CategoryType[] {
   return [];
 }
 
-export default calculateCategoryTotals;
+export default institutionCalculateCategoryTotals;

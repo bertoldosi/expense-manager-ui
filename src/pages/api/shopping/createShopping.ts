@@ -1,10 +1,10 @@
-import * as yup from "yup";
 import handleError from "@helpers/handleError";
 import { ShoppingType } from "@interfaces/*";
 
 import { NextApiRequest, NextApiResponse } from "next";
 import updateInstitutionTotals from "../institution/updateInstitutionTotals";
 import { shoppingSchema } from ".";
+import updateExpenseTotals from "../expense/updateExpenseTotals";
 
 interface CreateShoppingType {
   shopping: ShoppingType;
@@ -17,16 +17,29 @@ async function createShopping(req: NextApiRequest, res: NextApiResponse) {
   try {
     await shoppingSchema.validate(shopping, { abortEarly: false });
 
-    const newShopping = await prisma.shopping.create({
+    const institution = await prisma.institution.findUnique({
+      where: {
+        id: institutionId,
+      },
+      include: {
+        expense: true,
+      },
+    });
+
+    const shoppingUpdate = await prisma.shopping.create({
       data: {
         ...shopping,
         institutionId,
       },
     });
 
-    await updateInstitutionTotals(newShopping.institutionId);
+    await updateInstitutionTotals(shoppingUpdate.institutionId);
 
-    return res.status(200).send(newShopping);
+    if (institution?.expenseId) {
+      await updateExpenseTotals(institution.expenseId);
+    }
+
+    return res.status(200).json(shoppingUpdate);
   } catch (err) {
     return handleError(res, err);
   }

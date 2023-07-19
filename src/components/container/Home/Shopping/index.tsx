@@ -24,7 +24,9 @@ const INITIAL_SHOPPING = {
 function Shopping() {
   const cookies = new Cookies();
 
-  const { getInstitution } = useContext(userContextData) as userContextDataType;
+  const { getInstitution, getExpense } = useContext(
+    userContextData
+  ) as userContextDataType;
 
   const onSubmitShopping = useFormik({
     initialValues: INITIAL_SHOPPING,
@@ -47,6 +49,8 @@ function Shopping() {
         .then(() => {
           focusInput("description");
           getInstitution(filter.institution.id);
+          getExpense(filter.expense.id, filter.institutions.createAt);
+
           customToast(
             "success",
             `${shopping.description} incluído com sucesso!`

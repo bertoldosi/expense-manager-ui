@@ -4,6 +4,7 @@ import { ShoppingType } from "@interfaces/*";
 import { NextApiRequest, NextApiResponse } from "next";
 import updateInstitutionTotals from "../institution/updateInstitutionTotals";
 import { shoppingSchema } from ".";
+import updateExpenseTotals from "../expense/updateExpenseTotals";
 
 interface UpdateShoppingType {
   id?: string;
@@ -26,7 +27,7 @@ async function updateShopping(req: NextApiRequest, res: NextApiResponse) {
     try {
       await shoppingSchema.validate(req.body, { abortEarly: false });
 
-      const newShopping = await prisma.shopping.update({
+      const shoppingUpdate = await prisma.shopping.update({
         where: {
           id,
         },
@@ -37,11 +38,27 @@ async function updateShopping(req: NextApiRequest, res: NextApiResponse) {
           category,
           paymentStatus,
         },
+
+        include: {
+          institution: true,
+        },
       });
 
-      await updateInstitutionTotals(newShopping.institutionId);
+      const institution = await prisma.institution.findUnique({
+        where: {
+          id: shoppingUpdate.institutionId,
+        },
+        include: {
+          expense: true,
+        },
+      });
 
-      return res.status(200).send(newShopping);
+      await updateInstitutionTotals(shoppingUpdate.institutionId);
+      if (institution?.expenseId) {
+        await updateExpenseTotals(institution.expenseId);
+      }
+
+      return res.status(200).send(shoppingUpdate);
     } catch (err) {
       console.log("ERROR AXIOS REQUEST", err);
       return res.send(err);

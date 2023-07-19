@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext } from "react";
 import Cookies from "universal-cookie";
 
 import ShoppingTableHeader from "@containers/Home/ShoppingTableHeader";
@@ -14,14 +14,17 @@ import { formatedInputValue } from "@helpers/formatedInputValue";
 function ShoppingTable() {
   const cookies = new Cookies();
 
-  const { institution, getInstitution, setInstitution } = useContext(
-    userContextData
-  ) as userContextDataType;
+  const { institution, getInstitution, setInstitution, getExpense } =
+    useContext(userContextData) as userContextDataType;
 
-  function fethInstitution() {
+  function fethInstitutionAndExpense() {
     const cookieValues = cookies.get("expense-manager");
 
     getInstitution(cookieValues?.filter?.institution?.id);
+    getExpense(
+      cookieValues?.filter.expense.id,
+      cookieValues?.filter.institutions.createAt
+    );
   }
 
   function onChangeShopping(ev: React.ChangeEvent<HTMLInputElement>) {
@@ -53,7 +56,7 @@ function ShoppingTable() {
       })
       .then(() => {
         customToast("success", "Item atualizado com sucesso!");
-        fethInstitution();
+        fethInstitutionAndExpense();
       });
   }
 

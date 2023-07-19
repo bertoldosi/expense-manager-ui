@@ -39,8 +39,13 @@ const INITIAL_OPTIONS = {
 };
 
 function ShoppingTableHeader() {
-  const { getInstitution, institution, setInstitution, categories } =
-    useContext(userContextData) as userContextDataType;
+  const {
+    getInstitution,
+    institution,
+    setInstitution,
+    getExpense,
+    categories,
+  } = useContext(userContextData) as userContextDataType;
 
   const [isModalUpdateVisible, setIsModalUpdateVisible] =
     useState<boolean>(false);
@@ -109,7 +114,7 @@ function ShoppingTableHeader() {
           shoppings: newShoppings,
         })
         .then(async (response) => {
-          fethInstitution();
+          fethInstitutionAndExpense();
           customToast("success", "Itens alterados com sucesso!");
           setIsModalUpdateVisible(false);
           setValueSelectingAllShoppings(false);
@@ -157,7 +162,7 @@ function ShoppingTableHeader() {
         },
       })
       .then(() => {
-        fethInstitution();
+        fethInstitutionAndExpense();
         customToast("success", "Itens excluidos com sucesso!");
         setValueSelectingAllShoppings(false);
       })
@@ -166,11 +171,15 @@ function ShoppingTableHeader() {
       });
   }
 
-  function fethInstitution() {
+  function fethInstitutionAndExpense() {
     const cookies = new Cookies();
     const cookieValues = cookies.get("expense-manager");
 
     getInstitution(cookieValues?.filter?.institution?.id);
+    getExpense(
+      cookieValues?.filter.expense.id,
+      cookieValues?.filter.institutions.createAt
+    );
   }
 
   return (
