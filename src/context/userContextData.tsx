@@ -2,7 +2,6 @@ import Cookies from "universal-cookie";
 import React, { ReactNode, createContext, useEffect, useState } from "react";
 
 import {
-  CategoryType,
   ExpenseType,
   InstitutionType,
   ShoppingType,
@@ -36,8 +35,13 @@ export type userContextDataType = {
   setSelectedInstitution: Function;
   selectedInstitution: SelectedInstitutionType | null;
 
-  categories: CategoryType[];
+  categories: CategorieType[];
 };
+
+interface CategorieType {
+  category: string;
+  total: string;
+}
 
 export const userContextData = createContext<userContextDataType | null>(null);
 
@@ -47,7 +51,7 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
   const [user, setUser] = useState<UserType | null>(null);
   const [expense, setExpense] = useState<ExpenseType | null>(null);
   const [institution, setInstitution] = useState<InstitutionType | null>(null);
-  const [categories, setCategories] = useState<CategoryType[]>([]);
+  const [categories, setCategories] = useState<CategorieType[]>([]);
 
   const [selectedInstitution, setSelectedInstitution] =
     useState<SelectedInstitutionType | null>(() => {
@@ -59,6 +63,8 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
   useEffect(() => {
     if (institution) {
       const options = extractUniqueCategoriesWithSum(institution);
+
+      console.log(options);
       setCategories(options);
     }
   }, [institution]);
