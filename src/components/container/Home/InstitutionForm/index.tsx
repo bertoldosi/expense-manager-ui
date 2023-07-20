@@ -11,6 +11,7 @@ import Input from "@commons/Input";
 import { Sform } from "./styles";
 import { userContextData, userContextDataType } from "@context/userContextData";
 import { customToast } from "@commons/CustomToast";
+import { InstitutionType } from "@interfaces/*";
 
 const INITIAL_INSTITUTION = {
   name: "",
@@ -18,9 +19,10 @@ const INITIAL_INSTITUTION = {
 
 interface InstitutionFormProps {
   exitModal?: Function;
+  institution?: InstitutionType | null;
 }
 
-function InstitutionForm({ exitModal }: InstitutionFormProps) {
+function InstitutionForm({ exitModal, institution }: InstitutionFormProps) {
   const cookies = new Cookies();
 
   const { toggleSelectedInstitution, getExpense } = useContext(
@@ -28,33 +30,62 @@ function InstitutionForm({ exitModal }: InstitutionFormProps) {
   ) as userContextDataType;
 
   const onSubmitInstitution = useFormik({
-    initialValues: INITIAL_INSTITUTION,
+    initialValues: institution ? institution : INITIAL_INSTITUTION,
     onSubmit: async (values) => {
       const { filter = {} } = cookies.get("expense-manager");
 
-      instances
-        .post("api/institution", {
-          name: values.name,
-          expenseId: filter.expense.id,
-          createAt: filter.institutions.createAt,
-        })
-        .then(async (response) => {
-          await getExpense(filter.expense.id, filter.institutions.createAt);
-          toggleSelectedInstitution(response.data);
-          if (exitModal) exitModal();
-        })
-        .catch((error) => {
-          if (error.response.status === 405) {
-            return customToast(
-              "error",
-              "Não permitido. Nome já cadastrado nesse periodo!"
-            );
-          }
+      //editando instituição
+      if (institution) {
+        instances
+          .put("api/institution", {
+            id: institution.id,
+            name: values.name,
+            expenseId: filter.expense.id,
+            createAt: filter.institutions.createAt,
+          })
+          .then(async (response) => {
+            await getExpense(filter.expense.id, filter.institutions.createAt);
+            toggleSelectedInstitution(response.data);
+            if (exitModal) exitModal();
+          })
+          .catch((error) => {
+            if (error.response.status === 405) {
+              return customToast(
+                "error",
+                "Não permitido. Nome já cadastrado nesse periodo!"
+              );
+            }
 
-          return customToast("error", "Algo deu errado, tente novamente!");
-        });
+            return customToast("error", "Algo deu errado, tente novamente!");
+          });
 
-      onSubmitInstitution.resetForm();
+        onSubmitInstitution.resetForm();
+      } else {
+        // criando nova instituição
+        instances
+          .post("api/institution", {
+            name: values.name,
+            expenseId: filter.expense.id,
+            createAt: filter.institutions.createAt,
+          })
+          .then(async (response) => {
+            await getExpense(filter.expense.id, filter.institutions.createAt);
+            toggleSelectedInstitution(response.data);
+            if (exitModal) exitModal();
+          })
+          .catch((error) => {
+            if (error.response.status === 405) {
+              return customToast(
+                "error",
+                "Não permitido. Nome já cadastrado nesse periodo!"
+              );
+            }
+
+            return customToast("error", "Algo deu errado, tente novamente!");
+          });
+
+        onSubmitInstitution.resetForm();
+      }
     },
 
     validationSchema,

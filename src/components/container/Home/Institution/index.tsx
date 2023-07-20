@@ -48,6 +48,8 @@ export const Institution = () => {
   ) as userContextDataType;
 
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [institutionUpdate, setInstitutionUpdate] =
+    useState<InstitutionType | null>(null);
 
   const [categotyTotalsMonth, setCategoryTotalsMonth] =
     useState<CategoryTotalsMonthType>();
@@ -59,6 +61,7 @@ export const Institution = () => {
 
   function exitModal() {
     setIsModalVisible(!isModalVisible);
+    setInstitutionUpdate(null);
   }
 
   function deleteInstitution(institution: InstitutionType) {
@@ -74,6 +77,11 @@ export const Institution = () => {
         getExpense(filter?.expense?.id, filter.institutions.createAt);
         customToast("success", "Sucesso!");
       });
+  }
+
+  function updateInstitution(institutionData: InstitutionType) {
+    setInstitutionUpdate(institutionData);
+    openModal();
   }
 
   function getCategoryTotalsMonthAndTotalsMonth(categoryTotals, totalsMonth) {
@@ -116,6 +124,9 @@ export const Institution = () => {
                   name: categorie.category,
                   total: categorie.total,
                 }))}
+                openSettings={() => {
+                  updateInstitution(institution);
+                }}
               />
               <InstitutionMenuCard
                 title="TOTAL MENSAL"
@@ -143,11 +154,16 @@ export const Institution = () => {
           </Ssection>
 
           <Modal
-            title="Criando novo cartão"
+            title={
+              institutionUpdate ? "Editando cartão" : "Criando novo cartão"
+            }
             isVisible={isModalVisible}
             handlerIsVisible={exitModal}
           >
-            <InstitutionForm exitModal={exitModal} />
+            <InstitutionForm
+              exitModal={exitModal}
+              institution={institutionUpdate}
+            />
           </Modal>
         </div>
       ) : (

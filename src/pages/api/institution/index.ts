@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import getInstitution from "./getInstitution";
 import createInstitution from "./createInstitution";
 import deleteInstitution from "./deleteInstitution";
+import updateInstitution from "./updateInstitution";
 
 enum HttpMethod {
   GET = "GET",
@@ -24,6 +25,10 @@ export default async function handler(
 
     case HttpMethod.POST:
       await createInstitution(req, res);
+      break;
+
+    case HttpMethod.PUT:
+      await updateInstitution(req, res);
       break;
 
     case HttpMethod.DELETE:

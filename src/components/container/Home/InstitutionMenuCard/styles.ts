@@ -14,7 +14,13 @@ export const Sheader = styled.header`
   background-color: #1b66ff;
 
   h1 {
+    flex: 1;
     font-size: 1.2rem;
+    text-align: center;
+  }
+
+  svg {
+    color: ${(props) => props.theme.color};
   }
 `;
 

@@ -1,6 +1,7 @@
 import React, { ReactNode, useContext } from "react";
 import { formatMorney } from "@helpers/formatMorney";
 import { Scontent, Sfooter, Sheader, Ssection } from "./styles";
+import { Settings } from "@icons/Settings";
 
 interface ItemType {
   name: string;
@@ -12,18 +13,23 @@ type InstitutionMenuCardType = {
   title?: string;
   totalAmount: number;
   isFooter?: ReactNode;
+  openSettings?: () => void;
 };
 
 const InstitutionMenuCard: React.FC<InstitutionMenuCardType> = ({
   items = [],
   title = "SEM CARTÃO",
   totalAmount = 0,
+  openSettings,
   isFooter,
 }) => {
   return (
     <Scontent>
       <Sheader>
         <h1>{title.toUpperCase()}</h1>
+        {openSettings && (
+          <Settings width={20} height={20} onClick={openSettings} />
+        )}
       </Sheader>
 
       <Ssection>
