@@ -1,4 +1,14 @@
-import { InstitutionType } from "@interfaces/*";
+export type InstitutionType = {
+  shoppings?: ShoppingType[] | null;
+};
+
+export type ShoppingType = {
+  id: string;
+  description: string;
+  amount: string;
+  category: string;
+  paymentStatus: string;
+};
 
 function institutionCalculateTotalAmountInstitution(
   institution: InstitutionType

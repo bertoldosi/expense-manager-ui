@@ -1,5 +1,18 @@
-import { CategoryType, InstitutionType } from "@interfaces/*";
+import { CategoryType } from "@interfaces/*";
 
+export type ShoppingType = {
+  id: string;
+  description: string;
+  amount: string;
+  category: string;
+  paymentStatus: string;
+  selected?: boolean;
+  institutionId?: string;
+};
+
+interface InstitutionType {
+  shoppings: ShoppingType[];
+}
 function institutionCalculateCategoryTotals(
   institution: InstitutionType
 ): CategoryType[] {

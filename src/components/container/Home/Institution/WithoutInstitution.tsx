@@ -26,6 +26,7 @@ function WithoutInstitution() {
         <Ssection>
           <Saside>
             <InstitutionMenuCard
+              totalAmount={0}
               isFooter={<Button text="Novo cartão" onClick={openModal} />}
             />
           </Saside>

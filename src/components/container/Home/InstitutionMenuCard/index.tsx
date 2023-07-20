@@ -1,7 +1,6 @@
 import React, { ReactNode, useContext } from "react";
 import { formatMorney } from "@helpers/formatMorney";
 import { Scontent, Sfooter, Sheader, Ssection } from "./styles";
-import { userContextData, userContextDataType } from "@context/userContextData";
 
 interface ItemType {
   name: string;

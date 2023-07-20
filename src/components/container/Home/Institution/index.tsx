@@ -9,16 +9,36 @@ import { Saside, Ssection, Swrapper } from "./styles";
 
 import { userContextData, userContextDataType } from "@context/userContextData";
 import InstitutionForm from "../InstitutionForm";
-import {
-  CategoryTotalsMonthType,
-  CategoryType,
-  InstitutionType,
-  TotalAmountType,
-} from "@interfaces/*";
+import { InstitutionType } from "@interfaces/*";
 import instances from "@lib/axios-instance-internal";
 import { customToast } from "@commons/CustomToast";
 import Shopping from "@containers/Home/Shopping";
 import Cookies from "universal-cookie";
+
+[
+  {
+    date: "01/07/2023",
+    categoryTotals: [
+      { category: "teste", total: 1000 },
+      { category: "sem", total: 2000 },
+    ],
+  },
+  { date: "01/06/2023", categoryTotals: [{ category: "sem", total: 1000 }] },
+];
+
+interface CategoryTotalsType {
+  category: string;
+  total: number;
+}
+interface CategoryTotalsMonthType {
+  date: string;
+  categoryTotals: CategoryTotalsType[];
+}
+
+interface TotalsMonthType {
+  date: string;
+  total: number;
+}
 
 export const Institution = () => {
   const cookies = new Cookies();
@@ -28,9 +48,10 @@ export const Institution = () => {
   ) as userContextDataType;
 
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+
   const [categotyTotalsMonth, setCategoryTotalsMonth] =
-    useState<CategoryTotalsMonthType | null>(null);
-  const [totalsMonth, setTotalsMonth] = useState<TotalAmountType | null>(null);
+    useState<CategoryTotalsMonthType>();
+  const [totalsMonth, setTotalsMonth] = useState<TotalsMonthType>();
 
   function openModal() {
     setIsModalVisible(!isModalVisible);
@@ -55,30 +76,28 @@ export const Institution = () => {
       });
   }
 
-  function getCategoryTotalsMonth(categoryTotals: CategoryTotalsMonthType[]) {
+  function getCategoryTotalsMonthAndTotalsMonth(categoryTotals, totalsMonth) {
     const { filter } = cookies.get("expense-manager");
 
     const categoryTotalsFilter = categoryTotals.find(
+      (categoryTotal: any) =>
+        categoryTotal.date === filter.institutions.createAt
+    );
+
+    const totalMonthFilter = totalsMonth.find(
       (categoryTotal) => categoryTotal.date === filter.institutions.createAt
     );
 
-    setCategoryTotalsMonth(categoryTotalsFilter || null);
-  }
-
-  function getTotalsMonth(totals: TotalAmountType[]) {
-    const { filter } = cookies.get("expense-manager");
-
-    const totalMonthFilter = totals.find(
-      (categoryTotal) => categoryTotal.date === filter.institutions.createAt
-    );
-
-    setTotalsMonth(totalMonthFilter || null);
+    setCategoryTotalsMonth(categoryTotalsFilter);
+    setTotalsMonth(totalMonthFilter);
   }
 
   useEffect(() => {
     if (expense?.categoryTotals && expense?.totalAmount) {
-      getCategoryTotalsMonth(expense.categoryTotals);
-      getTotalsMonth(expense.totalAmount);
+      getCategoryTotalsMonthAndTotalsMonth(
+        expense.categoryTotals,
+        expense.totalAmount
+      );
     }
   }, [expense]);
 

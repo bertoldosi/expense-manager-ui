@@ -1,7 +1,7 @@
 import React from "react";
 
-import Dropdown from "@containers/Dropdown";
-import { Calendar } from "@containers/Calendar";
+import Dropdown from "@commons/Dropdown";
+import { Calendar } from "@commons/Calendar";
 
 import { Scontainer, Scontent } from "./styles";
 
