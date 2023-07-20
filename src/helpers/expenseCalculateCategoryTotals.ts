@@ -1,20 +1,35 @@
-import { CategoryType, ExpenseType, InstitutionType } from "@interfaces/*";
+interface TotalAmount {
+  date: string;
+  total: number;
+}
+
+interface CategoryTotals {
+  category: string;
+  total: number;
+}
+
+interface Institution {
+  createAt: string;
+  totalAmount: number;
+  categoryTotals: CategoryTotals[];
+}
 
 interface FormattedExpenseType {
   id: string;
   name: string;
-  totalAmount: { date: string; total: number }[];
-  categoryTotals: { date: string; categoryTotals: CategoryType[] }[];
+  totalAmount: TotalAmount[];
+  categoryTotals: { date: string; categoryTotals: CategoryTotals[] }[];
   createAt: Date;
   userId: string;
-  institutions: InstitutionType[];
+  institutions: Institution[];
 }
 
 function expenseCalculateCategoryTotals(
-  expense: ExpenseType
+  expense: FormattedExpenseType
 ): FormattedExpenseType {
-  const totalAmount: { date: string; total: number }[] = [];
-  const categoryTotals: { date: string; categoryTotals: CategoryType[] }[] = [];
+  const totalAmount: TotalAmount[] = [];
+  const categoryTotals: { date: string; categoryTotals: CategoryTotals[] }[] =
+    [];
 
   // Helper function to find or create a date entry in the result arrays
   const findOrCreateDateEntry = (date: string) => {
@@ -43,7 +58,7 @@ function expenseCalculateCategoryTotals(
     return categoryItem;
   };
 
-  expense?.institutions?.forEach((institution: InstitutionType) => {
+  expense?.institutions?.forEach((institution: Institution) => {
     const date = institution?.createAt;
 
     const totalAmountEntry = findOrCreateDateEntry(date);
