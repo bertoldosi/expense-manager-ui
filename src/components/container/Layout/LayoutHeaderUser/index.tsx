@@ -8,10 +8,16 @@ import Dropdown from "@commons/Dropdown";
 
 import { Scontainer, ScontentFooter, Sitem } from "./styles";
 import { useTheme } from "styled-components";
+import { useRouter } from "next/router";
+import { userContextData, userContextDataType } from "@context/userContextData";
 
 function LayoutHeaderUser() {
+  const router = useRouter();
   const cookies = new Cookies();
   const theme = useTheme();
+
+  const { setInstitution, setExpense, setSelectedInstitution } =
+    React.useContext(userContextData) as userContextDataType;
 
   const [isVisible, setIsVisible] = useState(false);
   const { data: session } = useSession();
@@ -20,6 +26,19 @@ function LayoutHeaderUser() {
     signOut();
     cookies.remove("expense-manager");
   };
+
+  async function redirectChangeExpense() {
+    cookies.remove("expense-manager");
+    await router.push("/alterar-gasto");
+
+    setInstitution(null);
+    setExpense(null);
+    setSelectedInstitution(null);
+  }
+
+  function redirectManagerExpense() {
+    router.push("/gerenciar-gasto");
+  }
 
   return (
     <Dropdown
@@ -30,11 +49,11 @@ function LayoutHeaderUser() {
       setIsVisible={setIsVisible}
     >
       <Scontainer>
-        <Sitem>
-          <Link href="/alterar-gasto">Alterar gasto</Link>
+        <Sitem onClick={redirectChangeExpense}>
+          <Link href="#">Alterar gasto</Link>
         </Sitem>
-        <Sitem>
-          <Link href="/gerenciar-gasto">Gerenciar gasto</Link>
+        <Sitem onClick={redirectManagerExpense}>
+          <Link href="#">Gerenciar gasto</Link>
         </Sitem>
         <Sitem>
           <span onClick={logOut}>Sair</span>

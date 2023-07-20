@@ -15,28 +15,34 @@ export const ChangeExpense = () => {
   const cookies = new Cookies();
   const { data: session } = useSession();
 
-  const { getUser, user } = React.useContext(
-    userContextData
-  ) as userContextDataType;
+  const { getUser, user, getInstitution, setSelectedInstitution } =
+    React.useContext(userContextData) as userContextDataType;
+
+  useEffect(() => {
+    if (session?.user?.email) getUser(session?.user?.email);
+  }, [session]);
 
   function redirectHome(expense: ExpenseType) {
+    const institution = expense.institutions?.length && expense.institutions[0];
+
     const newCookies = {
       filter: {
         expense: {
           id: expense.id,
           name: expense.name,
         },
-        institution: expense.institutions?.length && expense.institutions[0],
+        institution,
       },
     };
+
+    if (institution) {
+      setSelectedInstitution(institution);
+      getInstitution(institution.id);
+    }
 
     cookies.set("expense-manager", newCookies);
     Router.push("/");
   }
-
-  useEffect(() => {
-    if (session?.user?.email) getUser(session?.user?.email);
-  }, [session]);
 
   return (
     <Card title="Escolha um gasto para gerenciar:">

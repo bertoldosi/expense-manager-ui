@@ -64,7 +64,6 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
     if (institution) {
       const options = extractUniqueCategoriesWithSum(institution);
 
-      console.log(options);
       setCategories(options);
     }
   }, [institution]);
