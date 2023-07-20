@@ -1,37 +1,14 @@
-interface TotalAmount {
-  date: string;
-  total: number;
-}
+interface Institution {}
 
-interface CategoryTotals {
-  category: string;
-  total: number;
-}
-
-interface Institution {
-  createAt: string;
-  totalAmount: number;
-  categoryTotals: CategoryTotals[];
-}
-
-interface FormattedExpenseType {
-  id: string;
-  name: string;
-  totalAmount: TotalAmount[];
-  categoryTotals: { date: string; categoryTotals: CategoryTotals[] }[];
-  createAt: Date;
-  userId: string;
+interface ExpenseType {
   institutions: Institution[];
 }
 
-function expenseCalculateCategoryTotals(
-  expense: FormattedExpenseType
-): FormattedExpenseType {
-  const totalAmount: TotalAmount[] = [];
-  const categoryTotals: { date: string; categoryTotals: CategoryTotals[] }[] =
-    [];
+function expenseCalculateCategoryTotals(despesa: ExpenseType) {
+  const totalAmount: any = [];
+  const categoryTotals: { date: string; categoryTotals: any }[] = [];
 
-  // Helper function to find or create a date entry in the result arrays
+  // Função auxiliar para encontrar ou criar uma entrada de data nos arrays de resultado
   const findOrCreateDateEntry = (date: string) => {
     let entry = totalAmount.find((item) => item.date === date);
     if (!entry) {
@@ -41,7 +18,7 @@ function expenseCalculateCategoryTotals(
     return entry;
   };
 
-  // Helper function to find or create a categoryTotals entry in the result arrays
+  // Função auxiliar para encontrar ou criar uma entrada de categoryTotals nos arrays de resultado
   const findOrCreateCategoryEntry = (date: string, category: string) => {
     let entry = categoryTotals.find((item) => item.date === date);
     if (!entry) {
@@ -58,7 +35,7 @@ function expenseCalculateCategoryTotals(
     return categoryItem;
   };
 
-  expense?.institutions?.forEach((institution: Institution) => {
+  despesa?.institutions?.forEach((institution: any) => {
     const date = institution?.createAt;
 
     const totalAmountEntry = findOrCreateDateEntry(date);
@@ -71,7 +48,7 @@ function expenseCalculateCategoryTotals(
   });
 
   return {
-    ...expense,
+    ...despesa,
     totalAmount,
     categoryTotals,
   };

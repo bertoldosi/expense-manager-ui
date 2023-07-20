@@ -14,11 +14,11 @@ shopping
     ✔ selecionar compras
     ✔ deletar
     ✔ selecionar todos
-    ☐ filtros
+    ✔ filtros
 
 bugs
     ☐ ao escolher gasto, quando abre a tela com os gasto, o item não está selecionado e fica aparecendo as compras mesmo assim
-
+    ☐ remove types any da aplicação
 
 
 
