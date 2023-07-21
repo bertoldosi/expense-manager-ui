@@ -10,6 +10,7 @@ import { InstitutionType, ShoppingType } from "@interfaces/*";
 import instances from "@lib/axios-instance-internal";
 import { customToast } from "@commons/CustomToast";
 import { formatedInputValue } from "@helpers/formatedInputValue";
+import { toast } from "react-toastify";
 
 function ShoppingTable() {
   const cookies = new Cookies();
@@ -17,7 +18,7 @@ function ShoppingTable() {
   const { institution, getInstitution, setInstitution, getExpense } =
     useContext(userContextData) as userContextDataType;
 
-  function fethInstitutionAndExpense() {
+  async function fethInstitutionAndExpense() {
     const cookieValues = cookies.get("expense-manager");
 
     getInstitution(cookieValues?.filter?.institution?.id);
@@ -48,16 +49,27 @@ function ShoppingTable() {
     });
   }
 
-  function updateShopping(shopping: ShoppingType) {
-    instances
-      .put("api/shopping", {
-        ...shopping,
-        amount: shopping.amount.replace(/,/g, ""),
-      })
-      .then(() => {
-        customToast("success", "Item atualizado com sucesso!");
-        fethInstitutionAndExpense();
-      });
+  async function updateShopping(shopping: ShoppingType) {
+    try {
+      await customToast(
+        async () => {
+          await instances.put("api/shopping", {
+            ...shopping,
+            amount: shopping.amount.replace(/,/g, ""),
+          });
+        },
+        "Processando! ⏳ Aguarde...",
+        "Sucesso! 👌",
+        "Tente novamente mais tarde! 🤯",
+        {
+          // You can pass any custom options for the toast here
+        }
+      );
+
+      await fethInstitutionAndExpense();
+    } catch (error) {
+      // Handle the error, if necessary
+    }
   }
 
   return (

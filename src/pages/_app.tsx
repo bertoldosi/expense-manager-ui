@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
               pauseOnFocusLoss
               draggable
               pauseOnHover
-              theme="colored"
+              theme="light"
             />
             <GlobalStyle />
             <AppLayout>
