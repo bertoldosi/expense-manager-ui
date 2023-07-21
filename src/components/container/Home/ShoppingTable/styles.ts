@@ -16,7 +16,7 @@ export const Scontent = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background: ${(props) => props.theme.backgroundPrimary};
+    background: ${(props) => props.theme.backgroundSecondary};
   }
 
   > span {
