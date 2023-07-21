@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Scontent = styled.div`
-  height: calc(100vh - 33.4rem);
+  height: calc(100vh - 31.2rem);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
