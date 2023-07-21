@@ -19,6 +19,8 @@ shopping
 bugs
     ✔ ao escolher gasto, quando abre a tela com os gasto, o item não está selecionado e fica aparecendo as compras mesmo assim
     ✔ ao excluir instituição, os antigos shoppings permanecem sem exibido @started @done
+    ☐ ajustar comportamento do tootips
+
     ☐ ajustar nomeclaturas do banco do Expense "totalsAmount" "categoryAmount" altarar para "totalsAmountMonth" e "totalsCategorysMonth"
 
     ☐ alterar status da compra(estudar mais status)
