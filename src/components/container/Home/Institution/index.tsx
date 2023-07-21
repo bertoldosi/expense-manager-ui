@@ -15,17 +15,6 @@ import { customToast } from "@commons/CustomToast";
 import Shopping from "@containers/Home/Shopping";
 import Cookies from "universal-cookie";
 
-[
-  {
-    date: "01/07/2023",
-    categoryTotals: [
-      { category: "teste", total: 1000 },
-      { category: "sem", total: 2000 },
-    ],
-  },
-  { date: "01/06/2023", categoryTotals: [{ category: "sem", total: 1000 }] },
-];
-
 interface CategoryTotalsType {
   category: string;
   total: number;
