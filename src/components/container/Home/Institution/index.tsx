@@ -43,7 +43,7 @@ interface TotalsMonthType {
 export const Institution = () => {
   const cookies = new Cookies();
 
-  const { getExpense, institution, expense } = useContext(
+  const { getExpense, institution, setInstitution, expense } = useContext(
     userContextData
   ) as userContextDataType;
 
@@ -75,6 +75,7 @@ export const Institution = () => {
         const { filter } = cookies.get("expense-manager");
 
         getExpense(filter?.expense?.id, filter.institutions.createAt);
+        setInstitution(null);
         customToast("success", "Sucesso!");
       });
   }
