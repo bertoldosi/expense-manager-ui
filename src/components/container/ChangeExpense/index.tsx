@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Link from "next/link";
-import Router from "next/router";
+import { useRouter } from "next/router";
 import Cookies from "universal-cookie";
 import { useSession } from "next-auth/react";
 
@@ -13,6 +13,7 @@ import { Scontainer, Sbuttons } from "./styles";
 
 export const ChangeExpense = () => {
   const cookies = new Cookies();
+  const router = useRouter();
   const { data: session } = useSession();
 
   const { getUser, user, getInstitution, setSelectedInstitution } =
@@ -22,7 +23,7 @@ export const ChangeExpense = () => {
     if (session?.user?.email) getUser(session?.user?.email);
   }, [session]);
 
-  function redirectHome(expense: ExpenseType) {
+  async function redirectHome(expense: ExpenseType) {
     const institution = expense.institutions?.length && expense.institutions[0];
 
     const newCookies = {
@@ -31,17 +32,20 @@ export const ChangeExpense = () => {
           id: expense.id,
           name: expense.name,
         },
-        institution,
+        institution: institution && {
+          id: institution.id,
+          name: institution.name,
+        },
       },
     };
 
     if (institution) {
       setSelectedInstitution(institution);
-      getInstitution(institution.id);
+      await getInstitution(institution.id);
     }
 
     cookies.set("expense-manager", newCookies);
-    Router.push("/");
+    router.push("/");
   }
 
   return (
