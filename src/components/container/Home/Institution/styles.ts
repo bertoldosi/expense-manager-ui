@@ -25,7 +25,7 @@ export const Ssection = styled.section`
 
 export const Saside = styled.aside`
   width: 22rem;
-  height: calc(100vh - 20.3rem);
+  height: calc(100vh - 21.3rem);
   overflow-y: auto;
 
   &::-webkit-scrollbar-track {
