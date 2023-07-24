@@ -21,7 +21,7 @@ bugs
     ✔ ao excluir instituição, os antigos shoppings permanecem sem exibido 
     ✔ ajustar comportamento do toast
     ✔ ajustar margim do wapper ao cadastrar institution
-    ☐ não deixar criar novo expense com o mesmo nome
+    ✔ não deixar criar novo expense com o mesmo nome
 
     ☐ ajustar nomeclaturas do banco do Expense "totalsAmount" "categoryAmount" altarar para "totalsAmountMonth" e "totalsCategorysMonth"
 

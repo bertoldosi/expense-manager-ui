@@ -36,10 +36,21 @@ function ManagerExpenseForm({ expenseInitial }: ManagerExpenseFormType) {
 
   async function createExpense(values: { name: string }) {
     async function requestCreate() {
-      return await instances.post("api/expense", {
-        ...values,
-        userEmail: session?.user?.email,
-      });
+      return await instances
+        .post("api/expense", {
+          ...values,
+          userEmail: session?.user?.email,
+        })
+        .then(async () => {
+          return await redirectChangeExpense();
+        })
+        .catch((error) => {
+          if (error.response.status === 405) {
+            throw new Error("Não permitido. Nome já cadastrado!");
+          }
+
+          throw error;
+        });
     }
 
     await customToast(requestCreate);
@@ -50,10 +61,21 @@ function ManagerExpenseForm({ expenseInitial }: ManagerExpenseFormType) {
     expenseInitial: InitialExpenseUpdateType
   ) {
     async function requestUpdate() {
-      return await instances.put("api/expense", {
-        ...values,
-        id: expenseInitial.id,
-      });
+      return await instances
+        .put("api/expense", {
+          ...values,
+          id: expenseInitial.id,
+        })
+        .then(async () => {
+          return await redirectChangeExpense();
+        })
+        .catch((error) => {
+          if (error.response.status === 405) {
+            throw new Error("Não permitido. Nome já cadastrado!");
+          }
+
+          throw error;
+        });
     }
 
     await customToast(requestUpdate);
@@ -72,8 +94,6 @@ function ManagerExpenseForm({ expenseInitial }: ManagerExpenseFormType) {
       } else {
         await createExpense(values);
       }
-
-      return await redirectChangeExpense();
     },
 
     validationSchema,
@@ -95,7 +115,7 @@ function ManagerExpenseForm({ expenseInitial }: ManagerExpenseFormType) {
 
       <Sbuttons>
         <Button
-          text="Cadastrar"
+          text={expenseInitial ? "Salvar" : "Cadastrar"}
           type="submit"
           disabled={isResponse}
           width="20rem"

@@ -17,6 +17,21 @@ async function createExpense(req: NextApiRequest, res: NextApiResponse) {
       },
     });
 
+    const expenseExists = await prisma.$transaction(async (prisma) => {
+      const existingExpense = await prisma.expense.findFirst({
+        where: {
+          name,
+          userId: user?.id,
+        },
+      });
+
+      return existingExpense;
+    });
+
+    if (expenseExists) {
+      return res.status(405).send("Not allowed. Name already registered!");
+    }
+
     const expense = await prisma.expense.create({
       data: {
         name,

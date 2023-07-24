@@ -11,6 +11,20 @@ async function updateExpense(req: NextApiRequest, res: NextApiResponse) {
   const { id, name } = req.body as UpdateShoppingType;
 
   try {
+    const expenseExists = await prisma.$transaction(async (prisma) => {
+      const existingExpense = await prisma.expense.findUnique({
+        where: {
+          id,
+        },
+      });
+
+      return existingExpense;
+    });
+
+    if (expenseExists) {
+      return res.status(405).send("Not allowed. Name already registered!");
+    }
+
     const newExpense = await prisma.expense.update({
       where: {
         id,
