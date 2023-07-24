@@ -1,5 +1,5 @@
 import prisma from "@services/prisma";
-import expenseCalculateCategoryTotals from "@helpers/expenseCalculateCategoryTotals";
+import expenseCalculateCategoryTotalPerDate from "@helpers/expenseCalculateCategoryTotalPerDate";
 
 async function updateExpenseTotals(expenseId: string) {
   const expense = await prisma.expense.findUnique({
@@ -19,7 +19,7 @@ async function updateExpenseTotals(expenseId: string) {
     throw new Error("Expense not found");
   }
 
-  const expenseUpdate = expenseCalculateCategoryTotals(expense);
+  const expenseUpdate = expenseCalculateCategoryTotalPerDate(expense);
 
   try {
     await prisma.expense.update({
@@ -27,8 +27,8 @@ async function updateExpenseTotals(expenseId: string) {
         id: expenseId,
       },
       data: {
-        totalAmount: expenseUpdate.totalAmount,
-        categoryTotals: expenseUpdate.categoryTotals,
+        totalPerDate: expenseUpdate.totalPerDate,
+        categoryTotalPerDate: expenseUpdate.categoryTotalPerDate,
       },
     });
   } catch (error) {

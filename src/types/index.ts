@@ -5,11 +5,21 @@ export type UserType = {
   expenses: ExpenseType[];
 };
 
+interface TotalPerDateType {
+  date: string;
+  total: number;
+}
+
+interface CategoryTotalPerDateType {
+  date: string;
+  categoryTotals: CategoryType[];
+}
+
 export type ExpenseType = {
   id: string;
   name: string;
-  totalAmount?: number;
-  categoryTotals?: CategoryType[];
+  totalPerDate: TotalPerDateType[];
+  categoryTotalPerDate: CategoryTotalPerDateType[];
   institutions?: InstitutionType[];
 };
 

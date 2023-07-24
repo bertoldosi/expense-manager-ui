@@ -86,7 +86,8 @@ export const Institution = () => {
     );
 
     const totalMonthFilter = totalsMonth.find(
-      (categoryTotal) => categoryTotal.date === filter.institutions.createAt
+      (categoryTotalPerDate) =>
+        categoryTotalPerDate.date === filter.institutions.createAt
     );
 
     setCategoryTotalsMonth(categoryTotalsFilter);
@@ -94,10 +95,10 @@ export const Institution = () => {
   }
 
   useEffect(() => {
-    if (expense?.categoryTotals && expense?.totalAmount) {
+    if (expense?.categoryTotalPerDate && expense?.totalPerDate) {
       getCategoryTotalsMonthAndTotalsMonth(
-        expense.categoryTotals,
-        expense.totalAmount
+        expense.categoryTotalPerDate,
+        expense.totalPerDate
       );
     }
   }, [expense]);
