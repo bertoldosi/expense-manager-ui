@@ -22,7 +22,7 @@ bugs
     ✔ ajustar comportamento do toast
     ✔ ajustar margim do wapper ao cadastrar institution
     ✔ não deixar criar novo expense com o mesmo nome
-    ☐ as vezes da erro ao tentar escolher um expense, clica para escolher, porem não vai
+    ✔ as vezes da erro ao tentar escolher um expense, clica para escolher, porem não vai
 
     ☐ ajustar nomeclaturas do banco do Expense "totalsAmount" "categoryAmount" altarar para "totalsAmountMonth" e "totalsCategorysMonth"
 
