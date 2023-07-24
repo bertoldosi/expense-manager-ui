@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useSession } from "next-auth/react";
 
 import { Card } from "@commons/Card";
-import { Modal } from "@commons/Modal";
 import ManagerExpenseForm from "@containers/ManagerExpense/ManagerExpenseForm";
 import { userContextData, userContextDataType } from "@context/userContextData";
 import ManagerExpenseList from "@containers/ManagerExpense/ManagerExpenseList";
@@ -14,7 +13,9 @@ export const ManagerExpense = () => {
   ) as userContextDataType;
 
   useEffect(() => {
-    getUser(session?.user?.email);
+    if (session?.user) {
+      getUser(session?.user?.email);
+    }
   }, [session]);
 
   return (

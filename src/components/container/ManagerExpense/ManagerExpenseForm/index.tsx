@@ -10,6 +10,7 @@ import { userContextData, userContextDataType } from "@context/userContextData";
 
 import { Sbuttons, Scontainer, Sinputs } from "./styles";
 import validationSchema from "./validations";
+import { customToast } from "@commons/CustomToast";
 
 interface InitialExpenseUpdateType {
   id: string;
@@ -26,11 +27,36 @@ function ManagerExpenseForm({ expenseInitial }: ManagerExpenseFormType) {
 
   const [isResponse, setIsResponse] = React.useState<boolean>(false);
 
-  function redirectChangeExpense() {
-    getUser(session?.user?.email);
+  async function redirectChangeExpense() {
+    await getUser(session?.user?.email);
     setIsResponse(false);
 
     router.push("/alterar-gasto");
+  }
+
+  async function createExpense(values: { name: string }) {
+    async function requestCreate() {
+      return await instances.post("api/expense", {
+        ...values,
+        userEmail: session?.user?.email,
+      });
+    }
+
+    await customToast(requestCreate);
+  }
+
+  async function updateExpense(
+    values: { name: string },
+    expenseInitial: InitialExpenseUpdateType
+  ) {
+    async function requestUpdate() {
+      return await instances.put("api/expense", {
+        ...values,
+        id: expenseInitial.id,
+      });
+    }
+
+    await customToast(requestUpdate);
   }
 
   const onSubmitExpense = useFormik({
@@ -40,23 +66,14 @@ function ManagerExpenseForm({ expenseInitial }: ManagerExpenseFormType) {
 
     onSubmit: async (values) => {
       const isUpdate = !!expenseInitial?.name;
-      setIsResponse(true);
 
       if (isUpdate) {
-        await instances.put("api/expense", {
-          ...values,
-          id: expenseInitial.id,
-        });
-
-        return redirectChangeExpense();
+        await updateExpense(values, expenseInitial);
+      } else {
+        await createExpense(values);
       }
 
-      await instances.post("api/expense", {
-        ...values,
-        userEmail: session?.user?.email,
-      });
-
-      redirectChangeExpense();
+      return await redirectChangeExpense();
     },
 
     validationSchema,

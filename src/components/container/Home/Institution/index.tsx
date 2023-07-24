@@ -53,23 +53,26 @@ export const Institution = () => {
     setInstitutionUpdate(null);
   }
 
-  function deleteInstitution(institution: InstitutionType) {
-    instances
-      .delete("api/institution", {
-        params: {
-          institutionId: institution.id,
-        },
-      })
-      .then((response) => {
-        const { filter } = cookies.get("expense-manager");
+  async function deleteInstitution(institution: InstitutionType) {
+    async function requestDelete() {
+      return await instances
+        .delete("api/institution", {
+          params: {
+            institutionId: institution.id,
+          },
+        })
+        .then(async () => {
+          const { filter } = cookies.get("expense-manager");
 
-        getExpense(filter?.expense?.id, filter.institutions.createAt);
-        setInstitution(null);
-        customToast("success", "Sucesso!");
-      });
+          await getExpense(filter?.expense?.id, filter.institutions.createAt);
+          setInstitution(null);
+        });
+    }
+
+    await customToast(requestDelete);
   }
 
-  function updateInstitution(institutionData: InstitutionType) {
+  async function updateInstitution(institutionData: InstitutionType) {
     setInstitutionUpdate(institutionData);
     openModal();
   }

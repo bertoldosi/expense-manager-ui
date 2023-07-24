@@ -97,10 +97,6 @@ function InstitutionMenuFilter() {
         setSelectedInstitution();
         cookies.set("expense-manager", newCookies);
         setOptionsModalVisible(false);
-      })
-
-      .catch(() => {
-        customToast("error", "Algo deu errado, tente novamente mais tarde!");
       });
   }
 

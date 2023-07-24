@@ -50,26 +50,18 @@ function ShoppingTable() {
   }
 
   async function updateShopping(shopping: ShoppingType) {
-    try {
-      await customToast(
-        async () => {
-          await instances.put("api/shopping", {
-            ...shopping,
-            amount: shopping.amount.replace(/,/g, ""),
-          });
-        },
-        "Processando! ⏳ Aguarde...",
-        "Sucesso! 👌",
-        "Tente novamente mais tarde! 🤯",
-        {
-          // You can pass any custom options for the toast here
-        }
-      );
-
-      await fethInstitutionAndExpense();
-    } catch (error) {
-      // Handle the error, if necessary
+    async function requestUpdate() {
+      return await instances
+        .put("api/shopping", {
+          ...shopping,
+          amount: shopping.amount.replace(/,/g, ""),
+        })
+        .then(async () => {
+          await fethInstitutionAndExpense();
+        });
     }
+
+    await customToast(requestUpdate);
   }
 
   return (

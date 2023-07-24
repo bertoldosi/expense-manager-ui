@@ -27,6 +27,15 @@ import {
   SselectingAll,
 } from "./styles";
 
+interface ShoppingUpdateType {
+  description: string;
+  amount: string;
+  category: string;
+  paymentStatus: string;
+  selected?: boolean;
+  institutionId?: string;
+}
+
 const INITIAL_SHOPPING = {
   description: "",
   amount: "",
@@ -90,51 +99,39 @@ function ShoppingTableHeader() {
     }));
   }
 
-  const onSubmitShopping = useFormik({
-    initialValues: INITIAL_SHOPPING,
-    onSubmit: async (values) => {
-      const newShoppings = shoppingsSeleceted.map((shoppingMap) => {
-        return {
-          ...shoppingMap,
-          description: values.description
-            ? values.description
-            : shoppingMap.description,
-          amount: values.amount
-            ? values.amount.replace(/,/g, "")
-            : shoppingMap.amount.replace(/,/g, ""),
-          category: values.category ? values.category : shoppingMap.category,
-          paymentStatus: values.paymentStatus
-            ? values.paymentStatus
-            : shoppingMap.paymentStatus,
-        };
-      });
+  async function fethInstitutionAndExpense() {
+    const cookies = new Cookies();
+    const cookieValues = cookies.get("expense-manager");
 
-      await instances
-        .put("api/shopping", {
-          shoppings: newShoppings,
+    await getInstitution(cookieValues?.filter?.institution?.id);
+    await getExpense(
+      cookieValues?.filter.expense.id,
+      cookieValues?.filter.institutions.createAt
+    );
+  }
+
+  async function deleteShoppings() {
+    async function requestDelete() {
+      return await instances
+        .delete("api/shopping", {
+          data: {
+            shoppings: shoppingsSeleceted,
+          },
         })
-        .then(async (response) => {
-          fethInstitutionAndExpense();
-          customToast("success", "Itens alterados com sucesso!");
-          setIsModalUpdateVisible(false);
+        .then(async () => {
+          await fethInstitutionAndExpense();
           setValueSelectingAllShoppings(false);
-        })
-        .catch((response) => {
-          customToast("error", "Algo deu errado, tente novamente mais tarde!");
         });
+    }
 
-      onSubmitShopping.resetForm();
-    },
+    await customToast(requestDelete);
+  }
 
-    validationSchema: schemaCreate,
-  });
+  async function filterShoppings(values: { category: string }) {
+    const category = values.category === "all" ? "" : values.category;
 
-  const onSubmitFilterShopping = useFormik({
-    initialValues: INITIAL_OPTIONS,
-    onSubmit: async (values) => {
-      const category = values.category === "all" ? "" : values.category;
-
-      instances
+    async function requestFilter() {
+      return await instances
         .get("api/shopping", {
           params: {
             category: category,
@@ -147,42 +144,63 @@ function ShoppingTableHeader() {
             shoppings: response.data,
           }));
           setIsModalFilterVisible(false);
-        })
-        .catch(() => {
-          customToast("error", "Tente novamente, mais tarde!");
         });
+    }
+
+    await customToast(requestFilter);
+  }
+
+  async function updateAllShoppings(values: ShoppingUpdateType) {
+    const newShoppings = shoppingsSeleceted.map((shoppingMap) => {
+      return {
+        ...shoppingMap,
+        description: values.description
+          ? values.description
+          : shoppingMap.description,
+        amount: values.amount
+          ? values.amount.replace(/,/g, "")
+          : shoppingMap.amount.replace(/,/g, ""),
+        category: values.category ? values.category : shoppingMap.category,
+        paymentStatus: values.paymentStatus
+          ? values.paymentStatus
+          : shoppingMap.paymentStatus,
+      };
+    });
+
+    async function requestUpdate() {
+      return await instances
+        .put("api/shopping", {
+          shoppings: newShoppings,
+        })
+        .then(async () => {
+          await fethInstitutionAndExpense();
+          setIsModalUpdateVisible(false);
+          setValueSelectingAllShoppings(false);
+        });
+    }
+
+    await customToast(requestUpdate);
+  }
+
+  const onSubmitShopping = useFormik({
+    initialValues: INITIAL_SHOPPING,
+    onSubmit: async (values) => {
+      await updateAllShoppings(values);
+
+      onSubmitShopping.resetForm();
+    },
+
+    validationSchema: schemaCreate,
+  });
+
+  const onSubmitFilterShopping = useFormik({
+    initialValues: INITIAL_OPTIONS,
+    onSubmit: async (values) => {
+      await filterShoppings(values);
     },
 
     validationSchema: schemaFilter,
   });
-
-  function deleteShoppings() {
-    instances
-      .delete("api/shopping", {
-        data: {
-          shoppings: shoppingsSeleceted,
-        },
-      })
-      .then(() => {
-        fethInstitutionAndExpense();
-        customToast("success", "Itens excluidos com sucesso!");
-        setValueSelectingAllShoppings(false);
-      })
-      .catch(() => {
-        customToast("error", "Algo deu errado, tente novamente mais tarde!");
-      });
-  }
-
-  function fethInstitutionAndExpense() {
-    const cookies = new Cookies();
-    const cookieValues = cookies.get("expense-manager");
-
-    getInstitution(cookieValues?.filter?.institution?.id);
-    getExpense(
-      cookieValues?.filter.expense.id,
-      cookieValues?.filter.institutions.createAt
-    );
-  }
 
   return (
     <>

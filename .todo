@@ -19,7 +19,9 @@ shopping
 bugs
     ✔ ao escolher gasto, quando abre a tela com os gasto, o item não está selecionado e fica aparecendo as compras mesmo assim
     ✔ ao excluir instituição, os antigos shoppings permanecem sem exibido @started @done
-    ☐ ajustar comportamento do tootips
+    ✔ ajustar comportamento do toast
+    ☐ ajustar margim do wapper ao cadastrar institution
+    ☐ não deixar criar novo expense com o mesmo nome
 
     ☐ ajustar nomeclaturas do banco do Expense "totalsAmount" "categoryAmount" altarar para "totalsAmountMonth" e "totalsCategorysMonth"
 

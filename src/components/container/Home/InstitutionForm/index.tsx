@@ -11,11 +11,23 @@ import Input from "@commons/Input";
 import { Sform } from "./styles";
 import { userContextData, userContextDataType } from "@context/userContextData";
 import { customToast } from "@commons/CustomToast";
-import { InstitutionType } from "@interfaces/*";
+import { ExpenseType, InstitutionType } from "@interfaces/*";
+import { toast } from "react-toastify";
 
 const INITIAL_INSTITUTION = {
   name: "",
 };
+
+interface DataFormType {
+  name: string;
+}
+
+interface FilterType {
+  expense: ExpenseType;
+  institutions: {
+    createAt: string;
+  };
+}
 
 interface InstitutionFormProps {
   exitModal?: Function;
@@ -29,63 +41,73 @@ function InstitutionForm({ exitModal, institution }: InstitutionFormProps) {
     userContextData
   ) as userContextDataType;
 
+  async function updateInstitution(
+    dataForm: DataFormType,
+    filter: FilterType,
+    institution: InstitutionType
+  ) {
+    async function requestUpdate() {
+      return await instances
+        .put("api/institution", {
+          id: institution.id,
+          name: dataForm.name,
+          expenseId: filter.expense.id,
+          createAt: filter.institutions.createAt,
+        })
+        .then(async (response) => {
+          await getExpense(filter.expense.id, filter.institutions.createAt);
+          toggleSelectedInstitution(response.data);
+
+          if (exitModal) exitModal();
+        })
+        .catch((error) => {
+          if (error.response.status === 405) {
+            throw new Error("Não permitido. Nome já cadastrado nesse periodo!");
+          }
+
+          throw error;
+        });
+    }
+
+    await customToast(requestUpdate);
+  }
+
+  async function createInstitution(dataForm: DataFormType, filter: FilterType) {
+    async function requestCreate() {
+      return await instances
+        .post("api/institution", {
+          name: dataForm.name,
+          expenseId: filter.expense.id,
+          createAt: filter.institutions.createAt,
+        })
+        .then(async (response) => {
+          await getExpense(filter.expense.id, filter.institutions.createAt);
+          toggleSelectedInstitution(response.data);
+          if (exitModal) exitModal();
+        })
+        .catch((error) => {
+          if (error.response.status === 405) {
+            throw new Error("Não permitido. Nome já cadastrado nesse periodo!");
+          }
+
+          throw error;
+        });
+    }
+
+    await customToast(requestCreate);
+  }
+
   const onSubmitInstitution = useFormik({
     initialValues: institution ? institution : INITIAL_INSTITUTION,
     onSubmit: async (values) => {
       const { filter = {} } = cookies.get("expense-manager");
 
-      //editando instituição
       if (institution) {
-        instances
-          .put("api/institution", {
-            id: institution.id,
-            name: values.name,
-            expenseId: filter.expense.id,
-            createAt: filter.institutions.createAt,
-          })
-          .then(async (response) => {
-            await getExpense(filter.expense.id, filter.institutions.createAt);
-            toggleSelectedInstitution(response.data);
-            if (exitModal) exitModal();
-          })
-          .catch((error) => {
-            if (error.response.status === 405) {
-              return customToast(
-                "error",
-                "Não permitido. Nome já cadastrado nesse periodo!"
-              );
-            }
-
-            return customToast("error", "Algo deu errado, tente novamente!");
-          });
-
-        onSubmitInstitution.resetForm();
+        await updateInstitution(values, filter, institution);
       } else {
-        // criando nova instituição
-        instances
-          .post("api/institution", {
-            name: values.name,
-            expenseId: filter.expense.id,
-            createAt: filter.institutions.createAt,
-          })
-          .then(async (response) => {
-            await getExpense(filter.expense.id, filter.institutions.createAt);
-            toggleSelectedInstitution(response.data);
-            if (exitModal) exitModal();
-          })
-          .catch((error) => {
-            if (error.response.status === 405) {
-              return customToast(
-                "error",
-                "Não permitido. Nome já cadastrado nesse periodo!"
-              );
-            }
-
-            return customToast("error", "Algo deu errado, tente novamente!");
-          });
-
-        onSubmitInstitution.resetForm();
+        await createInstitution(values, filter);
       }
+      onSubmitInstitution.resetForm();
     },
 
     validationSchema,

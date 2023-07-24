@@ -38,25 +38,27 @@ function ManagerExpenseList() {
     setIsModalVisible((prev) => !prev);
   }
 
-  function deleteExpense(expense: ExpenseType) {
-    instances
-      .delete("api/expense", {
-        params: {
-          id: expense.id,
-        },
-      })
-      .then(() => {
-        customToast("success", "Sucesso ao excluir item!");
-        getUser(session?.user?.email);
-      })
-      .catch((error) => {
-        if (error.response.status == 405) {
-          customToast(
-            "error",
-            "Antes de deletar este gasto, delete os cartões vinculados a ele por favor!"
-          );
-        }
-      });
+  async function deleteExpense(expense: ExpenseType) {
+    async function requestDelete() {
+      return await instances
+        .delete("api/expense", {
+          params: {
+            id: expense.id,
+          },
+        })
+        .then(() => {
+          getUser(session?.user?.email);
+        })
+        .catch((error) => {
+          if (error.response.status == 405) {
+            throw new Error(
+              "Antes de deletar este gasto, delete os cartões vinculados a ele!"
+            );
+          }
+        });
+    }
+
+    await customToast(requestDelete);
   }
 
   return (

@@ -14,6 +14,27 @@ import { customToast } from "@commons/CustomToast";
 import { formatedInputValue } from "@helpers/formatedInputValue";
 import { focusInput } from "@helpers/focusInput";
 
+interface ShoppingCreateType {
+  description: string;
+  amount: string;
+  category: string;
+  paymentStatus: string;
+  selected?: boolean;
+  institutionId?: string;
+}
+interface FilterType {
+  institution: {
+    id: string;
+  };
+  expense: {
+    id: string;
+  };
+
+  institutions: {
+    createAt: string;
+  };
+}
+
 const INITIAL_SHOPPING = {
   description: "",
   amount: "",
@@ -28,17 +49,12 @@ function Shopping() {
     userContextData
   ) as userContextDataType;
 
-  const onSubmitShopping = useFormik({
-    initialValues: INITIAL_SHOPPING,
-    onSubmit: async (values) => {
-      const { filter = {} } = cookies.get("expense-manager");
-
-      const shopping = {
-        ...values,
-        category: values.category ? values.category : "sem",
-      };
-
-      instances
+  async function createShopping(
+    shopping: ShoppingCreateType,
+    filter: FilterType
+  ) {
+    async function requestCreate() {
+      return await instances
         .post("api/shopping", {
           shopping: {
             ...shopping,
@@ -50,12 +66,23 @@ function Shopping() {
           focusInput("description");
           getInstitution(filter.institution.id);
           getExpense(filter.expense.id, filter.institutions.createAt);
-
-          customToast(
-            "success",
-            `${shopping.description} incluído com sucesso!`
-          );
         });
+    }
+
+    await customToast(requestCreate);
+  }
+
+  const onSubmitShopping = useFormik({
+    initialValues: INITIAL_SHOPPING,
+    onSubmit: async (values) => {
+      const { filter = {} } = cookies.get("expense-manager");
+
+      const shopping = {
+        ...values,
+        category: values.category ? values.category : "sem",
+      };
+
+      await createShopping(shopping, filter);
 
       onSubmitShopping.resetForm();
     },
