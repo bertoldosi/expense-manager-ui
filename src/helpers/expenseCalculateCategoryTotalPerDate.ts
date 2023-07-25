@@ -26,8 +26,8 @@ interface ExpenseType {
 }
 
 function expenseCalculateCategoryTotalPerDate(expense: ExpenseType) {
-  const totalPerDate: TotalPerDateType[] = [];
-  const categoryTotalPerDate: CategoryTotalPerDateType[] = [];
+  const totalPerDate: any = [];
+  const categoryTotalPerDate: any = [];
 
   const findOrCreateDateEntry = (date: string) => {
     let entry = totalPerDate.find((item) => item.date === date);
