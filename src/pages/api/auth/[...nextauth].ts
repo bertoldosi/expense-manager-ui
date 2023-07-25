@@ -10,6 +10,7 @@ const { publicRuntimeConfig = {} } = getConfig() || {};
 
 const clientId = publicRuntimeConfig.CLIENT_ID;
 const clientSecret = publicRuntimeConfig.GOOGLE_SECRET;
+const nextAuthSecret = publicRuntimeConfig.NEXTAUTH_SECRET;
 
 const prisma = new PrismaClient();
 
@@ -37,6 +38,7 @@ export const authOptions: NextAuthOptions = {
       return "/";
     },
   },
+  secret: nextAuthSecret,
 };
 
 export default NextAuth(authOptions);

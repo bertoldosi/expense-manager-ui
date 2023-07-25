@@ -9,5 +9,7 @@ module.exports = {
 
     CLIENT_ID: process.env.CLIENT_ID,
     GOOGLE_SECRET: process.env.GOOGLE_SECRET,
+
+    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
   },
 };
