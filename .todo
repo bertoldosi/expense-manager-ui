@@ -24,10 +24,11 @@ bugs
     ✔ não deixar criar novo expense com o mesmo nome
     ✔ as vezes da erro ao tentar escolher um expense, clica para escolher, porem não vai
     ☐ verificar tipos any no expenseCalculateCategoryTotalPerDate.ts
+    ✔ alterar status da compra(estudar mais status)
+    ☐ ajustar layout do select de alterar status
 
     ✔ ajustar nomeclaturas do banco do Expense "totalsAmount" "categoryAmount" altarar para "totalsMonth" e "totalsCategorysMonth"
 
-    ☐ alterar status da compra(estudar mais status)
 
     ☐ recalcular conforme o status alterar
 

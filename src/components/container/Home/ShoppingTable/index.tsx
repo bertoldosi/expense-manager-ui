@@ -10,7 +10,12 @@ import { InstitutionType, ShoppingType } from "@interfaces/*";
 import instances from "@lib/axios-instance-internal";
 import { customToast } from "@commons/CustomToast";
 import { formatedInputValue } from "@helpers/formatedInputValue";
-import { toast } from "react-toastify";
+import InputSelectTable from "@commons/InputSelectTable ";
+
+const options = [
+  { label: "Aberto", value: "open" },
+  { label: "Pago", value: "closed" },
+];
 
 function ShoppingTable() {
   const cookies = new Cookies();
@@ -47,6 +52,16 @@ function ShoppingTable() {
         }),
       };
     });
+  }
+
+  async function onChangeStatus(
+    ev: React.ChangeEvent<HTMLInputElement>,
+    shopping: ShoppingType
+  ) {
+    const { value } = ev.target;
+
+    onChangeShopping(ev);
+    await updateShopping({ ...shopping, paymentStatus: value });
   }
 
   async function updateShopping(shopping: ShoppingType) {
@@ -109,6 +124,17 @@ function ShoppingTable() {
                   }}
                   value={shoppingMap.category || ""}
                   onChange={onChangeShopping}
+                />
+              </strong>
+              <strong>
+                <InputSelectTable
+                  options={options}
+                  id={shoppingMap.id}
+                  name="paymentStatus"
+                  value={shoppingMap.paymentStatus}
+                  onChange={(ev: React.ChangeEvent<HTMLInputElement>) => {
+                    onChangeStatus(ev, shoppingMap);
+                  }}
                 />
               </strong>
             </span>
