@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Cookies from "universal-cookie";
 
 import ShoppingTableHeader from "@containers/Home/ShoppingTableHeader";
@@ -11,6 +11,7 @@ import instances from "@lib/axios-instance-internal";
 import { customToast } from "@commons/CustomToast";
 import { formatedInputValue } from "@helpers/formatedInputValue";
 import InputSelectTable from "@commons/InputSelectTable ";
+import { Button } from "@commons/Button";
 
 const options = [
   { label: "Aberto", value: "open" },
@@ -20,6 +21,7 @@ const options = [
 function ShoppingTable() {
   const cookies = new Cookies();
 
+  const [idShoppingUpdate, setIdShoppingUpdate] = useState<string>("");
   const { institution, getInstitution, setInstitution, getExpense } =
     useContext(userContextData) as userContextDataType;
 
@@ -35,6 +37,7 @@ function ShoppingTable() {
 
   function onChangeShopping(ev: React.ChangeEvent<HTMLInputElement>) {
     const { id, name, value, checked } = ev.target;
+    setIdShoppingUpdate(id);
 
     setInstitution((prevInstitution: InstitutionType) => {
       return {
@@ -65,6 +68,8 @@ function ShoppingTable() {
   }
 
   async function updateShopping(shopping: ShoppingType) {
+    setIdShoppingUpdate("");
+
     async function requestUpdate() {
       return await instances
         .put("api/shopping", {
@@ -139,6 +144,17 @@ function ShoppingTable() {
                     onChangeStatus(ev, shoppingMap);
                   }}
                 />
+
+                {idShoppingUpdate === shoppingMap.id && (
+                  <Button
+                    text="Salvar"
+                    width="10rem"
+                    height="2rem"
+                    onClick={() => {
+                      updateShopping(shoppingMap);
+                    }}
+                  />
+                )}
               </strong>
             </SrowTable>
           ))
