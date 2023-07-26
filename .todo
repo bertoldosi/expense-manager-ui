@@ -23,18 +23,17 @@ bugs
     ✔ ajustar margim do wapper ao cadastrar institution
     ✔ não deixar criar novo expense com o mesmo nome
     ✔ as vezes da erro ao tentar escolher um expense, clica para escolher, porem não vai
-    ☐ verificar tipos any no expenseCalculateCategoryTotalPerDate.ts
     ✔ alterar status da compra(estudar mais status)
     ✔ ajustar layout do select de alterar status
-
     ✔ ajustar nomeclaturas do banco do Expense "totalsAmount" "categoryAmount" altarar para "totalsMonth" e "totalsCategorysMonth"
-
-
-    ☐ recalcular conforme o status alterar
-
+    ✔ recalcular conforme o status alterar
+    
+    
+    
     ☐ remove types any da aplicação
-
+    
     ☐ botao de alterar varios está "adicionar" precisa mudar para "comfirmar"
+    ☐ verificar tipos any no expenseCalculateCategoryTotalPerDate.ts
 
     ☐ implementar theme light
 

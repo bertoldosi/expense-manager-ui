@@ -22,16 +22,19 @@ function institutionCalculateCategoryTotals(
         const category = shopping.category;
         const amount = parseFloat(shopping.amount);
 
-        if (totals[category]) {
-          totals[category] += amount;
-        } else {
-          totals[category] = amount;
+        // calculando apenas compras em aberto
+        if (shopping.paymentStatus === "open") {
+          if (totals[category]) {
+            totals[category] += amount;
+          } else {
+            totals[category] = amount;
+          }
         }
 
         return totals;
       }, {});
 
-    // Convert the categoryTotals object to an array of objects
+    // Converte o objeto categoryTotals em um array de objetos
     const categoryTotalsArray: CategoryType[] = Object.keys(categoryTotals).map(
       (category) => ({
         category,
