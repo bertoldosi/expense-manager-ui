@@ -4,7 +4,7 @@ import Cookies from "universal-cookie";
 import ShoppingTableHeader from "@containers/Home/ShoppingTableHeader";
 import InputTable from "@commons/InputTable";
 
-import { NoResult, Scontent } from "./styles";
+import { NoResult, Scontent, SrowTable } from "./styles";
 import { userContextData, userContextDataType } from "@context/userContextData";
 import { InstitutionType, ShoppingType } from "@interfaces/*";
 import instances from "@lib/axios-instance-internal";
@@ -85,7 +85,10 @@ function ShoppingTable() {
       <Scontent>
         {institution?.shoppings?.length ? (
           institution?.shoppings.map((shoppingMap, index) => (
-            <span key={index}>
+            <SrowTable
+              key={index}
+              paymentStatus={shoppingMap.paymentStatus as "closed" | "open"}
+            >
               <strong>
                 <InputTable
                   id={shoppingMap.id}
@@ -137,7 +140,7 @@ function ShoppingTable() {
                   }}
                 />
               </strong>
-            </span>
+            </SrowTable>
           ))
         ) : (
           <NoResult>

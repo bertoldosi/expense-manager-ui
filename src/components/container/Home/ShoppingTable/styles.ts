@@ -1,4 +1,9 @@
 import styled from "styled-components";
+import css from "styled-jsx/css";
+
+interface SrowTableType {
+  paymentStatus: "closed" | "open";
+}
 
 export const Scontent = styled.div`
   height: calc(100vh - 32.2rem);
@@ -19,34 +24,40 @@ export const Scontent = styled.div`
     background: ${(props) => props.theme.backgroundSecondary};
   }
 
-  > span {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 0.5rem;
-    background-color: ${(props) => props.theme.backgroundPrimary};
-
-    > strong {
-      width: max-content;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 0 1rem;
-    }
-
-    &:hover {
-      background-color: ${(props) => props.theme.backgroundSecondary};
-
-      strong {
-        input {
-          color: #000;
-        }
-      }
-    }
-  }
-
   @media (max-width: 700px) {
     height: min-content;
+  }
+`;
+
+export const SrowTable = styled.span<SrowTableType>`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0.5rem;
+  background-color: ${(props) => props.theme.backgroundPrimary};
+
+  > strong {
+    width: max-content;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  ${(props): any => {
+    if (props.paymentStatus === "closed") {
+      return css`
+        background-color: #15ac4e;
+      `;
+    }
+
+    return css`
+      background-color: initial;
+    `;
+  }}
+
+  &:hover {
+    background-color: ${(props) => props.theme.backgroundPrimary};
   }
 `;
 
