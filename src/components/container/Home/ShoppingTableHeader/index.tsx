@@ -296,7 +296,7 @@ function ShoppingTableHeader() {
               placeholder="Nome da categoria"
               error={onSubmitShopping.errors.category}
             />
-            <Button text="Adicionar" type="submit" width="20rem" />
+            <Button text="Salvar" type="submit" width="20rem" />
           </Sform>
         </ScontentModal>
       </Modal>

@@ -27,7 +27,8 @@ bugs
     ✔ ajustar layout do select de alterar status
     ✔ ajustar nomeclaturas do banco do Expense "totalsAmount" "categoryAmount" altarar para "totalsMonth" e "totalsCategorysMonth"
     ✔ recalcular conforme o status alterar
-    ☐ botao de alterar varios está "adicionar" precisa mudar para "comfirmar"
+    ✔ botao de alterar varios está "adicionar" precisa mudar para "comfirmar"
+    ☐ replicar gastos parcelados
     
     
     ☐ remove types any da aplicação
