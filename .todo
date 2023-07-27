@@ -29,8 +29,9 @@ bugs
     ✔ recalcular conforme o status alterar
     ✔ botao de alterar varios está "adicionar" precisa mudar para "comfirmar"
     ☐ replicar gastos parcelados
-    
-    
+        Uma vez selecinado uma data, não deixar escolher novamente.
+
+        
     ☐ remove types any da aplicação
     
     ☐ verificar tipos any no expenseCalculateCategoryTotalPerDate.ts

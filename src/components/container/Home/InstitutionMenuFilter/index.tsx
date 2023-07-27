@@ -2,26 +2,17 @@ import React, { useContext, useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 import moment from "moment";
 
-import { ChevronDoubleLeft } from "@icons/ChevronDoubleLeft";
-import { ChevronDoubleRight } from "@icons/ChevronDoubleRight";
 import { BsChevronDown } from "@icons/BsChevronDown";
 import { Modal } from "@commons/Modal";
-import { Button } from "@commons/Button";
 
 import { userContextData, userContextDataType } from "@context/userContextData";
 import instances from "@lib/axios-instance-internal";
-import { customToast } from "@commons/CustomToast";
 import { ExpenseType } from "@interfaces/*";
 
-import {
-  Scontainer,
-  ScontentModal,
-  ScontentSelectedDate,
-  Sdate,
-  SmonthItem,
-} from "./styles";
+import { Scontainer, Sdate } from "./styles";
+import { SelectDate } from "@commons/SelectDate";
 
-const DATES = [
+const dates = [
   { name: "JAN", number: "01" },
   { name: "FEV", number: "02" },
   { name: "MAR", number: "03" },
@@ -44,23 +35,21 @@ function InstitutionMenuFilter() {
   ) as userContextDataType;
 
   const [isOptionsModalVisible, setOptionsModalVisible] = useState(false);
-  const [valueYear, setValueYear] = useState<number | null>(null);
-  const [valueMonth, setValueMonth] = useState<string | null>(null);
+  const [valueYear, setValueYear] = useState<number>(() => {
+    const date = moment().format("DD/MM/YYYY");
+    const [_day, _month, year] = date.split("/");
+
+    return Number(year);
+  });
+  const [valueMonth, setValueMonth] = useState<string>(() => {
+    const date = moment().format("DD/MM/YYYY");
+    const [_day, month, _year] = date.split("/");
+
+    return month;
+  });
 
   function handlerIsVisibleModal() {
     setOptionsModalVisible((prev) => !prev);
-  }
-
-  function changeMonth(number: string) {
-    setValueMonth(number);
-  }
-
-  function nextYear() {
-    if (valueYear) setValueYear(valueYear + 1);
-  }
-
-  function previousYear() {
-    if (valueYear) setValueYear(valueYear + 1);
   }
 
   async function filter() {
@@ -132,7 +121,7 @@ function InstitutionMenuFilter() {
   }
 
   function renderNameMonth(number: string): string {
-    const nameMonth = DATES.find((date) => date.number == number);
+    const nameMonth = dates.find((date) => date.number == number);
 
     return nameMonth?.name || "";
   }
@@ -160,29 +149,14 @@ function InstitutionMenuFilter() {
         handlerIsVisible={handlerIsVisibleModal}
         title="Escolhe o mês que deseja visualizar"
       >
-        <ScontentModal>
-          <header>
-            <ChevronDoubleLeft width="3rem" onClick={previousYear} />
-            <span>{valueYear}</span>
-            <ChevronDoubleRight width="3rem" onClick={nextYear} />
-          </header>
-
-          <ScontentSelectedDate>
-            {DATES.map((date) => (
-              <SmonthItem
-                isSelected={valueMonth === date.number}
-                key={date.number}
-                onClick={() => {
-                  changeMonth(date.number);
-                }}
-              >
-                {date.name}
-              </SmonthItem>
-            ))}
-          </ScontentSelectedDate>
-
-          <Button text="Aplicar" width="20rem" onClick={filter} />
-        </ScontentModal>
+        <SelectDate
+          valueYear={valueYear}
+          handlerYear={setValueYear}
+          valueMonth={valueMonth}
+          changeMonth={setValueMonth}
+          buttonOnClick={filter}
+          dates={dates}
+        />
       </Modal>
     </>
   );
