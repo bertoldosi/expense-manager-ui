@@ -16,9 +16,10 @@ export const ChevronDoubleRight = ({
   width = "40",
   height = "40",
   onClick,
+  ...props
 }: PropsType) => {
   return (
-    <Scontent onClick={onClick}>
+    <Scontent onClick={onClick} {...props}>
       <svg
         width={width}
         height={height}

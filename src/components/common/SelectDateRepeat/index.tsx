@@ -3,11 +3,10 @@ import React, { useState } from "react";
 import { Scontainer, SmodalDate, SoptionsMonth, SselectDate } from "./styles";
 import { Date } from "@icons/Date";
 import { Exit } from "@icons/Exit";
-import { Modal } from "@commons/Modal";
-import { SelectDate } from "@commons/SelectDate";
 import { ChevronDoubleLeft } from "@icons/ChevronDoubleLeft";
 import { ChevronDoubleRight } from "@icons/ChevronDoubleRight";
 import { Button } from "@commons/Button";
+import moment from "moment";
 
 const optionsDates = [
   { name: "JAN", number: "01" },
@@ -26,48 +25,100 @@ const optionsDates = [
 
 function SelectDateRepeat() {
   const [isVisibleModal, setIsVisibleModal] = useState(false);
-  const [date, setDate] = useState("");
+  const [dates, setDates] = useState([""]);
+  const [year, setYear] = useState(() => {
+    const date = moment().format("DD/MM/YYYY");
+    const [_day, _month, year] = date.split("/");
 
-  const [dates, setDates] = useState([
-    "01/07/2023",
-    "01/08/2023",
-    "01/09/2023",
-  ]);
+    return Number(year);
+  });
 
   function handlerIsVisibleModal() {
     setIsVisibleModal((prev) => !prev);
   }
 
+  function nextYear() {
+    setYear((prevValueYear: number) => prevValueYear + 1);
+  }
+
+  function previousYear() {
+    setYear((prevValueYear: number) => prevValueYear - 1);
+  }
+
+  function addDate(month: string) {
+    const date = `01/${month}/${year}`;
+
+    setDates((prev) => [...prev, date]);
+    handlerIsVisibleModal();
+  }
+
+  function removeDate(dateRemove: string) {
+    const newDates = dates.filter((date) => date !== dateRemove);
+
+    setDates(newDates);
+  }
+
   return (
     <>
       <Scontainer>
-        {dates.map((date) => (
-          <SselectDate>
-            <span>{date}</span>
-            <Exit width="1.5rem" height="1.5rem" />
-          </SselectDate>
-        ))}
+        {dates.map(
+          (date) =>
+            date && (
+              <SselectDate key={date}>
+                <span>{date}</span>
+                <Exit
+                  width="1.5rem"
+                  height="1.5rem"
+                  type="button"
+                  onClick={() => {
+                    removeDate(date);
+                  }}
+                />
+              </SselectDate>
+            )
+        )}
 
         <SselectDate onClick={handlerIsVisibleModal}>
           <span>Selecione a data</span>
-          <Date width="1.5rem" height="1.5rem" />
+          <Date width="1.5rem" height="1.5rem" type="button" />
         </SselectDate>
 
-        <SmodalDate>
-          <header>
-            <ChevronDoubleLeft width="3rem" onClick={() => {}} />
-            <span>{2023}</span>
-            <ChevronDoubleRight width="3rem" onClick={() => {}} />
-          </header>
+        {isVisibleModal && (
+          <SmodalDate>
+            <header>
+              <ChevronDoubleLeft
+                width="3rem"
+                onClick={previousYear}
+                type="button"
+              />
+              <span>{year}</span>
+              <ChevronDoubleRight
+                width="3rem"
+                onClick={nextYear}
+                type="button"
+              />
+            </header>
 
-          <div>
-            {optionsDates.map((month) => (
-              <SoptionsMonth>{month.name}</SoptionsMonth>
-            ))}
-          </div>
+            <div>
+              {optionsDates.map((month) => (
+                <SoptionsMonth
+                  key={month.number}
+                  onClick={() => {
+                    addDate(month.number);
+                  }}
+                >
+                  {month.name}
+                </SoptionsMonth>
+              ))}
+            </div>
 
-          <Button text="Fechar" width="10rem" />
-        </SmodalDate>
+            <Button
+              text="Fechar"
+              width="10rem"
+              onClick={handlerIsVisibleModal}
+            />
+          </SmodalDate>
+        )}
       </Scontainer>
 
       {/* <Modal

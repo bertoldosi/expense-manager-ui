@@ -25,14 +25,9 @@ const Scontent = styled.button`
   }
 `;
 
-export const Exit = ({
-  width = "40",
-  height = "40",
-  onClick,
-  disabled,
-}: PropsType) => {
+export const Exit = ({ width = "40", height = "40", ...props }: PropsType) => {
   return (
-    <Scontent onClick={onClick} disabled={disabled}>
+    <Scontent {...props}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={width}

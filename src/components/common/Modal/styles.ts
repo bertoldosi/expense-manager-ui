@@ -33,5 +33,7 @@ export const Sheader = styled.header`
 `;
 
 export const Ssection = styled.section`
+  height: 50rem;
   padding: 1rem;
+  overflow-y: auto;
 `;

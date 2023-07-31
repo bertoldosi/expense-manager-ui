@@ -59,7 +59,7 @@ function ShoppingTableHeader() {
   } = useContext(userContextData) as userContextDataType;
 
   const [isModalUpdateVisible, setIsModalUpdateVisible] =
-    useState<boolean>(true);
+    useState<boolean>(false);
   const [isModalFilterVisible, setIsModalFilterVisible] =
     useState<boolean>(false);
   const [valueSelectingAllShoppings, setValueSelectingAllShoppings] =
@@ -301,7 +301,6 @@ function ShoppingTableHeader() {
 
             <Srepeat>
               <h2>Repetindo item(s)</h2>
-
               <SelectDateRepeat />
             </Srepeat>
 
