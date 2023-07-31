@@ -24,7 +24,7 @@ export const SselectingAll = styled.div`
   }
 `;
 
-export const ButtonsOptions = styled.div`
+export const SbuttonsOptions = styled.div`
   display: flex;
   gap: 1rem;
 `;
@@ -72,7 +72,7 @@ export const Sform = styled.form`
   }
 `;
 
-export const SFilterform = styled.form`
+export const Sfilterform = styled.form`
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -81,5 +81,14 @@ export const SFilterform = styled.form`
 
   > button {
     margin-top: 2rem;
+  }
+`;
+
+export const Srepeat = styled.div`
+  width: 100%;
+  margin-top: 1rem;
+
+  > h2 {
+    margin-bottom: 1rem;
   }
 `;

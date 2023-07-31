@@ -15,15 +15,17 @@ import { userContextData, userContextDataType } from "@context/userContextData";
 import InputTable from "@commons/InputTable";
 import { Filter } from "@icons/Filter";
 import InputSelect from "@commons/InputSelect";
+import SelectDateRepeat from "@commons/SelectDateRepeat";
 
 import {
-  ButtonsOptions,
-  SFilterform,
+  SbuttonsOptions,
+  Sfilterform,
   Scontent,
   ScontentModal,
   Sfilter,
   Sform,
   Slist,
+  Srepeat,
   SselectingAll,
 } from "./styles";
 
@@ -57,7 +59,7 @@ function ShoppingTableHeader() {
   } = useContext(userContextData) as userContextDataType;
 
   const [isModalUpdateVisible, setIsModalUpdateVisible] =
-    useState<boolean>(false);
+    useState<boolean>(true);
   const [isModalFilterVisible, setIsModalFilterVisible] =
     useState<boolean>(false);
   const [valueSelectingAllShoppings, setValueSelectingAllShoppings] =
@@ -216,7 +218,7 @@ function ShoppingTableHeader() {
           <span>Todos</span>
         </SselectingAll>
 
-        <ButtonsOptions>
+        <SbuttonsOptions>
           <Sfilter onClick={openModalFilter}>
             <Filter width="2rem" height="2rem" />
             <span>{onSubmitFilterShopping.values.category}</span>
@@ -241,7 +243,7 @@ function ShoppingTableHeader() {
           ) : (
             ""
           )}
-        </ButtonsOptions>
+        </SbuttonsOptions>
       </Scontent>
 
       <Modal
@@ -296,6 +298,13 @@ function ShoppingTableHeader() {
               placeholder="Nome da categoria"
               error={onSubmitShopping.errors.category}
             />
+
+            <Srepeat>
+              <h2>Repetindo item(s)</h2>
+
+              <SelectDateRepeat />
+            </Srepeat>
+
             <Button text="Salvar" type="submit" width="20rem" />
           </Sform>
         </ScontentModal>
@@ -307,7 +316,7 @@ function ShoppingTableHeader() {
         handlerIsVisible={exitModalFilter}
       >
         <ScontentModal>
-          <SFilterform onSubmit={onSubmitFilterShopping.handleSubmit}>
+          <Sfilterform onSubmit={onSubmitFilterShopping.handleSubmit}>
             <InputSelect
               name="category"
               id="category"
@@ -320,7 +329,7 @@ function ShoppingTableHeader() {
               }))}
             />
             <Button text="Filtrar" type="submit" width="20rem" />
-          </SFilterform>
+          </Sfilterform>
         </ScontentModal>
       </Modal>
     </>
