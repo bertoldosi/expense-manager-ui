@@ -15,7 +15,6 @@ import { userContextData, userContextDataType } from "@context/userContextData";
 import InputTable from "@commons/InputTable";
 import { Filter } from "@icons/Filter";
 import InputSelect from "@commons/InputSelect";
-import SelectDateRepeat from "@commons/SelectDateRepeat";
 
 import {
   SbuttonsOptions,
@@ -28,12 +27,14 @@ import {
   Srepeat,
   SselectingAll,
 } from "./styles";
+import { toast } from "react-toastify";
 
 interface ShoppingUpdateType {
   description: string;
   amount: string;
   category: string;
   paymentStatus: string;
+  repeat: string;
   selected?: boolean;
   institutionId?: string;
 }
@@ -42,12 +43,33 @@ const INITIAL_SHOPPING = {
   description: "",
   amount: "",
   category: "",
-  paymentStatus: "open",
+  paymentStatus: "",
+  repeat: "",
 };
+
+const INITIAL_OPTIONS_PAYMENT_STATUS = [
+  { label: "Aberto", value: "open" },
+  { label: "Pago", value: "closed" },
+];
 
 const INITIAL_OPTIONS = {
   category: "all",
 };
+
+const INITIAL_OPTIONS_REPEAT = [
+  { label: "Próximo(s) 1 mês", value: "1" },
+  { label: "Próximo(s) 2 mês", value: "2" },
+  { label: "Próximo(s) 3 mês", value: "3" },
+  { label: "Próximo(s) 4 mês", value: "4" },
+  { label: "Próximo(s) 5 mês", value: "5" },
+  { label: "Próximo(s) 6 mês", value: "6" },
+  { label: "Próximo(s) 7 mês", value: "7" },
+  { label: "Próximo(s) 8 mês", value: "8" },
+  { label: "Próximo(s) 9 mês", value: "9" },
+  { label: "Próximo(s) 10 mês", value: "10" },
+  { label: "Próximo(s) 11 mês", value: "11" },
+  { label: "Próximo(s) 12 mês", value: "12" },
+];
 
 function ShoppingTableHeader() {
   const {
@@ -153,35 +175,48 @@ function ShoppingTableHeader() {
   }
 
   async function updateAllShoppings(values: ShoppingUpdateType) {
-    const newShoppings = shoppingsSeleceted.map((shoppingMap) => {
-      return {
-        ...shoppingMap,
-        description: values.description
-          ? values.description
-          : shoppingMap.description,
-        amount: values.amount
-          ? values.amount.replace(/,/g, "")
-          : shoppingMap.amount.replace(/,/g, ""),
-        category: values.category ? values.category : shoppingMap.category,
-        paymentStatus: values.paymentStatus
-          ? values.paymentStatus
-          : shoppingMap.paymentStatus,
-      };
-    });
+    const isNewInput =
+      !!values.description ||
+      !!values.amount ||
+      !!values.category ||
+      !!values.paymentStatus ||
+      !!values.repeat;
 
-    async function requestUpdate() {
-      return await instances
-        .put("api/shopping", {
-          shoppings: newShoppings,
-        })
-        .then(async () => {
-          await fethInstitutionAndExpense();
-          setIsModalUpdateVisible(false);
-          setValueSelectingAllShoppings(false);
-        });
+    if (isNewInput) {
+      const newShoppings = shoppingsSeleceted.map((shoppingMap) => {
+        return {
+          ...shoppingMap,
+          description: values.description
+            ? values.description
+            : shoppingMap.description,
+          amount: values.amount
+            ? values.amount.replace(/,/g, "")
+            : shoppingMap.amount.replace(/,/g, ""),
+          category: values.category ? values.category : shoppingMap.category,
+          paymentStatus: values.paymentStatus
+            ? values.paymentStatus
+            : shoppingMap.paymentStatus,
+        };
+      });
+
+      console.log(newShoppings);
+
+      const requestUpdate = async () => {
+        return await instances
+          .put("api/shopping", {
+            shoppings: newShoppings,
+          })
+          .then(async () => {
+            await fethInstitutionAndExpense();
+            setValueSelectingAllShoppings(false);
+          });
+      };
+      await customToast(requestUpdate);
+    } else {
+      toast.info(<h3>Nenhum campo alterado!</h3>);
     }
 
-    await customToast(requestUpdate);
+    setIsModalUpdateVisible(false);
   }
 
   const onSubmitShopping = useFormik({
@@ -299,9 +334,25 @@ function ShoppingTableHeader() {
               error={onSubmitShopping.errors.category}
             />
 
+            <InputSelect
+              name="paymentStatus"
+              id="paymentStatus"
+              value={onSubmitShopping.values.paymentStatus}
+              onChange={onSubmitShopping.handleChange}
+              defaultOption={{ label: "Selecione um status", value: "" }}
+              options={INITIAL_OPTIONS_PAYMENT_STATUS}
+            />
+
             <Srepeat>
               <h2>Repetindo item(s)</h2>
-              <SelectDateRepeat />
+              <InputSelect
+                name="repeat"
+                id="repeat"
+                value={onSubmitShopping.values.repeat}
+                onChange={onSubmitShopping.handleChange}
+                defaultOption={{ label: "Selecione um valor", value: "0" }}
+                options={INITIAL_OPTIONS_REPEAT}
+              />
             </Srepeat>
 
             <Button text="Salvar" type="submit" width="20rem" />
