@@ -174,6 +174,29 @@ function ShoppingTableHeader() {
     await customToast(requestFilter);
   }
 
+  async function repeatShoppings(
+    numberRepeat: string,
+    newShoppings: ShoppingType[]
+  ) {
+    const requestRepeat = async () => {
+      return await instances
+        .post("api/shopping/repeat", {
+          repeat: Number(numberRepeat),
+          shoppings: newShoppings,
+        })
+        .then(async () => {
+          await fethInstitutionAndExpense();
+          setValueSelectingAllShoppings(false);
+        });
+    };
+
+    await customToast(
+      requestRepeat,
+      "Replicando compras",
+      "Compras repetidas para o(s) próximo(o) meses"
+    );
+  }
+
   async function updateAllShoppings(values: ShoppingUpdateType) {
     const isNewInput =
       !!values.description ||
@@ -199,8 +222,6 @@ function ShoppingTableHeader() {
         };
       });
 
-      console.log(newShoppings);
-
       const requestUpdate = async () => {
         return await instances
           .put("api/shopping", {
@@ -212,6 +233,10 @@ function ShoppingTableHeader() {
           });
       };
       await customToast(requestUpdate);
+
+      if (values.repeat) {
+        await repeatShoppings(values.repeat, newShoppings);
+      }
     } else {
       toast.info(<h3>Nenhum campo alterado!</h3>);
     }
