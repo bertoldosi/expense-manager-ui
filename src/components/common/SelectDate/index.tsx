@@ -3,7 +3,6 @@ import React from "react";
 import { Scontent, ScontentSelectedDate, SmonthItem } from "./styles";
 import { ChevronDoubleLeft } from "@icons/ChevronDoubleLeft";
 import { ChevronDoubleRight } from "@icons/ChevronDoubleRight";
-import { Button } from "@commons/Button";
 
 interface DateType {
   name: string;
@@ -14,8 +13,7 @@ interface SelectDateType {
   valueYear: number;
   handlerYear: Function;
   valueMonth: string;
-  changeMonth: Function;
-  buttonOnClick: React.MouseEventHandler<HTMLButtonElement>;
+  selectDate: Function;
   dates: DateType[];
 }
 
@@ -23,8 +21,7 @@ export const SelectDate = ({
   valueYear,
   handlerYear,
   valueMonth,
-  changeMonth,
-  buttonOnClick,
+  selectDate,
   dates,
 }: SelectDateType) => {
   function nextYear() {
@@ -49,15 +46,13 @@ export const SelectDate = ({
             isSelected={valueMonth === date.number}
             key={date.number}
             onClick={() => {
-              changeMonth(date.number);
+              selectDate(date.number, valueYear);
             }}
           >
             {date.name}
           </SmonthItem>
         ))}
       </ScontentSelectedDate>
-
-      <Button text="Aplicar" width="20rem" onClick={buttonOnClick} />
     </Scontent>
   );
 };

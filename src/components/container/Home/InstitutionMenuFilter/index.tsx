@@ -52,10 +52,10 @@ function InstitutionMenuFilter() {
     setOptionsModalVisible((prev) => !prev);
   }
 
-  async function filter() {
+  async function filter(numberMonth: string, numberYear: number) {
     const cookieValues = cookies.get("expense-manager");
 
-    const date = `01/${valueMonth}/${valueYear}`;
+    const date = `01/${numberMonth}/${numberYear}`;
 
     const newCookies = {
       ...cookieValues,
@@ -87,6 +87,14 @@ function InstitutionMenuFilter() {
         cookies.set("expense-manager", newCookies);
         setOptionsModalVisible(false);
       });
+  }
+
+  function selectDate(numberMonth: string, numberYear: number) {
+    setValueMonth(numberMonth);
+    setValueYear(numberYear);
+
+    filter(numberMonth, numberYear);
+    setOptionsModalVisible(false);
   }
 
   async function setDateFilter() {
@@ -153,8 +161,7 @@ function InstitutionMenuFilter() {
           valueYear={valueYear}
           handlerYear={setValueYear}
           valueMonth={valueMonth}
-          changeMonth={setValueMonth}
-          buttonOnClick={filter}
+          selectDate={selectDate}
           dates={dates}
         />
       </Modal>
