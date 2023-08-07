@@ -34,7 +34,7 @@ export const Saside = styled.aside`
 
   &::-webkit-scrollbar {
     width: 6px;
-    background: ${(props) => props.theme.backgroundBory};
+    background: ${(props) => props.theme.backgroundPrimary};
   }
 
   &::-webkit-scrollbar-thumb {

@@ -13,6 +13,5 @@ export const Scontainer = styled.div`
     width: 100%;
     background-color: transparent;
     border: none;
-    color: ${(props) => props.theme.color};
   }
 `;

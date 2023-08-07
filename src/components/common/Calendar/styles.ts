@@ -10,7 +10,6 @@ export const Sheader = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem;
-  border-bottom: 1px solid ${(props) => props.theme.color};
 `;
 export const Scontent = styled.div`
   display: flex;

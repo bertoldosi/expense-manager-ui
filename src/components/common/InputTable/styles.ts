@@ -8,7 +8,6 @@ export const ScontainerInput = styled.div`
     background: transparent;
     outline: none;
     font-size: 1.2rem;
-    color: ${(props) => props.theme.color};
   }
 `;
 

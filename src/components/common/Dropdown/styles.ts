@@ -42,7 +42,6 @@ export const Scontent = styled.div<PropsTypeContent>`
   position: absolute;
   top: ${(props) => props.top};
   border-radius: 0 0 0.5rem 0.5rem;
-  background-color: ${(props) => props.theme.color};
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 
   ${(props) =>
