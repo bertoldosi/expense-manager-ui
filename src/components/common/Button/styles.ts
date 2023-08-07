@@ -18,21 +18,21 @@ export const Scontent = styled.button<PropsType>`
 
   background-color: ${(props) => {
     if (props.typeButton === "primary") {
-      return "#0EB3E0";
+      return props.theme.backgroundInfo;
     }
 
     if (props.typeButton === "delete") {
-      return "#FA3C33";
+      return props.theme.backgroundDanger;
     }
   }};
 
   color: ${(props) => {
     if (props.typeButton === "primary") {
-      return "#fff";
+      return props.theme.textInfo;
     }
 
     if (props.typeButton === "delete") {
-      return "#fff";
+      return props.theme.textDanger;
     }
   }};
 `;

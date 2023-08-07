@@ -11,6 +11,9 @@ declare module "styled-components" {
     backgroundSecondaryContrast: string;
     textSecondaryContrast: string;
 
+    backgroundInfo: string;
+    textInfo: string;
+
     backgroundSuccess: string;
     textSuccess: string;
 

@@ -20,14 +20,17 @@ export const lightTheme = {
   backgroundSecondaryContrast: "#666",
   textSecondaryContrast: "#fff",
 
+  backgroundInfo: "#296dff",
+  textInfo: "#fff",
+
   backgroundSuccess: "#2DD36F",
   textSuccess: "#FF0000",
 
   backgroundWarning: "#FFC409",
-  textWarning: "#0000FF",
+  textWarning: "#000",
 
-  backgroundDanger: "#EB445A",
-  textDanger: "#008000",
+  backgroundDanger: "#D11A2A",
+  textDanger: "#fff",
 };
 
 export const darkTheme = {
@@ -40,6 +43,9 @@ export const darkTheme = {
   backgroundSecondaryContrast: "#0074B7",
   textSecondaryContrast: "#fff",
 
+  backgroundInfo: "#296dff",
+  textInfo: "#fff",
+
   backgroundSuccess: "#2DD36F",
   textSuccess: "#222",
 
@@ -47,7 +53,7 @@ export const darkTheme = {
   textWarning: "#0000FF",
 
   backgroundDanger: "#EB445A",
-  textDanger: "#008000",
+  textDanger: "#fff",
 };
 
 const Theme = ({ children }: ThemeTypes) => {
