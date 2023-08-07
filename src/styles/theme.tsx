@@ -55,7 +55,7 @@ const Theme = ({ children }: ThemeTypes) => {
     UserContextConfig
   ) as UserContextConfigType;
 
-  return <ThemeProvider theme={theme?.theme}>{children}</ThemeProvider>;
+  return <ThemeProvider theme={theme.values}>{children}</ThemeProvider>;
 };
 
 export default Theme;

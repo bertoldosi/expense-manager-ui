@@ -48,18 +48,16 @@ export const SmonthItem = styled.span<SmonthItemType>`
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background-color: ${(props) => props.theme.backgroundSecondary};
-  color: ${(props) => props.theme.textSecondary};
   margin: 1rem;
   cursor: pointer;
 
   background-color: ${(props) =>
     props.isSelected
-      ? props.theme.backgroundSecondary
+      ? props.theme.backgroundSecondaryContrast
       : props.theme.textSecondary};
 
   color: ${(props) =>
     props.isSelected
-      ? props.theme.textSecondary
+      ? props.theme.textSecondaryContrast
       : props.theme.backgroundSecondary};
 `;

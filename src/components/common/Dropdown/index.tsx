@@ -33,15 +33,15 @@ function Dropdown({
       <BsChevronUp
         width={25}
         height={25}
-        fill={theme.color}
-        stroke={theme.color}
+        fill={theme.textPrimary}
+        stroke={theme.textPrimary}
       />
     ) : (
       <BsChevronDown
         width={25}
         height={25}
-        fill={theme.color}
-        stroke={theme.color}
+        fill={theme.textPrimary}
+        stroke={theme.textPrimary}
       />
     );
 

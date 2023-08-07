@@ -11,6 +11,10 @@ import { ExpenseType } from "@interfaces/*";
 
 import { Scontainer, Sdate } from "./styles";
 import { SelectDate } from "@commons/SelectDate";
+import {
+  UserContextConfig,
+  UserContextConfigType,
+} from "@context/userContextConfig";
 
 const dates = [
   { name: "JAN", number: "01" },
@@ -29,6 +33,8 @@ const dates = [
 
 function InstitutionMenuFilter() {
   const cookies = new Cookies();
+
+  const { theme } = useContext(UserContextConfig) as UserContextConfigType;
 
   const { setExpense, setSelectedInstitution, setInstitution } = useContext(
     userContextData
@@ -148,7 +154,12 @@ function InstitutionMenuFilter() {
             <strong>{valueYear}</strong>
           </div>
 
-          <BsChevronDown width="2rem" height="2rem" />
+          <BsChevronDown
+            width="2rem"
+            height="2rem"
+            fill={theme.values.textSecondary}
+            stroke={theme.values.textSecondary}
+          />
         </Sdate>
       </Scontainer>
 

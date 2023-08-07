@@ -12,8 +12,8 @@ export const Scontainer = styled.ul`
     transition: 0.5s;
 
     &:hover {
-      background-color: #f5f5f5;
-      color: #000;
+      background-color: ${(props) => props.theme.backgroundSecondaryContrast};
+      color: ${(props) => props.theme.textSecondaryContrast};
       font-weight: 800;
     }
   }
@@ -22,4 +22,6 @@ export const Scontainer = styled.ul`
 export const Sicons = styled.div`
   display: flex;
   gap: 1rem;
+
+  color: ${(props) => props.theme.textSecondaryContrast};
 `;

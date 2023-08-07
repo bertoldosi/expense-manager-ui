@@ -10,6 +10,7 @@ import { Scontainer, ScontentFooter, Sitem } from "./styles";
 import { useTheme } from "styled-components";
 import { useRouter } from "next/router";
 import { userContextData, userContextDataType } from "@context/userContextData";
+import { ToggleButtonTheme } from "@commons/ToggleButtonTheme";
 
 function LayoutHeaderUser() {
   const router = useRouter();
@@ -58,7 +59,10 @@ function LayoutHeaderUser() {
         <Sitem>
           <span onClick={logOut}>Sair</span>
         </Sitem>
-        <ScontentFooter>{session?.user?.name}</ScontentFooter>
+        <ScontentFooter>
+          <ToggleButtonTheme />
+          <span>{session?.user?.name}</span>
+        </ScontentFooter>
       </Scontainer>
     </Dropdown>
   );
