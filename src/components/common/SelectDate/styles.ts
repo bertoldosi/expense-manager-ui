@@ -20,9 +20,10 @@ export const Scontent = styled.div`
     padding: 1rem 0;
     margin-bottom: 2rem;
 
-    border-bottom: 1px solid ${(props) => props.theme.color};
+    border-bottom: 1px solid ${(props) => props.theme.textSecondary};
     align-items: center;
     justify-content: space-around;
+    color: ${(props) => props.theme.textSecondary};
 
     span {
       font-size: 2rem;
@@ -48,12 +49,17 @@ export const SmonthItem = styled.span<SmonthItemType>`
   justify-content: center;
   border-radius: 50%;
   background-color: ${(props) => props.theme.backgroundSecondary};
-  color: ${(props) => props.theme.colorSecondary};
+  color: ${(props) => props.theme.textSecondary};
   margin: 1rem;
   cursor: pointer;
 
   background-color: ${(props) =>
-    props.isSelected ? "#1B1B1D" : props.theme.backgroundSecondary};
+    props.isSelected
+      ? props.theme.backgroundSecondary
+      : props.theme.textSecondary};
 
-  color: ${(props) => (props.isSelected ? "#fff" : props.theme.colorSecondary)};
+  color: ${(props) =>
+    props.isSelected
+      ? props.theme.textSecondary
+      : props.theme.backgroundSecondary};
 `;

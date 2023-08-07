@@ -10,7 +10,7 @@ export const Scontent = styled.div`
   max-width: 40rem;
   margin: 0 auto;
   border-radius: 0.3rem;
-  background-color: ${(props) => props.theme.backgroundPrimary};
+  background-color: ${(props) => props.theme.backgroundSecondary};
   padding: 1rem 2rem;
 `;
 

@@ -11,34 +11,43 @@ type ThemeTypes = {
 };
 
 export const lightTheme = {
-  backgroundBory: "#f0f8ff",
-  color: "#333",
+  backgroundPrimary: "#fff",
+  textPrimary: "#333",
 
-  backgroundHeade: "#708090",
-  backgroundHeadeEmphasis: "#b0c4de",
-  backgroundHeadeLineFooterEmphasis: "#de4f15",
+  backgroundSecondary: "#E7E9EB",
+  textSecondary: "#111",
 
-  backgroundTableHeade: "#fff",
-  backgroundTableNoResult: "#fff",
-  backgroundTableItemEmphasis: "#3333",
+  backgroundSecondaryContrast: "#666",
+  textSecondaryContrast: "#fff",
 
-  backgroundNav: " #b0c4de",
-  backgroundNavEmphasis: "#f8f8ff",
-  backgroundLineFooterEmphasis: "#029b99",
+  backgroundSuccess: "#2DD36F",
+  textSuccess: "#FF0000",
 
-  backgroundCard: "#fff",
+  backgroundWarning: "#FFC409",
+  textWarning: "#0000FF",
 
-  colorButton: "#333",
-  backgroundButton: "#B0C4DE",
+  backgroundDanger: "#EB445A",
+  textDanger: "#008000",
 };
 
 export const darkTheme = {
-  backgroundBory: "#1B1B1D",
-  backgroundPrimary: "#333",
-  backgroundSecondary: "#fff",
+  backgroundPrimary: "#1B1B1D",
+  textPrimary: "#FFFFFF",
 
-  color: "#fff",
-  colorSecondary: "#333",
+  backgroundSecondary: "#333333",
+  textSecondary: "#FFFFFF",
+
+  backgroundSecondaryContrast: "#0074B7",
+  textSecondaryContrast: "#fff",
+
+  backgroundSuccess: "#2DD36F",
+  textSuccess: "#222",
+
+  backgroundWarning: "#FFC409",
+  textWarning: "#0000FF",
+
+  backgroundDanger: "#EB445A",
+  textDanger: "#008000",
 };
 
 const Theme = ({ children }: ThemeTypes) => {
@@ -46,7 +55,7 @@ const Theme = ({ children }: ThemeTypes) => {
     UserContextConfig
   ) as UserContextConfigType;
 
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+  return <ThemeProvider theme={theme?.theme}>{children}</ThemeProvider>;
 };
 
 export default Theme;

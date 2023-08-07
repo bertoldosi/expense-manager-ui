@@ -16,7 +16,7 @@ export const Scontainer = styled.div`
     &:hover {
       border-radius: 0.3rem;
       background-color: ${(props) => props.theme.backgroundSecondary};
-      color: ${(props) => props.theme.colorSecondary};
+      color: ${(props) => props.theme.backgroundSecondary};
       font-weight: bold;
       cursor: pointer;
     }

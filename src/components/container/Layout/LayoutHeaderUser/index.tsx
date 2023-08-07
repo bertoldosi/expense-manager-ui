@@ -44,7 +44,7 @@ function LayoutHeaderUser() {
     <Dropdown
       position="left"
       hideChevronIcon
-      icon={<User color={theme.color} width={25} height={25} />}
+      icon={<User color={theme.textSecondary} width={25} height={25} />}
       isVisible={isVisible}
       setIsVisible={setIsVisible}
     >

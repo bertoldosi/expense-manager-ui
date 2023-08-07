@@ -29,13 +29,15 @@ bugs
     ✔ recalcular conforme o status alterar
     ✔ botao de alterar varios está "adicionar" precisa mudar para "comfirmar"
     ✔ replicar gastos parcelados
+    ✔ implementar themes
+    ☐ implementar divisão de compras entre varias categorias
+    ☐ implementar mobile mais clean
 
         
     ☐ remove types any da aplicação
     
     ☐ verificar tipos any no expenseCalculateCategoryTotalPerDate.ts
 
-    ☐ implementar theme light
 
 
 

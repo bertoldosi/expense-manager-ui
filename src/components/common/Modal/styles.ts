@@ -21,6 +21,7 @@ export const Scontent = styled.div`
   border-radius: 0.3rem;
   overflow: hidden;
   background-color: ${(props) => props.theme.backgroundPrimary};
+  color: ${(props) => props.theme.textPrimary};
 `;
 
 export const Sheader = styled.header`
@@ -29,7 +30,8 @@ export const Sheader = styled.header`
   justify-content: space-between;
   padding: 1rem;
 
-  background-color: ${(props) => props.theme.backgroundBory};
+  background-color: ${(props) => props.theme.backgroundSecondary};
+  color: ${(props) => props.theme.textSecondary};
 `;
 
 export const Ssection = styled.section`

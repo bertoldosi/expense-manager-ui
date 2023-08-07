@@ -8,7 +8,7 @@ interface PropsType extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 const Scontent = styled.button`
   background-color: transparent;
   border: none;
-  color: ${(props) => props.theme.color};
+  color: ${(props) => props.theme.textSecondary};
   cursor: pointer;
 `;
 

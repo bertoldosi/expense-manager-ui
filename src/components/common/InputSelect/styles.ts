@@ -7,7 +7,7 @@ export const Sselect = styled.select`
   font-weight: 800;
 
   background-color: ${(props) => props.theme.backgroundSecondary};
-  color: ${(props) => props.theme.colorSecondary};
+  color: ${(props) => props.theme.textSecondary};
   border: none;
 
   option {

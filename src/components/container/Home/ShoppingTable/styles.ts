@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import css from "styled-jsx/css";
 
 interface SrowTableType {
   paymentStatus: "closed" | "open";
@@ -17,11 +16,11 @@ export const Scontent = styled.div`
 
   &::-webkit-scrollbar {
     width: 6px;
-    background: ${(props) => props.theme.backgroundBory};
+    background: ${(props) => props.theme.backgroundPrimary};
   }
 
   &::-webkit-scrollbar-thumb {
-    background: ${(props) => props.theme.backgroundSecondary};
+    background: ${(props) => props.theme.textPrimary};
   }
 
   @media (max-width: 700px) {
@@ -34,7 +33,10 @@ export const SrowTable = styled.span<SrowTableType>`
   align-items: center;
   justify-content: space-between;
   padding: 1rem 0.5rem;
-  background-color: ${(props) => props.theme.backgroundPrimary};
+  background-color: ${(props) =>
+    props.paymentStatus == "closed"
+      ? props.theme.backgroundSuccess
+      : props.theme.backgroundSecondary};
 
   > strong {
     width: max-content;
@@ -42,22 +44,22 @@ export const SrowTable = styled.span<SrowTableType>`
     align-items: center;
     gap: 1rem;
     padding: 0 1rem;
+
+    input {
+      color: ${(props) => props.theme.textSecondary};
+    }
   }
 
-  ${(props): any => {
-    if (props.paymentStatus === "closed") {
-      return css`
-        background-color: #15ac4e;
-      `;
-    }
-
-    return css`
-      background-color: initial;
-    `;
-  }}
-
   &:hover {
-    background-color: ${(props) => props.theme.backgroundPrimary};
+    background-color: ${(props) => props.theme.backgroundSecondaryContrast};
+    color: ${(props) => props.theme.textSecondaryContrast};
+
+    > strong {
+      input,
+      select {
+        color: ${(props) => props.theme.textSecondaryContrast};
+      }
+    }
   }
 `;
 
@@ -66,7 +68,8 @@ export const NoResult = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${(props) => props.theme.backgroundPrimary};
+  background-color: ${(props) => props.theme.backgroundSecondary};
+  color: ${(props) => props.theme.textSecondary};
   border-radius: 0.3rem;
 
   span {

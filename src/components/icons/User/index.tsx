@@ -12,7 +12,7 @@ export const Scontainer = styled.div`
 export const User = ({
   width = "40",
   height = "40",
-  color = "#333",
+  color = "#fff",
 }: PropsType) => {
   return (
     <Scontainer>

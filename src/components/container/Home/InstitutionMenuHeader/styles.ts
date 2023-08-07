@@ -11,7 +11,8 @@ export const SmenuHeader = styled.nav`
   height: 5rem;
   display: flex;
   align-items: center;
-  background-color: ${(props) => props.theme.backgroundPrimary};
+  background-color: ${(props) => props.theme.backgroundSecondary};
+  color: ${(props) => props.theme.textSecondary};
 
   > h2 {
     width: 100%;
@@ -38,14 +39,12 @@ export const Sitem = styled.div`
   cursor: pointer;
 
   &.selected {
-    background-color: ${(props) => props.theme.backgroundSecondary};
-    border-bottom: 4px solid ${(props) => props.theme.backgroundSecondary};
-    color: ${(props) => props.theme.colorSecondary};
+    background-color: ${(props) => props.theme.backgroundSecondaryContrast};
+    color: ${(props) => props.theme.textSecondaryContrast};
   }
 
   &:hover {
-    background-color: ${(props) => props.theme.backgroundSecondary};
-    border-bottom: 4px solid ${(props) => props.theme.backgroundSecondary};
-    color: ${(props) => props.theme.colorSecondary};
+    background-color: ${(props) => props.theme.backgroundSecondaryContrast};
+    color: ${(props) => props.theme.textSecondaryContrast};
   }
 `;

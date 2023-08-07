@@ -23,8 +23,8 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body{
-        color: ${(props) => props.theme.color};
-        background: ${(props) => props.theme.backgroundBory};
+        color: ${(props) => props.theme.textPrimary};
+        background: ${(props) => props.theme.backgroundPrimary};
         user-select: none;
     }
 

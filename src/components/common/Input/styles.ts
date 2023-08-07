@@ -15,7 +15,7 @@ export const Scontainer = styled.div`
     padding: 0 1.5rem;
     border-radius: 0.3rem;
 
-    color: ${(props) => props.theme.color};
+    color: ${(props) => props.theme.textSecondary};
   }
 
   span {

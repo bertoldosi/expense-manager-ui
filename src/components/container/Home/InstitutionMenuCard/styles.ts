@@ -11,7 +11,8 @@ export const Sheader = styled.header`
   align-items: center;
   justify-content: center;
   height: 3rem;
-  background-color: #1b66ff;
+  background-color: ${(props) => props.theme.backgroundSecondaryContrast};
+  color: ${(props) => props.theme.textSecondaryContrast};
 
   h1 {
     flex: 1;
@@ -20,7 +21,7 @@ export const Sheader = styled.header`
   }
 
   svg {
-    color: ${(props) => props.theme.color};
+    color: ${(props) => props.theme.textSecondaryContrast};
   }
 `;
 
@@ -29,7 +30,7 @@ export const Ssection = styled.section`
   flex-direction: column;
   padding: 0.5rem;
   margin-bottom: 2rem;
-  background-color: ${(props) => props.theme.backgroundPrimary};
+  background-color: ${(props) => props.theme.backgroundSecondary};
 
   span {
     display: flex;

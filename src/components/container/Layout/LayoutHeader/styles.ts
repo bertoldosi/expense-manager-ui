@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Scontainer = styled.div`
   padding: 0 1rem;
-  background-color: ${(props) => props.theme.backgroundPrimary};
+  background-color: ${(props) => props.theme.backgroundSecondary};
   margin-bottom: 1rem;
 `;
 
@@ -14,10 +14,6 @@ export const Scontent = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  svg {
-    fill: ${(props) => props.theme.color};
-  }
 `;
 
 export const Sconfig = styled.div`

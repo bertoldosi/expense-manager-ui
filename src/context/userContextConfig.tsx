@@ -1,9 +1,15 @@
 import React from "react";
-import { darkTheme } from "src/styles/theme";
+import { darkTheme, lightTheme } from "src/styles/theme";
 import { DefaultTheme } from "styled-components";
 
-export type UserContextConfigType = {
+interface ThemeType {
+  type: string;
   theme: DefaultTheme;
+}
+
+export type UserContextConfigType = {
+  theme: ThemeType;
+  toggleTheme: (type: string) => void;
 };
 
 type PropsConfigType = {
@@ -14,12 +20,30 @@ export const UserContextConfig =
   React.createContext<UserContextConfigType | null>(null);
 
 const UserContextConfigProvider = ({ children }: PropsConfigType) => {
-  const [theme, _setTheme] = React.useState<DefaultTheme>(darkTheme);
+  const [theme, setTheme] = React.useState<ThemeType>({
+    type: "dark",
+    theme: darkTheme,
+  });
+
+  function toggleTheme(type: string) {
+    if (type === "dark") {
+      setTheme({
+        type: "dark",
+        theme: darkTheme,
+      });
+    } else {
+      setTheme({
+        type: "light",
+        theme: lightTheme,
+      });
+    }
+  }
 
   return (
     <UserContextConfig.Provider
       value={{
         theme,
+        toggleTheme,
       }}
     >
       {children}
