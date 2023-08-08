@@ -20,7 +20,7 @@ export const ChangeExpense = () => {
   const { getUser, user, getInstitution, setSelectedInstitution } =
     React.useContext(userContextData) as userContextDataType;
 
-  const [isResponse, setIsResponse] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   async function redirectHome(expense: ExpenseType) {
     const institution = expense.institutions?.length && expense.institutions[0];
@@ -48,10 +48,10 @@ export const ChangeExpense = () => {
   }
 
   function fethUser(email: string) {
-    setIsResponse(true);
+    setIsLoading(true);
 
     getUser(email).then(() => {
-      setIsResponse(false);
+      setIsLoading(false);
     });
   }
 
@@ -59,9 +59,11 @@ export const ChangeExpense = () => {
     if (session?.user?.email) {
       fethUser(session?.user?.email);
     }
+
+    setIsLoading(true);
   }, [session]);
 
-  if (isResponse) {
+  if (isLoading) {
     return (
       <Scontainer>
         <div className="loading-container">
