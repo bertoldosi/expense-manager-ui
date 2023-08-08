@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Cookies from "universal-cookie";
@@ -10,6 +10,7 @@ import { Card } from "@commons/Card";
 import { userContextData, userContextDataType } from "@context/userContextData";
 
 import { Scontainer, Sbuttons } from "./styles";
+import { Loading } from "@commons/Loading";
 
 export const ChangeExpense = () => {
   const cookies = new Cookies();
@@ -19,8 +20,12 @@ export const ChangeExpense = () => {
   const { getUser, user, getInstitution, setSelectedInstitution } =
     React.useContext(userContextData) as userContextDataType;
 
+  const [isResponse, setIsResponse] = useState(true);
+
   useEffect(() => {
-    if (session?.user?.email) getUser(session?.user?.email);
+    if (session?.user?.email) {
+      fethUser(session?.user?.email);
+    }
   }, [session]);
 
   async function redirectHome(expense: ExpenseType) {
@@ -46,6 +51,22 @@ export const ChangeExpense = () => {
 
     cookies.set("expense-manager", newCookies);
     router.push("/");
+  }
+
+  function fethUser(email: string) {
+    setIsResponse(true);
+
+    getUser(email).then(() => {
+      setIsResponse(false);
+    });
+  }
+
+  if (isResponse) {
+    return (
+      <Scontainer>
+        <Loading />
+      </Scontainer>
+    );
   }
 
   return (

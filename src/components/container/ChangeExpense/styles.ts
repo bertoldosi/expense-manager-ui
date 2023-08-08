@@ -10,13 +10,15 @@ export const Scontainer = styled.div`
   }
 
   > span {
+    width: 100%;
+    max-width: 50%;
     font-size: 1.5rem;
     padding: 0.8rem 0.5rem;
 
     &:hover {
       border-radius: 0.3rem;
       background-color: ${(props) => props.theme.backgroundSecondary};
-      color: ${(props) => props.theme.backgroundSecondary};
+      color: ${(props) => props.theme.textSecondary};
       font-weight: bold;
       cursor: pointer;
     }

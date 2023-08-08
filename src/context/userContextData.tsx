@@ -94,7 +94,7 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
       });
   }
 
-  function getUser(email: string) {
+  async function getUser(email: string) {
     instances
       .get("/api/user", {
         params: {
@@ -103,7 +103,8 @@ const UserAppContextProviderData = ({ children }: PropsType) => {
       })
       .then((response) => {
         return setUser(response.data);
-      });
+      })
+      .catch((error) => error);
   }
 
   function getExpense(expenseId: string, institutionsCreateAt: string) {
