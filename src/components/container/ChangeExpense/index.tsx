@@ -22,12 +22,6 @@ export const ChangeExpense = () => {
 
   const [isResponse, setIsResponse] = useState(true);
 
-  useEffect(() => {
-    if (session?.user?.email) {
-      fethUser(session?.user?.email);
-    }
-  }, [session]);
-
   async function redirectHome(expense: ExpenseType) {
     const institution = expense.institutions?.length && expense.institutions[0];
 
@@ -61,17 +55,25 @@ export const ChangeExpense = () => {
     });
   }
 
+  useEffect(() => {
+    if (session?.user?.email) {
+      fethUser(session?.user?.email);
+    }
+  }, [session]);
+
   if (isResponse) {
     return (
       <Scontainer>
-        <Loading />
+        <div className="loading-container">
+          <Loading />
+        </div>
       </Scontainer>
     );
   }
 
-  return (
-    <Card title="Escolha um gasto para gerenciar:">
-      {user?.expenses?.length ? (
+  if (user?.expenses?.length) {
+    return (
+      <Card title="Escolha um gasto para gerenciar:">
         <Scontainer>
           {user.expenses.map((expense) => (
             <span
@@ -84,11 +86,19 @@ export const ChangeExpense = () => {
             </span>
           ))}
         </Scontainer>
-      ) : (
-        <Scontainer>
-          <strong>Não existe nenhum gasto vinculado ao seu email.</strong>
-        </Scontainer>
-      )}
+
+        <Sbuttons>
+          <Link href="/gerenciar-gasto">Cadastrar ou Editar</Link>
+        </Sbuttons>
+      </Card>
+    );
+  }
+
+  return (
+    <Card title="Escolha um gasto para gerenciar:">
+      <Scontainer>
+        <strong>Não existe nenhum gasto vinculado ao seu email.</strong>
+      </Scontainer>
 
       <Sbuttons>
         <Link href="/gerenciar-gasto">Cadastrar ou Editar</Link>
