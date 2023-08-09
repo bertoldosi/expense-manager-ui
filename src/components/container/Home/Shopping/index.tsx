@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 import { useFormik } from "formik";
 
@@ -13,6 +13,7 @@ import { userContextData, userContextDataType } from "@context/userContextData";
 import { customToast } from "@commons/CustomToast";
 import { formatedInputValue } from "@helpers/formatedInputValue";
 import { focusInput } from "@helpers/focusInput";
+import useIsMobile from "@hooks/useIsMobile";
 
 interface ShoppingCreateType {
   description: string;
@@ -44,6 +45,7 @@ const INITIAL_SHOPPING = {
 
 function Shopping() {
   const cookies = new Cookies();
+  const { isMobile } = useIsMobile();
 
   const { getInstitution, getExpense } = useContext(
     userContextData
@@ -63,7 +65,9 @@ function Shopping() {
           institutionId: filter.institution.id,
         })
         .then(() => {
-          focusInput("description");
+          if (!isMobile) {
+            focusInput("description");
+          }
           getInstitution(filter.institution.id);
           getExpense(filter.expense.id, filter.institutions.createAt);
         });
@@ -96,7 +100,7 @@ function Shopping() {
         <Input
           name="description"
           id="description"
-          autoFocus
+          autoFocus={!isMobile}
           autoComplete="off"
           placeholder="Descrição do item"
           value={onSubmitShopping.values.description}
