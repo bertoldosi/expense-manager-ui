@@ -90,7 +90,7 @@ export const ChangeExpense = () => {
         </Scontainer>
 
         <Sbuttons>
-          <Link href="/gerenciar-gasto">Cadastrar ou Editar</Link>
+          <Link href="/gerenciar-gasto">Cadastrar</Link>
         </Sbuttons>
       </Card>
     );
@@ -103,7 +103,7 @@ export const ChangeExpense = () => {
       </Scontainer>
 
       <Sbuttons>
-        <Link href="/gerenciar-gasto">Cadastrar ou Editar</Link>
+        <Link href="/gerenciar-gasto">Cadastrar</Link>
       </Sbuttons>
     </Card>
   );

@@ -5,6 +5,8 @@ import { Card } from "@commons/Card";
 import ManagerExpenseForm from "@containers/ManagerExpense/ManagerExpenseForm";
 import { userContextData, userContextDataType } from "@context/userContextData";
 import ManagerExpenseList from "@containers/ManagerExpense/ManagerExpenseList";
+import Link from "next/link";
+import { Slink } from "./styles";
 
 export const ManagerExpense = () => {
   const { data: session } = useSession();
@@ -22,6 +24,9 @@ export const ManagerExpense = () => {
     <div>
       <Card title="Novo gasto:">
         <ManagerExpenseForm />
+        <Slink>
+          <Link href="/alterar-gasto">Voltar</Link>
+        </Slink>
       </Card>
 
       {user?.expenses.length ? (

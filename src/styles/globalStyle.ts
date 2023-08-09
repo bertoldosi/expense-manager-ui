@@ -39,6 +39,10 @@ const GlobalStyle = createGlobalStyle`
         margin: 0;
         font-size: 1.2rem;
     }
+
+    a{
+        color: ${(props) => props.theme.textSecondary};
+    }
 `;
 
 export default GlobalStyle;

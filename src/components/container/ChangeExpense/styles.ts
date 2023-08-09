@@ -17,8 +17,8 @@ export const Scontainer = styled.div`
 
     &:hover {
       border-radius: 0.3rem;
-      background-color: ${(props) => props.theme.backgroundSecondary};
-      color: ${(props) => props.theme.textSecondary};
+      background-color: ${(props) => props.theme.backgroundSecondaryContrast};
+      color: ${(props) => props.theme.textSecondaryContrast};
       font-weight: bold;
       cursor: pointer;
     }
@@ -33,6 +33,6 @@ export const Sbuttons = styled.div`
 
   a {
     font-size: 1.5rem;
-    color: #1d80f0;
+    color: ${(props) => props.theme.textSecondary};
   }
 `;

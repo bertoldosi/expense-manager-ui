@@ -31,13 +31,11 @@ bugs
     ✔ replicar gastos parcelados
     ✔ implementar themes
     ✔ loading nas paginas
-    ☐ implementar divisão de compras entre varias categorias
     ☐ implementar mobile mais clean
     ☐ não está matando a sessão ao sair
-
+    
         
     ☐ remove types any da aplicação
-    
     ☐ verificar tipos any no expenseCalculateCategoryTotalPerDate.ts
 
 
