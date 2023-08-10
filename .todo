@@ -34,8 +34,8 @@ bugs
     ✔ unico expense
     ✔ implementar mobile mais clean
     ✔ erro no console
+    ✔ mudar telas de edições de modal para pages
     ☐ puxar relatorio de pagamentos
-    ☐ mudar telas de edições de modal para pages
         
     ☐ remove types any da aplicação
     ☐ verificar tipos any no expenseCalculateCategoryTotalPerDate.ts
