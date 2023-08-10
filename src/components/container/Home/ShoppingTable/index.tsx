@@ -37,7 +37,9 @@ function ShoppingTable() {
 
   function onChangeShopping(ev: React.ChangeEvent<HTMLInputElement>) {
     const { id, name, value, checked } = ev.target;
-    setIdShoppingUpdate(id);
+    if (name != "selected") {
+      setIdShoppingUpdate(id);
+    }
 
     setInstitution((prevInstitution: InstitutionType) => {
       return {
@@ -91,6 +93,7 @@ function ShoppingTable() {
         {institution?.shoppings?.length ? (
           institution?.shoppings.map((shoppingMap, index) => (
             <SrowTable
+              selected={shoppingMap.selected || false}
               key={index}
               paymentStatus={shoppingMap.paymentStatus as "closed" | "open"}
             >

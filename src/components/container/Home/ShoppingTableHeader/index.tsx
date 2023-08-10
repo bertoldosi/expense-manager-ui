@@ -315,8 +315,8 @@ function ShoppingTableHeader() {
           <Slist>
             <h2>{`Serão editados ${shoppingsSeleceted.length} itens:`}</h2>
             <ul>
-              {shoppingsSeleceted.map((shoppingMap) => (
-                <li>{shoppingMap.description}</li>
+              {shoppingsSeleceted.map((shoppingMap, index) => (
+                <li key={index}>{shoppingMap.description}</li>
               ))}
             </ul>
 

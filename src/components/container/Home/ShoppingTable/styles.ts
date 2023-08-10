@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 interface SrowTableType {
   paymentStatus: "closed" | "open";
+  selected: boolean;
 }
 
 export const Scontent = styled.div`
@@ -37,6 +38,9 @@ export const SrowTable = styled.span<SrowTableType>`
     props.paymentStatus == "closed"
       ? props.theme.backgroundSuccess
       : props.theme.backgroundSecondary};
+
+  background-color: ${(props) =>
+    props.selected && props.theme.backgroundSecondaryContrast};
 
   > strong {
     width: max-content;
