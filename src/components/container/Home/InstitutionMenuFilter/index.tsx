@@ -31,7 +31,19 @@ const dates = [
   { name: "DEZ", number: "12" },
 ];
 
-function InstitutionMenuFilter() {
+interface InstitutionMenuFilterType {
+  valueMonth: string;
+  valueYear: number;
+  setValueMonth: Function;
+  setValueYear: Function;
+}
+
+function InstitutionMenuFilter({
+  valueMonth,
+  valueYear,
+  setValueMonth,
+  setValueYear,
+}: InstitutionMenuFilterType) {
   const cookies = new Cookies();
 
   const { theme } = useContext(UserContextConfig) as UserContextConfigType;
@@ -41,18 +53,6 @@ function InstitutionMenuFilter() {
   ) as userContextDataType;
 
   const [isOptionsModalVisible, setOptionsModalVisible] = useState(false);
-  const [valueYear, setValueYear] = useState<number>(() => {
-    const date = moment().format("DD/MM/YYYY");
-    const [_day, _month, year] = date.split("/");
-
-    return Number(year);
-  });
-  const [valueMonth, setValueMonth] = useState<string>(() => {
-    const date = moment().format("DD/MM/YYYY");
-    const [_day, month, _year] = date.split("/");
-
-    return month;
-  });
 
   function handlerIsVisibleModal() {
     setOptionsModalVisible((prev) => !prev);
@@ -73,6 +73,8 @@ function InstitutionMenuFilter() {
         },
       },
     };
+
+    console.log(newCookies.filter?.expense?.id);
 
     instances
       .get("api/institution", {
@@ -103,46 +105,11 @@ function InstitutionMenuFilter() {
     setOptionsModalVisible(false);
   }
 
-  async function setDateFilter() {
-    const cookieValues = cookies.get("expense-manager");
-
-    if (cookieValues?.filter?.institutions?.createAt) {
-      const fullDateCookies = cookieValues?.filter?.institutions?.createAt;
-
-      const [_day, month, year] = fullDateCookies.split("/");
-
-      setValueYear(Number(year));
-      setValueMonth(month);
-    } else {
-      const date = moment().format("DD/MM/YYYY");
-      const [_day, month, year] = date.split("/");
-
-      const newCookies = {
-        ...cookieValues,
-        filter: {
-          ...cookieValues.filter,
-          institutions: {
-            createAt: `01/${month}/${year}`,
-          },
-        },
-      };
-
-      cookies.set("expense-manager", newCookies);
-
-      setValueYear(Number(year));
-      setValueMonth(month);
-    }
-  }
-
   function renderNameMonth(number: string): string {
     const nameMonth = dates.find((date) => date.number == number);
 
     return nameMonth?.name || "";
   }
-
-  useEffect(() => {
-    setDateFilter();
-  }, []);
 
   return (
     <>
