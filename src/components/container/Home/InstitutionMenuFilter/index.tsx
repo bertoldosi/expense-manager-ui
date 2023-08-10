@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import Cookies from "universal-cookie";
-import moment from "moment";
 
 import { BsChevronDown } from "@icons/BsChevronDown";
 import { Modal } from "@commons/Modal";
@@ -73,8 +72,6 @@ function InstitutionMenuFilter({
         },
       },
     };
-
-    console.log(newCookies.filter?.expense?.id);
 
     instances
       .get("api/institution", {
