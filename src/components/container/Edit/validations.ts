@@ -1,12 +1,14 @@
 import * as yup from "yup";
 
-type TypeSchemaFilter = {
+type TypeSchemaUpdate = {
   description?: string;
+  amount?: string;
   category?: string | undefined;
 };
 
-export const schemaFilter: yup.SchemaOf<TypeSchemaFilter> = yup.object().shape({
+export const schemaUpdate: yup.SchemaOf<TypeSchemaUpdate> = yup.object().shape({
   description: yup.string(),
+  amount: yup.string(),
   category: yup
     .string()
     .matches(/[a-z]+/, "Somente letras minúsculas são permitidas"),

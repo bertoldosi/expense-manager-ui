@@ -42,6 +42,7 @@ const GlobalStyle = createGlobalStyle`
 
     a{
         color: ${(props) => props.theme.textSecondary};
+        font-size: 1.5rem;
     }
 `;
 

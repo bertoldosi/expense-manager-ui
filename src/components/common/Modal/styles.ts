@@ -20,8 +20,8 @@ export const Scontent = styled.div`
   height: min-content;
   border-radius: 0.3rem;
   overflow: hidden;
-  background-color: ${(props) => props.theme.backgroundPrimary};
-  color: ${(props) => props.theme.textPrimary};
+  background-color: ${(props) => props.theme.backgroundSecondary};
+  color: ${(props) => props.theme.textSecondary};
 `;
 
 export const Sheader = styled.header`
@@ -30,8 +30,8 @@ export const Sheader = styled.header`
   justify-content: space-between;
   padding: 1rem;
 
-  background-color: ${(props) => props.theme.backgroundSecondary};
-  color: ${(props) => props.theme.textSecondary};
+  background-color: ${(props) => props.theme.backgroundSecondaryContrast};
+  color: ${(props) => props.theme.textSecondaryContrast};
 `;
 
 export const Ssection = styled.section`
