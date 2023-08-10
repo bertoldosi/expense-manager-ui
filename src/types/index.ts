@@ -30,6 +30,7 @@ export type InstitutionType = {
   totalAmount?: number;
   categoryTotals?: CategoryType[];
   shoppings?: ShoppingType[] | null;
+  createAt: string;
 };
 
 export type ShoppingType = {

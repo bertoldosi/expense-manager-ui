@@ -16,24 +16,13 @@ async function getUser(req: NextApiRequest, res: NextApiResponse) {
           email,
         },
         include: {
-          expenses: {
-            include: {
-              institutions: {
-                include: {
-                  shoppings: {
-                    orderBy: {
-                      createAt: "desc",
-                    },
-                  },
-                },
-              },
-            },
-          },
+          expense: true,
         },
       });
 
       return res.status(200).send(user);
     } catch (err) {
+      console.log(err);
       handleError(res, err);
     }
   }

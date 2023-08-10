@@ -12,7 +12,6 @@ import { Sform } from "./styles";
 import { userContextData, userContextDataType } from "@context/userContextData";
 import { customToast } from "@commons/CustomToast";
 import { ExpenseType, InstitutionType } from "@interfaces/*";
-import { toast } from "react-toastify";
 
 const INITIAL_INSTITUTION = {
   name: "",

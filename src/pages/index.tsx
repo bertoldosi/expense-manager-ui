@@ -17,17 +17,6 @@ const Home = () => {
 };
 
 export const getServerSideProps = withAuth(async function ({ req, res }) {
-  const isExpense = !req.cookies["expense-manager"];
-
-  if (isExpense) {
-    return {
-      redirect: {
-        destination: "/alterar-gasto",
-        permanent: false,
-      },
-    };
-  }
-
   return {
     props: {},
   };

@@ -15,32 +15,32 @@ async function createExpense(req: NextApiRequest, res: NextApiResponse) {
       where: {
         email: userEmail,
       },
+      include: {
+        expense: true,
+      },
     });
 
-    const expenseExists = await prisma.$transaction(async (prisma) => {
-      const existingExpense = await prisma.expense.findFirst({
-        where: {
-          name,
-          userId: user?.id,
-        },
-      });
+    if (!user) {
+      return res.status(405).send("User not exist!");
+    }
 
-      return existingExpense;
-    });
-
-    if (expenseExists) {
-      return res.status(405).send("Not allowed. Name already registered!");
+    if (user?.expense) {
+      return res.status(405).send("User already has expense!");
     }
 
     const expense = await prisma.expense.create({
       data: {
         name,
-        userId: user?.id,
+        userId: user.id,
+      },
+      include: {
+        user: true,
       },
     });
 
     return res.status(200).send(expense);
   } catch (err) {
+    console.log(err);
     return handleError(res, err);
   }
 }

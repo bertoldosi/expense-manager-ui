@@ -31,8 +31,10 @@ bugs
     ✔ replicar gastos parcelados
     ✔ implementar themes
     ✔ loading nas paginas
+    ☐ unico expense
     ☐ implementar mobile mais clean
     ☐ não está matando a sessão ao sair
+    ☐ erro no console
     
         
     ☐ remove types any da aplicação
