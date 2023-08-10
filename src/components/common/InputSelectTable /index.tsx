@@ -15,14 +15,14 @@ interface SelectInputProps extends SelectHTMLAttributes<HTMLSelectElement> {
 function InputSelectTable({
   options,
   defaultOption,
+  value,
+  onChange,
   ...props
 }: SelectInputProps) {
   return (
-    <Sselect {...props} defaultValue={defaultOption ? defaultOption.value : ""}>
+    <Sselect {...props} value={value} onChange={onChange}>
       {defaultOption && (
-        <option value={defaultOption.value} selected>
-          {defaultOption.label}
-        </option>
+        <option value={defaultOption.value}>{defaultOption.label}</option>
       )}
 
       {options.map((option) => (
