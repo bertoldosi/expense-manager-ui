@@ -1,4 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+
+const doc = new jsPDF();
 
 import { Modal } from "@commons/Modal";
 import { Button } from "@commons/Button";
@@ -14,6 +18,9 @@ import instances from "@lib/axios-instance-internal";
 import { customToast } from "@commons/CustomToast";
 import Shopping from "@containers/Home/Shopping";
 import Cookies from "universal-cookie";
+import { formatMorney } from "@helpers/formatMorney";
+import moment from "moment";
+import orderByCategory from "@helpers/orderByCategory";
 
 interface CategoryTotalsType {
   category: string;
@@ -23,7 +30,6 @@ interface CategoryTotalsMonthType {
   date: string;
   categoryTotals: CategoryTotalsType[];
 }
-
 interface TotalsMonthType {
   date: string;
   total: number;
@@ -94,6 +100,36 @@ export const Institution = () => {
     setTotalsMonth(totalMonthFilter);
   }
 
+  async function report() {
+    if (expense?.institutions?.length) {
+      expense.institutions?.map((institution: InstitutionType) => {
+        const shoppings: any = [];
+
+        //está causando erros no relatorio, gerando cache e misturando meses
+        // institution.shoppings?.sort(orderByCategory);
+        institution.shoppings?.map((shopping): void => {
+          const amount = formatMorney(shopping.amount);
+          shoppings.push([shopping.description, amount, shopping.category]);
+        });
+
+        autoTable(doc, {
+          theme: "grid",
+          head: [
+            [`#${institution.name} ${institution.createAt}`, "", ""],
+            ["DESCRIÇÃO", "VALOR", "CATEGORIA"],
+          ],
+          body: shoppings,
+          showHead: "firstPage",
+          showFoot: "lastPage",
+        });
+      });
+
+      const dateNow = moment().format("DD-MM-YYYY");
+
+      doc.save(`relatorio-de-gastos-${dateNow}`);
+    }
+  }
+
   useEffect(() => {
     if (expense?.categoryTotalPerDate && expense?.totalPerDate) {
       getCategoryTotalsMonthAndTotalsMonth(
@@ -138,6 +174,12 @@ export const Institution = () => {
                       }}
                       text={`Excluir ${institution?.name}`}
                       typeButton="delete"
+                    />
+
+                    <Button
+                      onClick={report}
+                      text="Baixar relatório"
+                      typeButton=""
                     />
                   </>
                 }
