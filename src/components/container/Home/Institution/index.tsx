@@ -2,8 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
-const doc = new jsPDF();
-
 import { Modal } from "@commons/Modal";
 import { Button } from "@commons/Button";
 import InstitutionMenuCard from "@containers/Home/InstitutionMenuCard";
@@ -100,23 +98,70 @@ export const Institution = () => {
     setTotalsMonth(totalMonthFilter);
   }
 
-  async function report() {
-    if (expense?.institutions?.length) {
-      expense.institutions?.map((institution: InstitutionType) => {
-        const shoppings: any = [];
+  // async function report(institutions: InstitutionType[] | undefined) {
+  //   const doc: any = new jsPDF();
 
-        //está causando erros no relatorio, gerando cache e misturando meses
-        // institution.shoppings?.sort(orderByCategory);
-        institution.shoppings?.map((shopping): void => {
+  //   if (institutions?.length) {
+  //     let verticalPosition = 10;
+
+  //     institutions?.map((institution: InstitutionType) => {
+  //       institution.shoppings?.sort(orderByCategory);
+
+  //       const shoppings = institution.shoppings?.map((shopping) => {
+  //         const amount = formatMorney(shopping.amount);
+  //         const description = shopping.description;
+  //         const category = shopping.category;
+
+  //         return [description, amount, category];
+  //       });
+
+  //       const title = `${institution.name} - ${institution.createAt}`;
+
+  //       // Gere a tabela abaixo do título
+  //       const tableData = [["DESCRIÇÃO", "VALOR", "CATEGORIA"]];
+  //       const startY = verticalPosition + 15; // Ajuste vertical da tabela em relação ao título
+
+  //       autoTable(doc, {
+  //         theme: "grid",
+  //         head: tableData,
+  //         body: shoppings,
+  //         startY: startY,
+  //         showHead: "firstPage",
+  //         showFoot: "lastPage",
+  //       });
+
+  //       // Adiciona o título acima da tabela
+  //       doc.text(title, 14, startY - 5);
+
+  //       // Ajusta a posição vertical para a próxima instituição
+  //       verticalPosition = doc.autoTable.previous.finalY + 5;
+  //     });
+
+  //     const dateNow = moment().format("DD-MM-YYYY");
+  //     doc.save(`relatorio-de-gastos-${dateNow}`);
+  //   }
+  // }
+
+  async function report(institutions: InstitutionType[] | undefined) {
+    const doc = new jsPDF();
+
+    if (institutions?.length) {
+      institutions?.map((institution: InstitutionType) => {
+        institution.shoppings?.sort(orderByCategory);
+
+        const shoppings = institution.shoppings?.map((shopping) => {
           const amount = formatMorney(shopping.amount);
-          shoppings.push([shopping.description, amount, shopping.category]);
+          const description = shopping.description;
+          const category = shopping.category;
+
+          return [description, amount, category];
         });
 
         autoTable(doc, {
-          theme: "grid",
+          theme: "striped",
           head: [
-            [`#${institution.name} ${institution.createAt}`, "", ""],
-            ["DESCRIÇÃO", "VALOR", "CATEGORIA"],
+            [`${institution.name} ${institution.createAt}`, "", ""],
+            ["Descrição", "Valor", "Categoria"],
           ],
           body: shoppings,
           showHead: "firstPage",
@@ -177,7 +222,9 @@ export const Institution = () => {
                     />
 
                     <Button
-                      onClick={report}
+                      onClick={() => {
+                        report(expense?.institutions);
+                      }}
                       text="Baixar relatório"
                       typeButton=""
                     />
