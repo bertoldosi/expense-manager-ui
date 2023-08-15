@@ -36,7 +36,8 @@ bugs
     ✔ erro no console
     ✔ mudar telas de edições de modal para pages
     ✔ puxar relatorio de pagamentos
-    ☐ agrupar itens no relatorio
+    ✔ agrupar itens no relatorio
+    ✔ colocar valores agrupados
         
     ☐ remove types any da aplicação
     ☐ verificar tipos any no expenseCalculateCategoryTotalPerDate.ts
